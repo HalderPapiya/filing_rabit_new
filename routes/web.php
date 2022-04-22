@@ -91,6 +91,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/blog/update', [App\Http\Controllers\Admin\BlogController::class, 'update'])->name('blog.update');
         Route::get('/blog/{id}/delete', [App\Http\Controllers\Admin\BlogController::class, 'destroy'])->name('blog.delete');
         Route::post('/blog/updateStatus', [App\Http\Controllers\Admin\BlogController::class, 'updateStatus'])->name('blog.updateStatus');
+
+        // -----------------Business Service----------------
+
+        Route::get('/businessService', [App\Http\Controllers\Admin\BusinessServiceController::class, 'index'])->name('businessService.index');
+        Route::get('/businessService/create', [App\Http\Controllers\Admin\BusinessServiceController::class, 'create'])->name('businessService.create');
+        Route::post('/businessService/store', [App\Http\Controllers\Admins\BusinessServiceController::class, 'store'])->name('businessService.store');
+
+
     });
 });
 

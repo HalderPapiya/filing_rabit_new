@@ -11,6 +11,8 @@ use App\Contracts\SubCategoryContract;
 use App\Repositories\SubCategoryRepository;
 use App\Contracts\BlogContract;
 use App\Repositories\BlogRepository;
+use App\Contracts\BusinessServiceContract;
+use App\Repositories\BusinessServiceRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
         CategoryContract::class =>  CategoryRepository::class,
         SubCategoryContract::class =>  SubCategoryRepository::class,
         BlogContract::class =>  BlogRepository::class,
+        BusinessServiceContract::class =>  BusinessServiceRepository::class,
     ];
 
     /**
