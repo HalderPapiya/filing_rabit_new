@@ -44,5 +44,5 @@ interface PackageContract
      * @param array $params
      * @return mixed
      */
-    public function updateStatus(array $params);
+    public function updatePackageStatus(array $params);
 }

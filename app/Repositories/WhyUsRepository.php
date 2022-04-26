@@ -71,7 +71,7 @@ class WhyUsRepository extends BaseRepository implements WhyUsContract
 
             $why_us_image = $collection['image'];
             $imageName = time() . "." . $why_us_image->getClientOriginalName();
-            $why_us_image->move("uploads/blog/", $imageName);
+            $why_us_image->move("uploads/why_us/", $imageName);
             $uploadedImage = $imageName;
             $whyUs->image = $uploadedImage;
 
@@ -99,11 +99,13 @@ class WhyUsRepository extends BaseRepository implements WhyUsContract
 
         $whyUs->description = $collection['description'];
 
-        $why_us_image = $collection['image'];
-        $imageName = time() . "." . $why_us_image->getClientOriginalName();
-        $why_us_image->move("uploads/blog/", $imageName);
-        $uploadedImage = $imageName;
-        $whyUs->image = $uploadedImage;
+        if (isset($collection['image'])) {
+            $why_us_image = $collection['image'];
+            $imageName = time() . "." . $why_us_image->getClientOriginalName();
+            $why_us_image->move("uploads/why_us/", $imageName);
+            $uploadedImage = $imageName;
+            $whyUs->image = $uploadedImage;
+        }
 
         $whyUs->save();
 

@@ -92,6 +92,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/blog/{id}/delete', [App\Http\Controllers\Admin\BlogController::class, 'destroy'])->name('blog.delete');
         Route::post('/blog/updateStatus', [App\Http\Controllers\Admin\BlogController::class, 'updateStatus'])->name('blog.updateStatus');
 
+        //-----------------WhyUs----------------
+
+        Route::get('/why-us', [App\Http\Controllers\Admin\WhyUsController::class, 'index'])->name('why-us.index');
+        Route::get('/why-us/create', [App\Http\Controllers\Admin\WhyUsController::class, 'create'])->name('why-us.create');
+        Route::post('/why-us/store', [App\Http\Controllers\Admin\WhyUsController::class, 'store'])->name('why-us.store');
+        Route::get('/why-us/edit/{id}', [App\Http\Controllers\Admin\WhyUsController::class, 'edit'])->name('why-us.edit');
+        Route::post('/why-us/update', [App\Http\Controllers\Admin\WhyUsController::class, 'update'])->name('why-us.update');
+        Route::get('/why-us/{id}/delete', [App\Http\Controllers\Admin\WhyUsController::class, 'destroy'])->name('why-us.delete');
+        Route::post('/why-us/updateStatus', [App\Http\Controllers\Admin\WhyUsController::class, 'updateStatus'])->name('why-us.updateStatus');
+
         // -----------------Business Service----------------
 
         Route::get('/businessService', [App\Http\Controllers\Admin\BusinessServiceController::class, 'index'])->name('businessService.index');
@@ -103,7 +113,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/businessService/updateStatus', [App\Http\Controllers\Admin\BusinessServiceController::class, 'updateStatus'])->name('businessService.updateStatus');
 
 
+        //-----------------Package----------------
 
+        Route::get('/package', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('package.index');
+        Route::get('/package/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('package.create');
+        Route::post('/package/store', [App\Http\Controllers\Admin\PackageController::class, 'store'])->name('package.store');
+        Route::get('/package/edit/{id}', [App\Http\Controllers\Admin\PackageController::class, 'edit'])->name('package.edit');
+        Route::post('/package/update', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('package.update');
+        Route::get('/package/{id}/delete', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('package.delete');
+        Route::post('/package/updateStatus', [App\Http\Controllers\Admin\PackageController::class, 'updateStatus'])->name('package.updateStatus');
     });
 });
 

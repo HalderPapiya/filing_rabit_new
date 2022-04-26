@@ -1,13 +1,11 @@
 <?php
+
 namespace App\Repositories;
 
-use App\Models\Package;
-use App\Models\UserPackage;
-use App\Models\UserTransaction;
-use App\Models\User;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\PackageContract;
+use App\Models\Package;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
@@ -51,7 +49,6 @@ class PackageRepository extends BaseRepository implements PackageContract
     {
         try {
             return $this->findOneOrFail($id);
-
         } catch (ModelNotFoundException $e) {
 
             throw new ModelNotFoundException($e);
@@ -66,18 +63,15 @@ class PackageRepository extends BaseRepository implements PackageContract
     {
         try {
             $collection = collect($params);
+            // dd($collection);
 
-            $Package = new Package;
-            $Package->name = $collection['name'];
-            $Package->description = $collection['description'];
-            $Package->valid_upto = $collection['valid_upto'];
-            $Package->price = $collection['price'];
-            $Package->offered_price = $collection['offered_price'];
+            $data = new Package;
+            $data->title = $collection['title'];
+            $data->price = $collection['price'];
 
-            $Package->save();
+            $data->save();
 
-            return $Package;
-
+            return $data;
         } catch (QueryException $exception) {
             throw new InvalidArgumentException($exception->getMessage());
         }
@@ -89,18 +83,16 @@ class PackageRepository extends BaseRepository implements PackageContract
      */
     public function updatePackage(array $params)
     {
-        $Package = $this->findPackageById($params['id']); 
-        $collection = collect($params)->except('_token'); 
+        $data = $this->findPackageById($params['id']);
+        $collection = collect($params)->except('_token');
 
-        $Package->name = $collection['name'];
-        $Package->description = $collection['description'];
-        $Package->valid_upto = $collection['valid_upto'];
-        $Package->price = $collection['price'];
-        $Package->offered_price = $collection['offered_price'];
+        $data->title = $collection['title'];
+        $data->price = $collection['price'];
+        //$category->status = $collection['status'];
 
-        $Package->save();
+        $data->save();
 
-        return $Package; 
+        return $data;
     }
 
     /**
@@ -109,63 +101,31 @@ class PackageRepository extends BaseRepository implements PackageContract
      */
     public function deletePackage($id)
     {
-        $Package = $this->findPackageById($id);
-        $Package->delete();
-        return $Package;
-    }
-
-   /**
-     * @param array $params
-     * @return mixed
-     */
-    public function updateStatus(array $params){
-        $Package = $this->findPackageById($params['id']);
-        $collection = collect($params)->except('_token');
-        $Package->status = $collection['check_status'];
-        $Package->save();
-
-        return $Package;
+        $data = $this->findPackageById($id);
+        $data->delete();
+        return $data;
     }
 
     /**
      * @param array $params
-     * @return boolean
+     * @return mixed
      */
-    public function storeUserPackageData(array $params)
+    public function updatePackageStatus(array $params)
     {
-        try {
-            $collection = collect($params);
+        $data = $this->findPackageById($params['id']);
+        $collection = collect($params)->except('_token');
+        $data->status = $collection['status'];
+        $data->save();
 
-            $userPackage = new UserPackage;
-           
-            $userPackage->user_id = $collection['user_id'];
-            $userPackage->package_id = $collection['package_id'];
-            $userPackage->subscription_end_date = date("Y-m-d", strtotime("+".$collection['valid_for']." day"));
-            $userPackage->created_at = date("Y-m-d G:i:s");
-            $userPackage->save();
-
-            $userTransaction = new UserTransaction;
-            $userTransaction->user_id = $collection['user_id'];
-            $userTransaction->amount = $collection['amount'];
-            $userTransaction->transaction_id = $collection['transaction_id'];
-            $userTransaction->reason = 'Payment for subscription';
-            $userTransaction->created_at = date("Y-m-d G:i:s");
-            $userTransaction->save();
-
-            $user = User::find($collection['user_id']);
-            $user->is_premium = 1;
-            $user->save();
-
-            return true;
-        }catch (QueryException $exception) {
-            throw new InvalidArgumentException($exception->getMessage());
-        }
+        return $data;
     }
 
     /**
+     * @param string $slug
      * @return mixed
      */
-    public function fetchAllSubscriptions(){
-        return UserPackage::with('package')->with('user')->get(); 
-    }
+    // public function getShowsBySlug($slug)
+    // {
+    //     return Category::where('slug', $slug)->with('shows')->get();
+    // }
 }

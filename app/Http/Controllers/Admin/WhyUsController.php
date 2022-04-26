@@ -14,7 +14,7 @@ class WhyUsController extends BaseController
     protected $whyUsRepository;
 
     /**
-     * BlogController constructor.
+     * WhyUsController constructor.
      * 
      * @param WhyUsContract $whyUsRepository
      */
@@ -30,10 +30,10 @@ class WhyUsController extends BaseController
      */
     public function index()
     {
-        $blogs = $this->whyUsRepository->listBlogs();
+        $data = $this->whyUsRepository->listWhyUs();
         // dd($blogs);
-        $this->setPageTitle('Blog', 'List of all blogs');
-        return view('admin.blog.index', compact('blogs'));
+        $this->setPageTitle('Why Us', 'List of all why us');
+        return view('admin.why_us.index', compact('data'));
     }
 
     /**
@@ -43,8 +43,8 @@ class WhyUsController extends BaseController
      */
     public function create()
     {
-        $this->setPageTitle('Blog', 'Create Blog');
-        return view('admin.blog.create');
+        $this->setPageTitle('Why Us', 'Create Why Us');
+        return view('admin.why_us.create');
     }
 
     /**
@@ -57,16 +57,18 @@ class WhyUsController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'description' =>  'required',
+            'image' =>  'required|mimes:jpeg,img,jpg,svg',
         ]);
 
         $params = $request->except('_token');
 
-        $blog = $this->whyUsRepository->createBlog($params);
+        $data = $this->whyUsRepository->createWhyUs($params);
 
-        if (!$blog) {
-            return $this->responseRedirectBack('Error occurred while creating blog.', 'error', true, true);
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while creating why us.', 'error', true, true);
         }
-        return $this->responseRedirect('admin.blog.index', 'Blog has been added successfully', 'success', false, false);
+        return $this->responseRedirect('admin.why-us.index', 'Why us has been added successfully', 'success', false, false);
     }
 
     /**
@@ -75,10 +77,10 @@ class WhyUsController extends BaseController
      */
     public function edit($id)
     {
-        $blog = $this->whyUsRepository->findBlogById($id);
+        $data = $this->whyUsRepository->findWhyUsById($id);
 
-        $this->setPageTitle('Category', 'Edit Category : ' . $blog->title);
-        return view('admin.blog.edit', compact('blog'));
+        $this->setPageTitle('Why Us', 'Edit Why Us : ' . $data->title);
+        return view('admin.why_us.edit', compact('data'));
     }
 
     /**
@@ -90,18 +92,19 @@ class WhyUsController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'description' =>  'required',
         ]);
 
         $params = $request->except('_token');
 
         //dd($params);
 
-        $blog = $this->whyUsRepository->updateBlog($params);
+        $data = $this->whyUsRepository->updateWhyUs($params);
 
-        if (!$blog) {
-            return $this->responseRedirectBack('Error occurred while updating blog.', 'error', true, true);
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while updating why us.', 'error', true, true);
         }
-        return $this->responseRedirectBack('Blog updated successfully', 'success', false, false);
+        return $this->responseRedirectBack('Why us updated successfully', 'success', false, false);
     }
 
     /**
@@ -110,12 +113,12 @@ class WhyUsController extends BaseController
      */
     public function destroy($id)
     {
-        $blog = $this->whyUsRepository->deleteBlog($id);
+        $data = $this->whyUsRepository->deleteWhyUs($id);
 
-        if (!$blog) {
-            return $this->responseRedirectBack('Error occurred while deleting blog.', 'error', true, true);
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while deleting why us.', 'error', true, true);
         }
-        return $this->responseRedirect('admin.blog.index', 'Blog deleted successfully', 'success', false, false);
+        return $this->responseRedirect('admin.why-us.index', 'Why us deleted successfully', 'success', false, false);
     }
 
     /**
@@ -128,10 +131,10 @@ class WhyUsController extends BaseController
 
         $params = $request->except('_token');
 
-        $blog = $this->whyUsRepository->updateWhyUsStatus($params);
+        $data = $this->whyUsRepository->updateWhyUsStatus($params);
 
-        if ($blog) {
-            return response()->json(array('message' => 'Blog status successfully updated'));
+        if ($data) {
+            return response()->json(array('message' => 'Why us status successfully updated'));
         }
     }
 }

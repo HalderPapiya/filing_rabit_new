@@ -21,6 +21,11 @@
                 </a>
             </li>
             <li>
+                <a class="app-menu__item package {{ request()->is('admin/package*') ? 'active' : '' }}" href="{{ route('admin.package.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                    <span class="app-menu__label">Package</span>
+                </a>
+            </li>
+            <li>
                 <a class="dropdown-item" href=""  onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
             </li>

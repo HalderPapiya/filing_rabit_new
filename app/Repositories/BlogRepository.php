@@ -96,12 +96,19 @@ class BlogRepository extends BaseRepository implements BlogContract
         $blog->title = $collection['title'];
         $blog->description = $collection['description'];
 
-        $blog_image = $collection['image'];
-        $imageName = time() . "." . $blog_image->getClientOriginalName();
-        $blog_image->move("uploads/blog/", $imageName);
-        $uploadedImage = $imageName;
-        $blog->image = $uploadedImage;
+        // $blog_image = $collection['image'];
+        // $imageName = time() . "." . $blog_image->getClientOriginalName();
+        // $blog_image->move("uploads/blog/", $imageName);
+        // $uploadedImage = $imageName;
+        // $blog->image = $uploadedImage;
 
+        if (isset($collection['image'])) {
+            $blog_image = $collection['image'];
+            $imageName = time() . "." . $blog_image->getClientOriginalName();
+            $blog_image->move("uploads/blog/", $imageName);
+            $uploadedImage = $imageName;
+            $blog->image = $uploadedImage;
+        }
         //$category->status = $collection['status'];
 
         $blog->save();
