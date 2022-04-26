@@ -47,7 +47,7 @@
                                             <div class="toggle-button-cover margin-auto">
                                                 <div class="button-cover">
                                                     <div class="button-togglr b2" id="button-11">
-                                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox" data-subcategory_id="{{ $businessService['id'] }}" {{ $businessService['status'] == true ? 'checked' : '' }}>
+                                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox" data-BusinessService_id="{{ $businessService['id'] }}" {{ $businessService['status'] == true ? 'checked' : '' }}>
                                                         <div class="knobs"><span>Inactive</span></div>
                                                         <div class="layer"></div>
                                                     </div>
@@ -56,7 +56,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Second group">
-                                                <a href="{{ route('admin.subcategory.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('admin.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                 <a href="#" data-id="{{$businessService['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
@@ -101,7 +101,7 @@
     </script>
     <script type="text/javascript">
         $('input[id="toggle-block"]').change(function() {
-            var subCategory_id = $(this).data('subcategory_id');
+            var BusinessService_id = $(this).data('BusinessService_id');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var status = 0;
           if($(this).is(":checked")){
@@ -112,8 +112,8 @@
           $.ajax({
                 type:'POST',
                 dataType:'JSON',
-                url:"{{route('admin.subcategory.updateStatus')}}",
-                data:{ _token: CSRF_TOKEN, id:subCategory_id, status:status},
+                url:"{{route('admin.businessService.updateStatus')}}",
+                data:{ _token: CSRF_TOKEN, id:BusinessService_id, status:status},
                 success:function(response)
                 {
                   // $('#success-text').text(response.message);

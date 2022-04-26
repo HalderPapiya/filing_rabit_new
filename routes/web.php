@@ -96,7 +96,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/businessService', [App\Http\Controllers\Admin\BusinessServiceController::class, 'index'])->name('businessService.index');
         Route::get('/businessService/create', [App\Http\Controllers\Admin\BusinessServiceController::class, 'create'])->name('businessService.create');
-        Route::post('/businessService/store', [App\Http\Controllers\Admins\BusinessServiceController::class, 'store'])->name('businessService.store');
+        Route::post('/businessService/store', [App\Http\Controllers\Admin\BusinessServiceController::class, 'store'])->name('businessService.store');
+        Route::get('/businessService/edit/{id}', [App\Http\Controllers\Admin\BusinessServiceController::class, 'edit'])->name('businessService.edit');
+        Route::post('/businessService/update', [App\Http\Controllers\Admin\BusinessServiceController::class, 'update'])->name('businessService.update');
+        Route::get('/businessService/{id}/delete', [App\Http\Controllers\Admin\BusinessServiceController::class, 'destroy'])->name('businessService.delete');
+        Route::post('/businessService/updateStatus', [App\Http\Controllers\Admin\BusinessServiceController::class, 'updateStatus'])->name('businessService.updateStatus');
+
 
 
     });

@@ -23,4 +23,9 @@ class BusinessService extends Model
     {
         return $this->belongsTo('App\Models\SubCategory', 'sub_category_id', 'id');
     }
+
+    public function package()
+    {
+        return $this->belongsTo('App\Models\Package', 'package_id', 'id');
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\BusinessService;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Contracts\BusinessServiceContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -39,5 +41,98 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
     {
         return $this->all($columns, $order, $sort);
     }
-    
+
+
+     /**
+     * @param int $id
+     * @return mixed
+     * @throws ModelNotFoundException
+     */
+    public function findBusinessServiceById(int $id)
+    {
+        try {
+            return $this->findOneOrFail($id);
+        } catch (ModelNotFoundException $e) {
+
+            throw new ModelNotFoundException($e);
+        }
+    }  
+
+
+    public function createBusinessServices(array $params){
+        try {
+            $collection = collect($params);
+
+            $BusinessService = new BusinessService;
+            $BusinessService->category_id = $collection['categoryId'];
+            $BusinessService->sub_category_id = $collection['subcategoryId'];
+            $BusinessService->package_id = $collection['packageId'];
+            $BusinessService->title = $collection['title'];
+            $BusinessService->description = $collection['description'];
+
+            $businessService_image = $collection['image'];
+            $imageName = time() . "." . $businessService_image->getClientOriginalName();
+            $businessService_image->move("uploads/BusinessService/", $imageName);
+            $uploadedImage = $imageName;
+            $BusinessService->image = $uploadedImage;
+
+            //$category->status = $collection['status'];
+            // dd($BusinessService);
+            $BusinessService->save();
+            return $BusinessService;
+        } catch (QueryException $exception) {
+            throw new InvalidArgumentException($exception->getMessage());
+        }
+    }
+
+    public function updateBusinessService(array $params)
+    {
+        
+        $BusinessService = $this->findBusinessServiceById($params['id']);
+        $collection = collect($params)->except('_token');
+        $BusinessService->category_id = $collection['categoryId'];
+        $BusinessService->sub_category_id = $collection['subcategoryId'];
+        $BusinessService->package_id = $collection['packageId'];
+        $BusinessService->title = $collection['title'];
+        $BusinessService->description = $collection['description'];
+
+        if(isset($collection['image'])){
+            $businessService_image = $collection['image'];
+            $imageName = time() . "." . $businessService_image->getClientOriginalName();
+            $businessService_image->move("uploads/BusinessService/", $imageName);
+            $uploadedImage = $imageName;
+            $BusinessService->image = $uploadedImage;
+        }
+        //$category->status = $collection['status'];
+
+        $BusinessService->save();
+
+        return $BusinessService;
+    }
+
+    /**
+     * @param $id
+     * @return bool|mixed
+     */
+    public function deleteBusinessService($id)
+    {
+        $BusinessService = $this->findBusinessServiceById($id);
+        $BusinessService->delete();
+        return $BusinessService;
+    }
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function updateBusinessServiceStatus(array $params)
+    {
+        $BusinessService = $this->findBusinessServiceById($params['id']);
+        $collection = collect($params)->except('_token');
+        $BusinessService->status = $collection['status'];
+        $BusinessService->save();
+
+        return $BusinessService;
+    }
+
 }

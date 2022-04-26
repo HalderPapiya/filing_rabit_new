@@ -40,7 +40,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="categoryId">Sub Category <span class="m-l-5 text-danger"> *</span></label>
+                            <label class="control-label" for="subcategoryId">Sub Category <span class="m-l-5 text-danger"> *</span></label>
                             <select class="form-control @error('subcategoryId') is-invalid @enderror" name="subcategoryId" id="subcategoryId" value="{{ old('
                             ') }}">
                                 <option selected disabled>Select one</option>
@@ -54,24 +54,36 @@
                             </span>
                             @enderror
                         </div>
-                        {{-- <div class="form-group">
-                            <label class="control-label" for="name">Slug <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('slug') is-invalid @enderror" type="text" name="slug" id="slug" value="{{ old('slug') }}"/>
-                            @error('slug') {{ $message }} @enderror
-                        </div> --}}
-                        
-                        {{-- <div class="form-group toogle-lg">
-                            <label class="control-label">Status</label>
-                            <div class="toggle-button-cover">
-                                <div class="button-cover">
-                                    <div class="button-togglr b2" id="button-11">
-                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox">
-                                        <div class="knobs"><span>Inactive</span></div>
-                                        <div class="layer"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                        <div class="form-group">
+                            <label class="control-label" for="packageId">Package Name <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control @error('packageId') is-invalid @enderror" name="packageId" id="packageId" value="{{ old('
+                            ') }}">
+                                <option selected disabled>Select one</option>
+                                @foreach($packages as $package)
+                                <option value="{{$package->id}}">{{$package->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('packageId')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="form-group required">
+                            <label for="description" class="control-label">Description</label>
+                            <textarea name="description" id="description" rows="3"
+                                class="form-control @error('description') is-invalid @enderror"></textarea>
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="image">Image <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image" value="{{ old('image') }}"/>
+                            @error('image')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                        </div>
                     </div>
                 </form>
             </div>
