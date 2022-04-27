@@ -122,6 +122,37 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/package/update', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('package.update');
         Route::get('/package/{id}/delete', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('package.delete');
         Route::post('/package/updateStatus', [App\Http\Controllers\Admin\PackageController::class, 'updateStatus'])->name('package.updateStatus');
+
+        //-----------------Contact Us----------------
+
+        Route::get('/contact-us', [App\Http\Controllers\Admin\ContactUsController::class, 'index'])->name('contact-us.index');
+        Route::get('/contact-us/create', [App\Http\Controllers\Admin\ContactUsController::class, 'create'])->name('contact-us.create');
+        Route::post('/contact-us/store', [App\Http\Controllers\Admin\ContactUsController::class, 'store'])->name('contact-us.store');
+        Route::get('/contact-us/edit/{id}', [App\Http\Controllers\Admin\ContactUsController::class, 'edit'])->name('contact-us.edit');
+        Route::post('/contact-us/update', [App\Http\Controllers\Admin\ContactUsController::class, 'update'])->name('contact-us.update');
+        Route::get('/contact-us/{id}/delete', [App\Http\Controllers\Admin\ContactUsController::class, 'destroy'])->name('contact-us.delete');
+        Route::post('/contact-us/updateStatus', [App\Http\Controllers\Admin\ContactUsController::class, 'updateStatus'])->name('contact-us.updateStatus');
+
+
+        //-----------------About us----------------
+
+        Route::get('/about-us', [App\Http\Controllers\Admin\AboutUsController::class, 'index'])->name('about-us.index');
+        Route::get('/about-us/create', [App\Http\Controllers\Admin\AboutUsController::class, 'create'])->name('about-us.create');
+        Route::post('/about-us/store', [App\Http\Controllers\Admin\AboutUsController::class, 'store'])->name('about-us.store');
+        Route::get('/about-us/edit/{id}', [App\Http\Controllers\Admin\AboutUsController::class, 'edit'])->name('about-us.edit');
+        Route::post('/about-us/update', [App\Http\Controllers\Admin\AboutUsController::class, 'update'])->name('about-us.update');
+        Route::get('/about-us/{id}/delete', [App\Http\Controllers\Admin\AboutUsController::class, 'destroy'])->name('about-us.delete');
+        Route::post('/about-us/updateStatus', [App\Http\Controllers\Admin\AboutUsController::class, 'updateStatus'])->name('about-us.updateStatus');
+
+        //-----------------Setting----------------
+
+        Route::get('/setting', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('setting.index');
+        Route::get('/setting/create', [App\Http\Controllers\Admin\SettingController::class, 'create'])->name('setting.create');
+        Route::post('/setting/store', [App\Http\Controllers\Admin\SettingController::class, 'store'])->name('setting.store');
+        Route::get('/setting/edit/{id}', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('setting.edit');
+        Route::post('/setting/update', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('setting.update');
+        Route::get('/setting/{id}/delete', [App\Http\Controllers\Admin\SettingController::class, 'destroy'])->name('setting.delete');
+        Route::post('/setting/updateStatus', [App\Http\Controllers\Admin\SettingController::class, 'updateStatus'])->name('setting.updateStatus');
     });
 });
 

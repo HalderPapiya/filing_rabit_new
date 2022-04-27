@@ -42,6 +42,21 @@
                 <span class="app-menu__label">Package</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item contact_us {{ request()->is('admin/contact-us*') ? 'active' : '' }}" href="{{ route('admin.contact-us.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Contact Us</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item about_us {{ request()->is('admin/about-us*') ? 'active' : '' }}" href="{{ route('admin.about-us.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">About Us</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item setting {{ request()->is('admin/setting*') ? 'active' : '' }}" href="{{ route('admin.setting.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Settings</span>
+            </a>
+        </li>
     </ul>
 </aside>
 

@@ -2,28 +2,28 @@
 
 namespace App\Repositories;
 
+use App\Models\Setting;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
-use App\Contracts\PackageContract;
-use App\Models\Package;
+use App\Contracts\SettingContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
- * Class PackageRepository
+ * Class BannerRepository
  *
  * @package \App\Repositories
  */
-class PackageRepository extends BaseRepository implements PackageContract
+class SettingRepository extends BaseRepository implements SettingContract
 {
     use UploadAble;
 
     /**
-     * PackageRepository constructor.
-     * @param Package $model
+     * SettingRepository constructor.
+     * @param Setting $model
      */
-    public function __construct(Package $model)
+    public function __construct(Setting $model)
     {
         parent::__construct($model);
         $this->model = $model;
@@ -35,7 +35,7 @@ class PackageRepository extends BaseRepository implements PackageContract
      * @param array $columns
      * @return mixed
      */
-    public function listPackages(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listSettings(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
     }
@@ -45,7 +45,7 @@ class PackageRepository extends BaseRepository implements PackageContract
      * @return mixed
      * @throws ModelNotFoundException
      */
-    public function findPackageById(int $id)
+    public function findSettingsById(int $id)
     {
         try {
             return $this->findOneOrFail($id);
@@ -57,17 +57,21 @@ class PackageRepository extends BaseRepository implements PackageContract
 
     /**
      * @param array $params
-     * @return Package|mixed
+     * @return Setting|mixed
      */
-    public function createPackage(array $params)
+    public function createSettings(array $params)
     {
         try {
-            $collection = collect($params);
-            // dd($collection);
 
-            $data = new Package;
-            $data->name = $collection['name'];
-            $data->price = $collection['price'];
+
+
+            $collection = collect($params);
+
+            $data = new Setting;
+            $data->title = $collection['title'];
+            $data->description = $collection['description'];
+            $data->key = $collection['key'];
+
 
             $data->save();
 
@@ -81,15 +85,15 @@ class PackageRepository extends BaseRepository implements PackageContract
      * @param array $params
      * @return mixed
      */
-    public function updatePackage(array $params)
+    public function updateSettings(array $params)
     {
-        $data = $this->findPackageById($params['id']);
+        $data = $this->findOneOrFail($params['id']);
         $collection = collect($params)->except('_token');
 
-        $data->name = $collection['name'];
-        $data->price = $collection['price'];
-        //$category->status = $collection['status'];
 
+        $data->title = $collection['title'];
+        $data->description = $collection['description'];
+        $data->key = $collection['key'];
         $data->save();
 
         return $data;
@@ -99,9 +103,9 @@ class PackageRepository extends BaseRepository implements PackageContract
      * @param $id
      * @return bool|mixed
      */
-    public function deletePackage($id)
+    public function deleteSettings($id)
     {
-        $data = $this->findPackageById($id);
+        $data = $this->findOneOrFail($id);
         $data->delete();
         return $data;
     }
@@ -110,22 +114,13 @@ class PackageRepository extends BaseRepository implements PackageContract
      * @param array $params
      * @return mixed
      */
-    public function updatePackageStatus(array $params)
+    public function updateSettingsStatus(array $params)
     {
-        $data = $this->findPackageById($params['id']);
+        $data = $this->findOneOrFail($params['id']);
         $collection = collect($params)->except('_token');
-        $data->status = $collection['status'];
+        $data->status = $collection['check_status'];
         $data->save();
 
         return $data;
     }
-
-    /**
-     * @param string $slug
-     * @return mixed
-     */
-    // public function getShowsBySlug($slug)
-    // {
-    //     return Category::where('slug', $slug)->with('shows')->get();
-    // }
 }

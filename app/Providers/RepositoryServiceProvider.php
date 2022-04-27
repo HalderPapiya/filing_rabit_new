@@ -17,6 +17,12 @@ use App\Contracts\BusinessServiceContract;
 use App\Repositories\BusinessServiceRepository;
 use App\Contracts\PackageContract;
 use App\Repositories\PackageRepository;
+use App\Contracts\ContactUsContract;
+use App\Repositories\ContactUsRepository;
+use App\Contracts\AboutUsContract;
+use App\Repositories\AboutUsRepository;
+use App\Contracts\SettingContract;
+use App\Repositories\SettingRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -28,6 +34,9 @@ class RepositoryServiceProvider extends ServiceProvider
         WhyUsContract::class =>  WhyUsRepository::class,
         BusinessServiceContract::class =>  BusinessServiceRepository::class,
         PackageContract::class =>  PackageRepository::class,
+        ContactUsContract::class =>  ContactUsRepository::class,
+        AboutUsContract::class =>  AboutUsRepository::class,
+        SettingContract::class =>  SettingRepository::class,
     ];
 
     /**

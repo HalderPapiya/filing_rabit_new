@@ -78,7 +78,7 @@ class PackageController extends BaseController
         $data = $this->packageRepository->findPackageById($id);
 
         $this->setPageTitle('Package', 'Edit package : ' . $data->title);
-        return view('admin.package.edit', compact('package'));
+        return view('admin.package.edit', compact('data'));
     }
 
     /**
@@ -102,7 +102,7 @@ class PackageController extends BaseController
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while updating package.', 'error', true, true);
         }
-        return $this->responseRedirectBack('Package updated successfully', 'success', false, false);
+        return $this->responseRedirect('admin.package.index', 'Package updated successfully', 'success', false, false);
     }
 
     /**
@@ -129,7 +129,7 @@ class PackageController extends BaseController
 
         $params = $request->except('_token');
 
-        $data = $this->packageRepository->updateCategoryStatus($params);
+        $data = $this->packageRepository->updatePackageStatus($params);
 
         if ($data) {
             return response()->json(array('message' => 'Category status successfully updated'));
