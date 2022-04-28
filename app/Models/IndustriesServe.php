@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Banner extends Model
+class IndustriesServe extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'banners';
+    protected $table = 'industries_serves';
 
     protected $fillable = [
-        'title', 'video', 'short_description', 'status'
+        'title', 'image', 'status'
     ];
 }

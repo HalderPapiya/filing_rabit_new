@@ -6,8 +6,8 @@
             <div class="active-wrap">
                 <h1><i class="fa fa-tags"></i> {{ $pageTitle }}</h1>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="button" id="btnSave"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Why Us</button>
-                    <a class="btn btn-secondary" href="{{ route('admin.why-us.index') }}"><i style="vertical-align: baseline;" class="fa fa-chevron-left"></i>Back</a>
+                    <button class="btn btn-primary" type="button" id="btnSave"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save Banner</button>
+                    <a class="btn btn-secondary" href="{{ route('admin.banner.index') }}"><i style="vertical-align: baseline;" class="fa fa-chevron-left"></i>Back</a>
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
     <div class="row section-mg row-md-body no-nav">
         <div class="col-md-12 mx-auto">
             <div class="tile">
-                <form action="{{ route('admin.why-us.store') }}" method="POST" role="form" enctype="multipart/form-data" id="form1">
+                <form action="{{ route('admin.banner.store') }}" method="POST" role="form" enctype="multipart/form-data" id="form1">
                     @csrf
                     <div class="tile-body form-body">
                         <div class="form-group">
@@ -25,19 +25,19 @@
                             @error('title')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                         </div>
                          <div class="form-group required">
-                            <label for="description" class="control-label">Description</label>
-                            <textarea name="description" id="description" rows="3"
-                                class="form-control @error('description') is-invalid @enderror"></textarea>
-                            @error('description')
+                            <label for="short_description" class="control-label">Short Description</label>
+                            <textarea name="short_description" id="short_description" rows="3"
+                                class="form-control @error('short_description') is-invalid @enderror">{{ old('short_description') }}</textarea>
+                            @error('short_description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="image">Image <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image" value="{{ old('image') }}"/>
-                            @error('image')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                            <label class="control-label" for="video">Video <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('video') is-invalid @enderror" type="file" name="video" id="video" value="{{ old('video') }}"/>
+                            @error('video')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                         </div>
                        
                     </div>

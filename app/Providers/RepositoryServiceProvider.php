@@ -23,6 +23,14 @@ use App\Contracts\AboutUsContract;
 use App\Repositories\AboutUsRepository;
 use App\Contracts\SettingContract;
 use App\Repositories\SettingRepository;
+use App\Contracts\BannerContract;
+use App\Repositories\BannerRepository;
+use App\Contracts\IndustriesServeContract;
+use App\Repositories\IndustriesServeRepository;
+use App\Contracts\TestimonialContract;
+use App\Repositories\TestimonialRepository;
+use App\Contracts\SubSubCategoryContract;
+use App\Repositories\SubSubCategoryRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -37,6 +45,10 @@ class RepositoryServiceProvider extends ServiceProvider
         ContactUsContract::class =>  ContactUsRepository::class,
         AboutUsContract::class =>  AboutUsRepository::class,
         SettingContract::class =>  SettingRepository::class,
+        BannerContract::class =>  BannerRepository::class,
+        IndustriesServeContract::class =>  IndustriesServeRepository::class,
+        TestimonialContract::class =>  TestimonialRepository::class,
+        SubSubCategoryContract::class =>  SubSubCategoryRepository::class,
     ];
 
     /**

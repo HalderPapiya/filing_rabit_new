@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Banner;
@@ -48,7 +49,6 @@ class BannerRepository extends BaseRepository implements BannerContract
     {
         try {
             return $this->findOneOrFail($id);
-
         } catch (ModelNotFoundException $e) {
 
             throw new ModelNotFoundException($e);
@@ -65,21 +65,19 @@ class BannerRepository extends BaseRepository implements BannerContract
 
             $collection = collect($params);
 
-            $Banner = new Banner;
-            $Banner->title = $collection['title'];
-            $Banner->description = $collection['description'];
-            $Banner->redirect_link = $collection['redirect_link'];
+            $data = new Banner;
+            $data->title = $collection['title'];
+            $data->short_description = $collection['short_description'];
 
-            $profile_image = $collection['image'];
-            $imageName = time().".".$profile_image->getClientOriginalName();
-            $profile_image->move("banners/",$imageName);
-            $uploadedImage = $imageName;
-            $Banner->image = $uploadedImage;
-            
-            $Banner->save();
+            $video = $collection['video'];
+            $videoName = time() . "." . $video->getClientOriginalName();
+            $video->move("uploads/banners/", $videoName);
+            $uploadedVideo = $videoName;
+            $data->video = $uploadedVideo;
 
-            return $Banner;
-            
+            $data->save();
+
+            return $data;
         } catch (QueryException $exception) {
             throw new InvalidArgumentException($exception->getMessage());
         }
@@ -91,22 +89,21 @@ class BannerRepository extends BaseRepository implements BannerContract
      */
     public function updateBanner(array $params)
     {
-        $Banner = $this->findOneOrFail($params['id']); 
-        $collection = collect($params)->except('_token'); 
+        $data = $this->findOneOrFail($params['id']);
+        $collection = collect($params)->except('_token');
+        $data->title = $collection['title'];
+        $data->short_description = $collection['short_description'];
+        if (isset($collection['video'])) {
+            $video = $collection['video'];
+            $videoName = time() . "." . $video->getClientOriginalName();
+            $video->move("uploads/banners/", $videoName);
+            $uploadedVideo = $videoName;
+            $data->video = $uploadedVideo;
+        }
 
-        $Banner->title = $collection['title'];
-        $Banner->description = $collection['description'];
-        $Banner->redirect_link = $collection['redirect_link'];
+        $data->save();
 
-        $profile_image = $collection['image'];
-        $imageName = time().".".$profile_image->getClientOriginalName();
-        $profile_image->move("banners/",$imageName);
-        $uploadedImage = $imageName;
-        $Banner->image = $uploadedImage;
-
-        $Banner->save();
-
-        return $Banner;
+        return $data;
     }
 
     /**
@@ -115,21 +112,22 @@ class BannerRepository extends BaseRepository implements BannerContract
      */
     public function deleteBanner($id)
     {
-        $banner = $this->findOneOrFail($id);
-        $banner->delete();
-        return $banner;
+        $data = $this->findOneOrFail($id);
+        $data->delete();
+        return $data;
     }
 
     /**
      * @param array $params
      * @return mixed
      */
-    public function updateBannerStatus(array $params){
-        $banner = $this->findOneOrFail($params['id']);
+    public function updateBannerStatus(array $params)
+    {
+        $data = $this->findOneOrFail($params['id']);
         $collection = collect($params)->except('_token');
-        $banner->status = $collection['check_status'];
-        $banner->save();
+        $data->status = $collection['status'];
+        $data->save();
 
-        return $banner;
+        return $data;
     }
 }

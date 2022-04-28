@@ -159,7 +159,7 @@ class ContactUsRepository extends BaseRepository implements ContactUsContract
     {
         $data = $this->findOneOrFail($params['id']);
         $collection = collect($params)->except('_token');
-        $data->status = $collection['check_status'];
+        $data->status = $collection['status'];
         $data->save();
 
         return $data;

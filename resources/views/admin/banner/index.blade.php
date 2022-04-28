@@ -7,7 +7,7 @@
                 <h1><i class="fa fa-tags"></i> {{ $pageTitle }}</h1>
                 <p>{{ $subTitle }}</p>
             </div>
-            <a href="{{ route('admin.setting.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
+            <a href="{{ route('admin.banner.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
         </div>
     </div>
     @include('admin.partials.flash')
@@ -24,10 +24,9 @@
                     <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">
                         <thead>
                             <tr>
-                              
+                                <th> Image </th>
                                 <th> Title </th>
-                                <th> Key </th>
-                                <th> DEscription </th>
+                                <th> Short Description </th>
                                 <th class="text-center"> Status </th>
                                 <th style="width:100px; min-width:100px;" class="text-center">Action</th>
                             </tr>
@@ -35,10 +34,9 @@
                         <tbody>
                             @foreach($data as $key => $data)
                                     <tr>
-                                      
+                                      <td><img src="{{URL::to('/').'/uploads/banners/'}}{{$data->video}}" width="60" /></td>
                                         <td>{{ $data['title'] }}</td>
-                                        <td>{{ $data['key'] }}</td>
-                                        <td>{{ $data['description'] }}</td>
+                                        <td>{!! $data['short_description'] !!}</td>
                                         
                                             {{-- <td>{{ $category['slug'] }}</td> --}}
                                         
@@ -46,7 +44,7 @@
                                             <div class="toggle-button-cover margin-auto">
                                                 <div class="button-cover">
                                                     <div class="button-togglr b2" id="button-11">
-                                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox" data-setting_id="{{ $data['id'] }}" {{ $data['status'] == true ? 'checked' : '' }}>
+                                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox" data-banner_id="{{ $data['id'] }}" {{ $data['status'] == true ? 'checked' : '' }}>
                                                         <div class="knobs"><span>Inactive</span></div>
                                                         <div class="layer"></div>
                                                     </div>
@@ -55,7 +53,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Second group">
-                                                <a href="{{ route('admin.setting.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('admin.banner.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                 <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
@@ -79,7 +77,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
     <script type="text/javascript">
     $('.sa-remove').on("click",function(){
-        var settingId = $(this).data('id');
+        var bannerId = $(this).data('id');
         swal({
           title: "Are you sure?",
           text: "Your will not be able to recover the record!",
@@ -91,7 +89,7 @@
         },
         function(isConfirm){
           if (isConfirm) {
-            window.location.href = "setting/"+settingId+"/delete";
+            window.location.href = "banner/"+bannerId+"/delete";
             } else {
               swal("Cancelled", "Record is safe", "error");
             }
@@ -100,7 +98,7 @@
     </script>
     <script type="text/javascript">
         $('input[id="toggle-block"]').change(function() {
-            var setting_id = $(this).data('setting_id');
+            var banner_id = $(this).data('banner_id');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var status = 0;
           if($(this).is(":checked")){
@@ -111,16 +109,21 @@
           $.ajax({
                 type:'POST',
                 dataType:'JSON',
-                url:"{{route('admin.setting.updateStatus')}}",
-                data:{ _token: CSRF_TOKEN, id:setting_id, status:status},
+                url:"{{route('admin.banner.updateStatus')}}",
+                data:{ _token: CSRF_TOKEN, id:banner_id, status:status},
                 success:function(response)
                 {
-                  
+                  // $('#success-text').text(response.message);
+                  // $('#success-msg').show();
+                  // $('#success-msg').fadeOut(2000);
                   swal("Success!", response.message, "success");
                 },
                 error: function(response)
                 {
-                  
+                    // console.log(response);
+                    // $('#error-text').text("Error! Please try again later");
+                    // $('#error-msg').show();
+                    // $('#error-msg').fadeOut(2000);
                     swal("Error!", response.message, "error");
                 }
               });

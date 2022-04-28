@@ -25,8 +25,9 @@
                         <thead>
                             <tr>
                                
-                                <th> Subcategory </th>
                                 <th> Name </th>
+                                <th> Category </th>
+
                                 <th class="text-center"> Status </th>
                                 <th style="width:100px; min-width:100px;" class="text-center">Action</th>
                             </tr>
@@ -34,10 +35,8 @@
                         <tbody>
                             @foreach($subCategories as $subcategory)
                                     <tr>
-                                        <td>{{ $subcategory->category['title'] }}</td>
                                         <td>{{ $subcategory['title'] }}</td>
-                                        
-                                            {{-- <td>{{ $category['slug'] }}</td> --}}
+                                        <td>{{ $subcategory->category['title'] }}</td>
                                         
                                         <td class="text-center">
                                             <div class="toggle-button-cover margin-auto">

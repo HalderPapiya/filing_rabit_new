@@ -12,6 +12,11 @@
                 <span class="app-menu__label">User</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item banner {{ request()->is('admin/banner*') ? 'active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Banner</span>
+            </a>
+        </li>
          <li>
             <a class="app-menu__item blog {{ request()->is('admin/blog*') ? 'active' : '' }}" href="{{ route('admin.blog.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Blog</span>
@@ -25,6 +30,11 @@
         <li>
             <a class="app-menu__item subcategory {{ request()->is('admin/subcategory*') ? 'active' : '' }}" href="{{ route('admin.subcategory.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Subcategory</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item sub-subcategory {{ request()->is('admin/sub-subcategory*') ? 'active' : '' }}" href="{{ route('admin.sub-subcategory.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Sub-Subcategory</span>
             </a>
         </li>
         <li>
@@ -43,6 +53,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item testimonial {{ request()->is('admin/testimonial*') ? 'active' : '' }}" href="{{ route('admin.testimonial.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Testimonial</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item contact_us {{ request()->is('admin/contact-us*') ? 'active' : '' }}" href="{{ route('admin.contact-us.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Contact Us</span>
             </a>
@@ -50,6 +65,11 @@
         <li>
             <a class="app-menu__item about_us {{ request()->is('admin/about-us*') ? 'active' : '' }}" href="{{ route('admin.about-us.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">About Us</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item industries_serve {{ request()->is('admin/industries-serve*') ? 'active' : '' }}" href="{{ route('admin.industries_serve.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Industries Serve</span>
             </a>
         </li>
         <li>

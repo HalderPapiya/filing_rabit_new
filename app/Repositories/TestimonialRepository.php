@@ -2,28 +2,27 @@
 
 namespace App\Repositories;
 
-use App\Models\Setting;
 use App\Traits\UploadAble;
-use Illuminate\Http\UploadedFile;
-use App\Contracts\SettingContract;
+use App\Contracts\TestimonialContract;
+use App\Models\Testimonial;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
- * Class BannerRepository
+ * Class TestimonialRepository
  *
  * @package \App\Repositories
  */
-class SettingRepository extends BaseRepository implements SettingContract
+class TestimonialRepository extends BaseRepository implements TestimonialContract
 {
     use UploadAble;
 
     /**
-     * SettingRepository constructor.
-     * @param Setting $model
+     * TestimonialRepository constructor.
+     * @param Testimonial $model
      */
-    public function __construct(Setting $model)
+    public function __construct(Testimonial $model)
     {
         parent::__construct($model);
         $this->model = $model;
@@ -35,7 +34,7 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param array $columns
      * @return mixed
      */
-    public function listSettings(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listTestimonials(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
     }
@@ -45,7 +44,7 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @return mixed
      * @throws ModelNotFoundException
      */
-    public function findSettingsById(int $id)
+    public function findTestimonialById(int $id)
     {
         try {
             return $this->findOneOrFail($id);
@@ -57,21 +56,24 @@ class SettingRepository extends BaseRepository implements SettingContract
 
     /**
      * @param array $params
-     * @return Setting|mixed
+     * @return Testimonial|mixed
      */
-    public function createSettings(array $params)
+    public function CreateTestimonial(array $params)
     {
         try {
-
-
-
             $collection = collect($params);
+            // dd($collection);
 
-            $data = new Setting;
-            $data->title = $collection['title'];
+            $data = new Testimonial();
             $data->description = $collection['description'];
-            $data->key = $collection['key'];
 
+            $data_image = $collection['image'];
+            $imageName = time() . "." . $data_image->getClientOriginalName();
+            $data_image->move("uploads/testimonial/", $imageName);
+            $uploadedImage = $imageName;
+            $data->image = $uploadedImage;
+
+            //$category->status = $collection['status'];
 
             $data->save();
 
@@ -85,15 +87,23 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param array $params
      * @return mixed
      */
-    public function updateSettings(array $params)
+    public function updateTestimonial(array $params)
     {
-        $data = $this->findOneOrFail($params['id']);
+        $data = $this->findTestimonialById($params['id']);
         $collection = collect($params)->except('_token');
 
-
-        $data->title = $collection['title'];
         $data->description = $collection['description'];
-        $data->key = $collection['key'];
+
+
+        if (isset($collection['image'])) {
+            $data_image = $collection['image'];
+            $imageName = time() . "." . $data_image->getClientOriginalName();
+            $data_image->move("uploads/testimonial/", $imageName);
+            $uploadedImage = $imageName;
+            $data->image = $uploadedImage;
+        }
+        //$category->status = $collection['status'];
+
         $data->save();
 
         return $data;
@@ -103,9 +113,9 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param $id
      * @return bool|mixed
      */
-    public function deleteSettings($id)
+    public function deleteTestimonial($id)
     {
-        $data = $this->findOneOrFail($id);
+        $data = $this->findTestimonialById($id);
         $data->delete();
         return $data;
     }
@@ -114,9 +124,9 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param array $params
      * @return mixed
      */
-    public function updateSettingsStatus(array $params)
+    public function updateTestimonialStatus(array $params)
     {
-        $data = $this->findOneOrFail($params['id']);
+        $data = $this->findTestimonialById($params['id']);
         $collection = collect($params)->except('_token');
         $data->status = $collection['status'];
         $data->save();

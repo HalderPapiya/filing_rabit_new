@@ -145,7 +145,7 @@ class AboutUsRepository extends BaseRepository implements AboutUsContract
     {
         $data = $this->findOneOrFail($params['id']);
         $collection = collect($params)->except('_token');
-        $data->status = $collection['check_status'];
+        $data->status = $collection['status'];
         $data->save();
 
         return $data;

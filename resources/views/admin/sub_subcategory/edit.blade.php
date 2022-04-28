@@ -6,7 +6,7 @@
             <div class="active-wrap">
                 <h1><i class="fa fa-tags"></i> {{ $pageTitle }}</h1>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="button" id="btnSave"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update Category</button>
+                    <button class="btn btn-primary" type="button" id="btnSave"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update SubCategory</button>
                     <a class="btn btn-secondary" href="{{ route('admin.sub-subcategory.index') }}"><i class="fa fa-fw fa-lg fa fa-angle-left"></i>Back</a>
                 </div>
             </div>
@@ -22,26 +22,42 @@
     <div class="row section-mg row-md-body no-nav">
         <div class="col-md-12 mx-auto">
             <div class="tile">
-                <form action="{{ route('admin.subcategory.update') }}" method="POST" role="form" enctype="multipart/form-data" id="form1">
+                <form action="{{ route('admin.sub-subcategory.update') }}" method="POST" role="form" enctype="multipart/form-data" id="form1">
                     @csrf
                     <div class="tile-body form-body">
                         <div class="form-group">
-                            <label class="control-label" for="title">Subcategory Title <span class="m-l-5 text-danger"> *</span></label>
+                            <label class="control-label" for="title">Sub-Subcategory Title <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('title') is-invalid @enderror" type="text" name="title" id="title" value="{{ old('title', $data->title) }}"/>
                             <input type="hidden" name="id" value="{{ $data->id }}">
                             @error('title') {{ $message }} @enderror
                         </div>
+                        
                         <div class="form-group">
                             <label class="control-label" for="categoryId">Category <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control" type="readOnly"  value="{{$data->category->title}} "/>
-                            <select class="form-control @error('categoryId') is-invalid @enderror" name="categoryId" id="categoryId" value="{{ old('
-                            ') }}">
+                            <select class="form-control @error('categoryId') is-invalid @enderror" name="categoryId" id="categoryId" value="{{ old('categoryId') }}">
                                 <option selected disabled>Select one</option>
                                 @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->title}}</option>
                                 @endforeach
                             </select>
                             @error('categoryId')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="subCategoryId">SubCategory <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control" type="readOnly"  value="{{$data->subcategory->title}} "/>
+                            <select class="form-control @error('subCategoryId') is-invalid @enderror" name="subCategoryId" id="subCategoryId" value="{{ old('
+                            ') }}">
+                                <option selected disabled>Select one</option>
+                                @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->title}}</option>
+                                @endforeach
+                            </select>
+                            @error('subCategoryId')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

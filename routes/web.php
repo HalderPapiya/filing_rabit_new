@@ -82,6 +82,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/subcategory/{id}/delete', [App\Http\Controllers\Admin\SubCategoryController::class, 'destroy'])->name('subcategory.delete');
         Route::post('/subcategory/updateStatus', [App\Http\Controllers\Admin\SubCategoryController::class, 'updateStatus'])->name('subcategory.updateStatus');
 
+        //-----------------Sub-Sub-Category----------------
+
+        Route::get('/sub-subcategory', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'index'])->name('sub-subcategory.index');
+        Route::get('/sub-subcategory/create', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'create'])->name('sub-subcategory.create');
+        Route::post('/sub-subcategory/store', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'store'])->name('sub-subcategory.store');
+        Route::get('/sub-subcategory/edit/{id}', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'edit'])->name('sub-subcategory.edit');
+        Route::post('/sub-subcategory/update', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'update'])->name('sub-subcategory.update');
+        Route::get('/sub-subcategory/{id}/delete', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'destroy'])->name('sub-subcategory.delete');
+        Route::post('/sub-subcategory/updateStatus', [App\Http\Controllers\Admin\SubSubCategoryController::class, 'updateStatus'])->name('sub-subcategory.updateStatus');
+
         //-----------------Blog----------------
 
         Route::get('/blog', [App\Http\Controllers\Admin\BlogController::class, 'index'])->name('blog.index');
@@ -153,6 +163,36 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/setting/update', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('setting.update');
         Route::get('/setting/{id}/delete', [App\Http\Controllers\Admin\SettingController::class, 'destroy'])->name('setting.delete');
         Route::post('/setting/updateStatus', [App\Http\Controllers\Admin\SettingController::class, 'updateStatus'])->name('setting.updateStatus');
+
+        //-----------------Banner----------------
+
+        Route::get('/banner', [App\Http\Controllers\Admin\BannerController::class, 'index'])->name('banner.index');
+        Route::get('/banner/create', [App\Http\Controllers\Admin\BannerController::class, 'create'])->name('banner.create');
+        Route::post('/banner/store', [App\Http\Controllers\Admin\BannerController::class, 'store'])->name('banner.store');
+        Route::get('/banner/edit/{id}', [App\Http\Controllers\Admin\BannerController::class, 'edit'])->name('banner.edit');
+        Route::post('/banner/update', [App\Http\Controllers\Admin\BannerController::class, 'update'])->name('banner.update');
+        Route::get('/banner/{id}/delete', [App\Http\Controllers\Admin\BannerController::class, 'destroy'])->name('banner.delete');
+        Route::post('/banner/updateStatus', [App\Http\Controllers\Admin\BannerController::class, 'updateStatus'])->name('banner.updateStatus');
+
+        //-----------------Industries Serve----------------
+
+        Route::get('/industries-serve', [App\Http\Controllers\Admin\IndustriesServeController::class, 'index'])->name('industries_serve.index');
+        Route::get('/industries-serve/create', [App\Http\Controllers\Admin\IndustriesServeController::class, 'create'])->name('industries_serve.create');
+        Route::post('/industries-serve/store', [App\Http\Controllers\Admin\IndustriesServeController::class, 'store'])->name('industries_serve.store');
+        Route::get('/industries-serve/edit/{id}', [App\Http\Controllers\Admin\IndustriesServeController::class, 'edit'])->name('industries_serve.edit');
+        Route::post('/industries-serve/update', [App\Http\Controllers\Admin\IndustriesServeController::class, 'update'])->name('industries_serve.update');
+        Route::get('/industries-serve/{id}/delete', [App\Http\Controllers\Admin\IndustriesServeController::class, 'destroy'])->name('industries_serve.delete');
+        Route::post('/industries-serve/updateStatus', [App\Http\Controllers\Admin\IndustriesServeController::class, 'updateStatus'])->name('industries_serve.updateStatus');
+
+        //-----------------Testimonial----------------
+
+        Route::get('/testimonial', [App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('testimonial.index');
+        Route::get('/testimonial/create', [App\Http\Controllers\Admin\TestimonialController::class, 'create'])->name('testimonial.create');
+        Route::post('/testimonial/store', [App\Http\Controllers\Admin\TestimonialController::class, 'store'])->name('testimonial.store');
+        Route::get('/testimonial/edit/{id}', [App\Http\Controllers\Admin\TestimonialController::class, 'edit'])->name('testimonial.edit');
+        Route::post('/testimonial/update', [App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('testimonial.update');
+        Route::get('/testimonial/{id}/delete', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('testimonial.delete');
+        Route::post('/testimonial/updateStatus', [App\Http\Controllers\Admin\TestimonialController::class, 'updateStatus'])->name('testimonial.updateStatus');
     });
 });
 

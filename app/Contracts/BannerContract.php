@@ -39,4 +39,10 @@ interface BannerContract
      * @return bool
      */
     public function deleteBanner($id);
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function updateBannerStatus(array $params);
 }
