@@ -15,7 +15,7 @@ interface AboutUsContract
      * @return mixed
      */
     public function listAboutUs(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
-
+    public function latestAboutUs(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
     /**
      * @param int $id
      * @return mixed

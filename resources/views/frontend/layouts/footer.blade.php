@@ -1,45 +1,71 @@
-    <!-- ==================== Before Footer Section ==================== -->
+@php
+$contactUs = App\Models\ContactUs::first();
+// $principals = App\Models\Principal::get();
+// $contactUs = $this->contactUsRepository->latestContactUs();
+@endphp
+
+<!-- ==================== Before Footer Section ==================== -->
     <section class="footer_top">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 mb-4 mb-sm-0">
                     <h5>Call Us</h5>
-                    <p>Sales - <a href="tel:9674759336">9674759336</a></p>
-                    <p>Support - <a href="tel:9674758730">9674758730</a></p>
+                    {{-- <p>Sales - <a href="tel:9674759336">9674759336</a></p> --}}
+                    <p>Sales - <a href="tel:9674759336">{{$contactUs->sales_phone}}</a></p>
+                    <p>Support - <a href="tel:9674758730">{{$contactUs->support_phone}}</a></p>
+                    {{-- <p>Support - <a href="tel:9674758730">9674758730</a></p> --}}
                 </div>
                 <div class="col-sm-4 mb-4 mb-sm-0">
                     <h5>Email Us At</h5>
-                    <p>Email - <a href="mailto:info@filingrabbit.in">info@filingrabbit.in</a></p>
+                    <p>Email - <a href="mailto:info@filingrabbit.in">{{$contactUs->email}}</a></p>
                 </div>
                 <div class="col-sm-4">
                     <h5>Connect With Us</h5>
                     <ul class="social_links">
                         <li>
-                            <a href="https://www.facebook.com/filingrabbit01" target="_blank">
+                            {{-- <a href="https://www.facebook.com/filingrabbit01" target="_blank">
+                                <i class="fab fa-facebook"></i>
+                            </a> --}}
+                            <a href="{{$contactUs->facebook_link}}" target="_blank">
                                 <i class="fab fa-facebook"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://twitter.com/filing_rabbit" target="_blank">
+                            {{-- <a href="https://twitter.com/filing_rabbit" target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a> --}}
+                            <a href="{{$contactUs->twitter_link}}" target="_blank">
                                 <i class="fab fa-twitter"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/company/filingrabbit" target="_blank">
+                            {{-- <a href="https://www.linkedin.com/company/filingrabbit" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                            </a> --}}
+                            <a href="{{$contactUs->instagram_link}}" target="_blank">
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.instagram.com/filingrabbit/" target="_blank">
+                            {{-- <a href="https://www.instagram.com/filingrabbit/" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a> --}}
+                            <a href="{{$contactUs->pinterest_link}}" target="_blank">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://in.pinterest.com/filingrabbit" target="_blank">
+                            {{-- <a href="https://in.pinterest.com/filingrabbit" target="_blank">
+                                <i class="fab fa-pinterest"></i>
+                            </a> --}}
+                            <a href="{{$contactUs->youtube_link}}" target="_blank">
                                 <i class="fab fa-pinterest"></i>
                             </a>
                         </li>
                         <li>
+                            {{-- <a href="https://www.youtube.com/channel/UCUlerUoNjflPjTxd9l1CatA" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                            </a> --}}
                             <a href="https://www.youtube.com/channel/UCUlerUoNjflPjTxd9l1CatA" target="_blank">
                                 <i class="fab fa-youtube"></i>
                             </a>

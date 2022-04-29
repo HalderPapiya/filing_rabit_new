@@ -15,7 +15,7 @@ interface ContactUsContract
      * @return mixed
      */
     public function listContactUs(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
-
+    // public function latestContactUs(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
     /**
      * @param int $id
      * @return mixed

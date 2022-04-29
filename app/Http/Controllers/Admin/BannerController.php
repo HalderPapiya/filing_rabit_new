@@ -58,9 +58,12 @@ class BannerController extends BaseController
         $this->validate($request, [
             'title' =>  'required',
             'short_description' =>  'required',
-            // 'video' =>  'required',
+            // 'video' =>  'max:50000',
         ]);
-
+        // $this->Validate($request,[
+        //     'file'=>'max:50000', //50MB
+        //     'syllabus'=>'max:50000'
+        // ]);
         $params = $request->except('_token');
 
         $data = $this->bannerRepository->createBanner($params);

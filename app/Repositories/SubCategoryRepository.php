@@ -100,6 +100,7 @@ class SubCategoryRepository extends BaseRepository implements SubCategoryContrac
         $collection = collect($params)->except('_token');
 
         $subCategory->title = $collection['title'];
+        $subCategory->category_id = $collection['categoryId'];
         //$category->status = $collection['status'];
 
         $subCategory->save();

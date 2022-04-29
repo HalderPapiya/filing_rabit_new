@@ -77,6 +77,16 @@
                 <span class="app-menu__label">Settings</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item product {{ request()->is('admin/product*') ? 'active' : '' }}" href="{{ route('admin.product.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Product</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item description {{ request()->is('admin/description*') ? 'active' : '' }}" href="{{ route('admin.description.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Description</span>
+            </a>
+        </li>
     </ul>
 </aside>
 

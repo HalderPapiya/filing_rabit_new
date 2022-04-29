@@ -24,12 +24,16 @@ Route::get('cache', function () {
 });
 
 
-Route::get('/', function () {
+// Route::get('/', function () {
 
-    return view('frontend.index');
-});
+Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
+// return view('frontend.index');
+// });
 Route::prefix('frontend')->name('frontend.')->group(function () {
+    // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
     Route::get('/blog', [App\Http\Controllers\Frontend\HomeController::class, 'blog'])->name('blog');
+    Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
+    Route::get('/product', [App\Http\Controllers\Frontend\HomeController::class, 'product'])->name('product');
 });
 
 
@@ -193,6 +197,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/testimonial/update', [App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('testimonial.update');
         Route::get('/testimonial/{id}/delete', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('testimonial.delete');
         Route::post('/testimonial/updateStatus', [App\Http\Controllers\Admin\TestimonialController::class, 'updateStatus'])->name('testimonial.updateStatus');
+
+        //-----------------Product----------------
+
+        Route::get('/product', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('product.index');
+        Route::get('/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('product.create');
+        Route::post('/product/store', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('product.store');
+        Route::get('/product/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('product.edit');
+        Route::post('/product/update', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('product.update');
+        Route::get('/product/{id}/delete', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('product.delete');
+        Route::post('/product/updateStatus', [App\Http\Controllers\Admin\ProductController::class, 'updateStatus'])->name('product.updateStatus');
+
+        //-----------------Description----------------
+
+        Route::get('/description', [App\Http\Controllers\Admin\DescriptionController::class, 'index'])->name('description.index');
+        Route::get('/description/create', [App\Http\Controllers\Admin\DescriptionController::class, 'create'])->name('description.create');
+        Route::post('/description/store', [App\Http\Controllers\Admin\DescriptionController::class, 'store'])->name('description.store');
+        Route::get('/description/edit/{id}', [App\Http\Controllers\Admin\DescriptionController::class, 'edit'])->name('description.edit');
+        Route::post('/description/update', [App\Http\Controllers\Admin\DescriptionController::class, 'update'])->name('description.update');
+        Route::get('/description/{id}/delete', [App\Http\Controllers\Admin\DescriptionController::class, 'destroy'])->name('description.delete');
+        Route::post('/description/updateStatus', [App\Http\Controllers\Admin\DescriptionController::class, 'updateStatus'])->name('description.updateStatus');
     });
 });
 

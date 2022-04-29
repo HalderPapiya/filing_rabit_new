@@ -54,40 +54,6 @@
                             </span>
                             @enderror
                         </div>
-                        {{-- <div class="form-group">
-                            <label class="control-label" for="subCategoryId">SubCategory <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control" type="readOnly"  value="{{$data->subcategory->title}} "/>
-                            <select class="form-control @error('subCategoryId') is-invalid @enderror" name="subCategoryId" id="subCategoryId" value="{{ old('
-                            ') }}">
-                                <option selected disabled>Select one</option>
-                                @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->title}}</option>
-                                @endforeach
-                            </select>
-                            @error('subCategoryId')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div> --}}
-                        {{-- <div class="form-group">
-                            <label class="control-label" for="name">Slug <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('slug') is-invalid @enderror" type="text" name="slug" id="slug" value="{{ old('slug') }}"/>
-                            @error('slug') {{ $message }} @enderror
-                        </div> --}}
-                        
-                        {{-- <div class="form-group toogle-lg">
-                            <label class="control-label">Status</label>
-                            <div class="toggle-button-cover">
-                                <div class="button-cover">
-                                    <div class="button-togglr b2" id="button-11">
-                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox">
-                                        <div class="knobs"><span>Inactive</span></div>
-                                        <div class="layer"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </form>
             </div>

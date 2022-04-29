@@ -40,6 +40,10 @@ class AboutUsRepository extends BaseRepository implements AboutUsContract
         return $this->all($columns, $order, $sort);
     }
 
+    public function latestAboutUs(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        return $this->model::orderBy('id', 'desc')->first();
+    }
     /**
      * @param int $id
      * @return mixed

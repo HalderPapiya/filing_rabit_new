@@ -31,6 +31,10 @@ use App\Contracts\TestimonialContract;
 use App\Repositories\TestimonialRepository;
 use App\Contracts\SubSubCategoryContract;
 use App\Repositories\SubSubCategoryRepository;
+use App\Contracts\ProductContract;
+use App\Repositories\ProductRepository;
+use App\Contracts\DescriptionContract;
+use App\Repositories\DescriptionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -49,6 +53,8 @@ class RepositoryServiceProvider extends ServiceProvider
         IndustriesServeContract::class =>  IndustriesServeRepository::class,
         TestimonialContract::class =>  TestimonialRepository::class,
         SubSubCategoryContract::class =>  SubSubCategoryRepository::class,
+        ProductContract::class =>  ProductRepository::class,
+        DescriptionContract::class =>  DescriptionRepository::class,
     ];
 
     /**

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Contracts\AboutUsContract;
 use App\Http\Controllers\Controller;
 use App\Contracts\SubCategoryContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\BlogContract;
+use App\Contracts\ContactUsContract;
+use App\Contracts\IndustriesServeContract;
+use App\Contracts\ProductContract;
+use App\Contracts\TestimonialContract;
+use App\Contracts\WhyUsContract;
 use App\Http\Controllers\BaseController;
+use App\Models\IndustriesServe;
 use Illuminate\Http\Request;
 
 class HomeController extends BaseController
@@ -19,11 +26,26 @@ class HomeController extends BaseController
      * @param CategoryContract $categoryRepository
      * @param BlogContract $blogRepository
      */
-    public function __construct(SubCategoryContract $subCategoryRepository, CategoryContract $categoryRepository,  BlogContract $blogRepository)
-    {
+    public function __construct(
+        SubCategoryContract $subCategoryRepository,
+        CategoryContract $categoryRepository,
+        BlogContract $blogRepository,
+        AboutUsContract $aboutUsRepository,
+        ProductContract $productRepository,
+        WhyUsContract $whyUsRepository,
+        IndustriesServeContract $industriesServeRepository,
+        TestimonialContract $testimonialRepository,
+        ContactUsContract $contactUsRepository
+    ) {
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
         $this->blogRepository = $blogRepository;
+        $this->aboutUsRepository = $aboutUsRepository;
+        $this->productRepository = $productRepository;
+        $this->whyUsRepository = $whyUsRepository;
+        $this->industriesServeRepository = $industriesServeRepository;
+        $this->testimonialRepository = $testimonialRepository;
+        $this->contactUsRepository = $contactUsRepository;
     }
 
 
@@ -34,12 +56,20 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        $categories = $this->categoryRepository->lisCategories();
+        $aboutUs = $this->aboutUsRepository->latestAboutUs();
+        // $contactUs = $this->contactUsRepository->latestContactUs();
+        // dd($aboutUs);
+        $categories = $this->categoryRepository->listCategories();
         $subCategories = $this->subCategoryRepository->listSubCategories();
+        $blogs = $this->blogRepository->listBlogs();
+        $products = $this->productRepository->listProducts();
+        $whyUs = $this->whyUsRepository->listWhyUs();
+        $IndustriesServes = $this->industriesServeRepository->listIndustriesServes();
+        $testimonials = $this->testimonialRepository->listTestimonials();
         $blogs = $this->blogRepository->listBlogs();
 
 
-        return view('frontend.blog', compact('subCategories', 'categories', 'blogs'));
+        return view('frontend.index', compact('subCategories', 'categories', 'blogs', 'aboutUs', 'products', 'whyUs', 'IndustriesServes', 'testimonials', 'blogs'));
     }
 
 
@@ -54,6 +84,21 @@ class HomeController extends BaseController
 
 
         return view('frontend.blog', compact('blogs'));
+    }
+
+    public function aboutUs()
+    {
+        $data = $this->aboutUsRepository->listAboutUs();
+
+
+        return view('frontend.about_us', compact('data'));
+    }
+    public function product()
+    {
+        $product = $this->productRepository->listProducts();
+
+
+        return view('frontend.product_details', compact('product'));
     }
     /**
      * Show the form for creating a new resource.

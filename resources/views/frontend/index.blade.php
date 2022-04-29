@@ -33,18 +33,19 @@
                         <h1>About Us</h1>
                     </div>
                     <p>
-                        We understand every start up is a bridge between dreams and reality. We understand how important
+                        {{-- We understand every start up is a bridge between dreams and reality. We understand how important
                         your start-up is to you, after all, we are one too! We all know it too well that in this
                         fish-eats-fish world, very few start-ups survive. This happens not because of the lack in
                         efforts but due to improper preparation and guidance. This is where we come into the picture. We
                         will help your stat -up shine bright like it is supposed to be while getting it an identity it
-                        deserves.
+                        deserves. --}}
+                        {!! $aboutUs->description !!}
                     </p>
 
                 </div>
 
                 <div class="col-sm-3">
-                    <a href="#" class="btn btn-dark-outline">Read more</a>
+                    <a href="{{ route('frontend.about-us')}}" class="btn btn-dark-outline">Read more</a>
                 </div>
 
             </div>
@@ -60,7 +61,25 @@
                 </div>
                 <div class="col-12">
                     <div class="product_slider">
+                        @foreach ($products as $product)
                         <div class="product_block">
+                            <figure>
+                                <a href="{{ route('frontend.product')}}">
+                                    <img class="img-fluid" src="{{URL::to('/').'/uploads/product/'}}{{$product->image}}">
+                                </a>
+                            </figure>
+                            <figcaption>
+                                <h3>
+                                    <a href="{{ route('frontend.product')}}">{{$product->name}}</a>
+                                </h3>
+                                <a href="{{ route('frontend.product')}}" class="btn btn-theme-outline">
+                                    <span class="price">{{$product->type_one_price}}</span>
+                                </a>
+                            </figcaption>
+                        </div>
+                        @endforeach
+                        
+                        {{-- <div class="product_block">
                             <figure>
                                 <a href="#">
                                     <img class="img-fluid" src="https://filingrabbit.in/wp-content/uploads/2021/03/product.jpg">
@@ -119,22 +138,7 @@
                                     <span class="price">₹11,000.00</span>
                                 </a>
                             </figcaption>
-                        </div>
-                        <div class="product_block">
-                            <figure>
-                                <a href="#">
-                                    <img class="img-fluid" src="https://filingrabbit.in/wp-content/uploads/2021/03/product.jpg">
-                                </a>
-                            </figure>
-                            <figcaption>
-                                <h3>
-                                    <a href="#">Non-Disclosure Agreement for Third Party/Employee</a>
-                                </h3>
-                                <a href="#" class="btn btn-theme-outline">
-                                    <span class="price">₹11,000.00</span>
-                                </a>
-                            </figcaption>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="product_arrow mt-4">
                         <ul class="d-flex justify-content-center align-items-center">
@@ -164,7 +168,20 @@
             <div class="row">
                 <div class="col-sm-12">
                     <ul class="why_us_list">
+                        @foreach ($whyUs as $key => $whyUs)
                         <li>
+                            <span>{{$key + 1}}</span>
+                            <img src="{{URL::to('/').'/uploads/why_us/'}}{{$whyUs->image}}">
+                            <h5>{{$whyUs->title}}:</h5>
+                            <p>
+                                {{-- Our company has been in the cloud based intellectual property service platform since the
+                                last 6 years. --}}
+                                {!!$whyUs->description!!}
+                                
+                            </p>
+                        </li> 
+                        @endforeach
+                        {{-- <li>
                             <span>1</span>
                             <img src="{{asset('frontend/img/power-plant.png')}}">
                             <h5>Been in the industry:</h5>
@@ -207,7 +224,7 @@
                                 We are a versatile patent and trademark platform with widespread activities in protection
                                 of intellectual property.
                             </p>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -298,17 +315,20 @@
                 </div>
                 <div class="col-12">
                     <div class="served_slider">
+                        @foreach ($IndustriesServes as $IndustriesServes)
                         <div class="rounded-custom text-center served-bg">
                             <div class="card-body p-0">
                                 <div class="icon">
-                                    <img src="{{asset('frontend/img/pharma.png')}}">
+                                    <img src="{{URL::to('/').'/uploads/industries_serve/'}}{{$IndustriesServes->image}}">
                                 </div>
                                 <div>
-                                    <h5 class="h6">PHARMACEUTICALS</h5>
+                                    <h5 class="h6">{{$IndustriesServes->title}}</h5>
                                 </div>
                             </div>
-                        </div>
-                        <div class="rounded-custom text-center served-bg">
+                        </div>     
+                        @endforeach
+                       
+                        {{-- <div class="rounded-custom text-center served-bg">
                             <div class="card-body p-0">
                                 <div class="icon">
                                     <img src="{{asset('frontend/img/automobile.png')}}">
@@ -367,7 +387,7 @@
                                     <h5 class="h6">CONSUMER DURABLES</h5>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="industry_arrow mt-4">
                         <ul class="d-flex justify-content-center align-items-center">
@@ -405,23 +425,27 @@
     <section class="vocal_bg">
         <div class="container">
             <div class="row align-items-center">
+                @foreach ($testimonials as $testimonial)
                 <div class="col-lg-4 col-md-4 col-sm-4 mb-4 mb-md-4 mb-lg-0 h-355" data-aos="fade-right"
-                    data-aos-duration="3000">
+                data-aos-duration="3000">
                     <div class="rounded-custom">
                         <div class="card-body p-0">
                             <div>
                                 <h5 class="h6">
-                                    We support the Startup India initiative that aims to accelerate entrepreneurship in
-                                    the country and create startups.
+                                    {{-- We support the Startup India initiative that aims to accelerate entrepreneurship in
+                                    the country and create startups. --}}
+                                    {{$testimonial->description}}
                                 </h5>
                             </div>
                             <div class="icon icon-md text-secondary pt-4">
-                                <img src="{{asset('frontend/img/startupindia.png')}}">
+                                <img src="{{URL::to('/').'/uploads/testimonial/'}}{{$testimonial->image}}">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 mb-4 mb-md-4 mb-lg-0 h-355" data-aos="fade-up"
+                @endforeach
+                
+                {{-- <div class="col-lg-4 col-md-4 col-sm-4 mb-4 mb-md-4 mb-lg-0 h-355" data-aos="fade-up"
                     data-aos-duration="1500">
                     <div class="rounded-custom">
                         <div class="card-body p-0">
@@ -452,7 +476,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -472,23 +496,28 @@
 
                 <div class="col-sm-7">
                     <div class="row">
+                        @foreach ($blogs as $blog)
                         <div class="col-sm-6">
                             <div class="blog_image">
-                                <img src="{{asset('frontend/img/The-legal-procedure-of-Trademark-Registration-and-hearing-in-India.jpg')}}" alt="Image not found" >
+                                <img src="{{URL::to('/').'/uploads/blog/'}}{{$blog->image}}" alt="Image not found" >
                             </div>
                             <div class="blog_content">
                                 <h3>
                                     <a href="#">
-                                        All You Need To Know About the Power Of Attorney Services
+                                        {{$blog->title}}
+                                        {{-- All You Need To Know About the Power Of Attorney Services --}}
                                     </a>
                                 </h3>
                                 <p>
-                                    A power of attorney (POA) is a legal authorization that offers a post to...
+                                    {!!$blog->description!!}
+                                    {{-- A power of attorney (POA) is a legal authorization that offers a post to... --}}
                                 </p>
-                                <a href="#" class="readmore_btn"><span>Read More</span></a>
+                                <a href="{{ route('frontend.blog')}}" class="readmore_btn"><span>Read More</span></a>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        @endforeach
+                        
+                        {{-- <div class="col-sm-6">
                             <div class="blog_image">
                                 <img src="{{asset('frontend/img/The-procedure-of-getting-copyright-with-all-the-legal-formalities.jpg')}}" alt="Image not found" >
                             </div>
@@ -504,7 +533,7 @@
                                 </p>
                                 <a href="#" class="readmore_btn"><span>Read More</span></a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

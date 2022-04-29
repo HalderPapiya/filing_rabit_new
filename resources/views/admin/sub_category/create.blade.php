@@ -39,24 +39,6 @@
                             </span>
                             @enderror
                         </div>
-                        {{-- <div class="form-group">
-                            <label class="control-label" for="name">Slug <span class="m-l-5 text-danger"> *</span></label>
-                            <input class="form-control @error('slug') is-invalid @enderror" type="text" name="slug" id="slug" value="{{ old('slug') }}"/>
-                            @error('slug') {{ $message }} @enderror
-                        </div> --}}
-                        
-                        {{-- <div class="form-group toogle-lg">
-                            <label class="control-label">Status</label>
-                            <div class="toggle-button-cover">
-                                <div class="button-cover">
-                                    <div class="button-togglr b2" id="button-11">
-                                        <input id="toggle-block" type="checkbox" name="status" class="checkbox">
-                                        <div class="knobs"><span>Inactive</span></div>
-                                        <div class="layer"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </form>
             </div>

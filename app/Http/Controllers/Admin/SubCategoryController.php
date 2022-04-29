@@ -82,10 +82,10 @@ class SubCategoryController extends BaseController
     public function edit($id)
     {
         $categories = $this->categoryRepository->listCategories();
-        $subCategory = $this->subCategoryRepository->findSubCategoryById($id);
+        $data = $this->subCategoryRepository->findSubCategoryById($id);
 
-        $this->setPageTitle('Subcategory', 'Edit Subcategory : ' . $subCategory->title);
-        return view('admin.sub_category.edit', compact('subCategory', 'categories'));
+        $this->setPageTitle('Subcategory', 'Edit Subcategory : ' . $data->title);
+        return view('admin.sub_category.edit', compact('data', 'categories'));
     }
 
     /**
