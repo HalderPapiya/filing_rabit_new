@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Contracts\SubCategoryContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\BlogContract;
+use App\Contracts\BannerContract;
 use App\Contracts\ContactUsContract;
 use App\Contracts\IndustriesServeContract;
 use App\Contracts\ProductContract;
+use App\Contracts\SettingContract;
 use App\Contracts\TestimonialContract;
 use App\Contracts\WhyUsContract;
 use App\Http\Controllers\BaseController;
@@ -21,7 +23,7 @@ class HomeController extends BaseController
 
     /**
      * HomeController constructor.
-     * 
+     *
      * @param SubCategoryContract $subCategoryRepository
      * @param CategoryContract $categoryRepository
      * @param BlogContract $blogRepository
@@ -35,7 +37,9 @@ class HomeController extends BaseController
         WhyUsContract $whyUsRepository,
         IndustriesServeContract $industriesServeRepository,
         TestimonialContract $testimonialRepository,
-        ContactUsContract $contactUsRepository
+        ContactUsContract $contactUsRepository,
+        BannerContract $bannerRepository,
+        SettingContract $settingRepository
     ) {
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
@@ -46,6 +50,8 @@ class HomeController extends BaseController
         $this->industriesServeRepository = $industriesServeRepository;
         $this->testimonialRepository = $testimonialRepository;
         $this->contactUsRepository = $contactUsRepository;
+        $this->bannerRepository = $bannerRepository;
+        $this->settingRepository = $settingRepository;
     }
 
 
@@ -57,8 +63,9 @@ class HomeController extends BaseController
     public function index()
     {
         $aboutUs = $this->aboutUsRepository->latestAboutUs();
+        $banner = $this->bannerRepository->latestBanner();
         // $contactUs = $this->contactUsRepository->latestContactUs();
-        // dd($aboutUs);
+        // dd($banner);
         $categories = $this->categoryRepository->listCategories();
         $subCategories = $this->subCategoryRepository->listSubCategories();
         $blogs = $this->blogRepository->listBlogs();
@@ -69,7 +76,7 @@ class HomeController extends BaseController
         $blogs = $this->blogRepository->listBlogs();
 
 
-        return view('frontend.index', compact('subCategories', 'categories', 'blogs', 'aboutUs', 'products', 'whyUs', 'IndustriesServes', 'testimonials', 'blogs'));
+        return view('frontend.index', compact('subCategories', 'categories', 'blogs', 'aboutUs', 'products', 'whyUs', 'IndustriesServes', 'testimonials', 'blogs','banner'));
     }
 
 
@@ -85,13 +92,29 @@ class HomeController extends BaseController
 
         return view('frontend.blog', compact('blogs'));
     }
+    public function contactUs()
+    {
+        $contact = $this->contactUsRepository->latestContactUs();
+
+
+        return view('frontend.contact', compact('contact'));
+    }
 
     public function aboutUs()
     {
+        // $blogs = $this->blogRepository->listBlogs();
+        $blogs = $this->blogRepository->latestBlog();
         $data = $this->aboutUsRepository->listAboutUs();
+        $aboutUs = $this->aboutUsRepository->latestAboutUs();
 
+        return view('frontend.about_us', compact('data','aboutUs','blogs'));
+    }
+    public function showBlog($id)
+    {
+        $blog = $this->blogRepository->findBlogById($id);
 
-        return view('frontend.about_us', compact('data'));
+        // $this->setPageTitle('Blog', 'Edit Category : ' . $blog->title);
+        return view('frontend.blog_details', compact('blog'));
     }
     public function product()
     {
@@ -99,6 +122,13 @@ class HomeController extends BaseController
 
 
         return view('frontend.product_details', compact('product'));
+    }
+    public function privacyPolicy()
+    {
+        $privacy = $this->settingRepository->privacyPolicy();
+
+// dd($privacy);
+        return view('frontend.privacy_policy', compact('privacy'));
     }
     /**
      * Show the form for creating a new resource.

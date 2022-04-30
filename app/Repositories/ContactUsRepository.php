@@ -40,10 +40,10 @@ class ContactUsRepository extends BaseRepository implements ContactUsContract
         return $this->all($columns, $order, $sort);
     }
 
-    // public function latestContactUs(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
-    // {
-    //     return $this->model::orderBy('id', 'desc')->first();
-    // }
+    public function latestContactUs(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        return $this->model::orderBy('id', 'desc')->first();
+    }
     /**
      * @param int $id
      * @return mixed

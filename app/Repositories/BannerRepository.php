@@ -40,6 +40,11 @@ class BannerRepository extends BaseRepository implements BannerContract
         return $this->all($columns, $order, $sort);
     }
 
+    public function latestBanner(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        return $this->model::orderBy('id', 'desc')->first();
+    }
+
     /**
      * @param int $id
      * @return mixed

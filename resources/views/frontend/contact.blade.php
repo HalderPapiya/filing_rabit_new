@@ -9,7 +9,7 @@
                         <h2 data-aos="fade-down" data-aos-duration="1000">Contact Us</h2>
                         <div class="shadow_text">Filingrabbit</div>
                     </div>
-                    <a href="#" class="home">Home</a> / <span>Contact Us</span>
+                    <a href="{{ route('home')}}" class="home">Home</a> / <span>Contact Us</span>
                 </div>
             </div>
         </div>
@@ -28,23 +28,27 @@
                         <ul class="contact_list">
                             <li>
                                 <h5>Address</h5>
-                                <p>Filing Rabbit, 56e, Hemanta Basu Sarani, Stephen House,<br> 2nd floor, Suite #27,
-                                    Kolkata - 700001</p>
+                                {{-- <p>Filing Rabbit, 56e, Hemanta Basu Sarani, Stephen House,<br> 2nd floor, Suite #27,
+                                    Kolkata - 700001</p> --}}
+                                    <p>{{$contact->address}}</p>
+
                             </li>
                             <li>
                                 <h5>E-mail</h5>
-                                <p><a href="mailto:info@filingrabbit.in">info@filingrabbit.in</a></p>
+                                <p><a href="mailto:info@filingrabbit.in">{{$contact->email}}</a></p>
                             </li>
                             <li>
                                 <h5>Phone</h5>
-                                <p><a href="tel:9674759336">9674759336</a></p>
+                                <p><a href="tel:9674759336">{{$contact->sales_phone}}</a></p>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <img class="img-fluid shadow-md"
-                        src="https://filingrabbit.in/wp-content/uploads/2021/06/course_image4.jpg">
+                        {{-- src="https://filingrabbit.in/wp-content/uploads/2021/06/course_image4.jpg"> --}}
+                        src=" {{URL::to('/').'/uploads/contact_us/'}}{{$contact->image}}">
+
                 </div>
             </div>
         </div>

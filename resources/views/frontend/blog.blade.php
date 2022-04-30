@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('content')
-    
+
     <!-- ==================== Blogs Body ==================== -->
     <section class="blog-body">
         <div class="container">
@@ -12,12 +12,12 @@
                     </div>
                     <div class="blog_content">
                         <h3>
-                            <a href="#">
+                            <a href="{{ route('frontend.blog.show', $blog['id']) }}">
                                 {{$blog->title}}
                             </a>
                         </h3>
                         <p> {!! substr($blog->description, 0, 200); !!}</p>
-                        <a href="#" class="readmore_btn"><span>Read More</span></a>
+                        <a href="{{ route('frontend.blog.show', $blog['id']) }}" class="readmore_btn"><span>Read More</span></a>
                     </div>
                 </div>
             @endforeach

@@ -2,7 +2,7 @@
 @section('content')
     <!-- ==================== Banner Section ==================== -->
     <section class="page_banner">
-        <div class="home_banner">
+        <!-- <div class="home_banner">
             <div class="banner_ratio">
                 <video width="320" height="240" loop="" autoplay="autoplay" muted="">
                     <source src="https://filingrabbit.in/wp-content/uploads/2021/10/Project-Name.mp4" type="video/mp4">
@@ -18,6 +18,26 @@
                         </div>
                         <h4>We do the hustle, so you don't have to hassle.</h4>
                         <a class="btn btn-theme-outline" href="#">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="home_banner">
+            <div class="banner_ratio">
+                <video width="320" height="240" loop="" autoplay="autoplay" muted="">
+                    <source src="{{URL::to('/').'/uploads/banners/'}}{{$banner->video}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="banner_caption">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="section_title">
+                            <h1>{{$banner->title}}</h1>
+                        </div>
+                        <h4>{!! $banner->short_description !!}</h4>
+                        <a class="btn btn-theme-outline" href="{{ route('frontend.about-us')}}">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -78,7 +98,7 @@
                             </figcaption>
                         </div>
                         @endforeach
-                        
+
                         {{-- <div class="product_block">
                             <figure>
                                 <a href="#">
@@ -177,9 +197,9 @@
                                 {{-- Our company has been in the cloud based intellectual property service platform since the
                                 last 6 years. --}}
                                 {!!$whyUs->description!!}
-                                
+
                             </p>
-                        </li> 
+                        </li>
                         @endforeach
                         {{-- <li>
                             <span>1</span>
@@ -204,7 +224,7 @@
                             <h5>Range:</h5>
                             <p>
                                 Our company offers a wide range of IP services- patent, trademark, design and copyright.
-                            
+
                             </p>
                         </li>
                         <li>
@@ -325,9 +345,9 @@
                                     <h5 class="h6">{{$IndustriesServes->title}}</h5>
                                 </div>
                             </div>
-                        </div>     
+                        </div>
                         @endforeach
-                       
+
                         {{-- <div class="rounded-custom text-center served-bg">
                             <div class="card-body p-0">
                                 <div class="icon">
@@ -444,7 +464,7 @@
                     </div>
                 </div>
                 @endforeach
-                
+
                 {{-- <div class="col-lg-4 col-md-4 col-sm-4 mb-4 mb-md-4 mb-lg-0 h-355" data-aos="fade-up"
                     data-aos-duration="1500">
                     <div class="rounded-custom">
@@ -516,7 +536,7 @@
                             </div>
                         </div>
                         @endforeach
-                        
+
                         {{-- <div class="col-sm-6">
                             <div class="blog_image">
                                 <img src="{{asset('frontend/img/The-procedure-of-getting-copyright-with-all-the-legal-formalities.jpg')}}" alt="Image not found" >

@@ -15,7 +15,7 @@ interface BlogContract
      * @return mixed
      */
     public function listBlogs(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
-
+    public function latestBlog(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
     /**
      * @param int $id
      * @return mixed

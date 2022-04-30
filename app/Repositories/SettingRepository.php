@@ -40,6 +40,10 @@ class SettingRepository extends BaseRepository implements SettingContract
         return $this->all($columns, $order, $sort);
     }
 
+    public function privacyPolicy(string $order = 'id', array $columns = ['*'])
+    {
+        return $this->model::where('key','privacy_policy')->orderBy('id', 'desc')->first();
+    }
     /**
      * @param int $id
      * @return mixed

@@ -1,3 +1,7 @@
+@php
+$category = App\Models\Category::get();
+
+@endphp
   <!-- ==================== Top Header ==================== -->
     <section class="top_header">
         <div class="container">
@@ -28,9 +32,9 @@
                 </div>
                 <div class="col-sm-7 text-center text-sm-right">
                     <ul id="menu-topmenu" class="top-menu">
-                        <li><a href="about.html" class="nav-link">About Us</a></li>
+                        <li><a href="{{ route('frontend.about-us')}}" class="nav-link">About Us</a></li>
                         <li><a href="{{ route('frontend.blog')}}" class="nav-link">Blog</a></li>
-                        <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                        <li><a href="{{ route('frontend.contact-us')}}" class="nav-link">Contact Us</a></li>
                         <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                     </ul>
                 </div>

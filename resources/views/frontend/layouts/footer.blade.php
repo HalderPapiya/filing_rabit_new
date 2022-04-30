@@ -107,7 +107,7 @@ $contactUs = App\Models\ContactUs::first();
                     <h4>Quick Links</h4>
                     <ul id="menu-footer-1" class="">
                         <li>
-                            <a href="#" class="nav-link">Privacy Policy</a>
+                            <a href="{{route('frontend.privacy-policy')}}" class="nav-link">Privacy Policy</a>
                         </li>
                         <li>
                             <a href="#" class="nav-link">Terms & Conditions</a>
@@ -127,13 +127,13 @@ $contactUs = App\Models\ContactUs::first();
                     <h4>Terms & Policies</h4>
                     <ul id="menu-quick-links" class="">
                         <li>
-                            <a href="#" class="nav-link">About Us</a>
+                            <a href="{{ route('frontend.about-us')}}" class="nav-link">About Us</a>
                         </li>
                         <li>
-                            <a href="https://filingrabbit.in/blog/" class="nav-link">Blog</a>
+                            <a href="{{ route('frontend.blog')}}" class="nav-link">Blog</a>
                         </li>
                         <li>
-                            <a href="https://filingrabbit.in/contact-us/" class="nav-link">Contact Us</a>
+                            <a href="{{ route('frontend.contact-us')}}" class="nav-link">Contact Us</a>
                         </li>
                         <li>
                             <a href="https://filingrabbit.in/cart/" class="nav-link">Cart</a>

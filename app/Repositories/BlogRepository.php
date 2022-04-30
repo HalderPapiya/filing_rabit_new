@@ -38,7 +38,10 @@ class BlogRepository extends BaseRepository implements BlogContract
     {
         return $this->all($columns, $order, $sort);
     }
-
+    public function latestBlog(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        return $this->model::orderBy('id', 'desc')->limit(2)->get();
+    }
     /**
      * @param int $id
      * @return mixed
