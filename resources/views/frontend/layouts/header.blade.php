@@ -1,5 +1,6 @@
 @php
-$category = App\Models\Category::get();
+$categories = App\Models\Category::get();
+$categories = App\Models\Category::get();
 
 @endphp
   <!-- ==================== Top Header ==================== -->
@@ -55,7 +56,74 @@ $category = App\Models\Category::get();
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
+                        @foreach ($categories as $category)
                         <li class="nav-item">
+                            <a href="javascript:void(0)" class="nav-link">
+                                {{$category->title}}
+                                {{-- Protecting your business --}}
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
+                            <div class="sub-menu">
+                                <div class="row m-0 h-100">
+                                    @foreach ($category->subCategory as $subcat)
+                                    <div class="col-md-3 col-sm-6 col-12 mb-4 mb-sm-0">
+                                        <h4>{{$subcat->title}}</h4>
+                                        <ul>
+                                            @foreach ($subcat->product as $product)
+                                            <li><a href="{{ route('frontend.product.show', $product['id']) }}">{{$product->name}}</a></li>
+
+                                            @endforeach
+                                            {{-- product --}}
+                                            {{-- <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li> --}}
+                                        </ul>
+                                    </div>
+                                    @endforeach
+                                    {{-- <div class="col-md-3 col-sm-6 col-12 mb-4 mb-sm-0">
+                                        <h4>Trademark</h4>
+                                        <ul>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-12 mb-4 mb-sm-0">
+                                        <h4>Copyright</h4>
+                                        <ul>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-12 mb-4 mb-sm-0">
+                                        <h4>Patent</h4>
+                                        <ul>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-12 mb-4 mb-sm-0">
+                                        <h4>Industrial Design</h4>
+                                        <ul>
+                                            <li><a href="#">Lorem ipsum</a></li>
+                                        </ul>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+
+                        {{-- <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link">
                                 Protecting your business
                                 <i class="fa fa-chevron-down"></i>
@@ -99,8 +167,8 @@ $category = App\Models\Category::get();
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="nav-item">
+                        </li> --}}
+                        {{-- <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link">
                                 Legal Draft
                                 <i class="fa fa-chevron-down"></i>
@@ -144,7 +212,7 @@ $category = App\Models\Category::get();
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </nav>

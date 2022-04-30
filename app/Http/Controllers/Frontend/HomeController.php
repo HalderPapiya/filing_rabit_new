@@ -116,6 +116,13 @@ class HomeController extends BaseController
         // $this->setPageTitle('Blog', 'Edit Category : ' . $blog->title);
         return view('frontend.blog_details', compact('blog'));
     }
+    public function showProduct($id)
+    {
+        $blog = $this->productRepository->findProductById($id);
+
+        // $this->setPageTitle('Blog', 'Edit Category : ' . $blog->title);
+        return view('frontend.product_details', compact('blog'));
+    }
     public function product()
     {
         $product = $this->productRepository->listProducts();

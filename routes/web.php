@@ -33,6 +33,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
     Route::get('/blog', [App\Http\Controllers\Frontend\HomeController::class, 'blog'])->name('blog');
     Route::get('/blog-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showBlog'])->name('blog.show');
+    Route::get('/product-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showProduct'])->name('product.show');
     Route::get('/contact-us', [App\Http\Controllers\Frontend\HomeController::class, 'contactUs'])->name('contact-us');
     Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
     Route::get('/product', [App\Http\Controllers\Frontend\HomeController::class, 'product'])->name('product');
