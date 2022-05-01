@@ -14,6 +14,7 @@ use App\Contracts\ProductContract;
 use App\Contracts\SettingContract;
 use App\Contracts\TestimonialContract;
 use App\Contracts\WhyUsContract;
+use App\Contracts\DescriptionContract;
 use App\Http\Controllers\BaseController;
 use App\Models\IndustriesServe;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class HomeController extends BaseController
         TestimonialContract $testimonialRepository,
         ContactUsContract $contactUsRepository,
         BannerContract $bannerRepository,
-        SettingContract $settingRepository
+        SettingContract $settingRepository,
+        DescriptionContract $descriptionRepository
     ) {
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
@@ -52,6 +54,7 @@ class HomeController extends BaseController
         $this->contactUsRepository = $contactUsRepository;
         $this->bannerRepository = $bannerRepository;
         $this->settingRepository = $settingRepository;
+        $this->descriptionRepository = $descriptionRepository;
     }
 
 
@@ -118,10 +121,13 @@ class HomeController extends BaseController
     }
     public function showProduct($id)
     {
-        $blog = $this->productRepository->findProductById($id);
-
+        $product = $this->productRepository->findProductById($id);
+        $productDes = $this->productRepository->listProductsDescription($product);
+        
+        // $productDes = $this->descriptionRepository->productWiseDescriptions($id);
+        // dd($productDes);
         // $this->setPageTitle('Blog', 'Edit Category : ' . $blog->title);
-        return view('frontend.product_details', compact('blog'));
+        return view('frontend.product_details', compact('product','productDes'));
     }
     public function product()
     {
@@ -130,6 +136,13 @@ class HomeController extends BaseController
 
         return view('frontend.product_details', compact('product'));
     }
+    public function productDescription()
+    {
+       
+
+        return view('frontend.product_details', compact('product'));
+    }
+    // productWiseDescriptions
     public function privacyPolicy()
     {
         $privacy = $this->settingRepository->privacyPolicy();

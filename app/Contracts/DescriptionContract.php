@@ -15,7 +15,8 @@ interface DescriptionContract
      * @return mixed
      */
     public function listDescriptions(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
-
+    // public function listProductsDescription();
+    public function productWiseDescriptions();
     /**
      * @param int $id
      * @return mixed

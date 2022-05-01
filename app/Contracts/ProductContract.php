@@ -15,7 +15,7 @@ interface ProductContract
      * @return mixed
      */
     public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
-
+    public function listProductsDescription();
     /**
      * @param int $id
      * @return mixed

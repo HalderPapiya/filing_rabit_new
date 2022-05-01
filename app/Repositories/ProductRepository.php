@@ -39,6 +39,11 @@ class ProductRepository extends BaseRepository implements ProductContract
     {
         return $this->all($columns, $order, $sort);
     }
+    public function listProductsDescription()
+    {
+        // $productDes = $this->descriptionRepository->productWiseDescriptions($product);
+        return $this->model::with('productDescription')->get();
+    }
 
     /**
      * @param int $id

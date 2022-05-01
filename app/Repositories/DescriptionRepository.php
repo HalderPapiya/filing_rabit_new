@@ -39,6 +39,12 @@ class DescriptionRepository extends BaseRepository implements DescriptionContrac
     {
         return $this->all($columns, $order, $sort);
     }
+    public function productWiseDescriptions(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    {
+        // $desId = $this->findOneOrFail($params['id']);
+        // return $this->model::where('product_id','id')->get($columns, $order, $sort);
+        return $this->model::with('productDetails')->get();
+    }
 
     /**
      * @param int $id

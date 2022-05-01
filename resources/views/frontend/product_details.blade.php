@@ -5,20 +5,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 order-2 order-md-1">
-                    <h1>Copyright Registration</h1>
+                    <h1>{{$product->name}}</h1>
                     <div class="variations">
                         <h6>Package</h6>
                         <ul class="d-flex">
-                            <li class="active">Essential</li>
-                            <li>Prime</li>
+                            <li class="active">{{$product->type_one_name}}</li>
+                            <li>{{$product->type_two_name}}</li>
+                            <!-- <li>Prime</li> -->
                         </ul>
                     </div>
-                    <p>
-                        Copyright registrations for logos, books, periodicals & magazines. Inclusive of government fee &
-                        taxes
+                    <p>{!! $product->type_one_description !!}
+                        
+                        <!-- Copyright registrations for logos, books, periodicals & magazines. Inclusive of government fee &
+                        taxes -->
                     </p>
                     <div class="price">
-                        <span> &#x20B9; 15,000/-</span>
+                        <span> &#x20B9; {{$product->type_one_price}}/-</span>
                     </div>
                     <button class="btn w-auto ur-submit-button">Purchase</button>
                 </div>
@@ -33,6 +35,7 @@
     <section class="py-4 py-lg-5 product__content">
         <div class="container">
             <div class="row">
+                @foreach( $productDes as $des)
                 <div class="col-12">
                     <h2 class="blue-heading text-left">Copyright Registration</h2>
                     <h3>What is a copyright?</h3>
@@ -43,12 +46,14 @@
                         rights.
                     </p>
                     <p>
+                        {{$des->description}}
                         Registration of copyright is necessary for an author for the creative work to be reproduced,
                         translated, adapted, and communicated to the public. Copyright is an exclusive right to enjoy
                         the benefits arising from one's own creative work, and no other creator can infringe on those
                         rights. A copyright protection is granted for a time period of 60 years.
                     </p>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>
