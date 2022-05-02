@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Jost:wght@300;400;500;600;700&display=swap');
-
 * {
     padding: 0;
     margin: 0
@@ -88,6 +87,7 @@ label a {
     margin-top: .155em;
     vertical-align: middle
 }
+
 
 /* .pt-9 {
     padding-top: 8.5rem !important
@@ -630,7 +630,6 @@ ul {
     font-size: 14px
 }
 
-
 .product-thumb .item img {
     height: 100px
 }
@@ -1080,8 +1079,6 @@ ul {
     font-weight: normal;
     font-family: 'Montserrat', sans-serif !important
 }
-
-
 
 .woocommerce table.shop_table td {
     font-size: 16px
@@ -1735,7 +1732,8 @@ ul {
     padding: 65px 0
 }
 
-.product_Section h2, .blue-heading {
+.product_Section h2,
+.blue-heading {
     text-transform: uppercase;
     font-size: 60px;
     font-weight: 700;
@@ -1767,7 +1765,6 @@ ul {
     font-size: 20px;
     color: #26a541
 }
-
 
 .shadow_text {
     font-size: 100px;
@@ -2026,26 +2023,28 @@ ul {
     background-blend-mode: multiply;
     color: #fff;
 }
+
 .poster_section h2 {
     text-transform: uppercase;
     font-size: 30px;
     font-weight: 700;
     line-height: 1.2;
     color: #001659;
-	margin:0 0 20px;
+    margin: 0 0 20px;
     text-shadow: 2px 6px 5px rgb(255 255 255 / 10%);
 }
 
-.tnp-subscription input[type=text], 
+.tnp-subscription input[type=text],
 .tnp-subscription input[type=email] {
     background: transparent;
     border: none;
     border-bottom: 2px solid #f1d231;
     padding: 10px 0;
-	color: #fff;
+    color: #fff;
     width: 100%;
     margin-bottom: 15px;
 }
+
 .tnp-subscription input[type=submit] {
     background: #f1d231;
     box-shadow: 0 10px 20px 0 rgb(241 210 49 / 50%);
@@ -2054,31 +2053,37 @@ ul {
     text-transform: uppercase;
     padding: 14px 40px;
     color: #000;
-	border-radius: 4px;
+    border-radius: 4px;
     width: 100%;
 }
+
 .footer_top {
     display: block;
     padding: 25px 0;
-	background: #f4f4fc;
+    background: #f4f4fc;
 }
+
 .footer_top h5 {
     text-transform: uppercase;
-	font-size: 14px;
-	margin-bottom: 15px;
+    font-size: 14px;
+    margin-bottom: 15px;
 }
+
 .footer_top p {
-	margin-bottom: 00;
+    margin-bottom: 00;
 }
+
 .footer_top a {
-	color: #00235a;
+    color: #00235a;
 }
+
 .social_links li a {
-	color: #00235a;
-	padding: 10px 0;
+    color: #00235a;
+    padding: 10px 0;
     margin-right: 20px;
     font-size: 20px;
 }
+
 .testimonial_section {
     display: block;
     padding: 100px 0;
@@ -2226,13 +2231,15 @@ ul {
     width: 38%;
     height: 100%
 }
+
 .product__content {
     display: block;
     padding: 100px 0 0
 }
 
 .product__content p {
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    font-weight: 400;
 }
 
 .product__content ul {
@@ -2241,20 +2248,32 @@ ul {
     padding-left: 25px
 }
 
+
+/* 
 .product__content ol {
     margin-bottom: 20px;
     padding-left: 25px
-}
+} */
 
 .product__content ul li {
     margin-bottom: 15px
 }
 
-.product__content h3 {
+.product__content h3,
+.product__content .main-ol>li {
     margin-bottom: 25px;
     margin-top: 15px;
     font-size: 25px;
     font-weight: 600;
+}
+
+.product__content ol li {
+    margin: 0;
+}
+
+.product__content .inner-ol li {
+    font-weight: 400;
+    font-size: 15px;
 }
 
 .product__content h5 {
@@ -2269,6 +2288,8 @@ ul {
     margin-top: 15px;
     margin-bottom: 20px
 }
+
+
 /* 
 .section_title h2 {
     text-transform: uppercase;
@@ -2496,6 +2517,7 @@ footer p {
     display: inline-block;
     margin: 0
 }
+
 
 /* .social_links li a {
     display: block;
@@ -3369,11 +3391,14 @@ footer ul li a.nav-link {
 
 /* Extra Custom CSS  */
 
-.industry_arrow ul li, .product_arrow ul li{
+.industry_arrow ul li,
+.product_arrow ul li {
     padding: 0 20px;
     cursor: pointer;
 }
-.industry_arrow ul li i, .product_arrow ul li i{
+
+.industry_arrow ul li i,
+.product_arrow ul li i {
     font-size: 21px;
     padding: 12px;
     border-radius: 50%;
@@ -3381,15 +3406,18 @@ footer ul li a.nav-link {
     color: #26a541;
 }
 
+
 /* Header  */
-.header .logo{
+
+.header .logo {
     max-width: 178px;
 }
-.header nav{
+
+.header nav {
     padding: 10px 0;
 }
 
-.header .navbar-nav .nav-item .nav-link{
+.header .navbar-nav .nav-item .nav-link {
     color: #00235a;
     font-size: 14px;
     font-weight: 500;
@@ -3398,10 +3426,12 @@ footer ul li a.nav-link {
     letter-spacing: 0;
     padding: 28px 15px;
 }
-.header .navbar-nav .nav-item .nav-link:hover{
+
+.header .navbar-nav .nav-item .nav-link:hover {
     color: #fcc741;
 }
-.header nav .sub-menu{
+
+.header nav .sub-menu {
     position: absolute;
     left: 0;
     top: 100%;
@@ -3418,19 +3448,22 @@ footer ul li a.nav-link {
     z-index: 99;
     padding: 30px;
 }
-.header .navbar-collapse > ul > li:hover .sub-menu{
+
+.header .navbar-collapse>ul>li:hover .sub-menu {
     opacity: 1;
     visibility: visible;
     top: 100%;
 }
-.sub-menu h4{
+
+.sub-menu h4 {
     font-size: 15px;
     font-weight: 500;
     color: #020101;
     padding-bottom: 10px;
     text-transform: uppercase;
 }
-.sub-menu ul li a{
+
+.sub-menu ul li a {
     display: inline-block;
     font-size: 14px;
     font-weight: 400;
@@ -3438,68 +3471,86 @@ footer ul li a.nav-link {
     line-height: 24px;
     padding: 3px 0;
 }
-.sub-menu ul li a:hover{
+
+.sub-menu ul li a:hover {
     color: #2964d8;
 }
-.cart-banner{
+
+.cart-banner {
     background: #f4f4fc;
 }
-.cart-details-table{
+
+.cart-details-table {
     border: 1px solid #efefef;
     background-color: #f4f4fc;
     padding: 15px;
 }
-.cart-details-table tr:first-child th, .cart-details-table tr:first-child td{
+
+.cart-details-table tr:first-child th,
+.cart-details-table tr:first-child td {
     border-top: 0;
     padding-top: 0;
 }
-.cart-details-table th i{
+
+.cart-details-table th i {
     color: #ff2c14;
 }
-.cart-details-table td, .cart-details-table th{
+
+.cart-details-table td,
+.cart-details-table th {
     padding: 18px 0;
     font-size: 18px;
     font-weight: 600;
 }
-.cart-details-table td:last-child{
+
+.cart-details-table td:last-child {
     text-align: right;
     font-weight: 400;
 }
-.cart-details-table h5{
+
+.cart-details-table h5 {
     font-size: 26px;
     color: #001659;
     padding-bottom: 25px;
 }
 
+
 /* Checkout Page  */
-.site-header img{
+
+.site-header img {
     max-width: 200px;
     height: auto;
     object-fit: contain;
 }
-.view-cart-message{
+
+.view-cart-message {
     padding: 12px 25px;
     border-top: 3px solid #1e85be;
     background-color: #f4f4fc;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
     margin-bottom: 35px;
     flex-wrap: wrap;
 }
-.view-cart-message.green{
+
+.view-cart-message.green {
     border-color: #1ead6b;
 }
-.view-cart-message p{
+
+.view-cart-message p {
     font-size: 17px;
     font-weight: 400;
 }
-.view-cart-message.green p i{
+
+.view-cart-message.green p i {
     color: #1ead6b;
 }
-.view-cart-message p i{
+
+.view-cart-message p i {
     color: #1e85be;
     padding-right: 8px;
 }
-.checkout-card{
+
+.checkout-card {
     box-shadow: -10px 10px 45px 0 rgb(122 131 153 / 60%);
     border-radius: 40px;
     background: #fff;
@@ -3507,14 +3558,18 @@ footer ul li a.nav-link {
     display: flex;
     margin: 30px 0;
 }
-.checkout_left{
+
+.checkout_left {
     padding: 80px 50px;
     background: #00235a;
 }
-.checkout_right{
+
+.checkout_right {
     padding: 80px 50px;
 }
-.checkout_left h3, .checkout_right h3{
+
+.checkout_left h3,
+.checkout_right h3 {
     text-transform: uppercase;
     font-size: 30px;
     font-weight: 700;
@@ -3523,30 +3578,36 @@ footer ul li a.nav-link {
     text-shadow: 2px 6px 5px rgb(0 0 0 / 10%);
     margin: 0 0 25px;
 }
-.checkout_right h3{
+
+.checkout_right h3 {
     color: #00235a;
 }
-.checkout_left .form-control{
+
+.checkout_left .form-control {
     border-radius: 0;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border: none;
     border-bottom: 2px solid #f1d231;
     padding: 10px 0;
     line-height: 20px;
     color: #fff;
 }
-.checkout_left label{
+
+.checkout_left label {
     color: #9ca5af;
 }
-.checkout_left option{
+
+.checkout_left option {
     background-color: #fff;
     color: #000;
 }
-.checkout_left option:checked{
+
+.checkout_left option:checked {
     background-color: #0073aa;
     color: #fff;
 }
-.pay_box{
+
+.pay_box {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -3558,7 +3619,8 @@ footer ul li a.nav-link {
     background-color: #dfdcde;
     color: #515151;
 }
-.pay_box::before{
+
+.pay_box::before {
     content: "";
     display: block;
     border: 1em solid #dfdcde;
@@ -3570,26 +3632,33 @@ footer ul li a.nav-link {
     left: 0;
     margin: -1em 0 0 2em;
 }
-.checkout-table tr td, .checkout-table tr th{
+
+.checkout-table tr td,
+.checkout-table tr th {
     font-size: 16px;
     font-weight: 600;
 }
-.checkout-table tr td:last-child, .checkout-table tr th:last-child{
+
+.checkout-table tr td:last-child,
+.checkout-table tr th:last-child {
     text-align: right;
     padding-right: 30px;
 }
 
+
 /* ========== Accounts CSS ========== */
 
-.my-account-navigation{
+.my-account-navigation {
     z-index: 98;
     top: 120px;
 }
-.my-account-navigation ul li{
+
+.my-account-navigation ul li {
     margin-bottom: 15px;
     display: block;
 }
-.my-account-navigation ul li a{
+
+.my-account-navigation ul li a {
     padding: 12px 35px;
     background-color: #0a1229;
     border-radius: 4px;
@@ -3598,26 +3667,34 @@ footer ul li a.nav-link {
     font-size: 16px;
     font-weight: 500;
 }
-.my-account-navigation ul li.active a, .my-account-navigation ul li:hover a{
+
+.my-account-navigation ul li.active a,
+.my-account-navigation ul li:hover a {
     background: #f1d231;
     box-shadow: 0 10px 20px 0 rgb(241 210 49 / 50%);
     color: #000;
 }
-.my-account-form-wrapper input,.my-account-form-wrapper select{
+
+.my-account-form-wrapper input,
+.my-account-form-wrapper select {
     padding: 10px;
     line-height: 30px;
     border: none;
     border-radius: 0;
     border-bottom: 2px solid #f1d231;
 }
-.my-account-form-wrapper select, .my-account-form-wrapper select:focus{
+
+.my-account-form-wrapper select,
+.my-account-form-wrapper select:focus {
     background: none;
 }
-.ac_section{
+
+.ac_section {
     position: relative;
     padding: 3rem 0;
 }
-.ac_section::before{
+
+.ac_section::before {
     background: #00235a;
     position: absolute;
     content: "";
@@ -3626,7 +3703,8 @@ footer ul li a.nav-link {
     width: 26%;
     height: 100%;
 }
-.my-account-form-wrapper h3{
+
+.my-account-form-wrapper h3 {
     text-transform: uppercase;
     font-size: 30px;
     font-weight: 700;
@@ -3635,12 +3713,14 @@ footer ul li a.nav-link {
     text-shadow: 2px 6px 5px rgb(0 0 0 / 10%);
     padding-bottom: 18px;
 }
-.product-banner{
+
+.product-banner {
     padding: 50px 0;
     background: #f8f8fc;
     position: relative;
 }
-.product-banner::before{
+
+.product-banner::before {
     background: #00235a;
     position: absolute;
     content: "";
@@ -3649,40 +3729,47 @@ footer ul li a.nav-link {
     width: 38%;
     height: 100%;
 }
-.product-banner h1{
+
+.product-banner h1 {
     font-size: 30px;
     margin-bottom: 15px;
     line-height: 1.2;
     font-weight: 700;
     color: #020101;
 }
-.product-banner .variations{
+
+.product-banner .variations {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     padding: 20px 0;
 }
-.product-banner .variations h6{
+
+.product-banner .variations h6 {
     text-transform: uppercase;
     color: #000;
     line-height: 40px;
     font-weight: 400;
     margin-right: 50px;
 }
-.variations ul{
+
+.variations ul {
     flex-wrap: wrap;
     align-items: center;
     margin: 0;
     box-shadow: 0 10px 20px 0 rgb(241 210 49 / 50%) !important;
 }
-.variations ul li{
+
+.variations ul li {
     border: 2px solid #f1d231 !important;
     padding: 10px 20px;
 }
-.variations ul li.active{
+
+.variations ul li.active {
     background: #f1d231;
 }
-.price{
+
+.price {
     font-size: 30px;
     font-weight: 600;
     color: #26a541;
@@ -3690,41 +3777,52 @@ footer ul li a.nav-link {
     margin-bottom: 15px;
 }
 
-.ur-submit-button:hover{
+.ur-submit-button:hover {
     background: #00235a;
     border: 2px solid #00235a;
     box-shadow: 0 10px 20px 0 rgb(0 35 90 / 50%);
     color: #fff;
 }
-.light-bg{
+
+.light-bg {
     background-color: #f8f8fc;
 }
-.img-800{
+
+.img-800 {
     width: 100%;
     height: 800px;
     object-fit: scale-down;
 }
 
+
 /* FAQ Accordion */
-.acc__panel{
+
+.acc__panel {
     display: none;
 }
-.acc__card{
+
+.acc__card {
     margin-bottom: 10px;
 }
-.acc__card .acc__title{
+
+.acc__card .acc__title {
     padding: 15px 20px;
     background-color: #001659;
     cursor: pointer;
     transition: all 300ms ease-in-out;
 }
-.acc__card .acc__title:hover, .acc__card .acc__title.active{
+
+.acc__card .acc__title:hover,
+.acc__card .acc__title.active {
     background-color: #f1d231;
 }
-.acc__card .acc__title:hover h4, .acc__card .acc__title.active h4{
+
+.acc__card .acc__title:hover h4,
+.acc__card .acc__title.active h4 {
     color: #001659;
 }
-.acc__title h4{
+
+.acc__title h4 {
     color: #fff;
     font-size: 18px;
     font-weight: 500;
@@ -3733,16 +3831,19 @@ footer ul li a.nav-link {
     justify-content: space-between;
     transition: all 300ms ease-in-out;
 }
-.acc__title i{
+
+.acc__title i {
     transition: all 300ms ease-in-out;
 }
-.acc__title.active i{
+
+.acc__title.active i {
     transform: rotate(90deg);
 }
 
-.acc__card .acc__panel{
+.acc__card .acc__panel {
     padding: 10px 20px;
 }
-.faq{
+
+.faq {
     background-color: #f8f8fc;
 }

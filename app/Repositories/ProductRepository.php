@@ -5,7 +5,9 @@ namespace App\Repositories;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\ProductContract;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
@@ -23,10 +25,11 @@ class ProductRepository extends BaseRepository implements ProductContract
      * ProductRepository constructor.
      * @param Product $model
      */
-    public function __construct(Product $model)
+    public function __construct(Product $model, SubCategory $subCatModel)
     {
-        parent::__construct($model);
+        parent::__construct($model, $subCatModel);
         $this->model = $model;
+        $this->subCatModel = $subCatModel;
     }
 
     /**
@@ -38,6 +41,11 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
+    }
+    public function listProductsSubCatWise(int $id)
+    {
+        // return $this->subCatModel::where('id', $id)->first(); also this is right
+        return $this->subCatModel::with('product')->where('id', $id)->first();
     }
     public function listProductsDescription()
     {

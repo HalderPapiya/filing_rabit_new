@@ -23,10 +23,10 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\SubCategory', 'subCategory_id', 'id');
     }
-    public function subCategory()
-    {
-        return $this->belongsTo('App\Models\Category', 'subCategory_id', 'id');
-    }
+    // public function subCategory()
+    // {
+    //     return $this->belongsTo('App\Models\SubCategory', 'subCategory_id', 'id');
+    // }
     public function productDescription()
     {
         return $this->hasMany('App\Models\Description', 'product_id', 'id');

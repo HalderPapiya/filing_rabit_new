@@ -260,7 +260,19 @@
                         <h2 data-aos="fade-down" data-aos-duration="1000">Our Process</h2>
                     </div>
                 </div>
+                @foreach ($processes as $processes)
                 <div class="col-sm-2 p_step">
+                    <div class="process_wrap bg-danger">
+                        <div class="process_block">
+                            <h5>{{$processes->title}}</h5>
+                        </div>
+                        <div class="process_rblock">
+                            <p>{{$processes->description}}</p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                {{-- <div class="col-sm-2 p_step">
                     <div class="process_wrap bg-danger">
                         <div class="process_block">
                             <h5>1.Understanding Requirements</h5>
@@ -319,7 +331,7 @@
                             <p>Maintenance of work which is deployed to client.</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>

@@ -33,12 +33,13 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
     Route::get('/blog', [App\Http\Controllers\Frontend\HomeController::class, 'blog'])->name('blog');
     Route::get('/blog-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showBlog'])->name('blog.show');
-    Route::get('/product-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showProduct'])->name('product.show');
     Route::get('/contact-us', [App\Http\Controllers\Frontend\HomeController::class, 'contactUs'])->name('contact-us');
     Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
-    Route::get('/product', [App\Http\Controllers\Frontend\HomeController::class, 'product'])->name('product');
     Route::get('/privacy-policy', [App\Http\Controllers\Frontend\HomeController::class, 'privacyPolicy'])->name('privacy-policy');
-
+    // -------------product-----------
+    Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');
+    Route::get('/product-details/{id}', [App\Http\Controllers\Frontend\ProductController::class, 'showProduct'])->name('product.show');
+    Route::get('/subcategory/{id}/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product.list');
 });
 
 
@@ -222,6 +223,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/description/update', [App\Http\Controllers\Admin\DescriptionController::class, 'update'])->name('description.update');
         Route::get('/description/{id}/delete', [App\Http\Controllers\Admin\DescriptionController::class, 'destroy'])->name('description.delete');
         Route::post('/description/updateStatus', [App\Http\Controllers\Admin\DescriptionController::class, 'updateStatus'])->name('description.updateStatus');
+
+        //-----------------Process----------------
+
+        Route::get('/process', [App\Http\Controllers\Admin\ProcessController::class, 'index'])->name('process.index');
+        Route::get('/process/create', [App\Http\Controllers\Admin\ProcessController::class, 'create'])->name('process.create');
+        Route::post('/process/store', [App\Http\Controllers\Admin\ProcessController::class, 'store'])->name('process.store');
+        Route::get('/process/edit/{id}', [App\Http\Controllers\Admin\ProcessController::class, 'edit'])->name('process.edit');
+        Route::post('/process/update', [App\Http\Controllers\Admin\ProcessController::class, 'update'])->name('process.update');
+        Route::get('/process/{id}/delete', [App\Http\Controllers\Admin\ProcessController::class, 'destroy'])->name('process.delete');
+        Route::post('/process/updateStatus', [App\Http\Controllers\Admin\ProcessController::class, 'updateStatus'])->name('process.updateStatus');
     });
 });
 

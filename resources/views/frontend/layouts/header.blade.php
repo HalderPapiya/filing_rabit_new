@@ -1,6 +1,8 @@
 @php
 $categories = App\Models\Category::get();
 $categories = App\Models\Category::get();
+$products = App\Models\Category::get();
+$contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
 
 @endphp
   <!-- ==================== Top Header ==================== -->
@@ -17,7 +19,7 @@ $categories = App\Models\Category::get();
                                 </path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
-                            <a href="mainto:info@filingrabbit.in">info@filingrabbit.in</a>
+                            <a href="mainto:info@filingrabbit.in">{{$contactUs->email}}</a>
                         </li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"
@@ -27,7 +29,7 @@ $categories = App\Models\Category::get();
                                     d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                                 </path>
                             </svg>
-                            <a href="tel:9674759336">9674759336</a>
+                            <a href="tel:9674759336">{{$contactUs->sales_phone}}</a>
                         </li>
                     </ul>
                 </div>
@@ -47,8 +49,8 @@ $categories = App\Models\Category::get();
     <section class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand logo" href="index.html">
-                    <img class="img-fluid" src="img/logo.png" alt="">
+                <a class="navbar-brand logo" href="{{ route('home')}}">
+                    <img class="img-fluid" src="{{asset('frontend/img/logo.png')}}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +69,7 @@ $categories = App\Models\Category::get();
                                 <div class="row m-0 h-100">
                                     @foreach ($category->subCategory as $subcat)
                                     <div class="col-md-3 col-sm-6 col-12 mb-4 mb-sm-0">
-                                        <h4>{{$subcat->title}}</h4>
+                                        <a href="{{ route('frontend.product.list', $subcat['id']) }}" class="nav-link"><h4>{{$subcat->title}}</h4></a>
                                         <ul>
                                             @foreach ($subcat->product as $product)
                                             <li><a href="{{ route('frontend.product.show', $product['id']) }}">{{$product->name}}</a></li>

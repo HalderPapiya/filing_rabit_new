@@ -2,28 +2,28 @@
 
 namespace App\Repositories;
 
-use App\Models\Setting;
+use App\Models\Process;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
-use App\Contracts\SettingContract;
+use App\Contracts\ProcessContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
- * Class BannerRepository
+ * Class ProcessContract
  *
  * @package \App\Repositories
  */
-class SettingRepository extends BaseRepository implements SettingContract
+class ProcessRepository extends BaseRepository implements ProcessContract
 {
     use UploadAble;
 
     /**
-     * SettingRepository constructor.
-     * @param Setting $model
+     * ProcessRepository constructor.
+     * @param Process $model
      */
-    public function __construct(Setting $model)
+    public function __construct(Process $model)
     {
         parent::__construct($model);
         $this->model = $model;
@@ -35,25 +35,17 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param array $columns
      * @return mixed
      */
-    public function listSettings(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listProcess(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
     }
 
-    public function privacyPolicy(string $order = 'id', array $columns = ['*'])
-    {
-        return $this->model::where('key', 'privacy_policy')->orderBy('id', 'desc')->first();
-    }
-    public function listFaqs(string $order = 'id', array $columns = ['*'])
-    {
-        return $this->model::where('key', 'faq')->get();
-    }
     /**
      * @param int $id
      * @return mixed
      * @throws ModelNotFoundException
      */
-    public function findSettingsById(int $id)
+    public function findProcessById(int $id)
     {
         try {
             return $this->findOneOrFail($id);
@@ -65,21 +57,16 @@ class SettingRepository extends BaseRepository implements SettingContract
 
     /**
      * @param array $params
-     * @return Setting|mixed
+     * @return Process|mixed
      */
-    public function createSettings(array $params)
+    public function createProcess(array $params)
     {
         try {
-
-
-
             $collection = collect($params);
 
-            $data = new Setting;
+            $data = new Process;
             $data->title = $collection['title'];
             $data->description = $collection['description'];
-            $data->key = $collection['key'];
-
 
             $data->save();
 
@@ -93,15 +80,14 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param array $params
      * @return mixed
      */
-    public function updateSettings(array $params)
+    public function updateProcess(array $params)
     {
-        $data = $this->findOneOrFail($params['id']);
+        $data = $this->findProcessById($params['id']);
         $collection = collect($params)->except('_token');
-
 
         $data->title = $collection['title'];
         $data->description = $collection['description'];
-        $data->key = $collection['key'];
+
         $data->save();
 
         return $data;
@@ -111,9 +97,9 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param $id
      * @return bool|mixed
      */
-    public function deleteSettings($id)
+    public function deleteProcess($id)
     {
-        $data = $this->findOneOrFail($id);
+        $data = $this->findProcessById($id);
         $data->delete();
         return $data;
     }
@@ -122,13 +108,22 @@ class SettingRepository extends BaseRepository implements SettingContract
      * @param array $params
      * @return mixed
      */
-    public function updateSettingsStatus(array $params)
+    public function updateProcessStatus(array $params)
     {
-        $data = $this->findOneOrFail($params['id']);
+        $data = $this->findProcessById($params['id']);
         $collection = collect($params)->except('_token');
         $data->status = $collection['status'];
         $data->save();
 
         return $data;
     }
+
+    /**
+     * @param string $slug
+     * @return mixed
+     */
+    // public function getShowsBySlug($slug)
+    // {
+    //     return Category::where('slug', $slug)->with('shows')->get();
+    // }
 }

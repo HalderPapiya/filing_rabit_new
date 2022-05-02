@@ -73,6 +73,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item process {{ request()->is('admin/process*') ? 'active' : '' }}" href="{{ route('admin.process.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Process</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item setting {{ request()->is('admin/setting*') ? 'active' : '' }}" href="{{ route('admin.setting.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Settings</span>
             </a>

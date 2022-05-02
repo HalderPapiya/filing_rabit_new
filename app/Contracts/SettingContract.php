@@ -17,6 +17,7 @@ interface SettingContract
      */
     public function listSettings(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
     public function privacyPolicy(string $order = 'id',  array $columns = ['*']);
+    public function listFaqs(string $order = 'id', array $columns = ['*']);
     /**
      * @param int $id
      * @return mixed

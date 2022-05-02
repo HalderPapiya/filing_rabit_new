@@ -35,6 +35,8 @@ use App\Contracts\ProductContract;
 use App\Repositories\ProductRepository;
 use App\Contracts\DescriptionContract;
 use App\Repositories\DescriptionRepository;
+use App\Contracts\ProcessContract;
+use App\Repositories\ProcessRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -55,6 +57,7 @@ class RepositoryServiceProvider extends ServiceProvider
         SubSubCategoryContract::class =>  SubSubCategoryRepository::class,
         ProductContract::class =>  ProductRepository::class,
         DescriptionContract::class =>  DescriptionRepository::class,
+        ProcessContract::class =>  ProcessRepository::class,
     ];
 
     /**

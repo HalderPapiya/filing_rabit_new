@@ -25,7 +25,7 @@
                     <button class="btn w-auto ur-submit-button">Purchase</button>
                 </div>
                 <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0">
-                    <img class="img-fluid" src="img/product.jpg" alt="">
+                    <img class="img-fluid" src="{{URL::to('/').'/uploads/product/'}}{{$product->image}}" alt="">
                 </div>
             </div>
         </div>
@@ -34,32 +34,58 @@
     <!-- ==================== Product Details Section ==================== -->
     <section class="py-4 py-lg-5 product__content">
         <div class="container">
-            <div class="row">
-                @foreach( $productDes as $des)
-                <div class="col-12">
-                    <h2 class="blue-heading text-left">Copyright Registration</h2>
-                    <h3>What is a copyright?</h3>
-                    <p>
-                        Copyright is an intellectual property right that provides protection for literary, dramatic,
-                        musical, and artistic works. By getting a copyright registration, the creator/author becomes a
-                        legal owner of the copyrighted work. A copyright gives the author several commercial and moral
-                        rights.
-                    </p>
-                    <p>
-                        {{$des->description}}
-                        Registration of copyright is necessary for an author for the creative work to be reproduced,
-                        translated, adapted, and communicated to the public. Copyright is an exclusive right to enjoy
-                        the benefits arising from one's own creative work, and no other creator can infringe on those
-                        rights. A copyright protection is granted for a time period of 60 years.
-                    </p>
-                </div>
-                @endforeach
-            </div>
+            <h2 class="blue-heading text-left">{{$product->name}}</h2>
         </div>
     </section>
 
-    <!-- ==================== Product Details Section ==================== -->
+    @foreach( $productDes as $key => $des)
+    @if(($key + 1) %2 ==0)
     <section class="py-4 py-md-5 product__content light-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>{{$des->title}}</h3>
+                    <p>
+                        {{-- Copyright is an intellectual property right that provides protection for literary, dramatic,
+                        musical, and artistic works. By getting a copyright registration, the creator/author becomes a
+                        legal owner of the copyrighted work. A copyright gives the author several commercial and moral
+                        rights. --}}
+                    </p>
+                    <p>
+                        {!!$des->description!!} 
+                        {{-- Registration of copyright is necessary for an author for the creative work to be reproduced,
+                        translated, adapted, and communicated to the public. Copyright is an exclusive right to enjoy
+                        the benefits arising from one's own creative work, and no other creator can infringe on those
+                        rights. A copyright protection is granted for a time period of 60 years. --}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    @else
+    <section class="py-4 py-md-5 product__content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>{{$des->title}}</h3>
+                    <p>
+                        {!!$des->description!!} 
+                        {{-- Although a creator enjoys copyright over the works ever since the work comes into existence,
+                        legal registration of copyright provides legal protection and benefits. The process for
+                        registration of a copyright is as follows: --}}
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+    @endforeach
+</div>
+</section>
+
+    <!-- ==================== Product Details Section ==================== -->
+    {{-- <section class="py-4 py-md-5 product__content light-bg">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -119,10 +145,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- ==================== Product Details Section ==================== -->
-    <section class="py-4 py-md-5 product__content">
+    {{-- <section class="py-4 py-md-5 product__content">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -202,10 +228,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- ==================== Product Details Section ==================== -->
-    <section class="py-4 py-md-5 product__content light-bg">
+    {{-- <section class="py-4 py-md-5 product__content light-bg">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -293,10 +319,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- ==================== Product Details Section ==================== -->
-    <section class="py-4 py-md-5 product__content">
+    {{-- <section class="py-4 py-md-5 product__content">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -337,7 +363,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- ==================== Product FAQ ==================== -->
     <section class="py-4 py-md-5 faq">
@@ -346,7 +372,22 @@
                 <div class="col-12 ">
                     <h2 class="blue-heading pb-4 text-left">FAQ</h2>
                     <div class="acc">
+                        @foreach ($faqs as $faq)
                         <div class="acc__card">
+                            <div class="acc__title">
+                                <h4>
+                                    {{$faq->title}}
+                                    <i class="fas fa-angle-right"></i>
+                                </h4>
+                            </div>
+                            <div class="acc__panel">
+                                <p>
+                                    {!!$faq->description!!}
+                                </p>
+                            </div>
+                        </div>
+                        @endforeach
+                        {{-- <div class="acc__card">
                             <div class="acc__title">
                                 <h4>
                                     Is Copyright protection valid only in India?
@@ -438,7 +479,7 @@
                             <div class="acc__panel">
                                 A copyright holder has to send a statutory notice to the person who has infringed the work.
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

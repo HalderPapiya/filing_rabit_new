@@ -9,7 +9,7 @@
                         <h2 data-aos="fade-down" data-aos-duration="1000">Contact Us</h2>
                         <div class="shadow_text">Filingrabbit</div>
                     </div>
-                    <a href="{{ route('home')}}" class="home">Home</a> / <span>Contact Us</span>
+                    <a href="{{ url('/')}}" class="home">Home</a> / <span>Contact Us</span>
                 </div>
             </div>
         </div>
