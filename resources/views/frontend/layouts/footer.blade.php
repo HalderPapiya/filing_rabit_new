@@ -1,5 +1,6 @@
 @php
 $contactUs = App\Models\ContactUs::first();
+$products = App\Models\Product::get();
 // $principals = App\Models\Principal::get();
 // $contactUs = $this->contactUsRepository->latestContactUs();
 @endphp
@@ -83,7 +84,12 @@ $contactUs = App\Models\ContactUs::first();
                 <div class="col-sm-3">
                     <h4>Popular Services</h4>
                     <ul id="menu-legal-drafting-menu" class="">
+                        @foreach ($products as $product)
                         <li>
+                            <a href="{{ route('frontend.product.show',$product->id)}}" class="nav-link">{{$product->name}}</a>
+                        </li>
+                        @endforeach
+                        {{-- <li>
                             <a href="#" class="nav-link">TradeMark Registration</a>
                         </li>
                         <li>
@@ -100,7 +106,7 @@ $contactUs = App\Models\ContactUs::first();
                         </li>
                         <li>
                             <a href="#" class="nav-link">Website Policies Bundle</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -110,16 +116,16 @@ $contactUs = App\Models\ContactUs::first();
                             <a href="{{route('frontend.privacy-policy')}}" class="nav-link">Privacy Policy</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link">Terms & Conditions</a>
+                            <a href="{{route('frontend.terms-and-conditions')}}" class="nav-link">Terms & Conditions</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link">Refund Policy</a>
+                            <a href="{{route('frontend.refund-policy')}}" class="nav-link">Refund Policy</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link">Disclaimer Policy</a>
+                            <a href="{{route('frontend.disclaimer-policy')}}" class="nav-link">Disclaimer Policy</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link">Confidentiality Statement</a>
+                            <a href="{{route('frontend.confidential-statement')}}" class="nav-link">Confidentiality Statement</a>
                         </li>
                     </ul>
                 </div>
@@ -142,9 +148,11 @@ $contactUs = App\Models\ContactUs::first();
                 </div>
                 <div class="col-sm-3">
                     <h4>Newsletter Subscription</h4>
-                    <form action="#" class="tnp-subscription">
-                        <input type="text" placeholder="Your name">
-                        <input type="email" placeholder="Your email">
+                    <form action="{{route('frontend.news_letter')}}" method="POST" class="tnp-subscription">
+                       @csrf
+                        <input type="text" name="name" placeholder="Your name">
+
+                        <input type="email" name="email" placeholder="Your email">
                         <input class="tnp-button" type="submit" value="Count me in!">
                     </form>
                 </div>

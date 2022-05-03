@@ -25,6 +25,7 @@ Route::get('cache', function () {
 
 
 // Route::get('/', function () {
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('user.registration');
 
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 // return view('frontend.index');
@@ -35,11 +36,21 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::get('/blog-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showBlog'])->name('blog.show');
     Route::get('/contact-us', [App\Http\Controllers\Frontend\HomeController::class, 'contactUs'])->name('contact-us');
     Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
-    Route::get('/privacy-policy', [App\Http\Controllers\Frontend\HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+
     // -------------product-----------
+    Route::get('/product-list', [App\Http\Controllers\Frontend\ProductController::class, 'index'])->name('all_product.list');
     Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');
     Route::get('/product-details/{id}', [App\Http\Controllers\Frontend\ProductController::class, 'showProduct'])->name('product.show');
     Route::get('/subcategory/{id}/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product.list');
+
+    Route::get('/privacy-policy', [App\Http\Controllers\Frontend\PolicyController::class, 'privacyPolicy'])->name('privacy-policy');
+    Route::get('/terms-and-conditions', [App\Http\Controllers\Frontend\PolicyController::class, 'termsConditions'])->name('terms-and-conditions');
+    Route::get('/refund-policy', [App\Http\Controllers\Frontend\PolicyController::class, 'refundPolicy'])->name('refund-policy');
+    Route::get('/disclaimer-policy', [App\Http\Controllers\Frontend\PolicyController::class, 'disclaimerPolicy'])->name('disclaimer-policy');
+    Route::get('/confidential-statement', [App\Http\Controllers\Frontend\PolicyController::class, 'confidentialStatements'])->name('confidential-statement');
+
+    Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
+    Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
 });
 
 

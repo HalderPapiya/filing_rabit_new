@@ -58,7 +58,8 @@
                                                 class="button button-primary" value="Log In">
                                             <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
                                         </p>
-                                    </form> <a class="forgot password"
+                                    </form> 
+                                    <a class="forgot password"
                                         href="https://filingrabbit.in/lost-password/">Forgot Password?</a>
                                 </div>
                                 <p class="text-center">Don't Have an Account? 
@@ -90,14 +91,15 @@
                                 </a>
                                 <p class="text-center">or</p>
                                 <div class="user-registration ur-frontend-form  " id="user-registration-form-784">
-                                    <form class="register">
+                                    <form class="register" action="" method="GET">
+                                        {{-- @csrf --}}
                                         <div class="ur-form-row">
                                             <div class="ur-form-grid ur-grid-1" style="width:99%">
                                                 <div data-field-id="user_email" class="ur-field-item field-user_email ">
                                                     <div class="form-group">
                                                         <label class="d-block">User Email</label>
                                                         <span class="input-wrapper">
-                                                            <input type="email">
+                                                            <input type="email" name="email" id="email">
                                                         </span> 
                                                     </div>
                                                 </div>
@@ -105,7 +107,7 @@
                                                     <div class="form-group">
                                                         <label class="d-block">User Password</label>
                                                         <span class="input-wrapper">
-                                                            <input type="password">
+                                                            <input type="password" name="password" id="password">
                                                         </span> 
                                                     </div>
                                                 </div>
@@ -114,7 +116,7 @@
                                                     <div class="form-group">
                                                         <label class="d-block">Confirm Password</label>
                                                         <span class="input-wrapper">
-                                                            <input type="password">
+                                                            <input type="password" name="confirm_password">
                                                         </span> 
                                                     </div>
                                                 </div>
@@ -153,11 +155,12 @@
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
                                     <img src="{{asset('frontend/img/logo.png')}}">
                                 </a>
-                                <form>
-                                    <input class="form-control mb-3" type="text" placeholder="Your Name">
-                                    <input class="form-control mb-3" type="email" placeholder="Email Address">
-                                    <input class="form-control mb-3" type="tel" placeholder="Mobile Number">
-                                    <input class="form-control mb-3" type="text" placeholder="City">
+                                <form action="{{route('frontend.consultant')}}" method="GET">
+                                    @csrf
+                                    <input class="form-control mb-3" name="name" type="text" placeholder="Your Name">
+                                    <input class="form-control mb-3" name="email" type="email" placeholder="Email Address">
+                                    <input class="form-control mb-3" name="phone" type="tel" placeholder="Mobile Number">
+                                    <input class="form-control mb-3" name="city" type="text" placeholder="City">
                                     <input class="btn submit_btn" type="submit" value="GET STARTED NOW">
                                 </form>
                             </div>
@@ -177,3 +180,44 @@
 
 </body>
 </html>
+<script type="text/javascript">
+
+
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+
+    $(".register").click(function(e){
+
+        e.preventDefault();
+
+        var email = $(this).data('email');
+        var password = $(this).data('password');
+        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        // "_token": "{{ csrf_token() }}",
+        var CSRF_TOKEN : "{{ csrf_token() }}",
+        $.ajax({
+                type:'GET',
+                dataType:'JSON',
+                url:"{{route('user.registration')}}",
+                data:{ _token:CSRF_TOKEN, email:email, password:password},
+                success:function(response)
+                {
+                    if(response.success){
+                        alert(response.message) //Message come from controller
+                    }else{
+                        alert("Error")
+                    }
+                //   swal("Success!", response.message, "success");
+                },
+                error: function(response)
+                {
+                    console.log(error)
+                    // swal("Error!", response.message, "error");
+                }
+              });
+	});
+
+</script>

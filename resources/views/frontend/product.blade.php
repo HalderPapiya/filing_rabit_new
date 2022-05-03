@@ -9,7 +9,7 @@
                         <h2 data-aos="fade-down" data-aos-duration="1000">Trademark</h2>
                         <div class="shadow_text">Filingrabbit</div>
                     </div>
-                    <a href="{{ route('home')}}" class="home">Home</a> / <a href="#" class="home">Products</a> / <span>Trademark</span>
+                    <a href="{{ route('home')}}" class="home">Home</a> / <a href="{{route('frontend.all_product.list')}}" class="home">Products</a> / <span>Trademark</span>
                 </div>
             </div>
         </div>
@@ -25,13 +25,13 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="product_block">
                         <figure>
-                            <a href="#">
+                            <a href="{{ route('frontend.product.show',$product->id)}}">
                                 <img class="img-fluid" src="{{URL::to('/').'/uploads/product/'}}{{$data->image}}">
                             </a>
                         </figure>
                         <figcaption>
                             <h3>
-                                <a href="#">{{$data->name}}</a>
+                                <a href="{{ route('frontend.product.show',$product->id)}}">{{$data->name}}</a>
                             </h3>
                             <strong class="price">From: ₹{{$data->type_one_price}}</strong>
                         </figcaption>

@@ -90,9 +90,9 @@
                             </figure>
                             <figcaption>
                                 <h3>
-                                    <a href="{{ route('frontend.product')}}">{{$product->name}}</a>
+                                    <a href="{{ route('frontend.product.show',$product->id)}}">{{$product->name}}</a>
                                 </h3>
-                                <a href="{{ route('frontend.product')}}" class="btn btn-theme-outline">
+                                <a href="{{ route('frontend.product.show',$product->id)}}" class="btn btn-theme-outline">
                                     <span class="price">{{$product->type_one_price}}</span>
                                 </a>
                             </figcaption>

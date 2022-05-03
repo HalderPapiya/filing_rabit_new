@@ -8,6 +8,7 @@ use App\Contracts\SubCategoryContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\BlogContract;
 use App\Contracts\BannerContract;
+use App\Contracts\ConsultantContract;
 use App\Contracts\ContactUsContract;
 use App\Contracts\IndustriesServeContract;
 use App\Contracts\ProductContract;
@@ -44,7 +45,8 @@ class HomeController extends BaseController
         BannerContract $bannerRepository,
         SettingContract $settingRepository,
         DescriptionContract $descriptionRepository,
-        processContract $processRepository
+        processContract $processRepository,
+        ConsultantContract $consultantRepository
     ) {
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
@@ -60,6 +62,7 @@ class HomeController extends BaseController
         $this->descriptionRepository = $descriptionRepository;
         $this->processRepository = $processRepository;
         $this->settingRepository = $settingRepository;
+        $this->consultantRepository = $consultantRepository;
     }
 
 
@@ -172,9 +175,25 @@ class HomeController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' =>  'required',
+            'email' =>  'required',
+            'phone' =>  'required',
+            'city' =>  'required',
+        ]);
+
+        $params = $request->except('_token');
+
+        $data = $this->consultantRepository->createConsultant($params);
+
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while creating News Letter.', 'error', true, true);
+        }
+        // return view('frontend.index');
+        return $this->responseRedirect('frontend.consultant', 'Booking successful', 'success', false, false);
     }
 
     /**

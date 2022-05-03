@@ -9,7 +9,7 @@
                         <h2 data-aos="fade-down" data-aos-duration="1000">Trademark</h2>
                         <div class="shadow_text">Filingrabbit</div>
                     </div>
-                    <a href="{{ route('home')}}" class="home">Home</a> / <a href="#" class="home">Products</a> / <span>Trademark</span>
+                    <a href="{{ route('home')}}" class="home">Home</a> / <span>Products</span>
                 </div>
             </div>
         </div>
@@ -21,17 +21,17 @@
             <div class="row">
                {{-- @php echo $product; exit;
                @endphp --}}
-                @foreach ($product->product as $data)
+                @foreach ($products as $data)
                 <div class="col-sm-6 col-md-4">
                     <div class="product_block">
                         <figure>
-                            <a href="#">
+                            <a href="{{ route('frontend.product.show',$data->id)}}">
                                 <img class="img-fluid" src="{{URL::to('/').'/uploads/product/'}}{{$data->image}}">
                             </a>
                         </figure>
                         <figcaption>
                             <h3>
-                                <a href="#">{{$data->name}}</a>
+                                <a href="{{ route('frontend.product.show',$data->id)}}">{{$data->name}}</a>
                             </h3>
                             <strong class="price">From: ₹{{$data->type_one_price}}</strong>
                         </figcaption>

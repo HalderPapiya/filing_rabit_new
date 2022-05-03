@@ -18,6 +18,11 @@ interface SettingContract
     public function listSettings(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
     public function privacyPolicy(string $order = 'id',  array $columns = ['*']);
     public function listFaqs(string $order = 'id', array $columns = ['*']);
+
+    public function termsConditions(string $order = 'id', array $columns = ['*']);
+    public function refundPolicy(string $order = 'id', array $columns = ['*']);
+    public function disclaimerPolicy(string $order = 'id', array $columns = ['*']);
+    public function confidentialStatement(string $order = 'id', array $columns = ['*']);
     /**
      * @param int $id
      * @return mixed

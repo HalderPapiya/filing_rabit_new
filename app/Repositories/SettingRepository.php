@@ -42,8 +42,28 @@ class SettingRepository extends BaseRepository implements SettingContract
 
     public function privacyPolicy(string $order = 'id', array $columns = ['*'])
     {
-        return $this->model::where('key', 'privacy_policy')->orderBy('id', 'desc')->first();
+        return $this->model::where('key', 'privacy_policy')->orderBy('id', 'desc')->get();
     }
+
+    public function termsConditions(string $order = 'id', array $columns = ['*'])
+    {
+        return $this->model::where('key', 'terms_and_conditions')->orderBy('id', 'desc')->get();
+    }
+
+    public function refundPolicy(string $order = 'id', array $columns = ['*'])
+    {
+        return $this->model::where('key', 'refund_policy')->orderBy('id', 'desc')->get();
+    }
+
+    public function disclaimerPolicy(string $order = 'id', array $columns = ['*'])
+    {
+        return $this->model::where('key', 'disclaimer_policy')->orderBy('id', 'desc')->get();
+    }
+    public function confidentialStatement(string $order = 'id', array $columns = ['*'])
+    {
+        return $this->model::where('key', 'confidential_statement')->orderBy('id', 'desc')->get();
+    }
+
     public function listFaqs(string $order = 'id', array $columns = ['*'])
     {
         return $this->model::where('key', 'faq')->get();

@@ -44,13 +44,13 @@ class ProductController extends BaseController
     public function index()
     {
 
-        $categories = $this->categoryRepository->listCategories();
-        $subCategories = $this->subCategoryRepository->listSubCategories();
+        // $categories = $this->categoryRepository->listCategories();
+        // $subCategories = $this->subCategoryRepository->listSubCategories();
         $products = $this->productRepository->listProducts();
 
 
 
-        return view('frontend.index', compact('subCategories', 'categories',  'products'));
+        return view('frontend.product_list', compact('products'));
     }
 
 
