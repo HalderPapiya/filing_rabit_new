@@ -14,7 +14,7 @@
 <div class="fixed-row">
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+            <h1><i class="fa fa-dashboard"></i> Dashboard  hhh</h1>
         </div>
     </div>
 </div>

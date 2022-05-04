@@ -41,17 +41,18 @@
                                 </a>
                                 <p class="text-center">or</p>
                                 <div class="login_wrap">
-                                    <form name="loginform" id="loginform" action="https://filingrabbit.in/wp-login.php"
+                                    <form name="loginform" id="loginform" action=""
                                         method="post">
                                         <p class="login-username">
                                             <label for="user">Email Address</label>
-                                            <input type="text" name="log" id="user" class="input" value="" size="20"
-                                                placeholder="Enter Username">
+                                            <input type="text" name="user_email" id="email" class="input" value="{{ old('user_email') }}" size="20"
+                                                placeholder="Enter Username" autocomplete="email" autofocus>
+                                               
                                         </p>
                                         <p class="login-password">
                                             <label for="pass">Password</label>
-                                            <input type="password" name="pwd" id="pass" class="input" value="" size="20"
-                                                placeholder="Enter Password">
+                                            <input type="password" name="password" id="password" class="input" value="{{ old('password') }}" size="20"
+                                                placeholder="Enter Password" autocomplete="email" autofocus>
                                         </p>
                                         <p class="login-submit">
                                             <input type="submit" name="wp-submit" id="wp-submit"
@@ -91,23 +92,25 @@
                                 </a>
                                 <p class="text-center">or</p>
                                 <div class="user-registration ur-frontend-form  " id="user-registration-form-784">
-                                    <form class="register" action="" method="GET">
+                                    <form class="register" action="" method="POST" id="registerForm">
                                         {{-- @csrf --}}
                                         <div class="ur-form-row">
                                             <div class="ur-form-grid ur-grid-1" style="width:99%">
-                                                <div data-field-id="user_email" class="ur-field-item field-user_email ">
+                                                <div data-field-id="regs_email" class="ur-field-item field-regs_email ">
                                                     <div class="form-group">
                                                         <label class="d-block">User Email</label>
                                                         <span class="input-wrapper">
-                                                            <input type="email" name="email" id="email">
+                                                            <input class="form-control @error('regs_email') is-invalid @enderror"  type="email" name="regs_email" id="email">
+                                                            @error('regs_email')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                                         </span> 
                                                     </div>
                                                 </div>
+                                               
                                                 <div data-field-id="user_pass" class="ur-field-item field-user_pass ">
                                                     <div class="form-group">
                                                         <label class="d-block">User Password</label>
                                                         <span class="input-wrapper">
-                                                            <input type="password" name="password" id="password">
+                                                            <input class="form-control" type="password" name="regs_password" id="regs_password">
                                                         </span> 
                                                     </div>
                                                 </div>
@@ -116,7 +119,7 @@
                                                     <div class="form-group">
                                                         <label class="d-block">Confirm Password</label>
                                                         <span class="input-wrapper">
-                                                            <input type="password" name="confirm_password">
+                                                            <input class="form-control" type="password" name="reg_con_password">
                                                         </span> 
                                                     </div>
                                                 </div>
@@ -125,6 +128,7 @@
                                         <div class="ur-button-container ">
                                             <button type="submit" class="btn button ur-submit-button">Submit</button>
                                         </div>
+                                        <p class="mt-4" id="regMessage"></p>
                                     </form>
 
                                     <div style="clear:both"></div>
@@ -181,6 +185,65 @@
 </body>
 </html>
 <script type="text/javascript">
+    $('#registerForm').on('submit', function(event) {
+        event.preventDefault();
+        // alert();
+        var email = $("input[name=reg_email]").val();
+        var password = $("input[name=regs_password]").val();
+        var confirm_password = $("input[name=reg_con_password]").val();
+        // var email = $(this).data('email');
+        // var password = $(this).data('password');
+        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        // "_token": "{{ csrf_token() }}",
+        // var CSRF_TOKEN : "{{ csrf_token() }}",
+        $.ajax({
+            type:'POST',
+            dataType:'JSON',
+            url:"{{route('user.registration')}}",
+            data:{ _token: '{{csrf_token()}}', email:email, password:password , confirm_password:confirm_password},
+            success:function(response) {
+                if(response.success == true){
+                    $('#regMessage').addClass('text-success').html(response.message);
+                } else {
+                    $('#regMessage').addClass('text-danger').html(response.message);
+                }
+            },
+            error: function(response) {
+                $('#regMessage').html(response.message);
+                // console.log(error)
+            }
+        });
+    });
+
+    // ----------login------------
+    $('#loginform').on('submit', function(event) {
+        event.preventDefault();
+        alert('log');
+        var email = $("input[name=user_email]").val();
+        var password = $("input[name=password]").val();
+        // var email = $(this).data('email');
+        // var password = $(this).data('password');
+        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        // "_token": "{{ csrf_token() }}",
+        // var CSRF_TOKEN : "{{ csrf_token() }}",
+        $.ajax({
+            type:'POST',
+            dataType:'JSON',
+            url:"{{route('user.login')}}",
+            data:{ _token: '{{csrf_token()}}', email:email, password:password},
+            success:function(response) {
+                if(response.success){
+                    $('#regMessage').html(response.message);
+                }else{
+                    // $('#regMessage').html(response.error);
+                }
+            },
+            error: function(response) {
+                // $('#regMessage').html(response.error);
+                console.log(error)
+            }
+        });
+    });
 
 
     // $.ajaxSetup({
@@ -189,35 +252,35 @@
     //     }
     // });
 
-    $(".register").click(function(e){
+    // $(".register").click(function(e){
 
-        e.preventDefault();
+    //     e.preventDefault();
 
-        var email = $(this).data('email');
-        var password = $(this).data('password');
-        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        // "_token": "{{ csrf_token() }}",
-        var CSRF_TOKEN : "{{ csrf_token() }}",
-        $.ajax({
-                type:'GET',
-                dataType:'JSON',
-                url:"{{route('user.registration')}}",
-                data:{ _token:CSRF_TOKEN, email:email, password:password},
-                success:function(response)
-                {
-                    if(response.success){
-                        alert(response.message) //Message come from controller
-                    }else{
-                        alert("Error")
-                    }
-                //   swal("Success!", response.message, "success");
-                },
-                error: function(response)
-                {
-                    console.log(error)
-                    // swal("Error!", response.message, "error");
-                }
-              });
-	});
+    //     var email = $(this).data('email');
+    //     var password = $(this).data('password');
+    //     // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    //     // "_token": "{{ csrf_token() }}",
+    //     var CSRF_TOKEN : "{{ csrf_token() }}",
+    //     $.ajax({
+    //             type:'GET',
+    //             dataType:'JSON',
+    //             url:"{{route('user.registration')}}",
+    //             data:{ _token:CSRF_TOKEN, email:email, password:password},
+    //             success:function(response)
+    //             {
+    //                 if(response.success){
+    //                     alert(response.message) //Message come from controller
+    //                 }else{
+    //                     alert("Error")
+    //                 }
+    //             //   swal("Success!", response.message, "success");
+    //             },
+    //             error: function(response)
+    //             {
+    //                 console.log(error)
+    //                 // swal("Error!", response.message, "error");
+    //             }
+    //           });
+	// });
 
 </script>

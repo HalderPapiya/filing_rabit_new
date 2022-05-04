@@ -25,7 +25,7 @@ Route::get('cache', function () {
 
 
 // Route::get('/', function () {
-Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('user.registration');
+
 
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 // return view('frontend.index');
@@ -51,6 +51,23 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
 
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
+});
+
+Route::get('/dashboardTest', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('index');
+Route::get('/order', [App\Http\Controllers\Frontend\UserController::class, 'order'])->name('order');
+Route::get('/download', [App\Http\Controllers\Frontend\UserController::class, 'download'])->name('download');
+Route::get('/address', [App\Http\Controllers\Frontend\UserController::class, 'address'])->name('address');
+Route::post('/address-store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('address.store');
+Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
+Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
+
+
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('user.registration');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'userLogin'])->name('user.login');
+Route::middleware(['auth:web'])->group(function () {
+    Route::get('user-dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'], function () {
+        return view('user.dashboard');
+    })->name('dashboard');
 });
 
 

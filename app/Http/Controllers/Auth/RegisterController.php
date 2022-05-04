@@ -49,14 +49,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
-    }
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //     ]);
+    // }
 
     /**
      * Create a new user instance after a valid registration.
@@ -66,21 +66,27 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
-        $request->validate([
-            'password' => ['required', 'string', 'min:6'],
+        // $validator = $request->validate([
+        //     'email' => 'required',
+        //     'password' => ['required', 'string', 'min:6'],
+        //     'confirm_password' => 'required|same:password',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:4',
             'confirm_password' => 'required|same:password',
         ]);
-        // return User::create([
-        //     // 'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()->first()], 200);
+        }
+
         $user = new User;
-        $user->email = $request->email;
-        $user->password = $request->password;
-
-
+        $user->email = $request->regs_email;
+        $user->password = Hash::make($request['regs_password']);
         $user->save();
-        return back()->with('Success', 'Registered successFully');
+
+        return response()->json(['success' => true, 'message' => 'Registered successfully'], 200);
     }
 }

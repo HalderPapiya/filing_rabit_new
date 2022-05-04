@@ -13,6 +13,7 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+    protected $guard = 'web';
     /**
      * The attributes that are mass assignable.
      *

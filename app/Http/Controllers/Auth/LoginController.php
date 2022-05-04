@@ -43,15 +43,16 @@ class LoginController extends Controller
     public function userLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required | string | email | exists:admins',
+            'email' => 'required',
             'password' => 'required | string '
         ]);
 
-        if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended('user/dashboard');
+        if (Auth::guard('web')->attempt(['email' => $request->user_email, 'password' => $request->password])) {
+            return response()->json(['success' => true, 'message' => 'Login successfully'], 200);
         }
-        return back()->withInput($request->only('email', 'remember'))->withErrors([
-            'password' => 'Wrong password.',
-        ]);
+        // return back()->withInput($request->only('email', 'remember'))->withErrors([
+        //     'password' => 'Wrong password.',
+        // ]);
+        return response()->json(['success' => true, 'message' => 'Something wrong'], 200);
     }
 }
