@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
+Route::post('/product/manage', [App\Http\Controllers\Admin\ProductController::class, 'manageSubCat'])->name('admin.product.manage.subcategory');
+// Route::post('/product/store', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('product.store');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     // return $request->user();

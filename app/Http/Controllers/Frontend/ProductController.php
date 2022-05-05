@@ -9,6 +9,8 @@ use App\Contracts\ProductContract;
 use App\Contracts\SettingContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Description;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends BaseController
@@ -79,19 +81,22 @@ class ProductController extends BaseController
     }
     public function productDescription()
     {
-
-
         return view('frontend.product_details', compact('product'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource for add cart.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addCart(Request $request)
     {
-        //
+        $data = new Order();
+        $data->product_id = $request->product_id;
+        $data->variation_one = $request->variation_type_one;
+        $data->amount = $request->product_price;
+        // $data->product_id = $request->product_id;
+        $data->save();
     }
 
     /**

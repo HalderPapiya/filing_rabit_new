@@ -39,7 +39,15 @@
                             </span>
                             @enderror
                         </div>
+
                         <div class="form-group">
+                            <label class="control-label" for="subCategoryId">SubCategory <span class="m-l-5 text-danger"> *</span></label>
+                            <select class="form-control @error('subCategoryId') is-invalid @enderror"
+                                name="subCategoryId" id="subCategoryId" value="{{ old('subCategoryId') }}">
+                                <option selected disabled>Select Category at First</option>
+                            </select>
+                        </div>
+                        {{-- <div class="form-group">
                             <label class="control-label" for="subCategoryId">SubCategory <span class="m-l-5 text-danger"> *</span></label>
                             <select class="form-control @error('subCategoryId') is-invalid @enderror" name="subCategoryId" id="categoryId" value="{{ old('
                             ') }}">
@@ -53,7 +61,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label class="control-label" for="type_one_name">Type One Name <span class="m-l-5 text-danger"> *</span></label>
                             <input class="form-control @error('type_one_name') is-invalid @enderror" type="text" name="type_one_name" id="type_one_name" value="{{ old('type_one_name') }}"/>
@@ -101,6 +109,29 @@
         $("#btnSave").on("click",function(){
             $('#form1').submit();
         })
-    })
+    });
+
+
+    $(document).ready(function() {
+        $('#categoryId').on('change', function() {
+            var categoryId = $('#categoryId').val();
+            $.ajax({
+                url: "{{route('admin.product.manage.subcategory')}}",
+                type: 'POST',
+                data: {
+                    _token: '{{csrf_token()}}',
+                    val: categoryId
+                },
+                success: function(result) {
+                    var options = '<option value="" selected="" hidden="">Select Sub-Category</option>';
+                    $.each(result.sub, function(key, val) {
+                        options += '<option value="' + val.id + '">' + val.title + '</option>';
+                    });
+                    $('#subCategoryId').empty().append(options);
+                    // $res->success = false;
+                }
+            });
+        });
+    });
 </script>
 @endpush

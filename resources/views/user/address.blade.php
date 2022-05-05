@@ -19,7 +19,8 @@
 <section class="ac_section">
     <div class="container">
         <div class="row ">
-            <div class="col-md-3">
+            @include('user.sidebar')  
+            {{-- <div class="col-md-3">
                 <nav class="sticky-top my-account-navigation">
                     <ul>
                         <li>
@@ -42,11 +43,11 @@
                         </li>
                     </ul>
                 </nav>
-            </div>
+            </div> --}}
             <div class="col-md-9">
                 <div class="my-account-form-wrapper">
                     <h3>Billing address</h3>
-                    <form action="{{route('address.store')}}" method="POST">
+                    <form action="{{route('user.address.store')}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

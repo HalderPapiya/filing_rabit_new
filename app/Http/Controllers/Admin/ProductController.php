@@ -6,6 +6,7 @@ use App\Contracts\CategoryContract;
 use App\Contracts\ProductContract;
 use App\Contracts\SubCategoryContract;
 use App\Http\Controllers\BaseController;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends BaseController
@@ -52,7 +53,13 @@ class ProductController extends BaseController
         $this->setPageTitle('Product', 'Create Product');
         return view('admin.product.create', compact('categories', 'subCategories'));
     }
-
+    public function manageSubCat(Request $request)
+    {
+        $categoryid = $request->val;
+        // dd($categoryid);
+        $subcategories = SubCategory::where('category_id', $categoryid)->get();
+        return response()->json(['sub' => $subcategories]);
+    }
     /**
      * Store a newly created resource in storage.
      *

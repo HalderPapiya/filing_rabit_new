@@ -19,7 +19,8 @@
 <section class="ac_section">
     <div class="container">
         <div class="row ">
-            <div class="col-md-3">
+            @include('user.sidebar')  
+            {{-- <div class="col-md-3">
                 <nav class="sticky-top my-account-navigation">
                     <ul>
                         <li>
@@ -42,7 +43,7 @@
                         </li>
                     </ul>
                 </nav>
-            </div>
+            </div> --}}
             <div class="col-md-9">
                 <div class="view-cart-message d-flex align-items-center justify-content-between">
                     <p>

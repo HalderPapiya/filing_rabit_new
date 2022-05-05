@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class UserController extends BaseController
 {
@@ -69,10 +71,7 @@ class UserController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -87,8 +86,9 @@ class UserController extends BaseController
         //     'short_description' =>  'required',
         //     // 'video' =>  'max:50000',
         // ]);
-
+        // $id = Auth::user()->id;
         $data = new User;
+        // $data->user_id = $id;
         $data->first_name = $request->input('first_name');
         $data->last_name = $request->input('last_name');
         $data->email = $request->input('email');
@@ -118,8 +118,8 @@ class UserController extends BaseController
             'confirm_password' =>  'required|same:new_password',
             // 'video' =>  'max:50000',
         ]);
-        // $user = Auth::user();
-        $user = User::first();
+        $user = Auth::user();
+        // $user = User::first();
         $userPassword = $user->password;
         if (!Hash::check($request->password, $userPassword)) {
             return back()->withErrors(['password' => 'password not match']);

@@ -2301,8 +2301,7 @@ ul {
     margin-bottom: 25px
 } */
 
-
-/*.woo-variation-swatches .variable-items-wrapper {
+.woo-variation-swatches .variable-items-wrapper {
     box-shadow: 0 10px 20px 0 rgb(241 210 49 / 50%) !important
 }
 
@@ -2315,7 +2314,7 @@ ul {
 .woocommerce div.product form.cart .variations td,
 .woocommerce div.product form.cart .variations th {
     line-height: 0
-}*/
+}
 
 .banner-area h2 {
     text-transform: uppercase;
@@ -3764,19 +3763,10 @@ footer ul li a.nav-link {
 .variations ul li {
     border: 2px solid #f1d231 !important;
     padding: 10px 20px;
-    cursor: pointer;
 }
 
 .variations ul li.active {
     background: #f1d231;
-}
-
-.variations ul li a {
-    color: #1c1c1c;
-}
-
-.tabs-content .tab-data:not(:first-child) {
-    display: none;
 }
 
 .price {

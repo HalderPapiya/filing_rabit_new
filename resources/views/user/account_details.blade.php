@@ -19,33 +19,10 @@
 <section class="ac_section">
     <div class="container">
         <div class="row ">
-            <div class="col-md-3">
-                <nav class="sticky-top my-account-navigation">
-                    <ul>
-                        <li>
-                            <a href="dashboard.html">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="orders.html">Orders</a>
-                        </li>
-                        <li>
-                            <a href="downloads.html">Downloads</a>
-                        </li>
-                        <li>
-                            <a href="address.html">Addresses</a>
-                        </li>
-                        <li class="active">
-                            <a href="account-details.html">Account Details</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            @include('user.sidebar')    
             <div class="col-md-9">
                 <div class="my-account-form-wrapper">
-                    <form action="{{route('change-password')}}" method="POST">
+                    <form action="{{route('user.change-password')}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

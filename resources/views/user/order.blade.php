@@ -19,7 +19,7 @@
     <div class="container">
         <div class="row ">
             <div class="col-md-3">
-                <nav class="sticky-top my-account-navigation">
+                {{-- <nav class="sticky-top my-account-navigation">
                     <ul>
                         <li>
                             <a href="dashboard.html">Dashboard</a>
@@ -40,7 +40,7 @@
                             <a href="javascript:void(0);">Logout</a>
                         </li>
                     </ul>
-                </nav>
+                </nav> --}}
             </div>
             <div class="col-md-9">
                 <div class="view-cart-message d-flex align-items-center justify-content-between">

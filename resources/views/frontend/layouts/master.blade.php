@@ -42,11 +42,11 @@
                                 <p class="text-center">or</p>
                                 <div class="login_wrap">
                                     <form name="loginform" id="loginform" action=""
-                                        method="post">
+                                        method="POST">
                                         <p class="login-username">
                                             <label for="user">Email Address</label>
-                                            <input type="text" name="user_email" id="email" class="input" value="{{ old('user_email') }}" size="20"
-                                                placeholder="Enter Username" autocomplete="email" autofocus>
+                                            <input type="text" name="user_email" id="user_email" class="input" value="{{ old('user_email') }}" size="20"
+                                                placeholder="Enter Username" autocomplete="user_email" autofocus>
                                                
                                         </p>
                                         <p class="login-password">
@@ -59,6 +59,7 @@
                                                 class="button button-primary" value="Log In">
                                             <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
                                         </p>
+                                        <p class="mt-4" id="loginMessage"></p>
                                     </form> 
                                     <a class="forgot password"
                                         href="https://filingrabbit.in/lost-password/">Forgot Password?</a>
@@ -218,69 +219,27 @@
     // ----------login------------
     $('#loginform').on('submit', function(event) {
         event.preventDefault();
-        alert('log');
+        // alert('log');
         var email = $("input[name=user_email]").val();
         var password = $("input[name=password]").val();
-        // var email = $(this).data('email');
-        // var password = $(this).data('password');
-        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        // "_token": "{{ csrf_token() }}",
-        // var CSRF_TOKEN : "{{ csrf_token() }}",
+     
         $.ajax({
             type:'POST',
             dataType:'JSON',
-            url:"{{route('user.login')}}",
+            url:"{{ url('user_login') }}",
             data:{ _token: '{{csrf_token()}}', email:email, password:password},
             success:function(response) {
                 if(response.success){
-                    $('#regMessage').html(response.message);
+                    window.location.href = "user/dashboard";
                 }else{
-                    // $('#regMessage').html(response.error);
+                    $('#loginMessage').addClass('text-danger').html(response.message);
                 }
             },
             error: function(response) {
                 // $('#regMessage').html(response.error);
-                console.log(error)
+                // console.log(error)
+                $('#loginMessage').html(response.message);
             }
         });
     });
-
-
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-
-    // $(".register").click(function(e){
-
-    //     e.preventDefault();
-
-    //     var email = $(this).data('email');
-    //     var password = $(this).data('password');
-    //     // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    //     // "_token": "{{ csrf_token() }}",
-    //     var CSRF_TOKEN : "{{ csrf_token() }}",
-    //     $.ajax({
-    //             type:'GET',
-    //             dataType:'JSON',
-    //             url:"{{route('user.registration')}}",
-    //             data:{ _token:CSRF_TOKEN, email:email, password:password},
-    //             success:function(response)
-    //             {
-    //                 if(response.success){
-    //                     alert(response.message) //Message come from controller
-    //                 }else{
-    //                     alert("Error")
-    //                 }
-    //             //   swal("Success!", response.message, "success");
-    //             },
-    //             error: function(response)
-    //             {
-    //                 console.log(error)
-    //                 // swal("Error!", response.message, "error");
-    //             }
-    //           });
-	// });
-
 </script>

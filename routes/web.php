@@ -52,25 +52,59 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
 });
+Route::prefix('product')->name('product.')->group(function () {
+    Route::post('/cart', [App\Http\Controllers\Frontend\ProductController::class, 'addCart'])->name('add.cart');
+});
 
-Route::get('/dashboardTest', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('index');
-Route::get('/order', [App\Http\Controllers\Frontend\UserController::class, 'order'])->name('order');
-Route::get('/download', [App\Http\Controllers\Frontend\UserController::class, 'download'])->name('download');
-Route::get('/address', [App\Http\Controllers\Frontend\UserController::class, 'address'])->name('address');
-Route::post('/address-store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('address.store');
-Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
-Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
-
-
+// ------------------------------------User-----------------------------//
+// Route::middleware(['guest:user'])->group(function () {
+Route::get('/login_form', [App\Http\Controllers\Auth\LoginController::class, 'loginForm'])->name('login');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('user.registration');
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'userLogin'])->name('user.login');
-Route::middleware(['auth:web'])->group(function () {
-    Route::get('user-dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'], function () {
-        return view('user.dashboard');
-    })->name('dashboard');
+Route::post('/user_login', [App\Http\Controllers\Auth\LoginController::class, 'userLogin'])->name('user.login');
+// });
+
+Route::prefix('user')->name('user.')->group(function () {
+    Route::middleware(['auth:user'])->group(function () {
+        Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+        Route::get('/dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/order', [App\Http\Controllers\Frontend\UserController::class, 'order'])->name('order');
+        Route::get('/download', [App\Http\Controllers\Frontend\UserController::class, 'download'])->name('download');
+        Route::get('/address', [App\Http\Controllers\Frontend\UserController::class, 'address'])->name('address');
+        Route::post('/address-store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('address.store');
+        Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
+        Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
+
+        // ------------Product By---------------------//
+
+
+    });
 });
 
 
+
+// Route::middleware(['auth:web'])->group(function () {
+//     Route::get('user-dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'], function () {
+//         return view('user.dashboard');
+//     })->name('dashboard');
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------User End--------------------------------//
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['guest:admin'])->group(function () {
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.login');

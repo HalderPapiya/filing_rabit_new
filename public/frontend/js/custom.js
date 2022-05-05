@@ -1,4 +1,4 @@
-(function ($, window, Typist) {
+(function($, window, Typist) {
 
     // Product Slider Slick
     $('.product_slider').slick({
@@ -9,8 +9,7 @@
         slidesToScroll: 3,
         prevArrow: $('.product_arrow .prev'),
         nextArrow: $('.product_arrow .next'),
-        responsive: [
-            {
+        responsive: [{
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
@@ -37,8 +36,7 @@
         slidesToScroll: 1,
         prevArrow: $('.industry_arrow .prev'),
         nextArrow: $('.industry_arrow .next'),
-        responsive: [
-            {
+        responsive: [{
                 breakpoint: 991,
                 settings: {
                     slidesToShow: 3,
@@ -65,8 +63,8 @@
     /* ==================================================
                 FAQ Accordion jQuery
     ================================================== */
-    $(function () {
-        $('.acc__title').click(function (j) {
+    $(function() {
+        $('.acc__title').click(function(j) {
 
             var dropDown = $(this).closest('.acc__card').find('.acc__panel');
             $(this).closest('.acc').find('.acc__panel').not(dropDown).slideUp();
@@ -82,6 +80,24 @@
             j.preventDefault();
         });
     });
+
+    $(function() {
+        $('.tabs-nav li a').click(function() {
+
+            // Check for active
+            $('.tabs-nav li').removeClass('active');
+            $(this).parent().addClass('active');
+            // Display active tab
+            let currentTab = $(this).attr('href');
+            $('.tabs-content .tab-data').hide();
+            $(currentTab).show();
+
+
+            return false;
+        });
+    });
+
+
 
 
 
