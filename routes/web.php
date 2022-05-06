@@ -52,8 +52,12 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
 });
+
+// -------------------Cart---------------------
 Route::prefix('product')->name('product.')->group(function () {
-    Route::post('/cart', [App\Http\Controllers\Frontend\ProductController::class, 'addCart'])->name('add.cart');
+    Route::get('/cart', [App\Http\Controllers\Frontend\CartController::class, 'index'])->name('cart');
+    Route::post('/addCart', [App\Http\Controllers\Frontend\CartController::class, 'addCart'])->name('add.cart');
+    Route::post('/order', [App\Http\Controllers\Frontend\CartController::class, 'Order'])->name('order');
 });
 
 // ------------------------------------User-----------------------------//

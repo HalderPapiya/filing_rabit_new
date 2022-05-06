@@ -8,6 +8,7 @@ use App\Contracts\BlogContract;
 use App\Contracts\ProductContract;
 use App\Contracts\SettingContract;
 use App\Http\Controllers\BaseController;
+use App\Models\Cart;
 use App\Models\Description;
 use App\Models\Order;
 use App\Models\Product;
@@ -35,8 +36,12 @@ class ProductController extends BaseController
         $this->blogRepository = $blogRepository;
         $this->productRepository = $productRepository;
         $this->settingRepository = $settingRepository;
-    }
 
+        $this->ip = $_SERVER['REMOTE_ADDR'];
+    }
+    // public function __construct() {
+
+    // }
 
     /**
      * Display a listing of the resource.
@@ -89,15 +94,18 @@ class ProductController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function addCart(Request $request)
-    {
-        $data = new Order();
-        $data->product_id = $request->product_id;
-        $data->variation_one = $request->variation_type_one;
-        $data->amount = $request->product_price;
-        // $data->product_id = $request->product_id;
-        $data->save();
-    }
+    // public function addCart(Request $request)
+    // {
+    //     $data = new Cart();
+    //     $data->ip = $this->ip;
+    //     $data->product_id = $request->product_id;
+    //     $data->variation_type_one = $request->variation_type_one;
+    //     $data->price_one = $request->product_price;
+    //     // $data->product_id = $request->product_id;
+    //     $data->save();
+
+    //     return $this->redirect('frontend.cart', 'Add to Cart Successfully', 'success', false, false);
+    // }
 
     /**
      * Store a newly created resource in storage.
