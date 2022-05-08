@@ -86,7 +86,7 @@
                                     </a>
                                 </h3>
                                 <p>
-                                    {!!$blog->description!!}
+                                {!! substr($blog->description, 0, 200); !!}
                                 </p>
                                 <a href="{{ route('frontend.blog.show', $blog['id']) }}" class="readmore_btn"><span>Read More</span></a>
                             </div>

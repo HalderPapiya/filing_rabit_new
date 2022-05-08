@@ -59,7 +59,8 @@
                         efforts but due to improper preparation and guidance. This is where we come into the picture. We
                         will help your stat -up shine bright like it is supposed to be while getting it an identity it
                         deserves. --}}
-                        {!! $aboutUs->description !!}
+                        {!! substr($aboutUs->description, 0, 478); !!}
+                        <!-- {!! $aboutUs->description !!} -->
                     </p>
 
                 </div>
@@ -528,7 +529,7 @@
 
                 <div class="col-sm-7">
                     <div class="row">
-                        @foreach ($blogs as $blog)
+                        @foreach ($bloglimit as $blog)
                         <div class="col-sm-6">
                             <div class="blog_image">
                                 <img src="{{URL::to('/').'/uploads/blog/'}}{{$blog->image}}" alt="Image not found" >
@@ -541,7 +542,8 @@
                                     </a>
                                 </h3>
                                 <p>
-                                    {!!$blog->description!!}
+                                {!! substr($blog->description, 0, 200); !!}
+                                    <!-- {!!$blog->description!!} -->
                                     {{-- A power of attorney (POA) is a legal authorization that offers a post to... --}}
                                 </p>
                                 <a href="{{ route('frontend.blog')}}" class="readmore_btn"><span>Read More</span></a>

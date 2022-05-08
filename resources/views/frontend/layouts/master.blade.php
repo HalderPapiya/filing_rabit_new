@@ -230,7 +230,8 @@
             data:{ _token: '{{csrf_token()}}', email:email, password:password},
             success:function(response) {
                 if(response.success){
-                    window.location.href = "user/dashboard";
+                    // window.location.href = "user/dashboard";
+                     window.location.href = "/";
                 }else{
                     $('#loginMessage').addClass('text-danger').html(response.message);
                 }

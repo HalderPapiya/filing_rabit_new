@@ -22,19 +22,17 @@
                 <div class="col-12">
 
                     <p>
-                        Welcome to Filingrabbit.in. This website is owned and operated by FilingRabbit, 56e, Hemanta Basu Sarani, 2nd floor Suite #27, Kolkata – 700001, INDIA. By visiting our website and accessing the information, resources, services, products, and tools we provide, you understand and agree to accept and adhere to the following terms and conditions as stated in this policy (hereafter referred to as ‘User Agreement’), along with the terms and conditions as stated in our Privacy Policy (please refer to the Privacy Policy section below for more information).
-
-                        We reserve the right to change this User Agreement from time to time without notice. You acknowledge and agree that it is your responsibility to review this User Agreement periodically to familiarize yourself with any modifications. Your continued use of this site after such modifications will constitute acknowledgment and agreement of the modified terms and conditions.
+                    At FILINGRABBIT, we take pride in the services delivered by us and guarantee your satisfaction with our services and support. We constantly improve and strive to deliver the best accounting, financial or secretarial services through the internet. However, in case you are not satisfied with our services, please contact us immediately and we will correct the situation, provide a refund or offer credit that can be used for future FilingRabbit orders.
                     </p>
 
                     <ol class="main-ol">
                         @foreach ($refundPolicies as $data)
-                        <li>
+                        <!-- <li> -->
                             <h3>{{$data->title}}</h3>
                             <p>
                                {!! $data->description !!}
                             </p>
-                        </li>
+                        <!-- </li> -->
                         @endforeach
                        
                         {{-- <li>

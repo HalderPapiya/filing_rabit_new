@@ -35,7 +35,7 @@ class CategoryRepository extends BaseRepository implements CategoryContract
      * @param array $columns
      * @return mixed
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listCategories(string $order = 'id', string $sort = 'asc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
     }

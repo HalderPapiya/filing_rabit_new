@@ -1,6 +1,6 @@
 @php
 $contactUs = App\Models\ContactUs::first();
-$products = App\Models\Product::get();
+$products = App\Models\Product::limit(7)->get();
 // $principals = App\Models\Principal::get();
 // $contactUs = $this->contactUsRepository->latestContactUs();
 @endphp
@@ -43,15 +43,15 @@ $products = App\Models\Product::get();
                             {{-- <a href="https://www.linkedin.com/company/filingrabbit" target="_blank">
                                 <i class="fab fa-linkedin"></i>
                             </a> --}}
-                            <a href="{{$contactUs->instagram_link}}" target="_blank">
+                            <a href="https://www.linkedin.com/company/filingrabbit" target="_blank">
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </li>
                         <li>
-                            {{-- <a href="https://www.instagram.com/filingrabbit/" target="_blank">
+                            {{-- <a href="{{$contactUs->instagram_link}}" target="_blank">
                                 <i class="fab fa-instagram"></i>
                             </a> --}}
-                            <a href="{{$contactUs->pinterest_link}}" target="_blank">
+                            <a href="{{$contactUs->instagram_link}}" target="_blank">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
@@ -59,7 +59,7 @@ $products = App\Models\Product::get();
                             {{-- <a href="https://in.pinterest.com/filingrabbit" target="_blank">
                                 <i class="fab fa-pinterest"></i>
                             </a> --}}
-                            <a href="{{$contactUs->youtube_link}}" target="_blank">
+                            <a href="{{$contactUs->pinterest_link}}" target="_blank">
                                 <i class="fab fa-pinterest"></i>
                             </a>
                         </li>
@@ -67,7 +67,7 @@ $products = App\Models\Product::get();
                             {{-- <a href="https://www.youtube.com/channel/UCUlerUoNjflPjTxd9l1CatA" target="_blank">
                                 <i class="fab fa-youtube"></i>
                             </a> --}}
-                            <a href="https://www.youtube.com/channel/UCUlerUoNjflPjTxd9l1CatA" target="_blank">
+                            <a href="{{$contactUs->youtube_link}}" target="_blank">
                                 <i class="fab fa-youtube"></i>
                             </a>
                         </li>

@@ -84,7 +84,7 @@ class LoginController extends Controller
         if (Auth::guard('user')->attempt($credentials)) {
             // return redirect()->intended('user-dashboard')
             // ->withSuccess('Signed in');
-            return response()->json(['success' => true, 'message' => 'Login successful'], 200);
+            return response()->json(['success' => true, 'message' => 'Login successful' ,"redirect_url"=>url('/')], 200);
         } else {
             return response()->json(['success' => false,  'message' => $validator->errors()->first()]);
         }

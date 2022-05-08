@@ -22,10 +22,7 @@
                 <div class="col-12">
 
                     <p>
-                        This Privacy Policy governs the manner in which FilingRabbit.in collects, uses, maintains and
-                        discloses information collected from users (each, a “User”) of the https://www.FilingRabbit.in
-                        website (“Site”). This privacy policy applies to the Site and all products and services offered
-                        by FilingRabbit.
+                    This Privacy Policy governs the manner in which FilingRabbit.in collects, uses, maintains and discloses information collected from users (each, a “User”) of the https://www.FilingRabbit.in website (“Site”). This privacy policy applies to the Site and all products and services offered by FilingRabbit.
                     </p>
 
                     <ol class="main-ol">

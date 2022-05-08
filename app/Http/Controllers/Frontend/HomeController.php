@@ -19,6 +19,7 @@ use App\Contracts\DescriptionContract;
 use App\Contracts\ProcessContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Description;
+use App\Models\Blog;
 use App\Models\IndustriesServe;
 use Illuminate\Http\Request;
 
@@ -80,6 +81,8 @@ class HomeController extends BaseController
         $categories = $this->categoryRepository->listCategories();
         $subCategories = $this->subCategoryRepository->listSubCategories();
         $blogs = $this->blogRepository->listBlogs();
+        $bloglimit = Blog::limit(2)->get(); 
+
         $products = $this->productRepository->listProducts();
         $whyUs = $this->whyUsRepository->listWhyUs();
         $IndustriesServes = $this->industriesServeRepository->listIndustriesServes();
@@ -88,7 +91,7 @@ class HomeController extends BaseController
         $processes = $this->processRepository->listProcess();
 
 
-        return view('frontend.index', compact('subCategories', 'categories', 'blogs', 'aboutUs', 'products', 'whyUs', 'IndustriesServes', 'testimonials', 'blogs', 'banner', 'processes'));
+        return view('frontend.index', compact('bloglimit','subCategories', 'categories', 'blogs', 'aboutUs', 'products', 'whyUs', 'IndustriesServes', 'testimonials', 'blogs', 'banner', 'processes'));
     }
 
 

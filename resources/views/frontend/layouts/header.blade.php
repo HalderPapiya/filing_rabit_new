@@ -38,8 +38,13 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                         <li><a href="{{ route('frontend.about-us')}}" class="nav-link">About Us</a></li>
                         <li><a href="{{ route('frontend.blog')}}" class="nav-link">Blog</a></li>
                         <li><a href="{{ route('frontend.contact-us')}}" class="nav-link">Contact Us</a></li>
-                        @auth
+                        <!-- @auth
                         <li class="login_btn"><a href="{{route('user.dashboard')}}" data-toggle="modal">My Profile</a></li>
+                        @else
+                        <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                        @endauth -->
+                        @auth
+                        <li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>
                         @else
                         <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         @endauth

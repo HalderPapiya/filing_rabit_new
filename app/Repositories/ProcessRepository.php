@@ -35,7 +35,7 @@ class ProcessRepository extends BaseRepository implements ProcessContract
      * @param array $columns
      * @return mixed
      */
-    public function listProcess(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listProcess(string $order = 'id', string $sort = 'asc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
     }
