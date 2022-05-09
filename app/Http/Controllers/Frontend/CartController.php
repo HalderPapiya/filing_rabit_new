@@ -11,9 +11,11 @@ use App\Models\Description;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CartController extends BaseController
 {
@@ -128,6 +130,7 @@ class CartController extends BaseController
         $data->billing_country = $request->billing_country;
         $data->billing_state = $request->billing_state;
         $data->amount = $request->amount;
+        $data->payment_method = $request->payment_method;
         // $data->qty = 1;
         $data->save();
 
@@ -156,15 +159,16 @@ class CartController extends BaseController
             ];
         }
         $orderProductsNewEntry = OrderProduct::insert($orderProducts);
-        if (Auth::guard('user')->user()) {
-            $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
-            // dd($userCarts);
-        } else {
-            $userCarts = Order::where('ip', $this->ip)->first();
-            // dd($userCarts);
-        }
+        // if (Auth::guard('user')->user()) {
+        //     $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
+        //     // dd($userCarts);
+        // } else {
+        //     $userCarts = Order::where('ip', $this->ip)->first();
+        //     // dd($userCarts);
+        // }
 
-        return view('frontend.cart', compact('cartData', 'userCarts'));
+        return $this->responseRedirect('product.cart.checkout', 'Product', 'success', false, false);
+        // return view('frontend.cart', compact('cartData', 'userCarts'));
         // $cartData = $this->checkoutRepository->viewCart();
         // if (Auth::guard('user')->user()) {
         //     // $addressData = $this->checkoutRepository->addressData();
@@ -178,6 +182,71 @@ class CartController extends BaseController
         // } else {
         //     return redirect()->route('front.cart.index');
         // }
+    }
+    public function cartCheckout()
+    {
+
+        if (Auth::guard('user')->user()) {
+            $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
+            // dd($userCarts->payment_method);
+            if ($userCarts->payment_method == 'COD') {
+                return view('frontend.cart', compact('userCarts'));
+            } else {
+                return view('frontend.payment_getway', compact('userCarts'));
+            }
+            // dd($userCarts);
+        } else {
+            $userCarts = Order::where('ip', $this->ip)->first();
+            // dd($userCarts->payment_method);
+            if ($userCarts->payment_method == 'COD') {
+                return view('frontend.cart', compact('userCarts'));
+            } else {
+                return view('frontend.payment_getway', compact('userCarts'));
+            }
+            // dd($userCarts);
+        }
+    }
+    public function transaction()
+    {
+
+        $emptyCart = Cart::where('ip', $this->ip)->delete();
+        if (Auth::guard('user')->user()) {
+            $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
+            // dd($userCarts->payment_method);
+            $txnData = new Transaction();
+            $data->user_id = Auth::guard('user')->user()->id ?? 0;
+            $data->ip = $this->ip;
+            $txnData->order_id = $userCarts->id;
+            $txnData->transaction = 'TXN_' . strtoupper(Str::random(20));
+            // $txnData->online_payment_id = $collectedData['razorpay_payment_id'];
+            $txnData->amount = $userCarts->amount;
+            $txnData->currency = "INR";
+            $txnData->method = "";
+            $txnData->description = "";
+            $txnData->bank = "";
+            $txnData->upi = "";
+            $txnData->save();
+            // dd($userCarts);
+        } else {
+            $userCarts = Order::where('ip', $this->ip)->first();
+            // dd($userCarts->payment_method);
+            $txnData = new Transaction();
+            $txnData->user_id = Auth::guard('user')->user()->id ?? 0;
+            $txnData->ip = $this->ip;
+            $txnData->order_id = $userCarts->id;
+            $txnData->transaction = 'TXN_' . strtoupper(Str::random(20));
+            // $txnData->online_payment_id = $collectedData['razorpay_payment_id'];
+            $txnData->amount = $userCarts->amount;
+            $txnData->currency = "INR";
+            $txnData->method = "";
+            $txnData->description = "";
+            $txnData->bank = "";
+            $txnData->upi = "";
+            $txnData->save();
+            // dd($userCarts);
+        }
+        return redirect()->back()->with('message', 'Order successful');
+        // return $this->responseRedirect('product.cart.checkout', 'Order successfull', 'success', false, false);
     }
 
 

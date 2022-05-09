@@ -75,10 +75,27 @@
                             <td>{{$userCarts->amount}}</td>
                         </tr>
                     </table>
-                    <form action="#">
+
+                    <form action="{{route('product.transaction')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id">
+                        <input type="hidden" name="ip">
+                        <input type="hidden" name="transaction">
+                        <input type="hidden" name="online_payment_id">
+                        <input type="hidden" name="amount">
+                        <input type="hidden" name="currency">
+                        <input type="hidden" name="method">
+                        <input type="hidden" name="description">
+                        <input type="hidden" name="bank">
+                        <input type="hidden" name="upi">
                         <button type="submit" class="btn ur-submit-button text-uppercase">
                             Proceed To Checkout
                         </button>
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>

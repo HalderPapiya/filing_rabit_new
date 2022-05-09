@@ -59,6 +59,9 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::post('/addCart', [App\Http\Controllers\Frontend\CartController::class, 'addCart'])->name('add.cart');
     Route::post('/order', [App\Http\Controllers\Frontend\CartController::class, 'Order'])->name('order');
     Route::post('/coupon/check', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
+    Route::get('/cart/checkout', [App\Http\Controllers\Frontend\CartController::class, 'cartCheckout'])->name('cart.checkout');
+    Route::post('/transaction', [App\Http\Controllers\Frontend\CartController::class, 'transaction'])->name('transaction');
+
     // Route::post('/order', [App\Http\Controllers\Frontend\CheckoutController::class, 'store'])->name('order');
 });
 
@@ -117,6 +120,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
     });
     Route::middleware(['auth:admin'])->group(function () {
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'], function () {
             return view('admin.dashboard');
