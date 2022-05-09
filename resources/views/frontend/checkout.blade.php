@@ -171,8 +171,10 @@
                             </tr>
                         </table>
 
-                    
-                        <label>Pay Online</label>
+                        <input type="radio" id="html" name="payment_method" value="Pay Online">
+                        <label>Pay Online</label><br>
+                        <input type="radio" id="css" name="payment_method" value="COD">
+                        <label for="css">Cash On Delivary</label><br>
 
                         <div class="pay_box">
                             <p>Pay securely by Credit or Debit card or internet banking through Easebuzz.</p>

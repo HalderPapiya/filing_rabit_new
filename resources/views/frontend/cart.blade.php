@@ -19,7 +19,7 @@
 <section class="py-4 py-lg-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                 <div class="cart-details-table">
                     <table class="table mb-1">
                         <tr>
@@ -54,22 +54,25 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-md-6">
                 <div class="cart-details-table">
                     <h5>Cart Totals</h5>
                     <table class="table mb-1">
+                        {{-- @foreach ($userCarts as $data)
+                        @php $sum = $sum + $data->price_one; @endphp
+                        @endforeach --}}
                         <tr>
                             <td>Subtotal:</td>
-                            <td>Rs. 7,000/-</td>
+                            <td> {{$userCarts->amount}}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td>Discount:</td>
                             <td>Rs. 1,000/-</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <td>Total:</td>
-                            <td>Rs. 6,000/-</td>
+                            <td>{{$userCarts->amount}}</td>
                         </tr>
                     </table>
                     <form action="#">

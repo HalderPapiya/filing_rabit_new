@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Cart;
+use App\Models\Coupon;
+use App\Models\CouponUsage;
 use App\Models\Description;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -99,6 +101,8 @@ class CartController extends BaseController
             return $this->responseRedirect('product.cart', 'Add to Cart Successfully', 'success', false, false);
         }
 
+
+
         return $this->responseRedirect('product.cart', 'Already Exist This Product', 'success', false, false);
     }
 
@@ -152,8 +156,15 @@ class CartController extends BaseController
             ];
         }
         $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+        if (Auth::guard('user')->user()) {
+            $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
+            // dd($userCarts);
+        } else {
+            $userCarts = Order::where('ip', $this->ip)->first();
+            // dd($userCarts);
+        }
 
-        return view('frontend.cart', compact('cartData'));
+        return view('frontend.cart', compact('cartData', 'userCarts'));
         // $cartData = $this->checkoutRepository->viewCart();
         // if (Auth::guard('user')->user()) {
         //     // $addressData = $this->checkoutRepository->addressData();
@@ -169,6 +180,32 @@ class CartController extends BaseController
         // }
     }
 
+
+    public function couponCheck($coupon_code)
+    {
+        $couponData = Coupon::where('coupon_code', $coupon_code)->first();
+
+        if (Auth::guard('user')->user()) {
+            $couponUsageCount = CouponUsage::where('user_id', Auth::guard('user')->user()->id)->orWhere('email', Auth::guard('user')->user()->email)->count();
+        } else {
+            $couponUsageCount = CouponUsage::where('ip', $this->ip)->count();
+        }
+
+        if ($couponData) {
+            if ($couponData->end_date < \Carbon\Carbon::now() || $couponData->status == 0) {
+                return response()->json(['resp' => 200, 'type' => 'warning', 'message' => 'Coupon expired']);
+            } elseif ($couponUsageCount == $couponData->max_time_one_can_use || $couponUsageCount > $couponData->max_time_one_can_use) {
+                return response()->json(['resp' => 200, 'type' => 'warning', 'message' => 'You cannot use this coupon anymore']);
+            } else {
+                // applied coupon, update in cart
+                $cartData = Cart::where('ip', $this->ip)->update(['coupon_code_id' => $couponData->id]);
+
+                return response()->json(['resp' => 200, 'type' => 'success', 'message' => 'Coupon applied', 'id' => $couponData->id, 'amount' => $couponData->amount, 'coupon_discount' => $couponData->amount]);
+            }
+        }
+
+        return response()->json(['resp' => 200, 'type' => 'error', 'message' => 'Invalid coupon code']);
+    }
     /**
      * Display the specified resource.
      *

@@ -58,6 +58,7 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::get('/cart', [App\Http\Controllers\Frontend\CartController::class, 'index'])->name('cart');
     Route::post('/addCart', [App\Http\Controllers\Frontend\CartController::class, 'addCart'])->name('add.cart');
     Route::post('/order', [App\Http\Controllers\Frontend\CartController::class, 'Order'])->name('order');
+    Route::post('/coupon/check', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
     // Route::post('/order', [App\Http\Controllers\Frontend\CheckoutController::class, 'store'])->name('order');
 });
 

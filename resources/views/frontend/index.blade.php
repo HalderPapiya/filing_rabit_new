@@ -263,12 +263,12 @@
                 </div>
                 @foreach ($processes as $processes)
                 <div class="col-sm-2 p_step">
-                    <div class="process_wrap bg-danger">
+                    <div class="process_wrap">
                         <div class="process_block">
                             <h5>{{$processes->title}}</h5>
                         </div>
                         <div class="process_rblock">
-                            <p>{{$processes->description}}</p>
+                            {!! $processes->description !!}
                         </div>
                     </div>
                 </div>
