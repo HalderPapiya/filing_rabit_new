@@ -41,6 +41,12 @@ use App\Contracts\NewsLetterContract;
 use App\Repositories\NewsLetterRepository;
 use App\Contracts\ConsultantContract;
 use App\Repositories\ConsultantRepository;
+use App\Contracts\CartContract;
+use App\Repositories\CartRepository;
+use App\Contracts\OrderContract;
+use App\Repositories\OrderRepository;
+use App\Contracts\CheckoutContract;
+use App\Repositories\CheckoutRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -64,6 +70,9 @@ class RepositoryServiceProvider extends ServiceProvider
         ProcessContract::class =>  ProcessRepository::class,
         NewsLetterContract::class =>  NewsLetterRepository::class,
         ConsultantContract::class =>  ConsultantRepository::class,
+        CartContract::class =>  CartRepository::class,
+        OrderContract::class =>  OrderRepository::class,
+        CheckoutContract::class =>  CheckoutRepository::class,
     ];
 
     /**

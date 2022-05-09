@@ -34,7 +34,7 @@ class CartController extends BaseController
      */
     public function index()
     {
-        $users = User::where('id', Auth::guard('user')->user()->id)->first();
+        // $users = User::where('id', Auth::guard('user')->user()->id)->first();
         // dd($users);
         // $user_id =;
         if (Auth::guard('user')->user()) {
@@ -44,7 +44,7 @@ class CartController extends BaseController
             $userCarts = Cart::where('ip', $this->ip)->get();
             //     // dd($userCarts);
         }
-        return view('frontend.checkout', compact('userCarts', 'users'));
+        return view('frontend.checkout', compact('userCarts'));
     }
     public function userGet()
     {
@@ -75,27 +75,31 @@ class CartController extends BaseController
      */
     public function addCart(Request $request)
     {
-        if (Auth::guard('user')->user()) {
-            $data = new Cart();
-            $data->user_id = Auth::guard('user')->user()->id;
-            $data->ip = $this->ip;
-            $data->product_id = $request->product_id;
-            $data->variation_type_one = $request->variation_type_one;
-            $data->price_one = $request->product_price;
-            $data->qty = 1;
-            $data->save();
-        } else {
-            $data = new Cart();
-            $data->ip = $this->ip;
-            $data->user_id = 0;
-            $data->product_id = $request->product_id;
-            $data->variation_type_one = $request->variation_type_one;
-            $data->price_one = $request->product_price;
-            $data->qty = 1;
-            $data->save();
+        $cartExists = Cart::where('product_id', $request->product_id)->where('ip', $this->ip)->first();
+        if (!$cartExists) {
+            if (Auth::guard('user')->user()) {
+                $data = new Cart();
+                $data->user_id = Auth::guard('user')->user()->id;
+                $data->ip = $this->ip;
+                $data->product_id = $request->product_id;
+                $data->variation_type_one = $request->variation_type_one;
+                $data->price_one = $request->product_price;
+                $data->qty = 1;
+                $data->save();
+            } else {
+                $data = new Cart();
+                $data->ip = $this->ip;
+                $data->user_id = 0;
+                $data->product_id = $request->product_id;
+                $data->variation_type_one = $request->variation_type_one;
+                $data->price_one = $request->product_price;
+                $data->qty = 1;
+                $data->save();
+            }
+            return $this->responseRedirect('product.cart', 'Add to Cart Successfully', 'success', false, false);
         }
 
-        return $this->responseRedirect('product.cart', 'Add to Cart Successfully', 'success', false, false);
+        return $this->responseRedirect('product.cart', 'Already Exist This Product', 'success', false, false);
     }
 
     /**
@@ -125,20 +129,6 @@ class CartController extends BaseController
 
 
         $cartData = Cart::where('ip', $this->ip)->get();
-        // foreach($cartData as $cartValue) {
-        //     $subtotal += $cartValue->offer_price * $cartValue->qty;
-        // }
-        // $newEntry->amount = $subtotal;
-        // $newEntry->shipping_charges = 0;
-        // $newEntry->tax_amount = 0;
-        // // $newEntry->discount_amount = 0;
-        // // $newEntry->coupon_code_id = 0;
-        // $total = (int) $subtotal;
-        // $newEntry->final_amount = $total;
-        // $coupon_code_id = $cartData[0]->coupon_code_id ?? 0;
-        // $newEntry->coupon_code_id = $coupon_code_id;
-        // $newEntry->save();
-
 
         // 2 insert cart data into order products
         $orderProducts = [];
@@ -146,16 +136,6 @@ class CartController extends BaseController
             $orderProducts[] = [
                 // 'order_id' => $data->id,
                 'product_id' => $data->product_id,
-                // 'product_name' => $data->product_name,
-                // 'product_image' => $cartValue->product_image,
-                // 'product_slug' => $cartValue->product_slug,
-                // 'product_variation_id' => $cartValue->product_variation_id,
-                // 'price' => $cartValue->price,
-                // 'offer_price' => $cartValue->offer_price,
-                // 'qty' => $cartValue->qty,
-
-
-
                 'user_id' => Auth::guard('user')->user()->id ?? 0,
                 'ip' => $this->ip,
                 'order_no' => $order_no,
@@ -172,6 +152,21 @@ class CartController extends BaseController
             ];
         }
         $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+
+        return view('frontend.cart', compact('cartData'));
+        // $cartData = $this->checkoutRepository->viewCart();
+        // if (Auth::guard('user')->user()) {
+        //     // $addressData = $this->checkoutRepository->addressData();
+        //     $addressData = User::first();
+        // } else {
+        //     $addressData = null;
+        // }
+
+        // if ($cartData) {
+        //     return view('front.checkout.index', compact('cartData', 'addressData'));
+        // } else {
+        //     return redirect()->route('front.cart.index');
+        // }
     }
 
     /**
