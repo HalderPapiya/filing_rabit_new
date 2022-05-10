@@ -49,6 +49,8 @@ use App\Contracts\CheckoutContract;
 use App\Repositories\CheckoutRepository;
 use App\Contracts\AddressContract;
 use App\Repositories\AddressRepository;
+use App\Contracts\CouponContract;
+use App\Repositories\CouponRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -76,6 +78,7 @@ class RepositoryServiceProvider extends ServiceProvider
         OrderContract::class =>  OrderRepository::class,
         CheckoutContract::class =>  CheckoutRepository::class,
         AddressContract::class =>  AddressRepository::class,
+        CouponContract::class =>  CouponRepository::class,
     ];
 
     /**

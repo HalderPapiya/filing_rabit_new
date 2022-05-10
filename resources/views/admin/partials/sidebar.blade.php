@@ -88,6 +88,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item product {{ request()->is('admin/coupon*') ? 'active' : '' }}" href="{{ route('admin.coupon.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Coupon</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item description {{ request()->is('admin/description*') ? 'active' : '' }}" href="{{ route('admin.description.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Description</span>
             </a>

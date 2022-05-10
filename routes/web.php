@@ -277,6 +277,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/testimonial/{id}/delete', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('testimonial.delete');
         Route::post('/testimonial/updateStatus', [App\Http\Controllers\Admin\TestimonialController::class, 'updateStatus'])->name('testimonial.updateStatus');
 
+        //-----------------Coupon----------------
+
+        Route::get('/coupon', [App\Http\Controllers\Admin\CouponController::class, 'index'])->name('coupon.index');
+        Route::get('/coupon/create', [App\Http\Controllers\Admin\CouponController::class, 'create'])->name('coupon.create');
+        Route::post('/coupon/store', [App\Http\Controllers\Admin\CouponController::class, 'store'])->name('coupon.store');
+        Route::get('/coupon/edit/{id}', [App\Http\Controllers\Admin\CouponController::class, 'edit'])->name('coupon.edit');
+        Route::post('/coupon/update', [App\Http\Controllers\Admin\CouponController::class, 'update'])->name('coupon.update');
+        Route::get('/coupon/{id}/delete', [App\Http\Controllers\Admin\CouponController::class, 'destroy'])->name('coupon.delete');
+        Route::post('/coupon/updateStatus', [App\Http\Controllers\Admin\CouponController::class, 'updateStatus'])->name('coupon.updateStatus');
+
         //-----------------Product----------------
 
         Route::get('/product', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('product.index');
