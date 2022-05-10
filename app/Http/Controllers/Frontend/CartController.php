@@ -199,7 +199,7 @@ class CartController extends BaseController
             // }
 
 
-            return redirect()->route('product.cart.checkout');
+            // return redirect()->route('product.cart.checkout');
 
             return $this->responseRedirect('product.cart.checkout', 'Product', 'success', false, false);
             // return view('frontend.cart', compact('cartData', 'userCarts'));

@@ -59,6 +59,7 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::post('/addCart', [App\Http\Controllers\Frontend\CartController::class, 'addCart'])->name('add.cart');
     Route::post('/order', [App\Http\Controllers\Frontend\CartController::class, 'Order'])->name('order');
     Route::post('/coupon/check', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
+    // Route::post('/coupon', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
     Route::get('/cart/checkout', [App\Http\Controllers\Frontend\CartController::class, 'cartCheckout'])->name('cart.checkout');
     Route::post('/transaction', [App\Http\Controllers\Frontend\CartController::class, 'transaction'])->name('transaction');
 
