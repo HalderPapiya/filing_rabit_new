@@ -78,8 +78,8 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/order', [App\Http\Controllers\Frontend\UserController::class, 'order'])->name('order');
         Route::get('/download', [App\Http\Controllers\Frontend\UserController::class, 'download'])->name('download');
-        Route::get('/address', [App\Http\Controllers\Frontend\UserController::class, 'address'])->name('address');
-        Route::post('/address-store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('address.store');
+        Route::get('/address', [App\Http\Controllers\Frontend\AddressController::class, 'index'])->name('address');
+        Route::post('/address-store/{id?}', [App\Http\Controllers\Frontend\AddressController::class, 'store'])->name('address.store');
         Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
         Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
 

@@ -19,7 +19,7 @@
 <section class="py-4 py-lg-5">
     <div class="container">
         <div class="row">
-            {{-- <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="cart-details-table">
                     <table class="table mb-1">
                         <tr>
@@ -47,14 +47,15 @@
                             <td>Rs. 7,000/-</td>
                         </tr>
                     </table>
-                    <form action="">
+                    <form action="{{route('product.coupon.check')}}" method="POST">
+                        @csrf
                         <div class="form-group mb-0 d-flex align-items-center">
                             <input type="text" class="form-control" placeholder="Coupon Code">
                             <button type="submit" class="btn ur-submit-button ml-3 w-auto"> Apply </button>
                         </div>
                     </form>
                 </div>
-            </div> --}}
+            </div>
             <div class="col-md-6">
                 <div class="cart-details-table">
                     <h5>Cart Totals</h5>

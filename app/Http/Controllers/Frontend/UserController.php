@@ -8,9 +8,10 @@ use App\Contracts\CategoryContract;
 use App\Contracts\BlogContract;
 use App\Models\User;
 use App\Http\Controllers\BaseController;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class UserController extends BaseController
@@ -51,7 +52,10 @@ class UserController extends BaseController
     }
     public function address()
     {
-        return view('user.address');
+        $user = User::get();
+        $address = Address::where('user_id',  Auth::guard('user')->user()->id)->first();
+        // dd($address->userDetails);
+        return view('user.address', compact('address', 'user'));
     }
 
     /**

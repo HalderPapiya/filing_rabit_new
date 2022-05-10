@@ -49,94 +49,97 @@
                     <h3>Billing address</h3>
                     <form action="{{route('user.address.store')}}" method="POST">
                         @csrf
+                        {{-- <input type="hidden" value="{{$address->id}}" name="id" class="form-control"> --}}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" name="first_name" class="form-control">
+                                    <input type="text" value="{{$address->fName}}" name="first_name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" name="last_name" class="form-control">
+                                    <input type="text" value="{{$address->lName}}" name="last_name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Company Name</label>
-                                    <input type="text" name="company_name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Country / Region</label>
-                                    <input type="text" name="country" class="form-control">
+                                    <input type="text" value="{{$address->company_name}}" name="company_name" class="form-control">
                                 </div>
                             </div>
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Country / Region</label>
-                                    <select class="form-control">
-                                        <option value="">India</option>
-                                        <option value="">India</option>
-                                        <option value="">India</option>
-                                        <option value="">India</option>
-                                        <option value="">India</option>
-                                    </select>
+                                    <input type="text" name="country" value="{{$address->country}}" class="form-control">
                                 </div>
                             </div> --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Country / Region</label>
+                                   <select name="billing_country" value="{{$address->country}}" class="form-control">
+                                            <option value="India">India</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="Brazil">Brazil</option>
+                                            <option value="Sweden">Sweden</option>
+                                            <option value="UK">UK</option>
+                                            <option value="USA">USA</option>
+                                        </select>
+                                </div>
+                            </div> 
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Street Address</label>
-                                    <input type="text" class="form-control" name="street" placeholder="House number and street name">
+                                    <input type="text" class="form-control" name="street" value="{{$address->street}}" placeholder="House number and street name">
                                 </div>
                             </div>
-                            {{-- <div class="col-12">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Apartment, suite, unit, etc. (optional)">
+                                    <input type="text" class="form-control" name="house_no" {{$address->house_no}}placeholder="Apartment, suite, unit, etc. (optional)">
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Town / City</label>
-                                    <input type="text" name="city" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>State</label>
-                                    <input type="text" name="state" class="form-control">
+                                    <input type="text" name="city" value="{{$address->city}}" class="form-control">
                                 </div>
                             </div>
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <select class="form-control">
-                                        <option value="">West Bengal</option>
-                                        <option value="">West Bengal</option>
-                                        <option value="">West Bengal</option>
-                                        <option value="">West Bengal</option>
-                                        <option value="">West Bengal</option>
-                                    </select>
+                                    <input type="text" name="state" value="{{$address->state}}" class="form-control">
                                 </div>
                             </div> --}}
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label>State</label>
+                                    <select name="billing_state" value="{{$address->state}}" class="form-control">
+                                        <option value="West Bengal">West Bengal</option>
+                                        <option value="Gujrat">Gujrat</option>
+                                        <option value="Maharastra">Maharastra</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Hariana">Hariana</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label>Pin</label>
-                                    <input type="number" name="pin_code" class="form-control">
+                                    <input type="number" name="pin_code" value="{{$address->pin}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input type="number" name="mobile" class="form-control">
+                                    <input type="number" name="mobile" value="{{$address->phone}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Email address</label>
-                                    <input type="email" name="email" class="form-control">
+                                    <input type="email" name="email" value="{{Auth::user()->email}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">

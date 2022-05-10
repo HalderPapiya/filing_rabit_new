@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
 use App\Http\Controllers\BaseController;
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\CouponUsage;
@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\TryCatch;
 
 class CartController extends BaseController
 {
@@ -42,13 +43,17 @@ class CartController extends BaseController
         // dd($users);
         // $user_id =;
         if (Auth::guard('user')->user()) {
+            $address = Address::where('user_id',  Auth::guard('user')->user()->id)->first();
+
             $userCarts = Cart::where('user_id',  Auth::guard('user')->user()->id)->get();
-            // dd($userCarts);
+            // dd($address);
         } else {
             $userCarts = Cart::where('ip', $this->ip)->get();
+            $address = Address::where('ip', $this->ip)->First();
+
             //     // dd($userCarts);
         }
-        return view('frontend.checkout', compact('userCarts'));
+        return view('frontend.checkout', compact('userCarts', 'address'));
     }
     public function userGet()
     {
@@ -79,6 +84,7 @@ class CartController extends BaseController
      */
     public function addCart(Request $request)
     {
+
         $cartExists = Cart::where('product_id', $request->product_id)->where('ip', $this->ip)->first();
         if (!$cartExists) {
             if (Auth::guard('user')->user()) {
@@ -117,78 +123,107 @@ class CartController extends BaseController
     public function Order(Request $request)
     {
         // dd($request->all());
-        $order_no = "FR" . mt_rand();
-        // if (Auth::guard('user')->user()) {
-        $data = new Order();
-        $data->user_id = Auth::guard('user')->user()->id ?? 0;
-        $data->ip = $this->ip;
-        $data->order_no = $order_no;
-        $data->fname = $request->fname;
-        $data->lname = $request->lname;
-        $data->email = $request->email;
-        $data->mobile = $request->mobile;
-        $data->billing_country = $request->billing_country;
-        $data->billing_state = $request->billing_state;
-        $data->amount = $request->amount;
-        $data->payment_method = $request->payment_method;
-        // $data->qty = 1;
-        $data->save();
 
 
-        $cartData = Cart::where('ip', $this->ip)->get();
+        try {
+            $this->validate($request, [
+                'fname' =>  'required',
+                'lname' =>  'required',
+                'email' =>  'required',
+                'mobile' =>  'required',
+                'billing_country' =>  'required',
+                'billing_state' =>  'required',
+                'mobile' =>  'required',
+            ]);
+            // dd($request->all());
+            $order_no = "FR" . mt_rand();
+            // if (Auth::guard('user')->user()) {
+            $data = new Order();
+            $data->user_id = Auth::guard('user')->user()->id ?? 0;
+            $data->ip = $this->ip;
+            $data->order_no = $order_no;
+            // $data->product_id = $request->product_id;
+            $data->fname = $request->fname;
+            $data->lname = $request->lname;
+            $data->email = $request->email;
+            $data->mobile = $request->mobile;
+            $data->billing_country = $request->billing_country;
+            $data->billing_state = $request->billing_state;
+            $data->amount = $request->amount;
+            $data->payment_method = $request->payment_method;
+            // $data->qty = 1;
+            $data->save();
 
-        // 2 insert cart data into order products
-        $orderProducts = [];
-        foreach ($cartData as $cartValue) {
-            $orderProducts[] = [
-                // 'order_id' => $data->id,
-                'product_id' => $data->product_id,
-                'user_id' => Auth::guard('user')->user()->id ?? 0,
-                'ip' => $this->ip,
-                'order_no' => $order_no,
-                'fname' => $request->fname,
-                'lname' => $request->lname,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
-                'billing_country' => $request->billing_country,
-                'billing_state' => $request->billing_state,
-                'amount' => $request->amount,
+            $data = new Address;
+            $data->user_id = Auth::guard('user')->user()->id ?? 0;
+            $data->ip = $this->ip;
+            $data->fName =  $request->fname;
+            $data->lName = $request->lname;
+            $data->country = $request->billing_state;
+            $data->state = $request->billing_state;
+            $data->phone = $request->mobile;
+            $data->email = $request->email;
+            $data->save();
 
 
+            $cartData = Cart::where('ip', $this->ip)->get();
+            // if()
+            // 2 insert cart data into order products
+            $orderProducts = [];
+            foreach ($cartData as $cartValue) {
+                $orderProducts[] = [
+                    // 'order_id' => $data->id,
+                    'product_id' => $request->product_id,
+                    'user_id' => Auth::guard('user')->user()->id ?? 0,
+                    'ip' => $this->ip,
+                    'order_no' => $order_no,
+                    'fname' => $request->fname,
+                    'lname' => $request->lname,
+                    'email' => $request->email,
+                    'mobile' => $request->mobile,
+                    'billing_country' => $request->billing_country,
+                    'billing_state' => $request->billing_state,
+                    'amount' => $request->amount,
+                ];
+            }
+            $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+            // if ($request->check) {
 
-            ];
+            // }
+            // if (Auth::guard('user')->user()) {
+            //     $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
+            //     // dd($userCarts);
+            // } else {
+            //     $userCarts = Order::where('ip', $this->ip)->first();
+            //     // dd($userCarts);
+            // }
+
+
+            return redirect()->route('product.cart.checkout');
+
+            return $this->responseRedirect('product.cart.checkout', 'Product', 'success', false, false);
+            // return view('frontend.cart', compact('cartData', 'userCarts'));
+            // $cartData = $this->checkoutRepository->viewCart();
+            // if (Auth::guard('user')->user()) {
+            //     // $addressData = $this->checkoutRepository->addressData();
+            //     $addressData = User::first();
+            // } else {
+            //     $addressData = null;
+            // }
+
+            // if ($cartData) {
+            //     return view('front.checkout.index', compact('cartData', 'addressData'));
+            // } else {
+            //     return redirect()->route('front.cart.index');
+            // }
+        } catch (\Exception $error) {
+            throw $error;
         }
-        $orderProductsNewEntry = OrderProduct::insert($orderProducts);
-        // if (Auth::guard('user')->user()) {
-        //     $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
-        //     // dd($userCarts);
-        // } else {
-        //     $userCarts = Order::where('ip', $this->ip)->first();
-        //     // dd($userCarts);
-        // }
-
-        return $this->responseRedirect('product.cart.checkout', 'Product', 'success', false, false);
-        // return view('frontend.cart', compact('cartData', 'userCarts'));
-        // $cartData = $this->checkoutRepository->viewCart();
-        // if (Auth::guard('user')->user()) {
-        //     // $addressData = $this->checkoutRepository->addressData();
-        //     $addressData = User::first();
-        // } else {
-        //     $addressData = null;
-        // }
-
-        // if ($cartData) {
-        //     return view('front.checkout.index', compact('cartData', 'addressData'));
-        // } else {
-        //     return redirect()->route('front.cart.index');
-        // }
     }
-    public function cartCheckout()
+    public function cartCheckout(Request $request)
     {
-
         if (Auth::guard('user')->user()) {
             $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
-            // dd($userCarts->payment_method);
             if ($userCarts->payment_method == 'COD') {
                 return view('frontend.cart', compact('userCarts'));
             } else {
@@ -214,8 +249,8 @@ class CartController extends BaseController
             $userCarts = Order::where('user_id',  Auth::guard('user')->user()->id)->first();
             // dd($userCarts->payment_method);
             $txnData = new Transaction();
-            $data->user_id = Auth::guard('user')->user()->id ?? 0;
-            $data->ip = $this->ip;
+            $txnData->user_id = Auth::guard('user')->user()->id ?? 0;
+            $txnData->ip = $this->ip;
             $txnData->order_id = $userCarts->id;
             $txnData->transaction = 'TXN_' . strtoupper(Str::random(20));
             // $txnData->online_payment_id = $collectedData['razorpay_payment_id'];

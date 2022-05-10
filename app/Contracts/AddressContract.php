@@ -3,10 +3,10 @@
 namespace App\Contracts;
 
 /**
- * Interface CategoryContract
+ * Interface AddressContract
  * @package App\Contracts
  */
-interface CategoryContract
+interface AddressContract
 {
     /**
      * @param string $order
@@ -14,36 +14,36 @@ interface CategoryContract
      * @param array $columns
      * @return mixed
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
+    public function listAddresses(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
 
     /**
      * @param int $id
      * @return mixed
      */
-    public function findCategoryById(int $id);
+    public function findAddressById(int $id);
 
     /**
      * @param array $params
      * @return mixed
      */
-    public function createCategory(array $params);
+    public function createAddress(array $params);
 
     /**
      * @param array $params
      * @return mixed
      */
-    public function updateCategory(array $params);
+    public function updateAddress(array $params);
 
     /**
      * @param int $id
      * @return mixed
      */
 
-    public function updateCategoryStatus(array $params);
+    public function updateAddressStatus(array $params);
 
     /**
      * @param $id
      * @return bool
      */
-    public function deleteCategory($id);
+    public function deleteAddress($id);
 }
