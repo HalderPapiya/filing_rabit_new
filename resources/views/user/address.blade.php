@@ -54,19 +54,19 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" value="{{$address->fName}}" name="first_name" class="form-control">
+                                    <input type="text" value="{{$address?$address->fName : ''}}" name="first_name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" value="{{$address->lName}}" name="last_name" class="form-control">
+                                    <input type="text" value="{{$address?$address->lName : ''}}" name="last_name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Company Name</label>
-                                    <input type="text" value="{{$address->company_name}}" name="company_name" class="form-control">
+                                    <input type="text" value="{{$address?$address->company_name : ''}}" name="company_name" class="form-control">
                                 </div>
                             </div>
                             {{-- <div class="col-12">
@@ -78,7 +78,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Country / Region</label>
-                                   <select name="billing_country" value="{{$address->country}}" class="form-control">
+                                   <select name="country" value="{{$address?$address->country : ''}}" class="form-control">
                                             <option value="India">India</option>
                                             <option value="Australia">Australia</option>
                                             <option value="Brazil">Brazil</option>
@@ -91,18 +91,18 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Street Address</label>
-                                    <input type="text" class="form-control" name="street" value="{{$address->street}}" placeholder="House number and street name">
+                                    <input type="text" class="form-control" name="street" value="{{$address?$address->street : ''}}" placeholder="House number and street name">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="house_no" {{$address->house_no}}placeholder="Apartment, suite, unit, etc. (optional)">
+                                    <input type="text" class="form-control" name="house_no" value="{{$address?$address->house_no : ''}}" placeholder="Apartment, suite, unit, etc. (optional)">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Town / City</label>
-                                    <input type="text" name="city" value="{{$address->city}}" class="form-control">
+                                    <input type="text" name="city" value="{{$address?$address->city : ''}}" class="form-control">
                                 </div>
                             </div>
                             {{-- <div class="col-12">
@@ -114,7 +114,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <select name="billing_state" value="{{$address->state}}" class="form-control">
+                                    <select name="state" value="{{$address?$address->state : ''}}" class="form-control">
                                         <option value="West Bengal">West Bengal</option>
                                         <option value="Gujrat">Gujrat</option>
                                         <option value="Maharastra">Maharastra</option>
@@ -127,13 +127,13 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Pin</label>
-                                    <input type="number" name="pin_code" value="{{$address->pin}}" class="form-control">
+                                    <input type="number" name="pin_code" value="{{$address?$address->pin : ''}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input type="number" name="mobile" value="{{$address->phone}}" class="form-control">
+                                    <input type="number" name="mobile" value="{{$address?$address->phone : ''}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">

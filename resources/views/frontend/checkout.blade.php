@@ -156,6 +156,8 @@
                                 <td>{{ $sum }}/-</td>
                             </tr> --}}
                         </table>
+                        <input type="hidden" name="product_id" value="{{ $data->product_id }}" class="form-control">
+
                         @endforeach
 
                         <table class="table checkout-table mb-4 border">
@@ -172,7 +174,6 @@
                                 <td>{{ $data->price_one }}</td>
                             </tr> --}}
                             <input type="hidden" name="amount" value="{{ $sum }}" class="form-control">
-                            <input type="hidden" name="product_id" value="{{ $data->product_id }}" class="form-control">
 
                             <tr>
                                 <td>Subtotal:</td>

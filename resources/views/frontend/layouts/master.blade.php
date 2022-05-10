@@ -189,7 +189,7 @@
     $('#registerForm').on('submit', function(event) {
         event.preventDefault();
         // alert();
-        var email = $("input[name=reg_email]").val();
+        var email = $("input[name=regs_emailgit]").val();
         var password = $("input[name=regs_password]").val();
         var confirm_password = $("input[name=reg_con_password]").val();
         // var email = $(this).data('email');
