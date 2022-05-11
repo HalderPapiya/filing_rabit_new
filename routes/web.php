@@ -51,6 +51,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
 
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
+    Route::get('/cart/show', [App\Http\Controllers\Frontend\CartController::class, 'cartView'])->name('cart.show');
 });
 
 // -------------------Cart---------------------
@@ -62,7 +63,7 @@ Route::prefix('product')->name('product.')->group(function () {
     // Route::post('/coupon', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
     Route::get('/cart/checkout', [App\Http\Controllers\Frontend\CartController::class, 'cartCheckout'])->name('cart.checkout');
     Route::post('/transaction', [App\Http\Controllers\Frontend\CartController::class, 'transaction'])->name('transaction');
-
+    // Route::post('/cart/coupon/check', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('cart.coupon.check');
     // Route::post('/order', [App\Http\Controllers\Frontend\CheckoutController::class, 'store'])->name('order');
 });
 
@@ -72,6 +73,7 @@ Route::get('/login_form', [App\Http\Controllers\Auth\LoginController::class, 'lo
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('user.registration');
 Route::post('/user_login', [App\Http\Controllers\Auth\LoginController::class, 'userLogin'])->name('user.login');
 // });
+
 
 Route::prefix('user')->name('user.')->group(function () {
     Route::middleware(['auth:user'])->group(function () {

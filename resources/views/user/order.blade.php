@@ -18,7 +18,8 @@
 <section class="ac_section">
     <div class="container">
         <div class="row ">
-            <div class="col-md-3">
+            @include('user.sidebar') 
+            {{-- <div class="col-md-3"> --}}
                 {{-- <nav class="sticky-top my-account-navigation">
                     <ul>
                         <li>
@@ -41,15 +42,32 @@
                         </li>
                     </ul>
                 </nav> --}}
-            </div>
+            {{-- </div> --}}
+            
             <div class="col-md-9">
-                <div class="view-cart-message d-flex align-items-center justify-content-between">
-                    <p>
-                        <i class="fa fa-check-circle"></i>
-                        No order has been made yet.
-                    </p>
-                    <a href="#" class="btn btn-warning">Browse Products</a>
-                </div>
+                @if(count($orders)<1)
+                    <div class="view-cart-message d-flex align-items-center justify-content-between">
+                        <p>
+                            <i class="fa fa-check-circle"></i>
+                            No order has been made yet.
+                        </p>
+                        <a href="#" class="btn btn-warning">Browse Products</a>
+                    </div>  
+                @else
+                    @foreach ($orders as $order)
+                    <div class="col-md-3 dash-card-col">
+                        <div class="card card-body mb-0">
+                            <h5 class="mb-2">{{$order->orderDetails->order_no}}</h5>
+                            <h5 class="mb-2">{{$order->productDetails->name}}</h5>
+                            {{-- <p class="small mb-0"> --}}
+                            
+                            </p>
+                            {{-- <i class="fas fa-list-alt app-menu__icon fa fa-group"></i> --}}
+                        </div>
+                    </div>
+                    @endforeach
+                @endif
+
             </div>
         </div>
     </div>

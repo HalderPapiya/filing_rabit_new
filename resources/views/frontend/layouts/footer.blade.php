@@ -142,7 +142,7 @@ $products = App\Models\Product::limit(7)->get();
                             <a href="{{ route('frontend.contact-us')}}" class="nav-link">Contact Us</a>
                         </li>
                         <li>
-                            <a href="https://filingrabbit.in/cart/" class="nav-link">Cart</a>
+                            <a href="{{route('frontend.cart.show')}}" class="nav-link">Cart</a>
                         </li>
                     </ul>
                 </div>

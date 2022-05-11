@@ -43,11 +43,17 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                         @else
                         <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         @endauth -->
-                        @auth
+
+                        @if (Auth()->guard('user')->user())
                         <li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>
                         @else
                         <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                        @endauth
+                        @endif
+                        {{-- @auth
+                            <li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>
+                        @else
+                            <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                        @endauth --}}
                     </ul>
                 </div>
             </div>

@@ -61,8 +61,8 @@
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form> 
-                                    <a class="forgot password"
-                                        href="https://filingrabbit.in/lost-password/">Forgot Password?</a>
+                                    {{-- <a class="forgot password"
+                                        href="https://filingrabbit.in/lost-password/">Forgot Password?</a> --}}
                                 </div>
                                 <p class="text-center">Don't Have an Account? 
                                     <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog"
+   <div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
@@ -189,7 +189,7 @@
     $('#registerForm').on('submit', function(event) {
         event.preventDefault();
         // alert();
-        var email = $("input[name=regs_emailgit]").val();
+        var email = $("input[name=regs_email]").val();
         var password = $("input[name=regs_password]").val();
         var confirm_password = $("input[name=reg_con_password]").val();
         // var email = $(this).data('email');

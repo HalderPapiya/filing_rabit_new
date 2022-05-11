@@ -14,4 +14,7 @@ class Cart extends Model
     {
         return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
+    public function couponDetails() {
+        return $this->belongsTo('App\Models\Coupon', 'coupon_code_id', 'id');
+    }
 }

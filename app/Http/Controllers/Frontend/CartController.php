@@ -14,20 +14,22 @@ use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Contracts\CartContract;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\TryCatch;
 
 class CartController extends BaseController
 {
-
+    public function __construct(CartContract $cartRepository)
+    {
+        $this->cartRepository = $cartRepository;
+        $this->ip = $_SERVER['REMOTE_ADDR'];
+    }
     /**
      * HomeController constructor.
      */
-    public function __construct()
-    {
-        $this->ip = $_SERVER['REMOTE_ADDR'];
-    }
+
     // public function __construct() {
 
     // }
@@ -53,10 +55,31 @@ class CartController extends BaseController
 
             //     // dd($userCarts);
         }
-        return view('frontend.checkout', compact('userCarts', 'address'));
+        $data = $this->cartRepository->viewByIp();
+
+        if ($data) {
+            return view('frontend.checkout', compact('data', 'address'));
+        } else {
+            return view('front.404');
+        }
+        return view('frontend.checkout', compact('userCarts', 'address', 'data'));
     }
     public function userGet()
     {
+    }
+
+    public function cartView()
+
+    {
+        $data = $this->cartRepository->viewByIp();
+
+        if ($data) {
+            return view('frontend.cart', compact('data'));
+        } else {
+            return view('front.404');
+        }
+
+        // return view('frontend.cart');
     }
 
 
@@ -126,67 +149,125 @@ class CartController extends BaseController
 
 
         try {
-            $this->validate($request, [
-                'fname' =>  'required',
-                'lname' =>  'required',
-                'email' =>  'required',
-                'mobile' =>  'required',
-                'billing_country' =>  'required',
-                'billing_state' =>  'required',
-                'mobile' =>  'required',
-            ]);
+            // $this->validate($request, [
+            //     'fname' =>  'required',
+            //     'lname' =>  'required',
+            //     'email' =>  'required',
+            //     'mobile' =>  'required',
+            //     'billing_country' =>  'required',
+            //     'billing_state' =>  'required',
+            //     'mobile' =>  'required',
+            // ]);
             // dd($request->all());
             $order_no = "FR" . mt_rand();
-            // if (Auth::guard('user')->user()) {
-            $data = new Order();
-            $data->user_id = Auth::guard('user')->user()->id ?? 0;
-            $data->ip = $this->ip;
-            $data->order_no = $order_no;
-            // $data->product_id = $request->product_id;
-            $data->fname = $request->fname;
-            $data->lname = $request->lname;
-            $data->email = $request->email;
-            $data->mobile = $request->mobile;
-            $data->billing_country = $request->billing_country;
-            $data->billing_state = $request->billing_state;
-            $data->amount = $request->amount;
-            $data->payment_method = $request->payment_method;
-            // $data->qty = 1;
-            $data->save();
+            if (Auth::guard('user')->user()) {
+                $data = new Order();
+                $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                $data->ip = $this->ip;
+                $data->order_no = $order_no;
+                // $data->product_id = $request->product_id;
+                $data->fname = $request->fname;
+                $data->lname = $request->lname;
+                $data->email = $request->email;
+                $data->mobile = $request->mobile;
+                $data->billing_country = $request->billing_country;
+                $data->billing_state = $request->billing_state;
+                $data->amount = $request->amount;
+                $data->payment_method = $request->payment_method;
+                // $data->qty = 1;
+                $data->save();
 
-            $data = new Address;
-            $data->user_id = Auth::guard('user')->user()->id ?? 0;
-            $data->ip = $this->ip;
-            $data->fName =  $request->fname;
-            $data->lName = $request->lname;
-            $data->country = $request->billing_state;
-            $data->state = $request->billing_state;
-            $data->phone = $request->mobile;
-            $data->email = $request->email;
-            $data->save();
+                $orderId = $data->id;
 
 
-            $cartData = Cart::where('ip', $this->ip)->get();
-            // if()
-            // 2 insert cart data into order products
-            $orderProducts = [];
-            foreach ($cartData as $cartValue) {
-                $orderProducts[] = [
-                    // 'order_id' => $data->id,
-                    'product_id' => $request->product_id,
-                    'user_id' => Auth::guard('user')->user()->id ?? 0,
-                    'ip' => $this->ip,
-                    'order_no' => $order_no,
-                    'fname' => $request->fname,
-                    'lname' => $request->lname,
-                    'email' => $request->email,
-                    'mobile' => $request->mobile,
-                    'billing_country' => $request->billing_country,
-                    'billing_state' => $request->billing_state,
-                    'amount' => $request->amount,
-                ];
+                $data = new Address;
+                $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                $data->ip = $this->ip;
+                $data->fName =  $request->fname;
+                $data->lName = $request->lname;
+                $data->country = $request->billing_state;
+                $data->state = $request->billing_state;
+                $data->phone = $request->mobile;
+                $data->email = $request->email;
+                $data->save();
+
+
+                $cartData = Cart::where('ip', $this->ip)->get();
+                // if()
+                // 2 insert cart data into order products
+                $orderProducts = [];
+                foreach ($cartData as $cartValue) {
+                    $orderProducts[] = [
+                        'order_id' => $orderId,
+                        'product_id' => $request->product_id,
+                        'user_id' => Auth::guard('user')->user()->id ?? 0,
+                        'ip' => $this->ip,
+                        'order_no' => $order_no,
+                        'fname' => $request->fname,
+                        'lname' => $request->lname,
+                        'email' => $request->email,
+                        'mobile' => $request->mobile,
+                        'billing_country' => $request->billing_country,
+                        'billing_state' => $request->billing_state,
+                        'amount' => $request->amount,
+                    ];
+                }
+                $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+            } else {
+                $data = new Order();
+                $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                $data->ip = $this->ip;
+                $data->order_no = $order_no;
+                // $data->product_id = $request->product_id;
+                $data->fname = $request->fname;
+                $data->lname = $request->lname;
+                $data->email = $request->email;
+                $data->mobile = $request->mobile;
+                $data->billing_country = $request->billing_country;
+                $data->billing_state = $request->billing_state;
+                $data->amount = $request->amount;
+                $data->payment_method = $request->payment_method;
+                // $data->qty = 1;
+                $data->save();
+                $orderId = $data->id;
+
+
+                $data = new Address;
+                $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                $data->ip = $this->ip;
+                $data->fName =  $request->fname;
+                $data->lName = $request->lname;
+                $data->country = $request->billing_state;
+                $data->state = $request->billing_state;
+                $data->phone = $request->mobile;
+                $data->email = $request->email;
+                $data->save();
+
+
+                $cartData = Cart::where('ip', $this->ip)->get();
+                // if()
+                // 2 insert cart data into order products
+                $orderProducts = [];
+                foreach ($cartData as $cartValue) {
+                    $orderProducts[] = [
+                        'order_id' => $orderId,
+                        'product_id' => $request->product_id,
+                        'user_id' => Auth::guard('user')->user()->id ?? 0,
+                        'ip' => $this->ip,
+                        'order_no' => $order_no,
+                        'fname' => $request->fname,
+                        'lname' => $request->lname,
+                        'email' => $request->email,
+                        'mobile' => $request->mobile,
+                        'billing_country' => $request->billing_country,
+                        'billing_state' => $request->billing_state,
+                        'amount' => $request->amount,
+                    ];
+                }
+                $orderProductsNewEntry = OrderProduct::insert($orderProducts);
             }
-            $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+            $emptyCart = Cart::where('ip', $this->ip)->delete();
+            return redirect()->back()->with('message', 'Order successful');
             // if ($request->check) {
 
             // }
@@ -201,7 +282,7 @@ class CartController extends BaseController
 
             // return redirect()->route('product.cart.checkout');
 
-            return $this->responseRedirect('product.cart.checkout', 'Product', 'success', false, false);
+            // return $this->responseRedirect('product.cart.checkout', 'Product', 'success', false, false);
             // return view('frontend.cart', compact('cartData', 'userCarts'));
             // $cartData = $this->checkoutRepository->viewCart();
             // if (Auth::guard('user')->user()) {
@@ -285,30 +366,10 @@ class CartController extends BaseController
     }
 
 
-    public function couponCheck($coupon_code)
+    public function couponCheck(Request $request)
     {
-        $couponData = Coupon::where('coupon_code', $coupon_code)->first();
-
-        if (Auth::guard('user')->user()) {
-            $couponUsageCount = CouponUsage::where('user_id', Auth::guard('user')->user()->id)->orWhere('email', Auth::guard('user')->user()->email)->count();
-        } else {
-            $couponUsageCount = CouponUsage::where('ip', $this->ip)->count();
-        }
-
-        if ($couponData) {
-            if ($couponData->end_date < \Carbon\Carbon::now() || $couponData->status == 0) {
-                return response()->json(['resp' => 200, 'type' => 'warning', 'message' => 'Coupon expired']);
-            } elseif ($couponUsageCount == $couponData->max_time_one_can_use || $couponUsageCount > $couponData->max_time_one_can_use) {
-                return response()->json(['resp' => 200, 'type' => 'warning', 'message' => 'You cannot use this coupon anymore']);
-            } else {
-                // applied coupon, update in cart
-                $cartData = Cart::where('ip', $this->ip)->update(['coupon_code_id' => $couponData->id]);
-
-                return response()->json(['resp' => 200, 'type' => 'success', 'message' => 'Coupon applied', 'id' => $couponData->id, 'amount' => $couponData->amount, 'coupon_discount' => $couponData->amount]);
-            }
-        }
-
-        return response()->json(['resp' => 200, 'type' => 'error', 'message' => 'Invalid coupon code']);
+        $couponData = $this->cartRepository->couponCheck($request->code);
+        return $couponData;
     }
     /**
      * Display the specified resource.

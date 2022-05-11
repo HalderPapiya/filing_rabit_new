@@ -22,8 +22,8 @@ class CartRepository extends BaseRepository implements CartContract
     {
         $couponData = Coupon::where('coupon_code', $coupon_code)->first();
 
-        if (Auth::guard('web')->user()) {
-            $couponUsageCount = CouponUsage::where('user_id', Auth::guard('web')->user()->id)->orWhere('email', Auth::guard('web')->user()->email)->count();
+        if (Auth::guard('user')->user()) {
+            $couponUsageCount = CouponUsage::where('user_id', Auth::guard('user')->user()->id)->orWhere('email', Auth::guard('user')->user()->email)->count();
         } else {
             $couponUsageCount = CouponUsage::where('ip', $this->ip)->count();
         }
@@ -136,7 +136,7 @@ class CartRepository extends BaseRepository implements CartContract
     public function viewByIp()
     {
         $data = Cart::where('ip', $this->ip)->get();
-
+        // dd($data);
         // coupon check
         if (!empty($data[0]->coupon_code_id)) {
             $coupon_code_id = $data[0]->coupon_code_id;
@@ -150,8 +150,8 @@ class CartRepository extends BaseRepository implements CartContract
             }
 
             // coupon code usage check
-            if (Auth::guard('web')->user()) {
-                $couponUsageCount = CouponUsage::where('user_id', Auth::guard('web')->user()->id)->orWhere('email', Auth::guard('web')->user()->email)->count();
+            if (Auth::guard('user')->user()) {
+                $couponUsageCount = CouponUsage::where('user_id', Auth::guard('user')->user()->id)->orWhere('email', Auth::guard('user')->user()->email)->count();
             } else {
                 $couponUsageCount = CouponUsage::where('ip', $this->ip)->count();
             }

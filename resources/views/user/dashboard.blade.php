@@ -47,16 +47,16 @@
             <div class="col-md-9">
                 <div class="view-cart-message d-flex align-items-center justify-content-between">
                     <p>
-                        Hello <strong>aasim</strong> (not <strong>aasim</strong>? 
-                        <a href="#">Log out</a>)
+                        Hello <strong>{!!$user->fName!!}</strong> (not <strong>{!!$user->fName!!}</strong>? 
+                        <a href="{{ route('user.logout') }}">Log out</a>)
                     </p>
                     <p>
                         From your account dashboard you can view your 
-                        <a href="#">recent orders</a>, 
+                        <a href="{{ route('user.order') }}">recent orders</a>, 
                         manage your 
-                        <a href="#">shipping and billing addresses</a>, 
+                        <a href="{{ route('user.address') }}">shipping and billing addresses</a>, 
                         and 
-                        <a href="#">edit your password and account details</a>.
+                        <a href="{{ route('user.account') }}">edit your password and account details</a>.
                     </p>
                 </div>
             </div>

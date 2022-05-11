@@ -9,6 +9,8 @@ use App\Contracts\BlogContract;
 use App\Models\User;
 use App\Http\Controllers\BaseController;
 use App\Models\Address;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +45,9 @@ class UserController extends BaseController
     }
     public function order()
     {
-        return view('user.order');
+        $orders = OrderProduct::where('user_id', Auth::guard('user')->user()->id)->get();
+        // dd($orders);
+        return view('user.order', compact('orders'));
     }
 
     public function download()
