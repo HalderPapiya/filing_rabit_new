@@ -86,9 +86,15 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
         Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
 
-        // ------------Product By---------------------//
+        // ------------Business Service---------------------//
 
-
+        Route::get('/businessService', [App\Http\Controllers\User\BusinessServiceController::class, 'index'])->name('businessService.index');
+        Route::get('/businessService/create', [App\Http\Controllers\User\BusinessServiceController::class, 'create'])->name('businessService.create');
+        Route::post('/businessService/store', [App\Http\Controllers\User\BusinessServiceController::class, 'store'])->name('businessService.store');
+        Route::get('/businessService/edit/{id}', [App\Http\Controllers\User\BusinessServiceController::class, 'edit'])->name('businessService.edit');
+        Route::post('/businessService/update', [App\Http\Controllers\User\BusinessServiceController::class, 'update'])->name('businessService.update');
+        Route::get('/businessService/{id}/delete', [App\Http\Controllers\User\BusinessServiceController::class, 'destroy'])->name('businessService.delete');
+        Route::post('/businessService/updateStatus', [App\Http\Controllers\User\BusinessServiceController::class, 'updateStatus'])->name('businessService.updateStatus');
     });
 });
 

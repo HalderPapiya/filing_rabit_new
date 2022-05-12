@@ -43,7 +43,7 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
     }
 
 
-     /**
+    /**
      * @param int $id
      * @return mixed
      * @throws ModelNotFoundException
@@ -56,25 +56,25 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
 
             throw new ModelNotFoundException($e);
         }
-    }  
+    }
 
 
-    public function createBusinessServices(array $params){
+    public function createBusinessServices(array $params)
+    {
         try {
             $collection = collect($params);
 
             $BusinessService = new BusinessService;
-            $BusinessService->category_id = $collection['categoryId'];
-            $BusinessService->sub_category_id = $collection['subcategoryId'];
-            $BusinessService->package_id = $collection['packageId'];
-            $BusinessService->title = $collection['title'];
-            $BusinessService->description = $collection['description'];
+            $BusinessService->name = $collection['name'];
+            $BusinessService->type = $collection['type'];
+            $BusinessService->valuation = $collection['valuation'];
 
-            $businessService_image = $collection['image'];
-            $imageName = time() . "." . $businessService_image->getClientOriginalName();
-            $businessService_image->move("uploads/BusinessService/", $imageName);
-            $uploadedImage = $imageName;
-            $BusinessService->image = $uploadedImage;
+
+            // $businessService_image = $collection['image'];
+            // $imageName = time() . "." . $businessService_image->getClientOriginalName();
+            // $businessService_image->move("uploads/BusinessService/", $imageName);
+            // $uploadedImage = $imageName;
+            // $BusinessService->image = $uploadedImage;
 
             //$category->status = $collection['status'];
             // dd($BusinessService);
@@ -87,22 +87,21 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
 
     public function updateBusinessService(array $params)
     {
-        
+
         $BusinessService = $this->findBusinessServiceById($params['id']);
         $collection = collect($params)->except('_token');
-        $BusinessService->category_id = $collection['categoryId'];
-        $BusinessService->sub_category_id = $collection['subcategoryId'];
-        $BusinessService->package_id = $collection['packageId'];
-        $BusinessService->title = $collection['title'];
-        $BusinessService->description = $collection['description'];
+        $BusinessService = new BusinessService;
+        $BusinessService->name = $collection['name'];
+        $BusinessService->type = $collection['type'];
+        $BusinessService->valuation = $collection['valuation'];
 
-        if(isset($collection['image'])){
-            $businessService_image = $collection['image'];
-            $imageName = time() . "." . $businessService_image->getClientOriginalName();
-            $businessService_image->move("uploads/BusinessService/", $imageName);
-            $uploadedImage = $imageName;
-            $BusinessService->image = $uploadedImage;
-        }
+        // if(isset($collection['image'])){
+        //     $businessService_image = $collection['image'];
+        //     $imageName = time() . "." . $businessService_image->getClientOriginalName();
+        //     $businessService_image->move("uploads/BusinessService/", $imageName);
+        //     $uploadedImage = $imageName;
+        //     $BusinessService->image = $uploadedImage;
+        // }
         //$category->status = $collection['status'];
 
         $BusinessService->save();
@@ -134,5 +133,4 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
 
         return $BusinessService;
     }
-
 }

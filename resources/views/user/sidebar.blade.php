@@ -16,6 +16,10 @@
             <li class="active">
                 <a href="{{ route('user.account') }}">Account Details</a>
             </li>
+
+            <li class="active">
+                <a href="{{ route('user.businessService.index') }}">Busisness Service</a>
+            </li>
             {{-- <li>
                 <a href="{{url('user-logout')}}">Logout</a>
             </li> --}}

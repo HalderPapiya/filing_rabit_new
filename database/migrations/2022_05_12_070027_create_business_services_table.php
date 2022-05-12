@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCouponsTable extends Migration
+class CreateBusinessServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,12 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('business_services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('coupon_code');
-            $table->double('amount', 8, 2);
-            $table->bigInteger('max_time_of_use');
-            $table->bigInteger('max_time_one_can_use');
-            $table->bigInteger('no_of_usage')->default(0);
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->string('type');
+            $table->float('valuation');
+            $table->longText('description')->nullable();
             $table->tinyInteger('status')->comment('1: active, 0: inactive')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -37,6 +33,6 @@ class CreateCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('business_services');
     }
 }

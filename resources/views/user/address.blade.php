@@ -45,6 +45,7 @@
                 </nav>
             </div> --}}
             <div class="col-md-9">
+                <div class="col-md-9">
                 <div class="my-account-form-wrapper">
                     <h3>Billing address</h3>
                     <form action="{{route('user.address.store')}}" method="POST">
