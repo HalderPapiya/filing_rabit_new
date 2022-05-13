@@ -23,7 +23,7 @@
             <div class="col-md-9">
                 <div class="col-md-9">
                 <div class="my-account-form-wrapper">
-                    <h3>Billing address</h3>
+                    <h3>Business Service</h3>
                     <form action="{{route('user.businessService.store')}}" method="POST">
                         @csrf
                         {{-- <input type="hidden" value="{{$address->id}}" name="id" class="form-control"> --}}
@@ -31,19 +31,22 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Business Name</label>
-                                    <input type="text" name="name" class="form-control">
+                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Type</label>
-                                    <input type="text" name="type" class="form-control">
+                                    <input type="text" name="type" class="form-control @error('type') is-invalid @enderror">
+                                    @error('type')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label> Valuation</label>
-                                    <input type="text" name="valuation" class="form-control">
+                                    <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror">
+                                    @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                 </div>
                             </div>
                            
@@ -57,7 +60,7 @@
                             <ul>
                                 @foreach ($businessServices as $businessService)
                                 <li>
-                                    <a href="dashboard.html">{{$businessService->name}}</a>
+                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}">{{$businessService->name}}</a>
                                 </li>
                                 @endforeach
                                 

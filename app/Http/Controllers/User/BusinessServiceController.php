@@ -12,7 +12,7 @@ class BusinessServiceController extends BaseController
     /**
      * @var BusinessServiceContract
      */
-    // protected $categoryRepository;
+    // protected $businessServiceRepository;
     // protected $subCategoryRepository;
     // protected $userRepository;
 
@@ -36,7 +36,7 @@ class BusinessServiceController extends BaseController
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
         // dd($businessServices);
         $this->setPageTitle('Business Service', 'List of All Business Services');
-        return view('user.business', compact('businessServices'));
+        return view('user.business.add', compact('businessServices'));
     }
 
     /**
@@ -50,7 +50,7 @@ class BusinessServiceController extends BaseController
         // $subcategories = $this->subCategoryRepository->listSubCategories();
         // $packages = $this->PackageRepository->listPackages();
         $this->setPageTitle('Business Service', 'Create A New Business Service');
-        return view('user.business');
+        return view('user.business.add');
     }
 
     /**
@@ -86,14 +86,14 @@ class BusinessServiceController extends BaseController
      */
     public function edit($id)
     {
-        $businessServices = $this->businessServiceRepository->findBusinessServiceById($id);
-        $categories = $this->categoryRepository->listCategories();
-        $subcategories = $this->subCategoryRepository->listSubCategories();
-        $packages = $this->PackageRepository->listPackages();
+        $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
+        // $categories = $this->categoryRepository->listCategories();
+        // $subcategories = $this->subCategoryRepository->listSubCategories();
+        // $packages = $this->PackageRepository->listPackages();
 
 
-        $this->setPageTitle('business Service', 'Edit Business Service : ' . $businessServices->title);
-        return view('admin.business_service.edit', compact('businessServices', 'categories', 'subcategories', 'packages'));
+        $this->setPageTitle('business Service', 'Edit Business Service : ' . $businessService->title);
+        return view('user.business.edit', compact('businessService'));
     }
 
     /**

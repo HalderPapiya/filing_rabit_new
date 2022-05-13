@@ -134,12 +134,15 @@
                         </form>
                     </div>
                     @php
-                $subTotal = $grandTotal = $couponCodeDiscount = $shippingCharges = $taxPercent = 0;
+                // $subTotal = $grandTotal = $couponCodeDiscount = $shippingCharges = $taxPercent = 0;
                  @endphp
 
                     <div class="col-md-7 checkout_right">
 
                         <h3>Your order</h3>
+                        @php
+                        $subTotal = $grandTotal = $couponCodeDiscount  = 0;
+                        @endphp
                         {{-- @php $sum = 0; @endphp --}}
                         {{-- @php $sum = $sum + $data->price; @endphp --}}
                         @foreach($data as $cartKey => $cartValue)
@@ -153,56 +156,29 @@
                                 <td>{{ $cartValue->productCart->name }}</td>
                                 <td>{{ $cartValue->price_one }}</td>
                             </tr>
-                            {{-- <tr>
-                                <td>Price:</td>
-                                <td>{{ $cartValue->price_one }}</td>
-                            </tr> --}}
-
-                            {{-- <tr>
-                                <td>Subtotal:</td>
-                                <td>{{ $sum }}/-</td>
-                            </tr> --}}
+                          
                         </table>
                         <input type="hidden" name="product_id" value="{{ $cartValue->product_id }}" class="form-control">
-
+                        @php
+                        $subTotal += (int) $cartValue->price_one;
+                        if (!empty($data[0]->coupon_code_id)) {
+                            $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
+                        }
+                        
+                        $grandTotalWithoutCoupon = $subTotal;
+                        $grandTotal = ($subTotal ) - $couponCodeDiscount;
+                    @endphp
                         @endforeach
 
                         <table class="table checkout-table mb-4 border">
-                            {{-- <tr>
-                                <th>Product:</th>
-                                <th>Subtotal</th>
-                            </tr>
-                            <tr>
-                                <td>{{ $data->productCart->name }}</td>
-                                <td>{{ $data->price_one }}</td>
-                            </tr>
-                            <tr>
-                                <td>Price:</td>
-                                <td>{{ $data->price_one }}</td>
-                            </tr> --}}
-                            {{-- <input type="hidden" name="amount" value="{{ $sum }}" class="form-control"> --}}
-                           
-                            {{-- <tr>
-                                <td>Subtotal:</td>
-                                <td>{{$grandTotal}}/-</td>
-                            </tr> --}}
-                            {{-- <div class="cart-item item-remove">
-                                <a href="{{route('front.cart.delete', $cartValue->id)}}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg><span>Remove</span></a>
-                            </div> --}}
-                            @php
-                            // subtotal calculation
-                            $subTotal += (int) $cartValue->price_one * $cartValue->qty;
-            
-                            // coupon code calculation
-                            if (!empty($data[0]->coupon_code_id)) {
-                                $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
-                            }
                             
-                            // grand total calculation
-                            $grandTotalWithoutCoupon = $subTotal;
-                            $grandTotal = ($subTotal ) - $couponCodeDiscount;
-                        @endphp
+                        
                         {{-- @endif --}}
+
+
+
+
+                        
 
                             <div class="container mt-3 mt-sm-5">
                                 <div class="cart-summary">
