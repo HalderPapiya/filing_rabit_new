@@ -6,7 +6,7 @@
                 <h1><i class="fa fa-tags"></i> {{ $pageTitle }}</h1>
                 <div class="form-group">
                     <button class="btn btn-primary" type="button" id="btnSave"><i class="fa fa-fw fa-lg fa-check-circle"></i>Update business Service</button>
-                    <a class="btn btn-secondary" href="{{ route('admin.businessService.index') }}"><i class="fa fa-fw fa-lg fa fa-angle-left"></i>Back</a>
+                    <a class="btn btn-secondary" href="{{ route('admin.business_add_on.index') }}"><i class="fa fa-fw fa-lg fa fa-angle-left"></i>Back</a>
                 </div>
             </div>
         </div>
@@ -34,25 +34,25 @@
                     <div class="col-md-9">
                     <div class="my-account-form-wrapper">
                         <h3>Business Service</h3>
-                        <form action="{{route('user.businessService.update')}}" method="POST">
+                        <form action="{{route('user.business_add_on.update')}}" method="POST">
                             @csrf
-                            <input type="hidden" value="{{$businessService->id}}" name="id" class="form-control">
+                            <input type="hidden" value="{{$businessAddOn->id}}" name="id" class="form-control">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Business Name</label>
-                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$businessService->name}}">
+                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$businessAddOn->name}}">
                                         @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                     </div>
                                 </div>
                                
                                 <div class="form-group">
-                                    <label class="control-label" for="type_id">Type <span class="m-l-5 text-danger"> *</span></label>
-                                    <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="type_id" value="{{ old('
-                                        type_id') }}">
+                                    <label class="control-label" for="business_id">Type <span class="m-l-5 text-danger"> *</span></label>
+                                    <select class="form-control @error('type_id') is-invalid @enderror" name="business_id" id="business_id" value="{{ old('
+                                        business_id') }}">
                                         <option selected disabled>Select one</option>
-                                        @foreach($businessTypes as $type)
-                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                        @foreach($businessServices as $data)
+                                        <option value="{{$data->id}}">{{$data->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('type_id')
@@ -64,7 +64,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label> Valuation</label>
-                                        <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror" value="{{old('valuation', $businessService->valuation) }}">
+                                        <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror" value="{{old('valuation', $businessAddOn->valuation) }}">
                                         @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                     </div>
                                 </div>

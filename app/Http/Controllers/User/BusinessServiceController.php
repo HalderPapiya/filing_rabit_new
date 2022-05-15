@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Contracts\BusinessServiceContract;
+use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,10 @@ class BusinessServiceController extends BaseController
      * 
      * @param BusinessServiceContract $BusinessServiceRepository
      */
-    public function __construct(BusinessServiceContract $businessServiceRepository)
+    public function __construct(BusinessServiceContract $businessServiceRepository, BusinessTypeContract $businessTypeRepository)
     {
         $this->businessServiceRepository = $businessServiceRepository;
+        $this->businessTypeRepository = $businessTypeRepository;
     }
 
     /**
@@ -36,7 +38,7 @@ class BusinessServiceController extends BaseController
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
         // dd($businessServices);
         $this->setPageTitle('Business Service', 'List of All Business Services');
-        return view('user.business.add', compact('businessServices'));
+        return view('user.business.index', compact('businessServices'));
     }
 
     /**
@@ -49,8 +51,11 @@ class BusinessServiceController extends BaseController
         // $categories = $this->categoryRepository->listCategories();
         // $subcategories = $this->subCategoryRepository->listSubCategories();
         // $packages = $this->PackageRepository->listPackages();
+        $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
+        // $businessServices  = $this->businessServiceRepository->listBusinessServices();
+// dd(businessTypes);
         $this->setPageTitle('Business Service', 'Create A New Business Service');
-        return view('user.business.add');
+        return view('user.business.add', compact('businessServices','businessTypes'));
     }
 
     /**
@@ -63,7 +68,7 @@ class BusinessServiceController extends BaseController
     {
         $this->validate($request, [
             'name' =>  'required',
-            'type' =>  'required',
+            'type_id' =>  'required',
             'valuation' =>  'required',
         ]);
 
@@ -90,10 +95,10 @@ class BusinessServiceController extends BaseController
         // $categories = $this->categoryRepository->listCategories();
         // $subcategories = $this->subCategoryRepository->listSubCategories();
         // $packages = $this->PackageRepository->listPackages();
-
+        $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Edit Business Service : ' . $businessService->title);
-        return view('user.business.edit', compact('businessService'));
+        return view('user.business.edit', compact('businessService','businessTypes'));
     }
 
     /**
@@ -106,7 +111,9 @@ class BusinessServiceController extends BaseController
     public function update(Request $request)
     {
         $this->validate($request, [
-            'title' =>  'required',
+            'name' =>  'required',
+            'type_id' =>  'required',
+            'valuation' =>  'required',
         ]);
 
         $params = $request->except('_token');
@@ -118,7 +125,7 @@ class BusinessServiceController extends BaseController
         if (!$businessService) {
             return $this->responseRedirectBack('Error occurred while updating Business Service.', 'error', true, true);
         }
-        return $this->responseRedirectBack('Business Service updated successfully', 'success', false, false);
+        return $this->responseRedirect('user.businessService.index', 'Business Service updated successfully', 'success', false, false);
     }
 
 

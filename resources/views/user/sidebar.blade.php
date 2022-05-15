@@ -20,6 +20,9 @@
             <li class="active">
                 <a href="{{ route('user.businessService.index') }}">Busisness Service</a>
             </li>
+            <li class="active">
+                <a href="{{ route('user.business_add_on.index') }}">Busisness Service</a>
+            </li>
             {{-- <li>
                 <a href="{{url('user-logout')}}">Logout</a>
             </li> --}}

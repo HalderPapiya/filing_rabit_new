@@ -95,6 +95,16 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/businessService/update', [App\Http\Controllers\User\BusinessServiceController::class, 'update'])->name('businessService.update');
         Route::get('/businessService/{id}/delete', [App\Http\Controllers\User\BusinessServiceController::class, 'destroy'])->name('businessService.delete');
         Route::post('/businessService/updateStatus', [App\Http\Controllers\User\BusinessServiceController::class, 'updateStatus'])->name('businessService.updateStatus');
+
+        // -----------------Business Add On----------------
+
+        Route::get('/business_add_on', [App\Http\Controllers\User\BusinessAddOnController::class, 'index'])->name('business_add_on.index');
+        Route::get('/business_add_on/create', [App\Http\Controllers\User\BusinessAddOnController::class, 'create'])->name('business_add_on.create');
+        Route::post('/business_add_on/store', [App\Http\Controllers\User\BusinessAddOnController::class, 'store'])->name('business_add_on.store');
+        Route::get('/business_add_on/edit/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'edit'])->name('business_add_on.edit');
+        Route::post('/business_add_on/update', [App\Http\Controllers\User\BusinessAddOnController::class, 'update'])->name('business_add_on.update');
+        Route::get('/business_add_on/{id}/delete', [App\Http\Controllers\User\BusinessAddOnController::class, 'destroy'])->name('business_add_on.delete');
+        Route::post('/business_add_on/updateStatus', [App\Http\Controllers\User\BusinessAddOnController::class, 'updateStatus'])->name('business_add_on.updateStatus');
     });
 });
 
@@ -214,6 +224,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/businessService/updateStatus', [App\Http\Controllers\Admin\BusinessServiceController::class, 'updateStatus'])->name('businessService.updateStatus');
 
 
+
+         
         //-----------------Package----------------
 
         Route::get('/package', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('package.index');
@@ -324,7 +336,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/process/update', [App\Http\Controllers\Admin\ProcessController::class, 'update'])->name('process.update');
         Route::get('/process/{id}/delete', [App\Http\Controllers\Admin\ProcessController::class, 'destroy'])->name('process.delete');
         Route::post('/process/updateStatus', [App\Http\Controllers\Admin\ProcessController::class, 'updateStatus'])->name('process.updateStatus');
+
+
+         //-----------------Business Type----------------
+
+        Route::get('/business_type', [App\Http\Controllers\Admin\BusinessTypeController::class, 'index'])->name('business_type.index');
+        Route::get('/business_type/create', [App\Http\Controllers\Admin\BusinessTypeController::class, 'create'])->name('business_type.create');
+        Route::post('/business_type/store', [App\Http\Controllers\Admin\BusinessTypeController::class, 'store'])->name('business_type.store');
+        Route::get('/business_type/edit/{id}', [App\Http\Controllers\Admin\BusinessTypeController::class, 'edit'])->name('business_type.edit');
+        Route::post('/business_type/update', [App\Http\Controllers\Admin\BusinessTypeController::class, 'update'])->name('business_type.update');
+        Route::get('/packabusiness_typege/{id}/delete', [App\Http\Controllers\Admin\BusinessTypeController::class, 'destroy'])->name('business_type.delete');
+        Route::post('/business_type/updateStatus', [App\Http\Controllers\Admin\BusinessTypeController::class, 'updateStatus'])->name('business_type.updateStatus');
     });
+
+    
+
 });
 
 

@@ -2,10 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBusinessServicesTable extends Migration
+class CreateBusinessAddOnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +13,11 @@ class CreateBusinessServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('business_services', function (Blueprint $table) {
+        Schema::create('business_add_ons', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('business_id');
             $table->string('name');
-            $table->bigIncrements('type_id');
             $table->float('valuation');
-            $table->longText('description')->nullable();
             $table->tinyInteger('status')->comment('1: active, 0: inactive')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -33,6 +31,6 @@ class CreateBusinessServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_services');
+        Schema::dropIfExists('business_add_ons');
     }
 }

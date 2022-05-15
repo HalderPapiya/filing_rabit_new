@@ -7,6 +7,7 @@ use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Contracts\BusinessServiceContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -66,7 +67,8 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
 
             $BusinessService = new BusinessService;
             $BusinessService->name = $collection['name'];
-            $BusinessService->type = $collection['type'];
+            $BusinessService->user_id = Auth::user()->id;
+            $BusinessService->type_id = $collection['type_id'];
             $BusinessService->valuation = $collection['valuation'];
 
 
@@ -92,17 +94,9 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
         $collection = collect($params)->except('_token');
         $BusinessService = new BusinessService;
         $BusinessService->name = $collection['name'];
-        $BusinessService->type = $collection['type'];
+        $BusinessService->user_id = Auth::user()->id;
+        $BusinessService->type_id = $collection['type_id'];
         $BusinessService->valuation = $collection['valuation'];
-
-        // if(isset($collection['image'])){
-        //     $businessService_image = $collection['image'];
-        //     $imageName = time() . "." . $businessService_image->getClientOriginalName();
-        //     $businessService_image->move("uploads/BusinessService/", $imageName);
-        //     $uploadedImage = $imageName;
-        //     $BusinessService->image = $uploadedImage;
-        // }
-        //$category->status = $collection['status'];
 
         $BusinessService->save();
 

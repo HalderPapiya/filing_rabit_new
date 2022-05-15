@@ -24,7 +24,7 @@
                 <div class="col-md-9">
                 <div class="my-account-form-wrapper">
                     <h3>Business Service</h3>
-                    <form action="{{route('user.businessService.store')}}" method="POST">
+                    <form action="{{route('user.business_add_on.store')}}" method="POST">
                         @csrf
                         {{-- <input type="hidden" value="{{$address->id}}" name="id" class="form-control"> --}}
                         <div class="row">
@@ -36,12 +36,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="type_id">Type <span class="m-l-5 text-danger"> *</span></label>
-                                <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="type_id" value="{{ old('
-                                    type_id') }}">
+                                <label class="control-label" for="business_id">Type <span class="m-l-5 text-danger"> *</span></label>
+                                <select class="form-control @error('type_id') is-invalid @enderror" name="business_id" id="business_id" value="{{ old('
+                                    business_id') }}">
                                     <option selected disabled>Select one</option>
-                                    @foreach($businessTypes as $type)
-                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @foreach($businessServices as $data)
+                                    <option value="{{$data->id}}">{{$data->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('type_id')
