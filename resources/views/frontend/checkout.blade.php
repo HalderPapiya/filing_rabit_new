@@ -41,13 +41,13 @@
                 </p>
             </div>
             
-            <div class="view-cart-message d-flex align-items-center">
+            {{-- <div class="view-cart-message d-flex align-items-center">
                 <p>
                     <i class="fa fa-check-circle"></i>
                     Have a coupon?
                     <a href="#">Click here to enter your code</a>
                 </p>
-            </div>
+            </div> --}}
             <form action="{{route('product.order')}}" method="POST">
                 @csrf
                 @if(count($data))
@@ -164,7 +164,6 @@
                         if (!empty($data[0]->coupon_code_id)) {
                             $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
                         }
-                        
                         $grandTotalWithoutCoupon = $subTotal;
                         $grandTotal = ($subTotal ) - $couponCodeDiscount;
                     @endphp
@@ -183,7 +182,7 @@
                             <div class="container mt-3 mt-sm-5">
                                 <div class="cart-summary">
                                     <div class="row justify-content-between flex-sm-row-reverse">
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6 text-right">
                                             <div class="w-100">
                                                 <div class="cart-total">
                                                     <div class="cart-total-label">
@@ -216,7 +215,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-6">
                                             <ul class="cart-summary-list">
                                                 {{-- <li>
                                                     <img src="img/delivery-truck.png" />
@@ -224,13 +223,12 @@
                                                     {{-- <a href="{{route('front.content.shipping')}}">See all Shipping charges and policies</a> --}}
                                                 {{-- </li> --}}
                                                 <li>
-                                                    <img src="img/coupon.png" />
                                                     <div class="coupon-block">
-                                                        <input type="text" class="coupon-text" name="couponText" id="couponText" placeholder="Enter coupon code here" value="{{ (!empty($data[0]->coupon_code_id)) ? $data[0]->couponDetails->coupon_code : '' }}" {{ (!empty($data[0]->coupon_code_id)) ? 'disabled' : '' }}>
+                                                        <input type="text" class="coupon-text form-control" name="couponText" id="couponText" placeholder="Enter coupon code here" value="{{ (!empty($data[0]->coupon_code_id)) ? $data[0]->couponDetails->coupon_code : '' }}" {{ (!empty($data[0]->coupon_code_id)) ? 'disabled' : '' }}>
                                                         @if (!empty($data[0]->coupon_code_id))
-                                                            <button id="applyCouponBtn" style="background: #c1080a" disabled="true">Applied</button>
+                                                            <button id="applyCouponBtn" class="btn ur-submit-button mt-3" disabled="true">Applied</button>
                                                         @else
-                                                            <button id="applyCouponBtn">Apply</button>
+                                                            <button  id="applyCouponBtn"  class="btn ur-submit-button mt-3">Apply Coupon</button>
                                                         @endif
                                                         {{-- $('#applyCouponBtn').text('APPLIED').css('background', '#c1080a').attr('disabled', true); --}}
                                                     </div>
@@ -492,9 +490,9 @@
 
     // on session toast fires
     @if (Session::get('success'))
-        toastFire('success', '{{ Session::get('success') }}');
+        toastFire('success', '{{ Session::get("success") }}');
     @elseif (Session::get('failure'))
-        toastFire('danger', '{{ Session::get('failure') }}');
+        toastFire('danger', '{{ Session::get("failure") }}');
     @endif
 
     // button text changes on form submit

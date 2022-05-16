@@ -30,11 +30,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Business Name</label>
+                                    <label>Business Add-On Name</label>
                                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
                                     @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                 </div>
                             </div>
+
+                            
                             <div class="form-group">
                                 <label class="control-label" for="business_id">Type <span class="m-l-5 text-danger"> *</span></label>
                                 <select class="form-control @error('type_id') is-invalid @enderror" name="business_id" id="business_id" value="{{ old('

@@ -52,7 +52,7 @@ class BusinessAddOnController extends BaseController
        
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
         $this->setPageTitle('business add on', 'Create A New business add on');
-        return view('user.business_add_on.add', compact('businessAddOns','businessServices'));
+        return view('user.business_add_on.add', compact('businessServices'));
     }
 
     /**

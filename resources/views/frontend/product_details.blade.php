@@ -45,30 +45,41 @@
                     <div class="tabs-content">
                         <div class="tab-data" id="tab1">
                             <p>
-                                {{-- Copyright registrations for logos, books, periodicals & magazines. Inclusive of government fee &
-                                taxes --}}
                                 {!! $product->type_one_description !!}
                             </p>
                             <div class="price">
                                 <span> &#x20B9; {{$product->type_one_price}}/-</span>
                             </div>
+                            <form action="{{route('product.add.cart')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                <input type="hidden" name="variation_type_one" value=" {{$product->type_one_name}}">
+                                <input class="price-input" type="hidden" name="product_price"  value=" {{$product->type_one_price}}">
+                                <button type="submit" class="btn w-auto ur-submit-button">Purchase</button>
+                            </form>
                         </div>
                         <div class="tab-data" id="tab2">
                             <p>
-                                {{-- Copyright for registrations for videos, audio recording & cinematography films. Inclusive of government fee & taxes --}}
                                 {!! $product->type_two_description !!}
                             </p>
                             <div class="price">
                                 <span> &#x20B9; {{$product->type_two_price}}/-</span>
                             </div>
+                            <form action="{{route('product.add.cart')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                <input type="hidden" name="variation_type_one" value=" {{$product->type_two_name}}">
+                                <input class="price-input" type="hidden" name="product_price"  value=" {{$product->type_two_price}}">
+                                <button type="submit" class="btn w-auto ur-submit-button">Purchase</button>
+                            </form>
                         </div>
-                        <form action="{{route('product.add.cart')}}" method="POST">
+                        {{-- <form action="{{route('product.add.cart')}}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{$product->id}}">
                             <input type="hidden" name="variation_type_one" value=" {{$product->type_one_name}}">
                             <input class="price-input" type="hidden" name="product_price"  value=" {{$product->type_one_price}}">
                             <button type="submit" class="btn w-auto ur-submit-button">Purchase</button>
-                        </form>
+                        </form> --}}
                     </div>
                     
                 </div>

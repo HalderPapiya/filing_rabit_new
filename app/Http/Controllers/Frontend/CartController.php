@@ -146,7 +146,7 @@ class CartController extends BaseController
     public function Order(Request $request)
     {
         // dd($request->all());
-
+        // 
 
         try {
             // $this->validate($request, [
@@ -161,6 +161,7 @@ class CartController extends BaseController
             // dd($request->all());
             $order_no = "FR" . mt_rand();
             if (Auth::guard('user')->user()) {
+                // dd($request->all());
                 $data = new Order();
                 $data->user_id = Auth::guard('user')->user()->id ?? 0;
                 $data->ip = $this->ip;
