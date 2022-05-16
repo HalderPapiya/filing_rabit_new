@@ -116,7 +116,7 @@ class CartController extends BaseController
                 $data->ip = $this->ip;
                 $data->product_id = $request->product_id;
                 $data->variation_type_one = $request->variation_type_one;
-                $data->price_one = $request->product_price;
+                $data->price = $request->product_price;
                 $data->qty = 1;
                 $data->save();
             } else {
@@ -125,7 +125,7 @@ class CartController extends BaseController
                 $data->user_id = 0;
                 $data->product_id = $request->product_id;
                 $data->variation_type_one = $request->variation_type_one;
-                $data->price_one = $request->product_price;
+                $data->price = $request->product_price;
                 $data->qty = 1;
                 $data->save();
             }

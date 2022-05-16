@@ -65,7 +65,7 @@
                         </tr>
                         <tr>
                             <td>{{ $cartValue->productCart->name }}</td>
-                            <td>{{ $cartValue->price_one }}</td>
+                            <td>{{ $cartValue->price }}</td>
                         </tr>
                         {{-- <tr>
                             <td>Price:</td>

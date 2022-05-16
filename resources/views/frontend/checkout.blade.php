@@ -146,7 +146,7 @@
                         {{-- @php $sum = 0; @endphp --}}
                         {{-- @php $sum = $sum + $data->price; @endphp --}}
                         @foreach($data as $cartKey => $cartValue)
-                        {{-- @php $sum = $sum + $data->price_one; @endphp --}}
+                        {{-- @php $sum = $sum + $data->price; @endphp --}}
                         <table class="table checkout-table mb-4 border">
                             <tr>
                                 <th>Product:</th>
@@ -154,13 +154,13 @@
                             </tr>
                             <tr>
                                 <td>{{ $cartValue->productCart->name }}</td>
-                                <td>{{ $cartValue->price_one }}</td>
+                                <td>{{ $cartValue->price }}</td>
                             </tr>
                           
                         </table>
                         <input type="hidden" name="product_id" value="{{ $cartValue->product_id }}" class="form-control">
                         @php
-                        $subTotal += (int) $cartValue->price_one;
+                        $subTotal += (int) $cartValue->price;
                         if (!empty($data[0]->coupon_code_id)) {
                             $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
                         }
@@ -200,7 +200,7 @@
                                                                 COUPON APPLIED - <strong>{{$data[0]->couponDetails->coupon_code}}</strong><br/>
                                                                 <a href="javascript:void(0)" onclick="removeAppliedCoupon()"><small>(Remove this coupon)</small></a>
                                                             </div>
-                                                            <div class="cart-total-value">- {{$data[0]->couponDetails->amount}}</div>
+                                                            <div class="cart-total-value">- {{$data[0]->couponDetails ? $data[0]->couponDetails->amount : ''}}</div>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -490,9 +490,9 @@
 
     // on session toast fires
     @if (Session::get('success'))
-        toastFire('success', '{{ Session::get("success") }}');
+        toastFire('success', '{{ session::get("success") }}');
     @elseif (Session::get('failure'))
-        toastFire('danger', '{{ Session::get("failure") }}');
+        toastFire('danger', '{{ session::get("failure") }}');
     @endif
 
     // button text changes on form submit

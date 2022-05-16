@@ -63,7 +63,7 @@ class CouponRepository extends BaseRepository implements CouponContract
      */
     public function createCoupon(array $params)
     {
-       
+
         try {
             $collection = collect($params);
 
@@ -104,7 +104,7 @@ class CouponRepository extends BaseRepository implements CouponContract
         $data->no_of_usage = $collection['no_of_usage'];
         $data->start_date = $collection['start_date'];
         $data->end_date = $collection['end_date'];
-        // dd($data);
+
         $data->save();
 
         return $data;

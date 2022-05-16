@@ -11,16 +11,16 @@ class CouponController extends BaseController
     /**
      * @var CouponContract
      */
-    protected $addressRepository;
+    protected $couponRepository;
 
     /**
      * CouponController constructor.
      * 
-     * @param CouponContract $addressRepository
+     * @param CouponContract $couponRepository
      */
-    public function __construct(CouponContract $addressRepository)
+    public function __construct(CouponContract $couponRepository)
     {
-        $this->addressRepository = $addressRepository;
+        $this->couponRepository = $couponRepository;
     }
 
     /**
@@ -30,7 +30,7 @@ class CouponController extends BaseController
      */
     public function index()
     {
-        $data = $this->addressRepository->listCoupons();
+        $data = $this->couponRepository->listCoupons();
         // dd($datas);
         $this->setPageTitle('Coupon', 'List of all Coupon');
         return view('admin.coupon.index', compact('data'));
@@ -61,7 +61,7 @@ class CouponController extends BaseController
 
         $params = $request->except('_token');
 
-        $data = $this->addressRepository->createCoupon($params);
+        $data = $this->couponRepository->createCoupon($params);
 
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while creating Coupon.', 'error', true, true);
@@ -75,7 +75,7 @@ class CouponController extends BaseController
      */
     public function edit($id)
     {
-        $data = $this->addressRepository->findCouponById($id);
+        $data = $this->couponRepository->findCouponById($id);
 
         $this->setPageTitle('Coupon', 'Edit Coupon : ' . $data->title);
         return view('admin.coupon.edit', compact('data'));
@@ -96,7 +96,7 @@ class CouponController extends BaseController
 
         //dd($params);
 
-        $data = $this->addressRepository->updateCoupon($params);
+        $data = $this->couponRepository->updateCoupon($params);
 
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while updating Coupon.', 'error', true, true);
@@ -110,7 +110,7 @@ class CouponController extends BaseController
      */
     public function destroy($id)
     {
-        $data = $this->addressRepository->deleteCoupon($id);
+        $data = $this->couponRepository->deleteCoupon($id);
 
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while deleting Coupon.', 'error', true, true);
@@ -128,7 +128,7 @@ class CouponController extends BaseController
 
         $params = $request->except('_token');
 
-        $data = $this->addressRepository->updateCouponStatus($params);
+        $data = $this->couponRepository->updateCouponStatus($params);
 
         if ($data) {
             return response()->json(array('message' => 'Coupon status successfully updated'));

@@ -15,7 +15,13 @@ class CreateBidAddOnsTable extends Migration
     {
         Schema::create('bid_add_ons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->bigInteger('user_id');
+            $table->bigInteger('business_id');
+            $table->bigInteger('add_on_id');
+            $table->float('valuation');
+            $table->tinyInteger('status')->comment('1: active, 0: inactive')->default(1);
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

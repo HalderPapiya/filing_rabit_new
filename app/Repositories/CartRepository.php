@@ -113,7 +113,7 @@ class CartRepository extends BaseRepository implements CartContract
                 $newEntry->ip = $this->ip;
                 $newEntry->product_id = $collectedData['product_id'];
                 $newEntry->variation_type_one = $collectedData['variation_type_one'];
-                $newEntry->price_one = $collectedData['product_price'];
+                $newEntry->price = $collectedData['product_price'];
                 $newEntry->qty = 1;
                 $newEntry->save();
             } else {
@@ -122,7 +122,7 @@ class CartRepository extends BaseRepository implements CartContract
                 $newEntry->user_id = 0;
                 $newEntry->product_id = $collectedData['product_id'];
                 $newEntry->variation_type_one = $collectedData['variation_type_one'];
-                $newEntry->price_one = $collectedData['product_price'];
+                $newEntry->price = $collectedData['product_price'];
                 $newEntry->qty = 1;
                 $newEntry->save();
             }
@@ -140,9 +140,9 @@ class CartRepository extends BaseRepository implements CartContract
         // coupon check
         if (!empty($data[0]->coupon_code_id)) {
             $coupon_code_id = $data[0]->coupon_code_id;
-            $coupon_code_end_date = $data[0]->couponDetails->end_date;
-            $coupon_code_status = $data[0]->couponDetails->status;
-            $coupon_code_max_usage_for_one = $data[0]->couponDetails->max_time_one_can_use;
+            $coupon_code_end_date = $data[0]->couponDetails ? $data[0]->couponDetails->end_date : '';
+            $coupon_code_status = $data[0]->couponDetails ? $data[0]->couponDetails->status: '';
+            $coupon_code_max_usage_for_one = $data[0]->couponDetails ?$data[0]->couponDetails->max_time_one_can_use: '';
 
             // coupon code validity check
             if ($coupon_code_end_date < \Carbon\Carbon::now() || $coupon_code_status == 0) {

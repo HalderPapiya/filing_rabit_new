@@ -17,7 +17,6 @@ class CreateBidsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->bigInteger('business_id');
-            $table->string('name');
             $table->float('valuation');
             $table->tinyInteger('status')->comment('1: active, 0: inactive')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
