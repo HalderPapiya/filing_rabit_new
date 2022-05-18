@@ -31,9 +31,9 @@
                     <div class="col-md-3">
                         {{-- <nav class="sticky-top my-account-navigation">
                             <ul>
-                                @foreach ($businessAddOns as $data)
+                                @foreach ($businessServices as $businessService)
                                 <li>
-                                    <a href="{{ route('user.business_add_on.edit', $data['id']) }}">{{$data->name}}</a>
+                                    {{$businessService->name}}<a href="{{ route('user.businessService.edit', $businessService['id']) }}"></a>
                                 </li>
                                 @endforeach
                                 
@@ -43,26 +43,26 @@
                         <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">
                             <div class="fixed-row">
                                 <div class="app-title">
-                                    <a href="{{ route('user.business_add_on.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
+                                    <a href="{{ route('user.businessService.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add</a>
                                 </div>
                             </div>
                             <tbody>
-                                @foreach ($businessAddOns as $data)
+                                @foreach ($businessServices as $businessService)
                                         <tr>
                                           
-                                            <td>{{ $data['name'] }}</td>
+                                            <td>{{ $businessService['name'] }}</td>
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             
                                             
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Second group">
-                                                    <a href="{{ route('user.business_add_on.show', $data['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a>
-                                                    @if(auth()->user()->id == $data->user_id)
-                                                    <a href="{{ route('user.business_add_on.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ route('user.businessService.show', $businessService['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a>
+                                                    @if(auth()->user()->id == $businessService->user_id)
+                                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                     @endif
-                                                    @if(auth()->user()->id != $data->user_id)
-                                                    <a href="{{ route('user.bid.create', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                    @if(auth()->user()->id != $businessService->user_id)
+                                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
                                                     @endif
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}

@@ -113,8 +113,12 @@ class UserController extends BaseController
 
     public function account()
     {
-        // $data = User::where('id', auth()->user->id)->first;
-        $data = User::first();
+        // $data = User::where('id', auth()->user->id)->get();
+        // $data = User::get();
+
+        $id = Auth::guard('user')->user()->id;
+        $data = User::where('id', $id)->first();
+        // dd($data);
         return view('user.account_details', compact('data'));
     }
 
@@ -126,16 +130,20 @@ class UserController extends BaseController
             'confirm_password' =>  'required|same:new_password',
             // 'video' =>  'max:50000',
         ]);
-        $user = Auth::user();
+        $user = Auth::guard('user')->user();
+        // dd($user);
         // $user = User::first();
         $userPassword = $user->password;
-        if (!Hash::check($request->password, $userPassword)) {
+        // dd($userPassword);
+        if (!Hash::check($request->new_password, $userPassword)) {
             return back()->withErrors(['password' => 'password not match']);
         }
+        $id = Auth::guard('user')->user()->id;
+        User::find($id)->update(['password'=> Hash::make($request->new_password)]);
 
-        $user->password = Hash::make($request->password);
+        // $user->password = Hash::make($request->new_password);
 
-        $user->save();
+        // $user->save();
 
         return redirect()->back()->with('success', 'password successfully updated');
     }

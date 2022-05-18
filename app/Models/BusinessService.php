@@ -19,4 +19,13 @@ class BusinessService extends Model
     {
         return $this->belongsTo('App\Models\User', 'type_id', 'id');
     }
+    public function businessType()
+    {
+        return $this->belongsTo('App\Models\BusinessType', 'type_id', 'id');
+    }
+    public function businesses()
+    {
+        return $this->hasMany('App\Models\BusinessService', 'business_id', 'id');
+    }
+    
 }

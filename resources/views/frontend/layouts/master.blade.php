@@ -189,7 +189,7 @@
     $('#registerForm').on('submit', function(event) {
         event.preventDefault();
         // alert();
-        var email = $("input[name=regs_email]").val();
+        var regs_email = $("input[name=regs_email]").val();
         var password = $("input[name=regs_password]").val();
         var confirm_password = $("input[name=reg_con_password]").val();
         // var email = $(this).data('email');
@@ -201,7 +201,7 @@
             type:'POST',
             dataType:'JSON',
             url:"{{route('user.registration')}}",
-            data:{ _token: '{{csrf_token()}}', email:email, password:password , confirm_password:confirm_password},
+            data:{ _token: '{{csrf_token()}}', email:regs_email, password:password , confirm_password:confirm_password},
             success:function(response) {
                 if(response.success == true){
                     $('#regMessage').addClass('text-success').html(response.message);

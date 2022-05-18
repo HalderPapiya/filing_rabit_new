@@ -67,7 +67,7 @@ class BusinessAddOnRepository extends BaseRepository implements BusinessAddOnCon
 
             $BusinessAddOn = new BusinessAddOn;
             $BusinessAddOn->name = $collection['name'];
-            // $BusinessAddOn->user_id = Auth::user()->id;
+            $BusinessAddOn->user_id = Auth::user()->id;
             $BusinessAddOn->business_id = $collection['business_id'];
             $BusinessAddOn->valuation = $collection['valuation'];
 
@@ -85,7 +85,7 @@ class BusinessAddOnRepository extends BaseRepository implements BusinessAddOnCon
         $collection = collect($params)->except('_token');
         $BusinessAddOn = new BusinessAddOn;
         $BusinessAddOn->name = $collection['name'];
-        // $BusinessAddOn->user_id = Auth::user()->id;
+        $BusinessAddOn->user_id = Auth::user()->id;
         $BusinessAddOn->business_id = $collection['business_id'];
         $BusinessAddOn->valuation = $collection['valuation'];
 

@@ -38,7 +38,7 @@
 
                             
                             <div class="form-group">
-                                <label class="control-label" for="business_id">Type <span class="m-l-5 text-danger"> *</span></label>
+                                <label class="control-label" for="business_id">Business Name <span class="m-l-5 text-danger"> *</span></label>
                                 <select class="form-control @error('type_id') is-invalid @enderror" name="business_id" id="business_id" value="{{ old('
                                     business_id') }}">
                                     <option selected disabled>Select one</option>
@@ -61,7 +61,7 @@
                             </div>
                            
                             <div class="col-12">
-                                <button type="submit" class="btn ur-submit-button w-auto">Save Address</button>
+                                <button type="submit" class="btn ur-submit-button w-auto">Save</button>
                             </div>
                         </div>
                     </form>

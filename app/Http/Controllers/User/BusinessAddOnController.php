@@ -88,6 +88,7 @@ class BusinessAddOnController extends BaseController
      */
     public function edit($id)
     {
+        
         $businessAddOn = $this->businessAddOnRepository->findBusinessAddOnById($id);
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
 
@@ -95,6 +96,19 @@ class BusinessAddOnController extends BaseController
         return view('user.business_add_on.edit', compact('businessAddOn','businessServices'));
     }
 
+    public function show($id)
+    {
+
+
+        $businessAddOn = $this->businessAddOnRepository->findBusinessAddOnById($id);
+        // $categories = $this->categoryRepository->listCategories();
+        // $subcategories = $this->subCategoryRepository->listSubCategories();
+        // $packages = $this->PackageRepository->listPackages();
+        $businessServices  = $this->businessServiceRepository->listBusinessServices();
+
+        $this->setPageTitle('Business Add-On', 'Show Business Add-On : ' . $businessAddOn->title);
+        return view('user.business_add_on.show', compact('businessAddOn', 'businessServices'));
+    }
     /**
      * Update the specified resource in storage.
      *

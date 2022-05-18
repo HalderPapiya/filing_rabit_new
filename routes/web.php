@@ -91,6 +91,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/businessService', [App\Http\Controllers\User\BusinessServiceController::class, 'index'])->name('businessService.index');
         Route::get('/businessService/create', [App\Http\Controllers\User\BusinessServiceController::class, 'create'])->name('businessService.create');
         Route::post('/businessService/store', [App\Http\Controllers\User\BusinessServiceController::class, 'store'])->name('businessService.store');
+        Route::get('/businessService/show/{id}', [App\Http\Controllers\User\BusinessServiceController::class, 'show'])->name('businessService.show');
         Route::get('/businessService/edit/{id}', [App\Http\Controllers\User\BusinessServiceController::class, 'edit'])->name('businessService.edit');
         Route::post('/businessService/update', [App\Http\Controllers\User\BusinessServiceController::class, 'update'])->name('businessService.update');
         Route::get('/businessService/{id}/delete', [App\Http\Controllers\User\BusinessServiceController::class, 'destroy'])->name('businessService.delete');
@@ -101,10 +102,23 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/business_add_on', [App\Http\Controllers\User\BusinessAddOnController::class, 'index'])->name('business_add_on.index');
         Route::get('/business_add_on/create', [App\Http\Controllers\User\BusinessAddOnController::class, 'create'])->name('business_add_on.create');
         Route::post('/business_add_on/store', [App\Http\Controllers\User\BusinessAddOnController::class, 'store'])->name('business_add_on.store');
+        Route::get('/business_add_on/show/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'show'])->name('business_add_on.show');
         Route::get('/business_add_on/edit/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'edit'])->name('business_add_on.edit');
         Route::post('/business_add_on/update', [App\Http\Controllers\User\BusinessAddOnController::class, 'update'])->name('business_add_on.update');
         Route::get('/business_add_on/{id}/delete', [App\Http\Controllers\User\BusinessAddOnController::class, 'destroy'])->name('business_add_on.delete');
         Route::post('/business_add_on/updateStatus', [App\Http\Controllers\User\BusinessAddOnController::class, 'updateStatus'])->name('business_add_on.updateStatus');
+
+
+         // ------------Business Bid---------------------//
+
+         Route::get('/bid', [App\Http\Controllers\User\BidController::class, 'index'])->name('bid.index');
+         Route::get('/bid/create/{id}', [App\Http\Controllers\User\BidController::class, 'create'])->name('bid.create');
+         Route::post('/bid/store', [App\Http\Controllers\User\BidController::class, 'store'])->name('bid.store');
+         Route::get('/bid/show/{id}', [App\Http\Controllers\User\BidController::class, 'show'])->name('bid.show');
+         Route::get('/bid/edit/{id}', [App\Http\Controllers\User\BidController::class, 'edit'])->name('bid.edit');
+         Route::post('/bid/update', [App\Http\Controllers\User\BidController::class, 'update'])->name('bid.update');
+         Route::get('/bid/{id}/delete', [App\Http\Controllers\User\BidController::class, 'destroy'])->name('bid.delete');
+         Route::post('/bid/updateStatus', [App\Http\Controllers\User\BidController::class, 'updateStatus'])->name('bid.updateStatus');
     });
 });
 

@@ -83,7 +83,7 @@ class RegisterController extends Controller
         }
 
         $user = new User;
-        $user->email = $request->regs_email;
+        $user->email = $request->email;
         $user->password = Hash::make($request['regs_password']);
         $user->save();
 

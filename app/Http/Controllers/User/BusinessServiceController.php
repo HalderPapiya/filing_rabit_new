@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
+use App\Models\BusinessService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BusinessServiceController extends BaseController
 {
@@ -35,6 +37,9 @@ class BusinessServiceController extends BaseController
      */
     public function index()
     {
+        // $business = BusinessService::where('user_id',  Auth::guard('user')->user()->id)->first();
+        // $businessId = $business->id;
+        // dd($businessId);
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
         // dd($businessServices);
         $this->setPageTitle('Business Service', 'List of All Business Services');
@@ -48,14 +53,9 @@ class BusinessServiceController extends BaseController
      */
     public function create()
     {
-        // $categories = $this->categoryRepository->listCategories();
-        // $subcategories = $this->subCategoryRepository->listSubCategories();
-        // $packages = $this->PackageRepository->listPackages();
         $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
-        // $businessServices  = $this->businessServiceRepository->listBusinessServices();
-// dd(businessTypes);
         $this->setPageTitle('Business Service', 'Create A New Business Service');
-        return view('user.business.add', compact('businessServices','businessTypes'));
+        return view('user.business.add', compact('businessTypes'));
     }
 
     /**
@@ -91,6 +91,8 @@ class BusinessServiceController extends BaseController
      */
     public function edit($id)
     {
+
+
         $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
         // $categories = $this->categoryRepository->listCategories();
         // $subcategories = $this->subCategoryRepository->listSubCategories();
@@ -98,7 +100,20 @@ class BusinessServiceController extends BaseController
         $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Edit Business Service : ' . $businessService->title);
-        return view('user.business.edit', compact('businessService','businessTypes'));
+        return view('user.business.edit', compact('businessService', 'businessTypes'));
+    }
+    public function show($id)
+    {
+
+
+        $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
+        // $categories = $this->categoryRepository->listCategories();
+        // $subcategories = $this->subCategoryRepository->listSubCategories();
+        // $packages = $this->PackageRepository->listPackages();
+        $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
+
+        $this->setPageTitle('business Service', 'Show Business Service : ' . $businessService->title);
+        return view('user.business.show', compact('businessService', 'businessTypes'));
     }
 
     /**

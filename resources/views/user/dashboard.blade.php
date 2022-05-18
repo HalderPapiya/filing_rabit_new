@@ -20,34 +20,11 @@
     <div class="container">
         <div class="row ">
             @include('user.sidebar')  
-            {{-- <div class="col-md-3">
-                <nav class="sticky-top my-account-navigation">
-                    <ul>
-                        <li class="active">
-                            <a href="dashboard.html">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="orders.html">Orders</a>
-                        </li>
-                        <li>
-                            <a href="downloads.html">Downloads</a>
-                        </li>
-                        <li>
-                            <a href="address.html">Addresses</a>
-                        </li>
-                        <li>
-                            <a href="account-details.html">Account Details</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div> --}}
+          
             <div class="col-md-9">
                 <div class="view-cart-message d-flex align-items-center justify-content-between">
                     <p>
-                        Hello <strong>{!!$user->fName!!}</strong> (not <strong>{!!$user->fName!!}</strong>? 
+                        Hello <strong>{!!$user?$user->fName: ''!!}</strong> (not <strong>{!!$user?$user->fName: ''!!}</strong>? 
                         <a href="{{ route('user.logout') }}">Log out</a>)
                     </p>
                     <p>

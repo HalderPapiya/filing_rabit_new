@@ -41,14 +41,19 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Add-On</label>
+                                        <label>Business Name</label>
                                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$businessAddOn->name}}">
                                         @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                     </div>
                                 </div>
-                               
+                                
                                 <div class="form-group">
-                                    <label class="control-label" for="business_id">Business Name <span class="m-l-5 text-danger"> *</span></label>
+                                    <label class="control-label" for="type_id">Type <span class="m-l-5 text-danger"> *</span></label>
+                                    <input type="readOnly" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$businessAddOn->business->name}}">
+                                  
+                                </div>
+                                {{-- <div class="form-group">
+                                    
                                     <select class="form-control @error('type_id') is-invalid @enderror" name="business_id" id="business_id" value="{{ old('
                                         business_id') }}">
                                         <option selected disabled>Select one</option>
@@ -56,12 +61,12 @@
                                         <option value="{{$data->id}}">{{$data->name}}</option>
                                         @endforeach
                                     </select>
-                                    @error('business_id')
+                                    @error('type_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label> Valuation</label>
@@ -70,9 +75,9 @@
                                     </div>
                                 </div>
                                
-                                <div class="col-12">
-                                    <button type="submit" class="btn ur-submit-button w-auto">Update</button>
-                                </div>
+                                {{-- <div class="col-12">
+                                    <button type="submit" class="btn ur-submit-button w-auto">Update Business Service</button>
+                                </div> --}}
                             </div>
                         </form>
                         {{-- <div class="col-md-3">

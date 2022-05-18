@@ -68,6 +68,7 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
             $BusinessService = new BusinessService;
             $BusinessService->name = $collection['name'];
             $BusinessService->user_id = Auth::user()->id;
+            $BusinessService->user_id = Auth::user()->id;
             $BusinessService->type_id = $collection['type_id'];
             $BusinessService->valuation = $collection['valuation'];
 
