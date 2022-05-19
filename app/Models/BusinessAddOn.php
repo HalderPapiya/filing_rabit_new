@@ -11,4 +11,8 @@ class BusinessAddOn extends Model
     {
         return $this->belongsTo('App\Models\BusinessService', 'business_id', 'id');
     }
+    public function addOn()
+    {
+        return $this->belongsTo('App\Models\AddOn', 'add_on_id', 'id');
+    }
 }

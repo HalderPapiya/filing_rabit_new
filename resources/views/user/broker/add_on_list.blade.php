@@ -31,9 +31,9 @@
                     <div class="col-md-3">
                         {{-- <nav class="sticky-top my-account-navigation">
                             <ul>
-                                @foreach ($businessServices as $businessService)
+                                @foreach ($businessAddOns as $data)
                                 <li>
-                                    {{$businessService->name}}<a href="{{ route('user.businessService.edit', $businessService['id']) }}"></a>
+                                    <a href="{{ route('user.business_add_on.edit', $data['id']) }}">{{$data->name}}</a>
                                 </li>
                                 @endforeach
                                 
@@ -41,38 +41,37 @@
                             </ul>
                         </nav> --}}
                         <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">
-                            <div class="fixed-row">
+                            {{-- <div class="fixed-row">
                                 <div class="app-title">
-                                    <a href="{{ route('user.businessService.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add</a>
+                                    <a href="{{ route('user.business_add_on.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <tbody>
-                                @foreach ($businessServices as $businessService)
+                                @foreach ($businessAddOns as $data)
                                         <tr>
                                           
-                                            <td>{{ $businessService['name'] }}</td>
+                                            {{-- <td>nametd> --}}
+                                            <td>{{ $data->addOn->name }}</td>
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             
                                             
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Second group">
-                                                    <a href="{{ route('user.businessService.show', $businessService['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a>
-                                                    @if(auth()->user()->id == $businessService->user_id)
-                                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
-                                                    @endif
-                                                    @if(auth()->user()->id != $businessService->user_id)
-                                                    <a href="{{ route('user.bid.create', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                    {{-- <a href="{{ route('user.broker.business.show', $data['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a> --}}
+                                                {{-- </div> --}}
+                                                {{-- <div class="btn-group" role="group" aria-label="Second group"> --}}
+                                                    {{-- <a href="{{ route('user.broker.addon.show', $data['id']) }}" class="btn btn-sm btn-primary show-btn"><i>Add On</i></a> --}}
+                                                    {{-- @if(auth()->user()->id == $data->user_id)
+                                                    <a href="{{ route('user.business_add_on.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                    @endif --}}
+                                                    @if(auth()->user()->id != $data->user_id)
+                                                    <a href="{{ route('user.add_on_bid.create', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
                                                     @endif
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
                                                 </div>
                                             </td>
-                                            @if(session()->has('message'))
-                                                <div class="alert alert-success">
-                                                    {{ session()->get('message') }}
-                                                </div>
-                                            @endif
                                         </tr> 
                                 @endforeach
                             </tbody>

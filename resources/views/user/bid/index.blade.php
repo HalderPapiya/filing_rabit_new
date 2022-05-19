@@ -62,17 +62,12 @@
                                                     <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                     @endif
                                                     @if(auth()->user()->id != $businessService->user_id)
-                                                    <a href="{{ route('user.bid.create', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
                                                     @endif
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
                                                 </div>
                                             </td>
-                                            @if(session()->has('message'))
-                                                <div class="alert alert-success">
-                                                    {{ session()->get('message') }}
-                                                </div>
-                                            @endif
                                         </tr> 
                                 @endforeach
                             </tbody>

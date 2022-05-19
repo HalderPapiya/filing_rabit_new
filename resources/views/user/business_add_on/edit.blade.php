@@ -39,12 +39,20 @@
                             @csrf
                             <input type="hidden" value="{{$businessAddOn->id}}" name="id" class="form-control">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Add-On</label>
-                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$businessAddOn->name}}">
-                                        @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
-                                    </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="add_on_id">Business Add-On Name <span class="m-l-5 text-danger"> *</span></label>
+                                    <select class="form-control @error('add_on_id') is-invalid @enderror" name="add_on_id" id="add_on_id" value="{{ old('
+                                        add_on_id') }}">
+                                        <option selected disabled>Select one</option>
+                                        @foreach($addOns as $data)
+                                        <option value="{{$data->id}}">{{$data->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('add_on_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                                
                                 <div class="form-group">

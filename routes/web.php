@@ -109,16 +109,40 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/business_add_on/updateStatus', [App\Http\Controllers\User\BusinessAddOnController::class, 'updateStatus'])->name('business_add_on.updateStatus');
 
 
-         // ------------Business Bid---------------------//
+        // ------------Business Bid---------------------//
 
-         Route::get('/bid', [App\Http\Controllers\User\BidController::class, 'index'])->name('bid.index');
-         Route::get('/bid/create/{id}', [App\Http\Controllers\User\BidController::class, 'create'])->name('bid.create');
-         Route::post('/bid/store', [App\Http\Controllers\User\BidController::class, 'store'])->name('bid.store');
-         Route::get('/bid/show/{id}', [App\Http\Controllers\User\BidController::class, 'show'])->name('bid.show');
-         Route::get('/bid/edit/{id}', [App\Http\Controllers\User\BidController::class, 'edit'])->name('bid.edit');
-         Route::post('/bid/update', [App\Http\Controllers\User\BidController::class, 'update'])->name('bid.update');
-         Route::get('/bid/{id}/delete', [App\Http\Controllers\User\BidController::class, 'destroy'])->name('bid.delete');
-         Route::post('/bid/updateStatus', [App\Http\Controllers\User\BidController::class, 'updateStatus'])->name('bid.updateStatus');
+        Route::get('/bid', [App\Http\Controllers\User\BidController::class, 'index'])->name('bid.index');
+        Route::get('/bid/create/{id}', [App\Http\Controllers\User\BidController::class, 'create'])->name('bid.create');
+        Route::post('/bid/store', [App\Http\Controllers\User\BidController::class, 'store'])->name('bid.store');
+        Route::get('/bid/show/{id}', [App\Http\Controllers\User\BidController::class, 'show'])->name('bid.show');
+        Route::get('/bid/edit/{id}', [App\Http\Controllers\User\BidController::class, 'edit'])->name('bid.edit');
+        Route::post('/bid/update', [App\Http\Controllers\User\BidController::class, 'update'])->name('bid.update');
+        Route::get('/bid/{id}/delete', [App\Http\Controllers\User\BidController::class, 'destroy'])->name('bid.delete');
+        Route::post('/bid/updateStatus', [App\Http\Controllers\User\BidController::class, 'updateStatus'])->name('bid.updateStatus');
+
+        // ------------Business AddOn Bid---------------------//
+
+        Route::get('/add_on_bid', [App\Http\Controllers\User\AddOnBidController::class, 'index'])->name('add_on_bid.index');
+        Route::get('/add_on_bid/create/{id}', [App\Http\Controllers\User\AddOnBidController::class, 'create'])->name('add_on_bid.create');
+        Route::post('/add_on_bid/store', [App\Http\Controllers\User\AddOnBidController::class, 'store'])->name('add_on_bid.store');
+        Route::get('/add_on_bid/show/{id}', [App\Http\Controllers\User\AddOnBidController::class, 'show'])->name('add_on_bid.show');
+        Route::get('/add_on_bid/edit/{id}', [App\Http\Controllers\User\AddOnBidController::class, 'edit'])->name('add_on_bid.edit');
+        Route::post('/add_on_bid/update', [App\Http\Controllers\User\AddOnBidController::class, 'update'])->name('add_on_bid.update');
+        Route::get('/add_on_bid/{id}/delete', [App\Http\Controllers\User\AddOnBidController::class, 'destroy'])->name('add_on_bid.delete');
+        Route::post('/add_on_bid/updateStatus', [App\Http\Controllers\User\AddOnBidController::class, 'updateStatus'])->name('add_on_bid.updateStatus');
+
+
+        // ------------Broker---------------------//
+
+        Route::get('/broker/business/list', [App\Http\Controllers\User\BrokerController::class, 'index'])->name('broker.business.index');
+        // Route::get('/add_on_bid/create/{id}', [App\Http\Controllers\User\AddOnBidController::class, 'create'])->name('add_on_bid.create');
+        // Route::post('/add_on_bid/store', [App\Http\Controllers\User\AddOnBidController::class, 'store'])->name('add_on_bid.store');
+        Route::get('/broker/business/show/{id}', [App\Http\Controllers\User\BrokerController::class, 'show'])->name('broker.business.show');
+        Route::get('/broker/addon/show/{id}', [App\Http\Controllers\User\BrokerController::class, 'showAddOn'])->name('broker.addon.show');
+        // Route::get('/add_on_bid/edit/{id}', [App\Http\Controllers\User\AddOnBidController::class, 'edit'])->name('add_on_bid.edit');
+        // Route::post('/add_on_bid/update', [App\Http\Controllers\User\AddOnBidController::class, 'update'])->name('add_on_bid.update');
+        // Route::get('/add_on_bid/{id}/delete', [App\Http\Controllers\User\AddOnBidController::class, 'destroy'])->name('add_on_bid.delete');
+        // Route::post('/add_on_bid/updateStatus', [App\Http\Controllers\User\AddOnBidController::class, 'updateStatus'])->name('add_on_bid.updateStatus');
     });
 });
 
@@ -239,7 +263,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
-         
+
         //-----------------Package----------------
 
         Route::get('/package', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('package.index');
@@ -352,7 +376,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/process/updateStatus', [App\Http\Controllers\Admin\ProcessController::class, 'updateStatus'])->name('process.updateStatus');
 
 
-         //-----------------Business Type----------------
+        //-----------------Business Type----------------
 
         Route::get('/business_type', [App\Http\Controllers\Admin\BusinessTypeController::class, 'index'])->name('business_type.index');
         Route::get('/business_type/create', [App\Http\Controllers\Admin\BusinessTypeController::class, 'create'])->name('business_type.create');
@@ -362,9 +386,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/packabusiness_typege/{id}/delete', [App\Http\Controllers\Admin\BusinessTypeController::class, 'destroy'])->name('business_type.delete');
         Route::post('/business_type/updateStatus', [App\Http\Controllers\Admin\BusinessTypeController::class, 'updateStatus'])->name('business_type.updateStatus');
     });
-
-    
-
 });
 
 

@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{url('frontend/css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('frontend/css/responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
 </head>
 
 <body>
@@ -243,4 +244,10 @@
             }
         });
     });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+<script type="text/javascript">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+<script type="text/javascript">
 </script>

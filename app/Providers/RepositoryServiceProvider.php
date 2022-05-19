@@ -57,6 +57,8 @@ use App\Contracts\BusinessAddOnContract;
 use App\Repositories\BusinessAddOnRepository;
 use App\Contracts\BidContract;
 use App\Repositories\BidRepository;
+use App\Contracts\AddOnBidContract;
+use App\Repositories\AddOnBidRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -88,6 +90,7 @@ class RepositoryServiceProvider extends ServiceProvider
         BusinessTypeContract::class =>  BusinessTypeRepository::class,
         BusinessAddOnContract::class =>  BusinessAddOnRepository::class,
         BidContract::class =>  BidRepository::class,
+        AddOnBidContract::class =>  AddOnBidRepository::class,
     ];
 
     /**

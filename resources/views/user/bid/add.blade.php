@@ -40,6 +40,11 @@
                             <div class="col-12">
                                 <button type="submit" class="btn ur-submit-button w-auto">Add</button>
                             </div>
+                            @if(session()->has('message'))
+                                <div class="alert alert-success">
+                                    {{ session()->get('message') }}
+                                </div>
+                            @endif
                         </div>
                     </form>
                    

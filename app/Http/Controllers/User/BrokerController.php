@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\User;
 
 use App\Contracts\BidContract;
+use App\Contracts\BusinessAddOnContract;
 use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
+use App\Models\Bid;
+use App\Models\BusinessAddOn;
 use App\Models\BusinessService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BidController extends BaseController
+class BrokerController extends BaseController
 {
 
     /**
@@ -25,10 +28,11 @@ class BidController extends BaseController
      * 
      * @param BidContract $BusinessServiceRepository
      */
-    public function __construct(BidContract $bidRepository, BusinessServiceContract $businessServiceRepository)
+    public function __construct(BidContract $bidRepository, BusinessServiceContract $businessServiceRepository, BusinessAddOnContract $businessAddOnRepository)
     {
         $this->bidRepository = $bidRepository;
         $this->businessServiceRepository = $businessServiceRepository;
+        $this->businessAddOnRepository = $businessAddOnRepository;
     }
 
     /**
@@ -38,9 +42,9 @@ class BidController extends BaseController
      */
     public function index()
     {
-        $bids  = $this->bidRepository->listBusinessServices();
-        $this->setPageTitle('Bid', 'List of All Bids');
-        return view('user.business.index', compact('bids'));
+        $businessServices  = $this->businessServiceRepository->listBusinessServices();
+        // $this->setPageTitle('Bid', 'List of All Bids');
+        return view('user.broker.business_list', compact('businessServices'));
     }
 
     /**
@@ -107,13 +111,24 @@ class BidController extends BaseController
     }
     public function show($id)
     {
-
-
-        $bid = $this->bidRepository->findBusinessServiceById($id);
-        $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
-
-        $this->setPageTitle('business Service', 'Show Bid : ' . $bid->title);
-        return view('user.business.show', compact('bid', 'businessTypes'));
+        // $bid = $this->bidRepository->findBidById($id);
+        // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
+        // $bid=0;
+        $bids = Bid::where('business_id', $id)->get();
+        // dd($bids);
+        $this->setPageTitle('business Service', 'Edit Bid : ');
+        return view('user.broker.business_bid', compact('bids'));
+    }
+    public function showAddon($id)
+    {
+        // $bid = $this->bidRepository->findBidById($id);
+        // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
+        // $bid=0;
+        // $businessAddOns  = $this->businessAddOnRepository->listBusinessAddOns();
+        $businessAddOns = BusinessAddOn::where('business_id', $id)->get();
+        // dd($bids);
+        $this->setPageTitle('business Service', 'Edit Bid : ');
+        return view('user.broker.add_on_list', compact('businessAddOns'));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Contracts\BusinessAddOnContract;
 use App\Contracts\BusinessTypeContract;
 use App\Contracts\BusinessServiceContract;
 use App\Http\Controllers\BaseController;
+use App\Models\AddOn;
 use Illuminate\Http\Request;
 
 class BusinessAddOnController extends BaseController
@@ -49,10 +50,10 @@ class BusinessAddOnController extends BaseController
      */
     public function create()
     {
-       
+        $addOns = AddOn::get();
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
         $this->setPageTitle('business add on', 'Create A New business add on');
-        return view('user.business_add_on.add', compact('businessServices'));
+        return view('user.business_add_on.add', compact('businessServices', 'addOns'));
     }
 
     /**
@@ -64,7 +65,7 @@ class BusinessAddOnController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' =>  'required',
+            'add_on_id' =>  'required',
             'business_id' =>  'required',
             'valuation' =>  'required',
         ]);
@@ -88,12 +89,12 @@ class BusinessAddOnController extends BaseController
      */
     public function edit($id)
     {
-        
+        $addOns = AddOn::get();
         $businessAddOn = $this->businessAddOnRepository->findBusinessAddOnById($id);
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
 
         $this->setPageTitle('business add on', 'Edit business add on : ' . $businessAddOn->title);
-        return view('user.business_add_on.edit', compact('businessAddOn','businessServices'));
+        return view('user.business_add_on.edit', compact('businessAddOn', 'businessServices', 'addOns'));
     }
 
     public function show($id)

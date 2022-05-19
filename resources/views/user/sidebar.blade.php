@@ -4,6 +4,7 @@
             <li>
                 <a href="{{ route('user.dashboard') }}">Dashboard</a>
             </li>
+            @if(Auth::user()->type == 'user')
             <li>
                 <a href="{{ route('user.order') }}">Orders</a>
             </li>
@@ -13,16 +14,21 @@
             <li>
                 <a href="{{ route('user.address') }}">Addresses</a>
             </li>
-            <li class="active">
+            <li class="">
                 <a href="{{ route('user.account') }}">Account Details</a>
             </li>
 
-            <li class="active">
+            <li class="">
                 <a href="{{ route('user.businessService.index') }}">Busisness Service</a>
             </li>
-            <li class="active">
+            <li class="">
                 <a href="{{ route('user.business_add_on.index') }}">Busisness Add On</a>
             </li>
+            @elseif(Auth::user()->type == 'broker')
+            <li class="">
+                <a href="{{ route('user.broker.business.index') }}">Bid</a>
+            </li>
+            @endif
             {{-- <li>
                 <a href="{{url('user-logout')}}">Logout</a>
             </li> --}}

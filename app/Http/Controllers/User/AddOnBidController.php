@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Contracts\AddOnBidContract;
 use App\Contracts\BidContract;
+use App\Contracts\BusinessAddOnContract;
 use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
@@ -10,24 +12,25 @@ use App\Models\BusinessService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BidController extends BaseController
+class AddOnBidController extends BaseController
 {
 
     /**
-     * @var BidContract
+     * @var AddOnBidContract
      */
-    // protected $bidRepository;
+    // protected $addOnBidRepository;
     // protected $subCategoryRepository;
     // protected $userRepository;
 
     /**
-     * BidController constructor.
+     * AddOnBidController constructor.
      * 
-     * @param BidContract $BusinessServiceRepository
+     * @param AddOnBidContract $BusinessServiceRepository
      */
-    public function __construct(BidContract $bidRepository, BusinessServiceContract $businessServiceRepository)
+    public function __construct(AddOnBidContract $addOnBidRepository, BusinessAddOnContract $businessAddOnRepository, BusinessServiceContract $businessServiceRepository)
     {
-        $this->bidRepository = $bidRepository;
+        $this->addOnBidRepository = $addOnBidRepository;
+        $this->businessAddOnRepository = $businessAddOnRepository;
         $this->businessServiceRepository = $businessServiceRepository;
     }
 
@@ -38,7 +41,7 @@ class BidController extends BaseController
      */
     public function index()
     {
-        $bids  = $this->bidRepository->listBusinessServices();
+        $bids  = $this->addOnBidRepository->listBusinessServices();
         $this->setPageTitle('Bid', 'List of All Bids');
         return view('user.business.index', compact('bids'));
     }
@@ -50,17 +53,20 @@ class BidController extends BaseController
      */
     public function create($id)
     {
+        // $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
+        // dd($businessService);
 
-        $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
+        $businessAddOn = $this->businessAddOnRepository->findBusinessAddOnById($id);
+        // dd($businessAddOn);
         // $business = $this->businessServiceRepository->findBusinessServiceById();
         // $categories = $this->categoryRepository->listCategories();
         // $subcategories = $this->subCategoryRepository->listSubCategories();
         // $packages = $this->PackageRepository->listPackages();
-        $business  = $this->businessServiceRepository->listBusinessServices();
+        $business  = $this->businessAddOnRepository->listBusinessAddOns();
 
         // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
-        $this->setPageTitle('Bid', 'Create A New Bid');
-        return view('user.bid.add', compact('businessService', 'business'));
+        $this->setPageTitle('Add-On Bid', 'Create A New Add-On Bid');
+        return view('user.add_on_bid.add', compact('business', 'businessAddOn'));
     }
 
     /**
@@ -78,14 +84,14 @@ class BidController extends BaseController
 
         $params = $request->except('_token');
 
-        $bid = $this->bidRepository->createBid($params);
+        $bidAddOn = $this->addOnBidRepository->createAddOnBid($params);
 
-        if (!$bid) {
+        if (!$bidAddOn) {
             return $this->responseRedirectBack('Error occurred while creating Bid.', 'error', true, true);
         }
-        return $this->responseRedirect('user.businessService.index', 'Bid added successfully', 'success', false, false);
-        // return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
-        // return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
+        // return $this->responseRedirect('user.businessService.index', 'Bid added successfully', 'success', false, false);
+        // // return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
+        return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
     }
 
 
@@ -99,7 +105,7 @@ class BidController extends BaseController
     {
 
 
-        $bid = $this->bidRepository->findBusinessServiceById($id);
+        $bid = $this->addOnBidRepository->findBusinessAddOnById($id);
         $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Edit Bid : ' . $bid->title);
@@ -109,7 +115,7 @@ class BidController extends BaseController
     {
 
 
-        $bid = $this->bidRepository->findBusinessServiceById($id);
+        $bid = $this->addOnBidRepository->findBusinessAddOnById($id);
         $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Show Bid : ' . $bid->title);
@@ -135,7 +141,7 @@ class BidController extends BaseController
 
 
 
-        $bid = $this->bidRepository->updateBusinessService($params);
+        $bid = $this->addOnBidRepository->updateBusinessService($params);
 
         if (!$bid) {
             return $this->responseRedirectBack('Error occurred while updating Bid.', 'error', true, true);
@@ -146,7 +152,7 @@ class BidController extends BaseController
 
     public function destroy($id)
     {
-        $BusinessService = $this->bidRepository->deleteBusinessService($id);
+        $BusinessService = $this->addOnBidRepository->deleteBusinessService($id);
 
         if (!$BusinessService) {
             return $this->responseRedirectBack('Error occurred while deleting Bid.', 'error', true, true);
@@ -164,7 +170,7 @@ class BidController extends BaseController
 
         $params = $request->except('_token');
 
-        $BusinessService = $this->bidRepository->updateBusinessServiceStatus($params);
+        $BusinessService = $this->addOnBidRepository->updateBusinessServiceStatus($params);
 
         if ($BusinessService) {
             return response()->json(array('message' => 'Bid  status successfully updated'));

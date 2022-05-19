@@ -50,7 +50,7 @@
                                 @foreach ($businessAddOns as $data)
                                         <tr>
                                           
-                                            <td>{{ $data['name'] }}</td>
+                                            <td>{{ $data->addOn->name }}</td>
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             
@@ -62,7 +62,7 @@
                                                     <a href="{{ route('user.business_add_on.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                     @endif
                                                     @if(auth()->user()->id != $data->user_id)
-                                                    <a href="{{ route('user.bid.create', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                    <a href="{{ route('user.add_on_bid.create', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
                                                     @endif
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
