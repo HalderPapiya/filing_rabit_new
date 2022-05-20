@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach($data as $key => $data)
                                     <tr>
-                                        <td>{{ $data->productDetails['name'] }}</td>
+                                        <td>{{  $data->productDetails ? $data->productDetails['name'] : ''}}</td>
                                         <td>{{ $data['description'] }}</td>
                                         <td class="text-center">
                                             <div class="toggle-button-cover margin-auto">

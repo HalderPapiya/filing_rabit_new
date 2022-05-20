@@ -8,10 +8,14 @@ use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Bid;
+use App\Models\BidAddOn;
+use App\Models\BrokerChat;
 use App\Models\BusinessAddOn;
 use App\Models\BusinessService;
+use Dotenv\Regex\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class BrokerController extends BaseController
 {
@@ -131,6 +135,67 @@ class BrokerController extends BaseController
         return view('user.broker.add_on_list', compact('businessAddOns'));
     }
 
+    public function showAddonBid($id)
+    {
+        // $bid = $this->bidRepository->findBidById($id);
+        // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
+        // $bid=0;
+        // $businessAddOns  = $this->businessAddOnRepository->listBusinessAddOns();
+        // $businessAddOns = BusinessAddOn::get();
+        // dd($businessAddOns->id);
+
+        $bids = BidAddOn::where('add_on_id', $id)->get();
+        // dd($bids);
+        $this->setPageTitle('business Service', 'Edit Bid : ');
+        return view('user.broker.add_on_bid_list', compact('bids'));
+    }
+    public function mail($id)
+    {
+        $bid = $this->bidRepository->findBidById($id);
+        // dd($bid);
+        // $bids = Bid::where('business_id', $id)->get();
+        // $bids = Bid::where('business_id', $id)->get();
+        // $this->setPageTitle('business Service', 'Edit Bid : ');
+        return view('user.broker.business_bid_mail', compact('bid'));
+    }
+
+    protected function createBidMail($id)
+    {
+        $bid = $this->bidRepository->findBidById($id);
+        // dd($bid);
+        // $bids = Bid::where('business_id', $id)->get();
+        // $bids = Bid::where('business_id', $id)->get();
+        // $this->setPageTitle('business Service', 'Edit Bid : ');
+        return view('user.broker.bid_mail_create', compact('bid'));
+    }
+    protected function storeBidMail(Request $request)
+    {
+        $user = new BrokerChat;
+        $user->receiver_id = $request->receiver_id;
+        $user->sender_id = Auth::user()->id;
+        $user->subject = $request->subject;
+        $user->message = $request->message;
+        $user->save();
+
+        if (!$user) {
+            return $this->responseRedirectBack('Error occurred while creating blog.', 'error', true, true);
+        }
+        return Redirect::back()->with('message', 'Mail Send successfully.');
+
+        // return $this->responseRedirectBack( ['Session' => 'Registered successfully','Success' , false, false]);
+    }
+
+    public function AddOnMail($id)
+    {
+        $bid = BusinessAddOn::findOrFail($id);
+
+        // $bid = $this->bidRepository->findBidById($id);
+        // dd($bid);
+        // $bids = Bid::where('business_id', $id)->get();
+        // $bids = Bid::where('business_id', $id)->get();
+        // $this->setPageTitle('business Service', 'Edit Bid : ');
+        return view('user.broker.business_bid_mail', compact('bid'));
+    }
     /**
      * Update the specified resource in storage.
      *

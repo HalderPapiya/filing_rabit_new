@@ -139,6 +139,12 @@ Route::prefix('user')->name('user.')->group(function () {
         // Route::post('/add_on_bid/store', [App\Http\Controllers\User\AddOnBidController::class, 'store'])->name('add_on_bid.store');
         Route::get('/broker/business/show/{id}', [App\Http\Controllers\User\BrokerController::class, 'show'])->name('broker.business.show');
         Route::get('/broker/addon/show/{id}', [App\Http\Controllers\User\BrokerController::class, 'showAddOn'])->name('broker.addon.show');
+        Route::get('/broker/addon/bid/{id}', [App\Http\Controllers\User\BrokerController::class, 'showAddOnBid'])->name('broker.addonBid.show');
+        Route::get('/broker/mail/{id}', [App\Http\Controllers\User\BrokerController::class, 'mail'])->name('broker.mail');
+        Route::get('/broker/mail/send/{id}', [App\Http\Controllers\User\BrokerController::class, 'createBidMail'])->name('broker.bid.mail');
+        Route::post('/broker/mail/send/store', [App\Http\Controllers\User\BrokerController::class, 'storeBidMail'])->name('broker.bid.mail.store');
+
+        Route::get('/broker/addOnMail/{id}', [App\Http\Controllers\User\BrokerController::class, 'AddOnMail'])->name('broker.addon.mail');
         // Route::get('/add_on_bid/edit/{id}', [App\Http\Controllers\User\AddOnBidController::class, 'edit'])->name('add_on_bid.edit');
         // Route::post('/add_on_bid/update', [App\Http\Controllers\User\AddOnBidController::class, 'update'])->name('add_on_bid.update');
         // Route::get('/add_on_bid/{id}/delete', [App\Http\Controllers\User\AddOnBidController::class, 'destroy'])->name('add_on_bid.delete');

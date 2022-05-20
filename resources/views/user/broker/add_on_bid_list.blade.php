@@ -1,4 +1,4 @@
-bid details@extends('frontend.layouts.master')
+tt+bid details@extends('frontend.layouts.master')
 @extends('frontend.layouts.master')
 @section('content')
     {{-- <div class="fixed-row">
@@ -56,8 +56,8 @@ bid details@extends('frontend.layouts.master')
                                           
                                           <td class="text-center">
                                               <div class="btn-group" role="group" aria-label="Second group">
-                                                  <a href="{{ route('user.broker.mail', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn">Mail</a>
-                                                  {{-- <a href="#" data-id="{{$bid['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
+                                                  <a href="" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                  <a href="{{route('user.broker.addon.mail',$bid['id'])}}"  class="sa-remove btn btn-sm btn-danger edit-btn">Mail</a>
                                               </div>
                                           </td>
                                       </tr> 
