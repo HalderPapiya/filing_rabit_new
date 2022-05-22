@@ -160,7 +160,15 @@ Route::prefix('user')->name('user.')->group(function () {
 //     })->name('dashboard');
 // });
 
+// admin guard
 
+  
+        // Route::post('/check', 'Admin\AdminController@check')->name('login.check');
+        Route::get('forget-password', 'Frontend\ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
+        Route::post('forget-password', 'Frontend\ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post');
+        Route::get('reset-password/{token}', 'Frontend\ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
+        Route::post('reset-password', 'Frontend\ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
+   
 
 
 

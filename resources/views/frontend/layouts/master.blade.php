@@ -62,8 +62,7 @@
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form> 
-                                    {{-- <a class="forgot password"
-                                        href="https://filingrabbit.in/lost-password/">Forgot Password?</a> --}}
+                                    <a class="forgot" href="{{ route('forget.password.get') }}">(Forgot)</a>
                                 </div>
                                 <p class="text-center">Don't Have an Account? 
                                     <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
