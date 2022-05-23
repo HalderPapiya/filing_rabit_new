@@ -22,14 +22,16 @@ class CartRepository extends BaseRepository implements CartContract
     {
         $couponData = Coupon::where('coupon_code', $coupon_code)->first();
 
+        $total_usage = CouponUsage::where([['coupon_code', '=', $coupon_code]])->count();
+
         if (Auth::guard('user')->user()) {
-            $couponUsageCount = CouponUsage::where('user_id', Auth::guard('user')->user()->id)->orWhere('email', Auth::guard('user')->user()->email)->count();
+            $couponUsageCount = CouponUsage::where([['user_id', '=', Auth::guard('user')->user()->id], ['coupon_code', '=', $coupon_code]])->orWhere('email', Auth::guard('user')->user()->email)->count();
         } else {
-            $couponUsageCount = CouponUsage::where('ip', $this->ip)->count();
+            $couponUsageCount = CouponUsage::where([['ip', $this->ip], ['coupon_code', '=', $coupon_code]])->count();
         }
 
         if ($couponData) {
-            if ($couponData->end_date < \Carbon\Carbon::now() || $couponData->status == 0) {
+            if ($couponData->end_date < \Carbon\Carbon::now() || $couponData->status == 0 || $total_usage > $couponData->max_time_of_use) {
                 return response()->json(['resp' => 200, 'type' => 'warning', 'message' => 'Coupon expired']);
             } elseif ($couponUsageCount == $couponData->max_time_one_can_use || $couponUsageCount > $couponData->max_time_one_can_use) {
                 return response()->json(['resp' => 200, 'type' => 'warning', 'message' => 'You cannot use this coupon anymore']);
@@ -46,7 +48,7 @@ class CartRepository extends BaseRepository implements CartContract
 
     public function couponRemove()
     {
-        $cartData = Cart::where('ip', $this->ip)->update(['coupon_code_id' => null]);
+        $cartData = Cart::where('ip', $this->ip)->update(['coupon_code_id' => NULL]);
         return response()->json(['resp' => 200, 'type' => 'success', 'message' => 'Coupon removed']);
     }
 
@@ -141,8 +143,8 @@ class CartRepository extends BaseRepository implements CartContract
         if (!empty($data[0]->coupon_code_id)) {
             $coupon_code_id = $data[0]->coupon_code_id;
             $coupon_code_end_date = $data[0]->couponDetails ? $data[0]->couponDetails->end_date : '';
-            $coupon_code_status = $data[0]->couponDetails ? $data[0]->couponDetails->status: '';
-            $coupon_code_max_usage_for_one = $data[0]->couponDetails ?$data[0]->couponDetails->max_time_one_can_use: '';
+            $coupon_code_status = $data[0]->couponDetails ? $data[0]->couponDetails->status : '';
+            $coupon_code_max_usage_for_one = $data[0]->couponDetails ? $data[0]->couponDetails->max_time_one_can_use : '';
 
             // coupon code validity check
             if ($coupon_code_end_date < \Carbon\Carbon::now() || $coupon_code_status == 0) {

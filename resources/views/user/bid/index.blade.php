@@ -26,14 +26,15 @@
 
                 
                 <div class="my-account-form-wrapper">
-                    <h3>Business Service</h3>
+                    <h3>Business Bid List</h3>
+                   
                    
                     <div class="col-md-3">
                         {{-- <nav class="sticky-top my-account-navigation">
                             <ul>
-                                @foreach ($businessServices as $businessService)
+                                @foreach ($bids as $bid)
                                 <li>
-                                    {{$businessService->name}}<a href="{{ route('user.businessService.edit', $businessService['id']) }}"></a>
+                                    {{$bid->name}}<a href="{{ route('user.businessService.edit', $bid['id']) }}"></a>
                                 </li>
                                 @endforeach
                                 
@@ -46,29 +47,42 @@
                                     <a href="{{ route('user.businessService.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add</a>
                                 </div>
                             </div>
+                            <thead>
+                                <tr>
+                                    <th> Business Name </th>
+                                    <th> Business Valuation </th>
+                                    <th> Bid </th>
+                                    {{-- <th class="text-center"> Status </th> --}}
+                                    <th style="width:100px; min-width:100px;" class="text-center">Action</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                @foreach ($businessServices as $businessService)
+                                @foreach ($bids as $bid)
+                                @if(auth()->user()->id == $bid->user_id)
                                         <tr>
                                           
-                                            <td>{{ $businessService['name'] }}</td>
+                                            <td>{{ $bid->business ? $bid->business['name'] :' '}}</td>
+                                            <td>{{ $bid->business ? $bid->business['valuation'] :' '}}</td>
+                                            <td>{{ $bid['valuation'] }}</td>
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             
                                             
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Second group">
-                                                    <a href="{{ route('user.businessService.show', $businessService['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a>
-                                                    @if(auth()->user()->id == $businessService->user_id)
-                                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
-                                                    @endif
-                                                    @if(auth()->user()->id != $businessService->user_id)
-                                                    <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
-                                                    @endif
+                                                    {{-- <a href="{{ route('user.bid.show', $bid['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a> --}}
+                                                    {{-- @if(auth()->user()->id == $bid->user_id) --}}
+                                                    <a href="{{ route('user.bid.edit', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                    {{-- @endif --}}
+                                                    {{-- @if(auth()->user()->id != $bid->user_id)
+                                                    <a href="{{ route('user.bid .edit', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                    @endif --}}
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
                                                 </div>
                                             </td>
                                         </tr> 
+                                        @endif
                                 @endforeach
                             </tbody>
                         </table>

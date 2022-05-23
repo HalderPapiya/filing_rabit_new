@@ -43,7 +43,7 @@ class BidController extends BaseController
         $bids  = $this->bidRepository->listBids();
 
         $this->setPageTitle('Bid', 'List of All Bids');
-        return view('user.business.index', compact('bids'));
+        return view('user.bid.index', compact('bids'));
     }
 
     /**

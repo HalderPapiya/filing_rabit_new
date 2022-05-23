@@ -41,9 +41,9 @@ class AddOnBidController extends BaseController
      */
     public function index()
     {
-        $bids  = $this->addOnBidRepository->listBusinessServices();
+        $bids  = $this->addOnBidRepository->listAddOnBids();
         $this->setPageTitle('Bid', 'List of All Bids');
-        return view('user.business.index', compact('bids'));
+        return view('user.add_on_bid.index', compact('bids'));
     }
 
     /**
