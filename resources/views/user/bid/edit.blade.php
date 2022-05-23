@@ -37,8 +37,18 @@
                         <form action="{{route('user.bid.update')}}" method="POST">
                             @csrf
                             <input type="hidden" value="{{$bid->id}}" name="id" class="form-control">
+                            <input type="hidden" value="{{$bid->business_id}}" name="business_id" class="form-control">
                             <div class="row">
-                                <div class="col-md-6">
+                                {{-- <input type="hidden" value="{{$bid->id}}" name="business_id" class="form-control @error('valuation') is-invalid @enderror"> --}}
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label> Valuation</label>
+                                        <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror" value="{{$bid->valuation}}">
+                                        @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
+                                    </div>
+                                </div>
+                           
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Business Name</label>
                                         <select class="form-control @error('business_id') is-invalid @enderror" name="business_id" id="type_id" value="{{ old('
@@ -54,20 +64,23 @@
                                         </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                
                                
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="form-group">
                                         <label> Valuation</label>
                                         <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror" value="{{old('valuation', $bid->valuation) }}">
                                         @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                
                                 <div class="col-12">
                                     <button type="submit" class="btn ur-submit-button w-auto">Update Business Service</button>
                                 </div>
+                                 @if (Session::get('success'))
+                                    <div class="alert alert-success"> {{Session::get('success')}} </div>
+                                @endif
                             </div>
                         </form>
                         {{-- <div class="col-md-3">

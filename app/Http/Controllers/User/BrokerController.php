@@ -151,12 +151,19 @@ class BrokerController extends BaseController
     }
     public function mail($id)
     {
+        $senderId = Auth::user()->id;
+        $senderMails = BrokerChat::where('sender_id', $senderId)->get();
+       
+
+        // $senderId = Auth::user()->id;
+        // $senderMails = BrokerChat::where('sender_id', $senderId)->get();
+
         $bid = $this->bidRepository->findBidById($id);
-        // dd($bid);
-        // $bids = Bid::where('business_id', $id)->get();
-        // $bids = Bid::where('business_id', $id)->get();
-        // $this->setPageTitle('business Service', 'Edit Bid : ');
-        return view('user.broker.business_bid_mail', compact('bid'));
+
+        // $receiverId = Auth::user()->id;
+        $receiveMails = BrokerChat::where('receiver_id', $bid->user_id)->get();        
+        // dd($receiveMails);
+        return view('user.broker.business_bid_mail', compact('bid', 'receiveMails', 'senderMails'));
     }
 
     protected function createBidMail($id)

@@ -1,6 +1,6 @@
 @php
-$categories = App\Models\Category::get();
-$categories = App\Models\Category::get();
+// $categories = App\Models\Category::get();
+$categories = App\Models\Category::orderBy('id', 'desc')->get();
 $products = App\Models\Category::get();
 $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
 

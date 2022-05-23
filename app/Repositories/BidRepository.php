@@ -64,13 +64,15 @@ class BidRepository extends BaseRepository implements BidContract
     {
         try {
             $collection = collect($params);
-
-            $Bid = new Bid;
-            $Bid->user_id = Auth::user()->id;
-            $Bid->business_id =  $collection['business_id'];
-            $Bid->valuation = $collection['valuation'];
-            $Bid->save();
-            return $Bid;
+            // $exist = Bid::where('user_id', $collection['user_id'])->exists();
+            // if (!$exist) {
+                $Bid = new Bid;
+                $Bid->user_id = Auth::user()->id;
+                $Bid->business_id =  $collection['business_id'];
+                $Bid->valuation = $collection['valuation'];
+                $Bid->save();
+                return $Bid;
+            // }
         } catch (QueryException $exception) {
             throw new InvalidArgumentException($exception->getMessage());
         }

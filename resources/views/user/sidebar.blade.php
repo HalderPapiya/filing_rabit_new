@@ -24,6 +24,9 @@
             <li class="">
                 <a href="{{ route('user.business_add_on.index') }}">Busisness Add On</a>
             </li>
+            <li class="">
+                <a href="{{ route('user.mail.index') }}">Mail</a>
+            </li>
             @elseif(Auth::user()->type == 'broker')
             <li class="">
                 <a href="{{ route('user.broker.business.index') }}">Bid</a>

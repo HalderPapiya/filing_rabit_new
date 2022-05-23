@@ -46,6 +46,7 @@
                                     <a href="{{ route('user.businessService.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add</a>
                                 </div>
                             </div>
+                            
                             <tbody>
                                 @foreach ($businessServices as $businessService)
                                         <tr>
@@ -62,7 +63,11 @@
                                                     <a href="{{ route('user.businessService.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                     @endif
                                                     @if(auth()->user()->id != $businessService->user_id)
-                                                    <a href="{{ route('user.bid.create', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                        {{-- @if(!$exist) --}}
+                                                            <a href="{{ route('user.bid.create', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
+                                                        {{-- @else     --}}
+                                                            <a href="{{ route('user.bid.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID Edit</i></a>
+                                                        {{-- @endif     --}}
                                                     @endif
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}

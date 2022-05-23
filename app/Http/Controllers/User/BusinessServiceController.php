@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
+use App\Models\Bid;
 use App\Models\BusinessService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,13 +38,15 @@ class BusinessServiceController extends BaseController
      */
     public function index()
     {
+        $exist = Bid::where('user_id', Auth::user()->id)->exists();
+
         // $business = BusinessService::where('user_id',  Auth::guard('user')->user()->id)->first();
         // $businessId = $business->id;
         // dd($businessId);
         $businessServices  = $this->businessServiceRepository->listBusinessServices();
         // dd($businessServices);
         $this->setPageTitle('Business Service', 'List of All Business Services');
-        return view('user.business.index', compact('businessServices'));
+        return view('user.business.index', compact('businessServices', 'exist'));
     }
 
     /**

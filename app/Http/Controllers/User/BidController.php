@@ -6,9 +6,11 @@ use App\Contracts\BidContract;
 use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
+use App\Models\Bid;
 use App\Models\BusinessService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class BidController extends BaseController
 {
@@ -38,7 +40,8 @@ class BidController extends BaseController
      */
     public function index()
     {
-        $bids  = $this->bidRepository->listBusinessServices();
+        $bids  = $this->bidRepository->listBids();
+
         $this->setPageTitle('Bid', 'List of All Bids');
         return view('user.business.index', compact('bids'));
     }
@@ -51,6 +54,7 @@ class BidController extends BaseController
     public function create($id)
     {
 
+        // dd($exist);
         $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
         // $business = $this->businessServiceRepository->findBusinessServiceById();
         // $categories = $this->categoryRepository->listCategories();
@@ -60,7 +64,9 @@ class BidController extends BaseController
 
         // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
         $this->setPageTitle('Bid', 'Create A New Bid');
+        // if (!$exist) {
         return view('user.bid.add', compact('businessService', 'business'));
+        // }
     }
 
     /**
@@ -75,6 +81,7 @@ class BidController extends BaseController
 
             'valuation' =>  'required',
         ]);
+
 
         $params = $request->except('_token');
 
@@ -98,12 +105,12 @@ class BidController extends BaseController
     public function edit($id)
     {
 
-
-        $bid = $this->bidRepository->findBusinessServiceById($id);
-        $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
+        // $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
+        $bid = $this->bidRepository->findBidById($id);
+        // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Edit Bid : ' . $bid->title);
-        return view('user.business.edit', compact('bid', 'businessTypes'));
+        return view('user.bid.edit', compact('bid'));
     }
     public function show($id)
     {
@@ -126,8 +133,8 @@ class BidController extends BaseController
     public function update(Request $request)
     {
         $this->validate($request, [
-            'name' =>  'required',
-            'type_id' =>  'required',
+            // 'name' =>  'required',
+            // 'type_id' =>  'required',
             'valuation' =>  'required',
         ]);
 
@@ -135,12 +142,14 @@ class BidController extends BaseController
 
 
 
-        $bid = $this->bidRepository->updateBusinessService($params);
+        $bid = $this->bidRepository->updateBid($params);
 
         if (!$bid) {
             return $this->responseRedirectBack('Error occurred while updating Bid.', 'error', true, true);
         }
-        return $this->responseRedirect('user.bid.index', 'Bid updated successfully', 'success', false, false);
+        return Redirect::back()->with('success', 'Update successfully.');
+        // return $bid;
+        // return $this->responseRedirectBack('Bid updated successfully', 'success', false, false);
     }
 
 
