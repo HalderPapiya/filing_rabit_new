@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\SettingContract;
 use App\Http\Controllers\BaseController;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 
 class SettingController extends BaseController
@@ -18,9 +19,10 @@ class SettingController extends BaseController
      * 
      * @param SettingContract $settingRepository
      */
-    public function __construct(SettingContract $settingRepository)
+    public function __construct(SettingContract $settingRepository, ProductRepository $productRepository)
     {
         $this->settingRepository = $settingRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -44,7 +46,12 @@ class SettingController extends BaseController
     public function create()
     {
         $this->setPageTitle('Settings', 'Create Contact');
-        return view('admin.settings.create');
+
+        $listProducts = $this->productRepository->listProducts('id', 'DESC', ['id', 'name']);
+
+        // dd($listProducts);
+
+        return view('admin.settings.create', compact('listProducts'));
     }
 
     /**

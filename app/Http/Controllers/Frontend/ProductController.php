@@ -10,8 +10,9 @@ use App\Contracts\SettingContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Cart;
 use App\Models\Description;
-use App\Models\Order;
+use App\Models\Faq;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ProductController extends BaseController
@@ -71,7 +72,8 @@ class ProductController extends BaseController
     {
         $product = $this->productRepository->findProductById($id);
         $productDes = Description::where('product_id', $product->id)->get();
-        $faqs = $this->settingRepository->listFaqs();
+        $faqs = Setting::where('key', 'faq')->where('product_id', $product->id)->get();
+        // $faqs = $this->settingRepository->listFaqs();
         return view('frontend.product_details', compact('product', 'productDes', 'faqs'));
     }
     public function product($id)

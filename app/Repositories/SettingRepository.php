@@ -91,15 +91,13 @@ class SettingRepository extends BaseRepository implements SettingContract
     {
         try {
 
-
-
             $collection = collect($params);
 
             $data = new Setting;
             $data->title = $collection['title'];
+            $data->product_id = $collection['product_id'];
             $data->description = $collection['description'];
             $data->key = $collection['key'];
-
 
             $data->save();
 

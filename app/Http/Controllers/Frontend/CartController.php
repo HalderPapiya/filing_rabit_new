@@ -107,9 +107,10 @@ class CartController extends BaseController
      */
     public function addCart(Request $request)
     {
-
+        // dd($request->all());
         $cartExists = Cart::where('product_id', $request->product_id)->where('ip', $this->ip)->first();
-        if (!$cartExists) {
+        if ($cartExists) {
+            // dd('here');
             if (Auth::guard('user')->user()) {
                 $data = new Cart();
                 $data->user_id = Auth::guard('user')->user()->id;
@@ -129,10 +130,10 @@ class CartController extends BaseController
                 $data->qty = 1;
                 $data->save();
             }
+            // dd('test');
             return $this->responseRedirect('product.cart', 'Add to Cart Successfully', 'success', false, false);
+            // return redirect()->route('product.cart')->with('success', 'Add to Cart Successfully');
         }
-
-
 
         return $this->responseRedirect('product.cart', 'Already Exist This Product', 'success', false, false);
     }
@@ -146,6 +147,7 @@ class CartController extends BaseController
     public function Order(Request $request)
     {
         // dd($request->all());
+        // die;
         // 
 
         try {
@@ -177,6 +179,8 @@ class CartController extends BaseController
                 $data->payment_method = $request->payment_method;
                 // $data->qty = 1;
                 $data->save();
+
+
 
                 $orderId = $data->id;
 
@@ -214,6 +218,18 @@ class CartController extends BaseController
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+
+                if ($request->coupon_code_id != '') {
+                    CouponUsage::insert([
+                        'coupon_code_id' => $request->coupon_code_id,
+                        'coupon_code' => $request->coupon_code,
+                        'discount' => $request->discount,
+                        'total_checkout_amount' => $request->total_checkout_amount,
+                        'final_amount' => $request->amount,
+                        'user_id' => Auth::guard('user')->user()->id ?? 0,
+                        'user_ip' => $this->ip,
+                    ]);
+                }
             } else {
                 $data = new Order();
                 $data->user_id = Auth::guard('user')->user()->id ?? 0;
@@ -372,6 +388,12 @@ class CartController extends BaseController
         $couponData = $this->cartRepository->couponCheck($request->code);
         return $couponData;
     }
+
+    public function couponRemove()
+    {
+        return $this->cartRepository->couponRemove();
+    }
+
     /**
      * Display the specified resource.
      *

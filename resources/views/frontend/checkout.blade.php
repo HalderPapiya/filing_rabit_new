@@ -8,8 +8,8 @@
     <title>Filing Rabit</title>
     <link rel="stylesheet" type="text/css" href="{{url('frontend/css/bootstrap.css')}}">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css?ver=5.9.3' />
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick-theme.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick-theme.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{url('frontend/css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('frontend/css/responsive.css')}}">
 </head>
@@ -40,7 +40,7 @@
                     {{-- <a href="#" data-toggle="modal" data-target="#loginModal">Login</a> --}}
                 </p>
             </div>
-            
+
             {{-- <div class="view-cart-message d-flex align-items-center">
                 <p>
                     <i class="fa fa-check-circle"></i>
@@ -67,7 +67,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for=""> Last Name </label>
-                                        <input type="text" value="{{$address?$address->lName:''}}"  name="lname" class="form-control @error('lname') is-invalid @enderror">
+                                        <input type="text" value="{{$address?$address->lName:''}}" name="lname" class="form-control @error('lname') is-invalid @enderror">
                                         @error('lname')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                         <label for="">
                                             Phone
                                         </label>
-                                        <input type="number"  name="mobile" value="{{$address?$address->phone:''}}" class="form-control @error('mobile') is-invalid @enderror">
+                                        <input type="number" name="mobile" value="{{$address?$address->phone:''}}" class="form-control @error('mobile') is-invalid @enderror">
                                         @error('mobile')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                     </div>
                                 </div>
@@ -134,14 +134,14 @@
                         </form>
                     </div>
                     @php
-                // $subTotal = $grandTotal = $couponCodeDiscount = $shippingCharges = $taxPercent = 0;
-                 @endphp
+                    // $subTotal = $grandTotal = $couponCodeDiscount = $shippingCharges = $taxPercent = 0;
+                    @endphp
 
                     <div class="col-md-7 checkout_right">
 
                         <h3>Your order</h3>
                         @php
-                        $subTotal = $grandTotal = $couponCodeDiscount  = 0;
+                        $subTotal = $grandTotal = $couponCodeDiscount = 0;
                         @endphp
                         {{-- @php $sum = 0; @endphp --}}
                         {{-- @php $sum = $sum + $data->price; @endphp --}}
@@ -156,29 +156,34 @@
                                 <td>{{ $cartValue->productCart->name }}</td>
                                 <td>{{ $cartValue->price }}</td>
                             </tr>
-                          
+
                         </table>
                         <input type="hidden" name="product_id" value="{{ $cartValue->product_id }}" class="form-control">
                         @php
-                        $subTotal += (int) $cartValue->price;
+                        $subTotal = (int) $cartValue->price;
                         if (!empty($data[0]->coupon_code_id)) {
-                            $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
+                        $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
                         }
                         $grandTotalWithoutCoupon = $subTotal;
                         $grandTotal = ($subTotal ) - $couponCodeDiscount;
-                    @endphp
+                        @endphp
                         @endforeach
 
+                        <input type="hidden" name="total_checkout_amount" value="{{$cartValue->price}}">
+
+
                         <table class="table checkout-table mb-4 border">
+
+
+                            {{-- @endif --}}
+
+                            <div id="couponsusagedetails">
+                                <input type="hidden" name="coupon_code_id" value="@if(!empty($data[0]->coupon_code_id)){{$data[0]->coupon_code_id}}@endif">
+                                <input type="hidden" name="coupon_code" value="@if(!empty($data[0]->coupon_code_id)){{$data[0]->couponDetails->coupon_code}}@endif">
+                                <input type="hidden" name="discount" value="@if(!empty($data[0]->coupon_code_id)){{$couponCodeDiscount}}@endif">
+                            </div>
+
                             
-                        
-                        {{-- @endif --}}
-
-
-
-
-                        
-
                             <div class="container mt-3 mt-sm-5">
                                 <div class="cart-summary">
                                     <div class="row justify-content-between flex-sm-row-reverse">
@@ -189,19 +194,19 @@
                                                         Subtotal
                                                     </div>
                                                     <div class="cart-total-value">
-                                                        &#8377;<span id="subTotalAmount">{{$grandTotal}}</span>
+                                                        &#8377;<span id="subTotalAmount">{{$grandTotalWithoutCoupon}}</span>
                                                     </div>
                                                 </div>
 
                                                 <div id="appliedCouponHolder">
                                                     @if (!empty($data[0]->coupon_code_id))
-                                                        <div class="cart-total">
-                                                            <div class="cart-total-label">
-                                                                COUPON APPLIED - <strong>{{$data[0]->couponDetails->coupon_code}}</strong><br/>
-                                                                <a href="javascript:void(0)" onclick="removeAppliedCoupon()"><small>(Remove this coupon)</small></a>
-                                                            </div>
-                                                            <div class="cart-total-value">- {{$data[0]->couponDetails ? $data[0]->couponDetails->amount : ''}}</div>
+                                                    <div class="cart-total">
+                                                        <div class="cart-total-label">
+                                                            COUPON APPLIED - <strong>{{$data[0]->couponDetails->coupon_code}}</strong><br />
+                                                            <a href="javascript:void(0)" onclick="removeAppliedCoupon()"><small>(Remove this coupon)</small></a>
                                                         </div>
+                                                        <div class="cart-total-value">- {{$data[0]->couponDetails ? $data[0]->couponDetails->amount : ''}}</div>
+                                                    </div>
                                                     @endif
                                                 </div>
                                                 <div class="cart-total">
@@ -220,17 +225,17 @@
                                                 {{-- <li>
                                                     <img src="img/delivery-truck.png" />
                                                     <h5><span>&#8377;60</span> Apply Below order &#8377;499</h5> --}}
-                                                    {{-- <a href="{{route('front.content.shipping')}}">See all Shipping charges and policies</a> --}}
+                                                {{-- <a href="{{route('front.content.shipping')}}">See all Shipping charges and policies</a> --}}
                                                 {{-- </li> --}}
                                                 <li>
                                                     <div class="coupon-block">
                                                         <input type="text" class="coupon-text form-control" name="couponText" id="couponText" placeholder="Enter coupon code here" value="{{ (!empty($data[0]->coupon_code_id)) ? $data[0]->couponDetails->coupon_code : '' }}" {{ (!empty($data[0]->coupon_code_id)) ? 'disabled' : '' }}>
                                                         @if (!empty($data[0]->coupon_code_id))
-                                                            <button id="applyCouponBtn" class="btn ur-submit-button mt-3" disabled="true">Applied</button>
+                                                        <button id="applyCouponBtn" class="btn ur-submit-button mt-3" disabled="true">Applied</button>
                                                         @else
-                                                            <button  id="applyCouponBtn"  class="btn ur-submit-button mt-3">Apply Coupon</button>
+                                                        <button id="applyCouponBtn" class="btn ur-submit-button mt-3">Apply Coupon</button>
                                                         @endif
-                                                        {{-- $('#applyCouponBtn').text('APPLIED').css('background', '#c1080a').attr('disabled', true); --}}
+                                                        <!-- {{-- $('#applyCouponBtn').text('APPLIED').css('background', '#c1080a').attr('disabled', true); --}} -->
                                                     </div>
                                                     @error('lname')<p class="small text-danger mb-0 mt-2">{{$message}}</p>@enderror
                                                     <a href="{{route('product.coupon.check')}}" class="d-inline-block mt-2">Get latest coupon from here</a>
@@ -241,101 +246,48 @@
                                     {{-- <div class="row justify-content-between">
                                         <div class="col-sm-12 text-right mt-4">
                                             <form action="{{route('product.transaction')}}" method="POST">
-                                                <button type="submit" class="btn checkout-btn">Proceed to checkout</button>
-                                            </form>
-                                        </div>
-                                    </div> --}}
-                                </div>
-                            </div>
-                        </table>
-
-                        <input type="radio" id="PO" name="payment_method" value="Pay Online">
-                        <label>Pay Online</label><br>
-                        <input type="radio" id="cod" name="payment_method" value="COD" checked>
-                        <label for="cod">Cash On Delivary</label><br>
-
-                        <div class="pay_box">
-                            <p>Pay securely by Credit or Debit card or internet banking through Easebuzz.</p>
-                        </div>
-
-                        <p class="border-top py-3">
-                            Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our 
-                            <a href="{{route('frontend.privacy-policy')}}">privacy policy</a>.
-                        </p>
-                        {{-- <form action="{{route('product.order')}}" method="POST">
-                            @csrf --}}
-                    
-                            <button type="submit" class="btn ur-submit-button text-uppercase">
-                                Proceed To Checkout
-                            </button>
-                            
-                        {{-- </form> --}}
-                    </div>
-                    @endif
-                    @if(session()->has('message'))
-                                <div class="alert alert-success">
-                                    {{ session()->get('message') }}
-                                </div>
-                            @endif
-                </div>
+                                    <button type="submit" class="btn checkout-btn">Proceed to checkout</button>
             </form>
         </div>
-    </section>
-    
-    <div class="modal fade login_modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">x</span>
-                </button>
-                <div class="row m-0">
-                    <div class="col-sm-12 p-0">
-                        <div class="login_block">
-                            <a href="https://filingrabbit.in/" rel="home" class="login_logo">
-                                <img src="{{asset('frontend/img/logo.png')}}">
-                            </a>
-                            <p class="text-center">or</p>
-                            <div class="login_wrap">
-                                <form name="loginform" id="loginform" action=""
-                                    method="POST">
-                                    <p class="login-username">
-                                        <label for="user">Email Address</label>
-                                        <input type="text" name="user_email" id="user_email" class="input" value="{{ old('user_email') }}" size="20"
-                                            placeholder="Enter Username" autocomplete="user_email" autofocus>
-                                           
-                                    </p>
-                                    <p class="login-password">
-                                        <label for="pass">Password</label>
-                                        <input type="password" name="password" id="password" class="input" value="{{ old('password') }}" size="20"
-                                            placeholder="Enter Password" autocomplete="email" autofocus>
-                                    </p>
-                                    <p class="login-submit">
-                                        <input type="submit" name="wp-submit" id="wp-submit"
-                                            class="button button-primary" value="Log In">
-                                        <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
-                                    </p>
-                                    <p class="mt-4" id="loginMessage"></p>
-                                </form> 
-                                {{-- <a class="forgot password"
-                                    href="https://filingrabbit.in/lost-password/">Forgot Password?</a> --}}
-                            </div>
-                            <p class="text-center">Don't Have an Account? 
-                                <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
-                                    Sign Up
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div> --}}
         </div>
-    </div>
-    
-</div>
-<div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+        </table>
+
+        <input type="radio" id="PO" name="payment_method" value="Pay Online">
+        <label>Pay Online</label><br>
+        <input type="radio" id="cod" name="payment_method" value="COD" checked>
+        <label for="cod">Cash On Delivary</label><br>
+
+        <div class="pay_box">
+            <p>Pay securely by Credit or Debit card or internet banking through Easebuzz.</p>
+        </div>
+
+        <p class="border-top py-3">
+            Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our
+            <a href="{{route('frontend.privacy-policy')}}">privacy policy</a>.
+        </p>
+        {{-- <form action="{{route('product.order')}}" method="POST">
+        @csrf --}}
+
+        <button type="submit" class="btn ur-submit-button text-uppercase">
+            Proceed To Checkout
+        </button>
+
+        {{-- </form> --}}
+        </div>
+        @endif
+        @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+        @endif
+        </div>
+        </form>
+        </div>
+    </section>
+
+    <div class="modal fade login_modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -346,7 +298,54 @@
                         <div class="col-sm-12 p-0">
                             <div class="login_block">
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
-                                    <img src="{{asset('frontend/img/logo.png')}}" >
+                                    <img src="{{asset('frontend/img/logo.png')}}">
+                                </a>
+                                <p class="text-center">or</p>
+                                <div class="login_wrap">
+                                    <form name="loginform" id="loginform" action="" method="POST">
+                                        <p class="login-username">
+                                            <label for="user">Email Address</label>
+                                            <input type="text" name="user_email" id="user_email" class="input" value="{{ old('user_email') }}" size="20" placeholder="Enter Username" autocomplete="user_email" autofocus>
+
+                                        </p>
+                                        <p class="login-password">
+                                            <label for="pass">Password</label>
+                                            <input type="password" name="password" id="password" class="input" value="{{ old('password') }}" size="20" placeholder="Enter Password" autocomplete="email" autofocus>
+                                        </p>
+                                        <p class="login-submit">
+                                            <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
+                                            <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
+                                        </p>
+                                        <p class="mt-4" id="loginMessage"></p>
+                                    </form>
+                                    {{-- <a class="forgot password"
+                                    href="https://filingrabbit.in/lost-password/">Forgot Password?</a> --}}
+                                </div>
+                                <p class="text-center">Don't Have an Account?
+                                    <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
+                                        Sign Up
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                    <div class="row m-0">
+                        <div class="col-sm-12 p-0">
+                            <div class="login_block">
+                                <a href="https://filingrabbit.in/" rel="home" class="login_logo">
+                                    <img src="{{asset('frontend/img/logo.png')}}">
                                 </a>
                                 <p class="text-center">or</p>
                                 <div class="user-registration ur-frontend-form  " id="user-registration-form-784">
@@ -358,27 +357,26 @@
                                                     <div class="form-group">
                                                         <label class="d-block">User Email</label>
                                                         <span class="input-wrapper">
-                                                            <input class="form-control @error('regs_email') is-invalid @enderror"  type="email" name="regs_email" id="email">
+                                                            <input class="form-control @error('regs_email') is-invalid @enderror" type="email" name="regs_email" id="email">
                                                             @error('regs_email')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </div>
-                                               
+
                                                 <div data-field-id="user_pass" class="ur-field-item field-user_pass ">
                                                     <div class="form-group">
                                                         <label class="d-block">User Password</label>
                                                         <span class="input-wrapper">
                                                             <input class="form-control" type="password" name="regs_password" id="regs_password">
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div data-field-id="user_confirm_password"
-                                                    class="ur-field-item field-user_confirm_password ">
+                                                <div data-field-id="user_confirm_password" class="ur-field-item field-user_confirm_password ">
                                                     <div class="form-group">
                                                         <label class="d-block">Confirm Password</label>
                                                         <span class="input-wrapper">
                                                             <input class="form-control" type="password" name="reg_con_password">
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,8 +390,7 @@
                                     <div style="clear:both"></div>
                                 </div>
 
-                                <p class="text-center">Have an Account? <a class="button button-primary" href="#"
-                                        data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Sign In</a>
+                                <p class="text-center">Have an Account? <a class="button button-primary" href="#" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Sign In</a>
                                 </p>
                             </div>
                         </div>
@@ -407,7 +404,7 @@
             <p>Copyright © 2021 Filing Rabbit</p>
         </div>
     </footer>
-   
+
 
     <script type="text/javascript" src="{{url('frontend/js/jquery-3.6.0.min.js')}}"></script>
     <script type="text/javascript" src="{{url('frontend/js/popper.min.js')}}"></script>
@@ -416,21 +413,27 @@
     <script type="text/javascript" src="{{url('frontend/js/custom.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
 <script>
-// ----------------Registartion-----------------
+    // ----------------Registartion-----------------
     $('#registerForm').on('submit', function(event) {
         event.preventDefault();
         var email = $("input[name=regs_email]").val();
         var password = $("input[name=regs_password]").val();
         var confirm_password = $("input[name=reg_con_password]").val();
         $.ajax({
-            type:'POST',
-            dataType:'JSON',
-            url:"{{route('user.registration')}}",
-            data:{ _token: '{{csrf_token()}}', email:email, password:password , confirm_password:confirm_password},
-            success:function(response) {
-                if(response.success == true){
+            type: 'POST',
+            dataType: 'JSON',
+            url: "{{route('user.registration')}}",
+            data: {
+                _token: '{{csrf_token()}}',
+                email: email,
+                password: password,
+                confirm_password: confirm_password
+            },
+            success: function(response) {
+                if (response.success == true) {
                     $('#regMessage').addClass('text-success').html(response.message);
                 } else {
                     $('#regMessage').addClass('text-danger').html(response.message);
@@ -442,23 +445,27 @@
             }
         });
     });
-     // ----------login------------
-     $('#loginform').on('submit', function(event) {
+    // ----------login------------
+    $('#loginform').on('submit', function(event) {
         event.preventDefault();
         // alert('log');
         var email = $("input[name=user_email]").val();
         var password = $("input[name=password]").val();
-     
+
         $.ajax({
-            type:'POST',
-            dataType:'JSON',
-            url:"{{ url('user_login') }}",
-            data:{ _token: '{{csrf_token()}}', email:email, password:password},
-            success:function(response) {
-                if(response.success){
+            type: 'POST',
+            dataType: 'JSON',
+            url: "{{ url('user_login') }}",
+            data: {
+                _token: '{{csrf_token()}}',
+                email: email,
+                password: password
+            },
+            success: function(response) {
+                if (response.success) {
                     // window.location.href = "user/dashboard";
-                     window.location.href = "cart";
-                }else{
+                    window.location.href = "cart";
+                } else {
                     $('#loginMessage').addClass('text-danger').html(response.message);
                 }
             },
@@ -473,7 +480,7 @@
 <script>
     // enable tooltips everywhere
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
@@ -489,10 +496,10 @@
     }
 
     // on session toast fires
-    @if (Session::get('success'))
-        toastFire('success', '{{ session::get("success") }}');
-    @elseif (Session::get('failure'))
-        toastFire('danger', '{{ session::get("failure") }}');
+    @if(Session::get('success'))
+    toastFire('success', '{{ session::get("success") }}');
+    @elseif(Session::get('failure'))
+    toastFire('danger', '{{ session::get("failure") }}');
     @endif
 
     // button text changes on form submit
@@ -521,7 +528,7 @@
     // remove applied coupon option
     function removeAppliedCoupon() {
         $.ajax({
-            url: '',
+            url: "{{route('product.coupon.remove')}}",
             method: 'POST',
             data: {
                 '_token': '{{ csrf_token() }}'
@@ -533,15 +540,19 @@
                 if (result.type == 'success') {
                     $('#appliedCouponHolder').html('');
                     $('input[name="couponText"]').val('').attr('disabled', false);
-                    $('#applyCouponBtn').text('Apply').css('background', '#141b4b').attr('disabled', false);
+                    $('#applyCouponBtn').text('Apply').css('background', '#f1d231').attr('disabled', false);
 
-                    let grandTotalWithoutCoupon = $('input[name="grandTotalWithoutCoupon"]').val();
+                    const grandTotalWithoutCoupon = $('#subTotalAmount').text();
                     $('#displayGrandTotal').text(grandTotalWithoutCoupon);
+                    $("input[name='amount']").val(grandTotalWithoutCoupon);
+
+                    $('input[name="coupon_code_id"], input[name="coupon_code"], input[name="discount"], input[name="total_checkout_amount"]').val('');
 
                     toastFire(result.type, result.message);
+                    $('#applyCouponBtn').text('Apply Coupon');
                 } else {
                     toastFire(result.type, result.message);
-                    $('#applyCouponBtn').text('Apply');
+                    $('#applyCouponBtn').text('Apply Coupon');
                 }
             }
         });
@@ -583,7 +594,7 @@
         let couponCode = $('input[name="couponText"]').val();
         if (couponCode.length > 0) {
             $.ajax({
-                url: '{{ route('product.coupon.check') }}',
+                url: "{{ route('product.coupon.check') }}",
                 method: 'POST',
                 data: {
                     '_token': '{{ csrf_token() }}',
@@ -594,10 +605,10 @@
                     // $('#applyCouponBtn').text('Checking').attr('disabled', true);
                 },
                 success: function(result) {
-                    // console.log(result);
+                    console.log(result);
 
                     if (result.type == 'success') {
-                        $('#applyCouponBtn').text('APPLIED').css('background', '#c1080a').attr('disabled', true);
+                        $('#applyCouponBtn').text('APPLIED').css('background', '#f1d231').attr('disabled', true);
 
                         $('input[name="couponText"]').attr('disabled', true);
                         let beforeCouponValue = parseInt($('#displayGrandTotal').text());
@@ -622,6 +633,13 @@
                         `;
 
                         $('#appliedCouponHolder').html(couponContent);
+
+                        $("input[name='amount']").val(discountedGrandTotal);
+
+                        $('input[name="coupon_code_id"]').val(result.id);
+                        $('input[name="coupon_code"]').val(couponCode);
+                        $('input[name="discount"]').val(result.coupon_discount);
+
                         toastFire(result.type, result.message);
                     } else {
                         toastFire(result.type, result.message);
@@ -629,6 +647,8 @@
                     }
                 }
             });
+        } else {
+            alert("Enter a coupon code")
         }
     });
 </script>

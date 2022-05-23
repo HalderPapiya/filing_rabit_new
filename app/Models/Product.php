@@ -35,4 +35,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\Cart', 'product_id', 'id');
     }
+
+    public function settingDetails()
+    {
+        return $this->hasMany('App\Models\Setting', 'product_id', 'id');
+    }
 }

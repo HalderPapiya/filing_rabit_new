@@ -38,6 +38,7 @@ class SubCategoryController extends BaseController
 
         $this->setPageTitle('Subcategory', 'List of all subcategories');
         return view('admin.sub_category.index', compact('subCategories'));
+        // return view('admin.sub_category.index', ['subCategories' => $subCategories]);
     }
 
     /**

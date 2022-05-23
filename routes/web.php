@@ -60,6 +60,7 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::post('/addCart', [App\Http\Controllers\Frontend\CartController::class, 'addCart'])->name('add.cart');
     Route::post('/order', [App\Http\Controllers\Frontend\CartController::class, 'Order'])->name('order');
     Route::post('/coupon/check', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
+    Route::post('/coupon/remove', [App\Http\Controllers\Frontend\CartController::class, 'couponRemove'])->name('coupon.remove');
     // Route::post('/coupon', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('coupon.check');
     Route::get('/cart/checkout', [App\Http\Controllers\Frontend\CartController::class, 'cartCheckout'])->name('cart.checkout');
     Route::post('/transaction', [App\Http\Controllers\Frontend\CartController::class, 'transaction'])->name('transaction');
@@ -162,13 +163,13 @@ Route::prefix('user')->name('user.')->group(function () {
 
 // admin guard
 
-  
-        // Route::post('/check', 'Admin\AdminController@check')->name('login.check');
-        Route::get('forget-password', 'Frontend\ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
-        Route::post('forget-password', 'Frontend\ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post');
-        Route::get('reset-password/{token}', 'Frontend\ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
-        Route::post('reset-password', 'Frontend\ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
-   
+
+// Route::post('/check', 'Admin\AdminController@check')->name('login.check');
+Route::get('forget-password', 'Frontend\ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
+Route::post('forget-password', 'Frontend\ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post');
+Route::get('reset-password/{token}', 'Frontend\ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
+Route::post('reset-password', 'Frontend\ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
+
 
 
 

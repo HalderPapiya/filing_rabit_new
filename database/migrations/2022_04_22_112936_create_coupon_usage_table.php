@@ -16,7 +16,7 @@ class CreateCouponUsageTable extends Migration
         Schema::create('coupon_usage', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('coupon_code_id');
-            $table->integer('coupon_code');
+            $table->string('coupon_code');
             $table->float('discount')->nullable();
             $table->float('total_checkout_amount');
             $table->float('final_amount');
@@ -29,7 +29,6 @@ class CreateCouponUsageTable extends Migration
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-
         });
     }
 
