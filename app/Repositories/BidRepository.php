@@ -40,7 +40,8 @@ class BidRepository extends BaseRepository implements BidContract
      */
     public function listBids(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
     {
-        return $this->all($columns, $order, $sort);
+        return $this->model::where('user_id', Auth::user()->id)->get($columns, $order, $sort);
+        // return $this->all($columns, $order, $sort);
     }
 
 

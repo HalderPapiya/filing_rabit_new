@@ -51,6 +51,8 @@
                                         <tr>
                                           
                                             <td>{{ $data->addOn->name }}</td>
+                                            <td>{{ $data->valuation }}</td>
+                                            {{-- <td>{{ $data->user->id }}</td> --}}
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             

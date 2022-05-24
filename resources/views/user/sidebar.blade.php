@@ -18,10 +18,10 @@
                 <a href="{{ route('user.account') }}">Account Details</a>
             </li>
             <li class="{{ request()->is('user/businessService*') ? 'active' : '' }}">
-                <a href="{{ route('user.businessService.index') }}">Busisness Service</a>
+                <a href="{{ route('user.businessService.index') }}">Busisness Listing</a>
             </li>
             <li class="{{ request()->is('user/business_add_on*') ? 'active' : '' }}">
-                <a href="{{ route('user.business_add_on.index') }}">Busisness Add On</a>
+                <a href="{{ route('user.business_add_on.index') }}">Busisness Add On Listing</a>
             </li>
             <li class="">
                 <a href="{{ route('user.bid.index') }}">Busisness Bid List</a>

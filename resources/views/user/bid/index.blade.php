@@ -53,7 +53,7 @@
                                     <th> Business Valuation </th>
                                     <th> Bid </th>
                                     {{-- <th class="text-center"> Status </th> --}}
-                                    <th style="width:100px; min-width:100px;" class="text-center">Action</th>
+                                    {{-- <th style="width:100px; min-width:100px;" class="text-center">Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +72,7 @@
                                                 <div class="btn-group" role="group" aria-label="Second group">
                                                     {{-- <a href="{{ route('user.bid.show', $bid['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a> --}}
                                                     {{-- @if(auth()->user()->id == $bid->user_id) --}}
-                                                    <a href="{{ route('user.bid.edit', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
+                                                    {{-- <a href="{{ route('user.bid.edit', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a> --}}
                                                     {{-- @endif --}}
                                                     {{-- @if(auth()->user()->id != $bid->user_id)
                                                     <a href="{{ route('user.bid .edit', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>

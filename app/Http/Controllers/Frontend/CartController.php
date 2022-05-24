@@ -109,7 +109,7 @@ class CartController extends BaseController
     {
         // dd($request->all());
         $cartExists = Cart::where('product_id', $request->product_id)->where('ip', $this->ip)->first();
-        if ($cartExists) {
+        if (!$cartExists) {
             // dd('here');
             if (Auth::guard('user')->user()) {
                 $data = new Cart();
@@ -131,11 +131,11 @@ class CartController extends BaseController
                 $data->save();
             }
             // dd('test');
-            return $this->responseRedirect('product.cart', 'Add to Cart Successfully', 'success', false, false);
+            return $this->responseRedirect('product.cart', 'Successfully, added to cart!', 'success', false, false);
             // return redirect()->route('product.cart')->with('success', 'Add to Cart Successfully');
         }
 
-        return $this->responseRedirect('product.cart', 'Already Exist This Product', 'success', false, false);
+        return $this->responseRedirect('product.cart', 'Product already exist in cart', 'success', false, false);
     }
 
     /**

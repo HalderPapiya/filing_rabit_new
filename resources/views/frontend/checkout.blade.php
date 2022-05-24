@@ -51,7 +51,6 @@
             <form action="{{route('product.order')}}" method="POST">
                 @csrf
                 @if(count($data))
-
                 <div class="row checkout-card">
                     <div class="col-md-5 checkout_left">
                         <h3>Billing details</h3>
@@ -159,6 +158,7 @@
 
                         </table>
                         <input type="hidden" name="product_id" value="{{ $cartValue->product_id }}" class="form-control">
+
                         @php
                         $subTotal = (int) $cartValue->price;
                         if (!empty($data[0]->coupon_code_id)) {
@@ -193,6 +193,7 @@
                                                     <div class="cart-total-label">
                                                         Subtotal
                                                     </div>
+
                                                     <div class="cart-total-value">
                                                         &#8377;<span id="subTotalAmount">{{$grandTotalWithoutCoupon}}</span>
                                                     </div>
@@ -208,6 +209,7 @@
                                                         <div class="cart-total-value">- {{$data[0]->couponDetails ? $data[0]->couponDetails->amount : ''}}</div>
                                                     </div>
                                                     @endif
+
                                                 </div>
                                                 <div class="cart-total">
                                                     <div class="cart-total-label">
@@ -218,6 +220,7 @@
                                                         &#8377;<span id="displayGrandTotal">{{$grandTotal}}</span>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -243,6 +246,7 @@
                                             </ul>
                                         </div>
                                     </div>
+
                                     {{-- <div class="row justify-content-between">
                                         <div class="col-sm-12 text-right mt-4">
                                             <form action="{{route('product.transaction')}}" method="POST">
@@ -253,7 +257,6 @@
         </div>
         </div>
         </table>
-
         <input type="radio" id="PO" name="payment_method" value="Pay Online">
         <label>Pay Online</label><br>
         <input type="radio" id="cod" name="payment_method" value="COD" checked>
@@ -277,6 +280,7 @@
         {{-- </form> --}}
         </div>
         @endif
+
         @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
@@ -314,12 +318,12 @@
                                         </p>
                                         <p class="login-submit">
                                             <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
-                                            <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
+                                            <input type="hidden" name="redirect_to" value="https://localhost:8000/">
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form>
                                     {{-- <a class="forgot password"
-                                    href="https://filingrabbit.in/lost-password/">Forgot Password?</a> --}}
+                                    href="https://localhost:8000/">Forgot Password?</a> --}}
                                 </div>
                                 <p class="text-center">Don't Have an Account?
                                     <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
@@ -332,8 +336,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
@@ -344,7 +348,7 @@
                     <div class="row m-0">
                         <div class="col-sm-12 p-0">
                             <div class="login_block">
-                                <a href="https://filingrabbit.in/" rel="home" class="login_logo">
+                                <a href="https://localhost:8000/" rel="home" class="login_logo">
                                     <img src="{{asset('frontend/img/logo.png')}}">
                                 </a>
                                 <p class="text-center">or</p>
@@ -399,6 +403,7 @@
             </div>
         </div>
     </div>
+
     <footer class="bg-white text-center border-0 py-3 py-lg-4">
         <div class="container">
             <p>Copyright © 2021 Filing Rabbit</p>
@@ -496,10 +501,11 @@
     }
 
     // on session toast fires
-    @if(Session::get('success'))
-    toastFire('success', '{{ session::get("success") }}');
-    @elseif(Session::get('failure'))
-    toastFire('danger', '{{ session::get("failure") }}');
+
+    @if(Session::has('success'))
+    toastFire("success", "{{ Session::get('success')[0] }}");
+    @elseif(Session::has('error'))
+    toastFire("danger", "{{ Session::get('success')[0] }}");
     @endif
 
     // button text changes on form submit

@@ -88,7 +88,7 @@
                                              {{-- <a class="button button-primary" href="#" data-toggle="modal" data-target="#mailModal" data-dismiss="modal">
                                                 Click Here
                                             </a> --}}
-                                            <a class="button button-primary" href="{{route('user.broker.bid.mail',$bid->id)}}">
+                                            <a class="button button-primary" href="{{route('user.broker.bid.mail',$bid?$bid->id:'')}}">
                                                 Click Here
                                             </a>
                                         </p>

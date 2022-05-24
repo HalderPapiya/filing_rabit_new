@@ -74,6 +74,7 @@
                                 </div>
                             </div>
                             @endforeach
+                            @if($mails->count() > 0)
                             <div class="app-title">
                                 <div class="active-wrap">
                                     <div class="form-group">
@@ -88,6 +89,19 @@
                                     </div>
                                 </div>
                             </div>
+                            @else
+                            <div class="app-title">
+                                <div class="active-wrap">
+                                    <div class="form-group">
+                                     
+                                        <p class="text-center">No Mail
+                                       
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

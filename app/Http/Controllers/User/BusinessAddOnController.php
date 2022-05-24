@@ -7,7 +7,10 @@ use App\Contracts\BusinessTypeContract;
 use App\Contracts\BusinessServiceContract;
 use App\Http\Controllers\BaseController;
 use App\Models\AddOn;
+use App\Models\BusinessService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class BusinessAddOnController extends BaseController
 {
@@ -51,7 +54,8 @@ class BusinessAddOnController extends BaseController
     public function create()
     {
         $addOns = AddOn::get();
-        $businessServices  = $this->businessServiceRepository->listBusinessServices();
+        // $businessServices  = $this->businessServiceRepository->listBusinessServices();
+        $businessServices  = BusinessService::where('user_id', Auth::user()->id)->get();
         $this->setPageTitle('business add on', 'Create A New business add on');
         return view('user.business_add_on.add', compact('businessServices', 'addOns'));
     }
@@ -77,7 +81,8 @@ class BusinessAddOnController extends BaseController
         if (!$businessAddOn) {
             return $this->responseRedirectBack('Error occurred while creating business add on.', 'error', true, true);
         }
-        return $this->responseRedirect('user.business_add_on.create', 'business add on has been added successfully', 'success', false, false);
+        // return $this->responseRedirect('user.business_add_on.create', 'business add on has been added successfully', 'success', false, false);
+        return Redirect::back()->with('success', 'Listing successfully.');
     }
 
 
@@ -120,7 +125,7 @@ class BusinessAddOnController extends BaseController
     public function update(Request $request)
     {
         $this->validate($request, [
-            'name' =>  'required',
+            'add_on_id' =>  'required',
             'business_id' =>  'required',
             'valuation' =>  'required'
         ]);
@@ -134,7 +139,8 @@ class BusinessAddOnController extends BaseController
         if (!$businessAddOn) {
             return $this->responseRedirectBack('Error occurred while updating business add on.', 'error', true, true);
         }
-        return $this->responseRedirect('user.business_add_on.index', 'business add on updated successfully', 'success', false, false);
+        // return $this->responseRedirect('user.business_add_on.index', 'business add on updated successfully', 'success', false, false);
+        return Redirect::back()->with('success', 'Listing update successfully.');
     }
 
 

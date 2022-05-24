@@ -107,6 +107,8 @@
                                         <tr>
                                           
                                             <td>{{ $businessService['name'] }}</td>
+                                            <td>{{ $businessService['valuation'] }}</td>
+                                            {{-- <td>{{ $businessService->user['id'] }}</td> --}}
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             
@@ -123,7 +125,7 @@
                                                         @else   
                                                             <a href="{{ route('user.bid.create', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a> 
                                                         @endif
-                                                            <a href="{{ route('user.bid.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID Edit</i></a>
+                                                            {{-- <a href="{{ route('user.bid.edit', $businessService['id']) }}" class="btn btn-sm btn-primary edit-btn">BID Edit</i></a> --}}
                                                         {{-- @endif     --}}
                                                     @endif
 

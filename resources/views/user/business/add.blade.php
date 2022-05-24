@@ -61,6 +61,12 @@
                             <div class="col-12">
                                 <button type="submit" class="btn ur-submit-button w-auto">Save</button>
                             </div>
+
+                            @if (Session::has('success'))
+                                   <div class="alert alert-success" role="alert">
+                                    {{ Session::get('success') }}
+                                </div>
+                            @endif 
                         </div>
                     </form>
                    

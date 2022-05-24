@@ -153,7 +153,7 @@ class BrokerController extends BaseController
     {
         $senderId = Auth::user()->id;
         $senderMails = BrokerChat::where('sender_id', $senderId)->get();
-       
+
 
         // $senderId = Auth::user()->id;
         // $senderMails = BrokerChat::where('sender_id', $senderId)->get();
@@ -161,7 +161,7 @@ class BrokerController extends BaseController
         $bid = $this->bidRepository->findBidById($id);
 
         // $receiverId = Auth::user()->id;
-        $receiveMails = BrokerChat::where('receiver_id', $bid->user_id)->get();        
+        $receiveMails = BrokerChat::where('receiver_id', $bid->user_id)->get();
         // dd($receiveMails);
         return view('user.broker.business_bid_mail', compact('bid', 'receiveMails', 'senderMails'));
     }

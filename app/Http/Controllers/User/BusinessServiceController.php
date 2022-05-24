@@ -10,6 +10,7 @@ use App\Models\BusinessService;
 use App\Models\BusinessType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class BusinessServiceController extends BaseController
 {
@@ -116,7 +117,8 @@ class BusinessServiceController extends BaseController
         if (!$businessService) {
             return $this->responseRedirectBack('Error occurred while creating Business Service.', 'error', true, true);
         }
-        return $this->responseRedirect('user.businessService.create', 'Business Service has been added successfully', 'success', false, false);
+        return Redirect::back()->with('success', 'Listing successfully.');
+        // return $this->responseRedirect('user.businessService.create', 'Business Service has been added successfully', 'success', false, false);
     }
 
 

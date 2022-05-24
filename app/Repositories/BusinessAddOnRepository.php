@@ -82,7 +82,7 @@ class BusinessAddOnRepository extends BaseRepository implements BusinessAddOnCon
 
         $BusinessAddOn = $this->findBusinessAddOnById($params['id']);
         $collection = collect($params)->except('_token');
-        $BusinessAddOn = new BusinessAddOn;
+        // $BusinessAddOn = new BusinessAddOn;
         $BusinessAddOn->add_on_id = $collection['add_on_id'];
         $BusinessAddOn->user_id = Auth::user()->id;
         $BusinessAddOn->business_id = $collection['business_id'];

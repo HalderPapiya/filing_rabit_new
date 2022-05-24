@@ -117,7 +117,7 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
 
         $BusinessService = $this->findBusinessServiceById($params['id']);
         $collection = collect($params)->except('_token');
-        $BusinessService = new BusinessService;
+        // $BusinessService = new BusinessService;
         $BusinessService->name = $collection['name'];
         $BusinessService->user_id = Auth::user()->id;
         $BusinessService->type_id = $collection['type_id'];

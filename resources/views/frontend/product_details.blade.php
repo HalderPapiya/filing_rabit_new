@@ -37,9 +37,15 @@
                             <li class="active">
                                 <a href="#tab1">{{$product->type_one_name}}</a>
                             </li>
+                            @if($product->type_two_name)
                             <li>
                                 <a href="#tab2">{{$product->type_two_name}}</a>
                             </li>
+                            @else
+                            {{-- <li> --}}
+                                {{-- <a href="#tab2">{{$product->type_two_name}}</a> --}}
+                            {{-- </li> --}}
+                            @endif
                         </ul>
                     </div>
                     <div class="tabs-content">

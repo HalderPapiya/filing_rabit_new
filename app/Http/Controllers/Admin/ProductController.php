@@ -68,10 +68,12 @@ class ProductController extends BaseController
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' =>  'required',
-        //     'price' =>  'required',
-        // ]);
+        $this->validate($request, [
+            'name' =>  'required',
+            'category_id' =>  'required',
+            'subCategory_id' =>  'required',
+            'image' =>  'required|mimes:jpeg,png,jpg',
+        ]);
 
         $params = $request->except('_token');
 
@@ -104,10 +106,12 @@ class ProductController extends BaseController
      */
     public function update(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' =>  'required',
-        //     'price' =>  'required',
-        // ]);
+        $this->validate($request, [
+            'name' =>  'required',
+            'category_id' =>  'required',
+            'subCategory_id' =>  'required',
+            'image' =>  'mimes:jpeg,png,jpg',
+        ]);
 
         $params = $request->except('_token');
 

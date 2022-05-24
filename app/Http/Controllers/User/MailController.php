@@ -23,7 +23,7 @@ class MailController extends BaseController
     {
         $receiverId = Auth::user()->id;
         $mails = BrokerChat::where('receiver_id', $receiverId)->get();
-        
+// dd($mails);
         $senderId = Auth::user()->id;
         $senderMails = BrokerChat::where('sender_id', $senderId)->get();
         // dd($SenderMails);

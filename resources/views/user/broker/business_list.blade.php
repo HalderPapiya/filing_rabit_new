@@ -52,6 +52,8 @@
                                           
                                             {{-- <td>nametd> --}}
                                             <td>{{ $data['name'] }}</td>
+                                            <td>{{ $data['valuation'] }}</td>
+                                            {{-- <td>{{ $data->user['id'] }}</td> --}}
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             

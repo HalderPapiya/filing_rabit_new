@@ -51,7 +51,11 @@
                                         <tr>
                                           
                                             {{-- <td>nametd> --}}
+                                            <td>{{ $data->business->name }}</td>
+                                            {{-- <td>{{ $data->user->id }}</td> --}}
+
                                             <td>{{ $data->addOn->name }}</td>
+                                        {{-- <td>{{ $data->addOn->valuation }}</td> --}}
                                             
                                                 {{-- <td>{{ $category['slug'] }}</td> --}}
                                             
