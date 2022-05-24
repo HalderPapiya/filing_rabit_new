@@ -132,6 +132,11 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/add_on_bid/{id}/delete', [App\Http\Controllers\User\AddOnBidController::class, 'destroy'])->name('add_on_bid.delete');
         Route::post('/add_on_bid/updateStatus', [App\Http\Controllers\User\AddOnBidController::class, 'updateStatus'])->name('add_on_bid.updateStatus');
 
+        //--------------------Mail------------------------
+        Route::get('/user/mail', [App\Http\Controllers\User\MailController::class, 'index'])->name('mail.index');
+        Route::get('/user/mail/send', [App\Http\Controllers\User\MailController::class, 'create'])->name('mail.create');
+        Route::post('/user/mail/send/store', [App\Http\Controllers\User\MailController::class, 'store'])->name('mail.store');
+
 
         // ------------Broker---------------------//
 

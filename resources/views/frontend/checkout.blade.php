@@ -183,7 +183,7 @@
                                 <input type="hidden" name="discount" value="@if(!empty($data[0]->coupon_code_id)){{$couponCodeDiscount}}@endif">
                             </div>
 
-                            
+
                             <div class="container mt-3 mt-sm-5">
                                 <div class="cart-summary">
                                     <div class="row justify-content-between flex-sm-row-reverse">

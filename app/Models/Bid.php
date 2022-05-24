@@ -10,4 +10,8 @@ class Bid extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+    public function business()
+    {
+        return $this->belongsTo('App\Models\BusinessService', 'business_id', 'id');
+    }
 }

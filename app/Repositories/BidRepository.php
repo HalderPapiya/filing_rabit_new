@@ -64,13 +64,15 @@ class BidRepository extends BaseRepository implements BidContract
     {
         try {
             $collection = collect($params);
-
+            // $exist = Bid::where('user_id', $collection['user_id'])->exists();
+            // if (!$exist) {
             $Bid = new Bid;
             $Bid->user_id = Auth::user()->id;
             $Bid->business_id =  $collection['business_id'];
             $Bid->valuation = $collection['valuation'];
             $Bid->save();
             return $Bid;
+            // }
         } catch (QueryException $exception) {
             throw new InvalidArgumentException($exception->getMessage());
         }
@@ -81,10 +83,16 @@ class BidRepository extends BaseRepository implements BidContract
 
         $Bid = $this->findBidById($params['id']);
         $collection = collect($params)->except('_token');
-        $Bid = new Bid;
+        // $Bid = new Bid;
         $Bid->user_id = Auth::user()->id;
         $Bid->business_id =  $collection['business_id'];
         $Bid->valuation = $collection['valuation'];
+
+        // $blog = $this->findBlogById($params['id']);
+        // $collection = collect($params)->except('_token');
+
+        // $blog->title = $collection['title'];
+        // $blog->description = $collection['description'];
 
         $Bid->save();
 

@@ -17,12 +17,20 @@
             <li class="{{ request()->is('user/account*') ? 'active' : '' }}">
                 <a href="{{ route('user.account') }}">Account Details</a>
             </li>
-
             <li class="{{ request()->is('user/businessService*') ? 'active' : '' }}">
                 <a href="{{ route('user.businessService.index') }}">Busisness Service</a>
             </li>
             <li class="{{ request()->is('user/business_add_on*') ? 'active' : '' }}">
                 <a href="{{ route('user.business_add_on.index') }}">Busisness Add On</a>
+            </li>
+            <li class="">
+                <a href="{{ route('user.bid.index') }}">Busisness Bid List</a>
+            </li>
+            {{-- <li class="">
+                <a href="{{ route('user.add_on_bid.index') }}">Busisness Addon Bid List</a>
+            </li> --}}
+            <li class="">
+                <a href="{{ route('user.mail.index') }}">Mail</a>
             </li>
             @elseif(Auth::user()->type == 'broker')
             <li class="">
