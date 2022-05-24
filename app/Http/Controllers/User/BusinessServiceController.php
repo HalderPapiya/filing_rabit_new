@@ -7,6 +7,7 @@ use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Bid;
 use App\Models\BusinessService;
+use App\Models\BusinessType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,17 +37,49 @@ class BusinessServiceController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $exist = Bid::where('user_id', Auth::user()->id)->exists();
+    // public function index(Request $request)
+    // {
+    //     $exist = Bid::where('user_id', Auth::user()->id)->exists();
 
-        // $business = BusinessService::where('user_id',  Auth::guard('user')->user()->id)->first();
-        // $businessId = $business->id;
-        // dd($businessId);
-        $businessServices  = $this->businessServiceRepository->listBusinessServices();
+    //     // $business = BusinessService::where('user_id',  Auth::guard('user')->user()->id)->first();
+    //     // $businessId = $business->id;
+    //     // dd($businessId);
+    //     if (!empty($request->term)) {
+    //         $businessServices = $this->businessServiceRepository->getSearchBusinesses($request->term);
+    //     } else {
+    //         $businessServices  = $this->businessServiceRepository->listBusinessServices();
+    //     }
+
+    //     // dd($businessServices);
+    //     $this->setPageTitle('Business Service', 'List of All Business Services');
+    //     return view('user.business.index', compact('businessServices', 'exist'));
+    // }
+
+
+
+
+
+
+
+
+
+
+    public function index(Request $request)
+    {
+        // dd($request->name);
+
+
+        $term = (isset($request->name) && $request->name != '') ? $request->name : '';
+        $typeId = (isset($request->type_id) && $request->type_id != '') ? $request->type_id : '';
+
+
+        $businessServices = $this->businessServiceRepository->getSearchBusinesses( $term,$typeId);
+
         // dd($businessServices);
-        $this->setPageTitle('Business Service', 'List of All Business Services');
-        return view('user.business.index', compact('businessServices', 'exist'));
+        $types = BusinessType::get();
+        $exist = Bid::where('user_id', Auth::user()->id)->exists();
+        $this->setPageTitle('Blog List', 'List of blogs');
+        return view('user.business.index', compact('businessServices', 'types', 'exist'));
     }
 
     /**
