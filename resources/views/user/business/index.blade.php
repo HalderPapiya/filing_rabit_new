@@ -67,6 +67,9 @@
                             <div class="col-9 col-lg-2 plr-3">
                                 <input type="search" name="name" class="form-control pl-3" placeholder="Search by keyword...">
                             </div>
+                            <div class="col-9 col-lg-2 plr-3">
+                                <input type="search" name="valuation" class="form-control pl-3" placeholder="Search by keyword...">
+                            </div>
                             {{-- <div class="col-3 col-lg-1 plr-3 pr-lg-0">
                                 <a href="javascript:void(0);" id="btnFilter" class="btn btn-outline-danger btn-sm"></a>
                             </div> --}}

@@ -42,7 +42,7 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
     {
         return $this->all($columns, $order, $sort);
     }
-    public function getSearchBusinesses(string $term, $typeId)
+    public function getSearchBusinesses(string $term, $typeId, $valuation)
     {
         // return BusinessService::where('name', 'LIKE', '%' . $term . '%')
         //     ->orWhere('valuation', 'LIKE', '%' . $term . '%')
@@ -53,6 +53,9 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
         })
             ->when($term, function ($query) use ($term) {
                 $query->where('name', 'like', '%' . $term . '%');
+            })
+            ->when($valuation, function ($query) use ($valuation) {
+                $query->where('valuation', 'like', '%' . $valuation . '%');
             })
             ->get();
 

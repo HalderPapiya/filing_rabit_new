@@ -70,10 +70,11 @@ class BusinessServiceController extends BaseController
 
 
         $term = (isset($request->name) && $request->name != '') ? $request->name : '';
+        $valuation = (isset($request->valuation) && $request->valuation != '') ? $request->valuation : '';
         $typeId = (isset($request->type_id) && $request->type_id != '') ? $request->type_id : '';
 
 
-        $businessServices = $this->businessServiceRepository->getSearchBusinesses( $term,$typeId);
+        $businessServices = $this->businessServiceRepository->getSearchBusinesses($term, $typeId, $valuation);
 
         // dd($businessServices);
         $types = BusinessType::get();
