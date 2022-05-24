@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Util\Json;
 
 class LoginController extends Controller
 {
@@ -72,21 +74,25 @@ class LoginController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
+            'email' => 'required|email|exists:users',
             'password' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => $validator->errors()->first()], 200);
         }
 
-
         $credentials = $request->only('email', 'password');
+
+        // dd($credentials);
+        // echo Auth::attempt($credentials);
+        // die;
+
         if (Auth::guard('user')->attempt($credentials)) {
             // return redirect()->intended('user-dashboard')
             // ->withSuccess('Signed in');
-            return response()->json(['success' => true, 'message' => 'Login successful' ,"redirect_url"=>url('/')], 200);
+            return response()->json(['success' => true, 'message' => 'Login successful', "redirect_url" => url('/')], 200);
         } else {
-            return response()->json(['success' => false,  'message' => $validator->errors()->first()]);
+            return response()->json(['success' => false, 'message' => 'Credentials do not match']);
         }
 
         // return redirect("home")->withSuccess('Login details are not valid');

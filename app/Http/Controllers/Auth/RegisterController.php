@@ -85,7 +85,7 @@ class RegisterController extends Controller
         $user = new User;
         $user->email = $request->email;
         $user->type = "user";
-        $user->password = Hash::make($request['regs_password']);
+        $user->password = Hash::make($request->password);
         $user->save();
 
         return response()->json(['success' => true, 'message' => 'Registered successfully'], 200);
