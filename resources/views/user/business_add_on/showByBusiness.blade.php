@@ -23,7 +23,7 @@
             <div class="col-md-9">
                 <div>
                     <div class="my-account-form-wrapper">
-                        <h3>Business Service</h3>
+                        <h3>Business Add on</h3>
 
                         <div class="w-100">
                             {{-- <nav class="sticky-top my-account-navigation">

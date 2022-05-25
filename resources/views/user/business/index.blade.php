@@ -37,10 +37,10 @@
                 <div class="col-auto">
                     <form action="{{ route('user.businessService.index') }}" id="checkout-form">
                         <div class="row m-0">
-                            <div class="col-12 col-lg-3 plr-3 pl-lg-0 fcontrol position-relative filter_selectWrap filter_selectWrap2">
+                            <div class="fcontrol position-relative filter_selectWrap filter_selectWrap2">
                                 {{-- <img src="{{ asset('front/img/grid.svg')}}"> --}}
-                                <select class="filter_select form-control" name="type_id">
-                                    <option value="" hidden selected>Select Category...</option>
+                                <select class="filter_select form-control w-100" name="type_id">
+                                    <option value="" hidden selected>Select Type...</option>
                                     @foreach ($types as $index => $item)
                                     <option value="{{$item->id}}">{{ $item->name }}</option>
                                     @endforeach
@@ -74,13 +74,13 @@
                                 <a href="javascript:void(0);" id="btnFilter" class="btn btn-outline-danger btn-sm"></a>
                             </div> --}}
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-outline-info btn-lg">Search Product</button>
+                            <button type="submit" class="btn btn-outline-info btn-lg">Search Business</button>
                         </div>
                 </div>
                 </form>
             </div>
             <div class="my-account-form-wrapper mt-2 ml-3">
-                <h3>Business Service</h3>
+                <h3>Business Available</h3>
 
                 <div class="">
                     {{-- <nav class="sticky-top my-account-navigation">
@@ -90,8 +90,6 @@
                                     {{$businessService->name}}<a href="{{ route('user.businessService.edit', $businessService['id']) }}"></a>
                     </li>
                     @endforeach
-
-
                     </ul>
                     </nav> --}}
                     <table class="w-100 table table-hover custom-data-table-style table-striped" id="sampleTable">
@@ -100,7 +98,6 @@
                                 <a href="{{ route('user.businessService.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add</a>
                             </div>
                         </div>
-
                         <thead>
                             <tr>
                                 <th>Business Name</th>
