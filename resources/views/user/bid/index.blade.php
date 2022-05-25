@@ -21,15 +21,13 @@
         <div class="row ">
             @include('user.sidebar')  
             <div class="col-md-9">
-                <div class="col-md-9">
+                <div>
                     
 
                 
                 <div class="my-account-form-wrapper">
                     <h3>Business Bid List</h3>
-                   
-                   
-                    <div class="col-md-3">
+                    <div>
                         {{-- <nav class="sticky-top my-account-navigation">
                             <ul>
                                 @foreach ($bids as $bid)
@@ -37,11 +35,9 @@
                                     {{$bid->name}}<a href="{{ route('user.businessService.edit', $bid['id']) }}"></a>
                                 </li>
                                 @endforeach
-                                
-                                
                             </ul>
                         </nav> --}}
-                        <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">
+                        <table class="w-100 table table-hover custom-data-table-style table-striped" id="sampleTable">
                             <div class="fixed-row">
                                 <div class="app-title">
                                     <a href="{{ route('user.businessService.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add</a>
@@ -60,14 +56,10 @@
                                 @foreach ($bids as $bid)
                                 @if(auth()->user()->id == $bid->user_id)
                                         <tr>
-                                          
                                             <td>{{ $bid->business ? $bid->business['name'] :' '}}</td>
                                             <td>{{ $bid->business ? $bid->business['valuation'] :' '}}</td>
                                             <td>{{ $bid['valuation'] }}</td>
-                                            
-                                                {{-- <td>{{ $category['slug'] }}</td> --}}
-                                            
-                                            
+                                            {{-- <td>{{ $category['slug'] }}</td> --}}
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Second group">
                                                     {{-- <a href="{{ route('user.bid.show', $bid['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a> --}}

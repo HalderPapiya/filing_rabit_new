@@ -101,6 +101,7 @@ Route::prefix('user')->name('user.')->group(function () {
         // -----------------Business Add On----------------
 
         Route::get('/business_add_on', [App\Http\Controllers\User\BusinessAddOnController::class, 'index'])->name('business_add_on.index');
+        Route::get('/business_add_on_by_business/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'ShowByBusiness'])->name('business_add_on_by_business.ShowByBusiness');
         Route::get('/business_add_on/create', [App\Http\Controllers\User\BusinessAddOnController::class, 'create'])->name('business_add_on.create');
         Route::post('/business_add_on/store', [App\Http\Controllers\User\BusinessAddOnController::class, 'store'])->name('business_add_on.store');
         Route::get('/business_add_on/show/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'show'])->name('business_add_on.show');

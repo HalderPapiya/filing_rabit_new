@@ -7,6 +7,7 @@ use App\Contracts\BusinessTypeContract;
 use App\Contracts\BusinessServiceContract;
 use App\Http\Controllers\BaseController;
 use App\Models\AddOn;
+use App\Models\BusinessAddOn;
 use App\Models\BusinessService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,10 +103,17 @@ class BusinessAddOnController extends BaseController
         return view('user.business_add_on.edit', compact('businessAddOn', 'businessServices', 'addOns'));
     }
 
+    public function ShowByBusiness(Request $req, $id)
+    {
+        $businessAddOns = BusinessAddOn::where('business_id', $id)->with('addOn')->get();
+
+        $userid = BusinessService::where('id', $id)->get('user_id')[0]->user_id == Auth::guard('user')->user()->id ? ['sameUser' => true] : ['sameUser' => false];
+
+        return view('user.business_add_on.showByBusiness', compact('businessAddOns', 'userid'));
+    }
+
     public function show($id)
     {
-
-
         $businessAddOn = $this->businessAddOnRepository->findBusinessAddOnById($id);
         // $categories = $this->categoryRepository->listCategories();
         // $subcategories = $this->subCategoryRepository->listSubCategories();

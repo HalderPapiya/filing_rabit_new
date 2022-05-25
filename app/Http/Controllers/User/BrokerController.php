@@ -118,9 +118,10 @@ class BrokerController extends BaseController
         // $bid = $this->bidRepository->findBidById($id);
         // $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
         // $bid=0;
-        $bids = Bid::where('business_id', $id)->get();
+        $bids = Bid::where('business_id', $id)->with('user')->get();
         // dd($bids);
         $this->setPageTitle('business Service', 'Edit Bid : ');
+        // dd(json_encode($bids[0]));
         return view('user.broker.business_bid', compact('bids'));
     }
     public function showAddon($id)
