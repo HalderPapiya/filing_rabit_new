@@ -23,6 +23,18 @@
             {{--<li class="{{ request()->is('user/business_add_on*') ? 'active' : '' }}">
             <a href="{{ route('user.business_add_on.index') }}">Busisness Add On Listing</a>
             </li>--}}
+
+
+            <li class="{{ request()->is('user/businessService/new*') ? 'active' : '' }}">
+                <a href="{{ route('user.businessService.new') }}">Business New</a>
+            </li>
+            <li class="{{ request()->is('user/businessService/new*') ? 'active' : '' }}">
+                <a href="{{ route('user.businessService.newShow') }}">Business New Show</a>
+            </li>
+
+
+            
+
             <li class="{{ request()->is('user/bid*') ? 'active' : '' }}">
                 <a href="{{ route('user.bid.index') }}">Busisness Bid List</a>
             </li>

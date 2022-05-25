@@ -88,7 +88,9 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
 
         // ------------Business Service---------------------//
-
+        Route::get('/businessService/new', [App\Http\Controllers\User\BusinessServiceController::class, 'newBusiness'])->name('businessService.new');
+        Route::get('/businessService/new/show', [App\Http\Controllers\User\BusinessServiceController::class, 'showNewBusiness'])->name('businessService.newShow');
+        
         Route::get('/businessService', [App\Http\Controllers\User\BusinessServiceController::class, 'index'])->name('businessService.index');
         Route::get('/businessService/create', [App\Http\Controllers\User\BusinessServiceController::class, 'create'])->name('businessService.create');
         Route::post('/businessService/store', [App\Http\Controllers\User\BusinessServiceController::class, 'store'])->name('businessService.store');

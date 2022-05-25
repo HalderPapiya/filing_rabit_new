@@ -55,7 +55,16 @@ class BusinessServiceController extends BaseController
     //     $this->setPageTitle('Business Service', 'List of All Business Services');
     //     return view('user.business.index', compact('businessServices', 'exist'));
     // }
+    public function newBusiness()
+    {
 
+        return view('user.business_new.index');
+    }
+    public function showNewBusiness()
+    {
+
+        return view('user.business_new.show');
+    }
 
 
 
