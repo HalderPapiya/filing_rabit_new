@@ -34,14 +34,14 @@
                 <div class="col-md-9">
                     <div class="col-md-9">
                     <div class="my-account-form-wrapper">
-                        <h3>Business Service</h3>
+                        <h3>Business Add on</h3>
                         <form action="{{route('user.business_add_on.update')}}" method="POST">
                             @csrf
                             <input type="hidden" value="{{$businessAddOn->id}}" name="id" class="form-control">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Business Name</label>
+                                        <label>Business Add on Name</label>
                                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$businessAddOn->addOn->name}}">
                                         @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                     </div>

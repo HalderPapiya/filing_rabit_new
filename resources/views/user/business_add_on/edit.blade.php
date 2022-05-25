@@ -34,7 +34,7 @@
                 <div class="col-md-9">
                     <div class="col-md-9">
                     <div class="my-account-form-wrapper">
-                        <h3>Business Service</h3>
+                        <h3>Business Add on</h3>
                         <form action="{{route('user.business_add_on.update')}}" method="POST">
                             @csrf
                             <input type="hidden" value="{{$businessAddOn->id}}" name="id" class="form-control">
