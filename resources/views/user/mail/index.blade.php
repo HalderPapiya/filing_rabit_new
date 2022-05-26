@@ -22,22 +22,44 @@
             @include('user.sidebar')  
             <div class="col-md-9">
                 <div class="row section-mg row-md-body no-nav">
-                    <div class="col-md-4 mx-auto">
+                    <div>
                         <div class="tile">
-                            @foreach ($mails as $mail)
-                            <div>
-                                <div class="tile-body form-body">
-                                    <div class="form-group">
-                                        <label class="control-label" for="title">Subject </label>
-                                        {{$mail->subject}}
-                                       
-                                    </div>
-                                     <div class="form-group required">
-                                        {{$mail->message}}
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+                            <h3>All Messages</h3>
+                            <table class="w-100 table table-hover custom-data-table-style table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Product ID</th>
+                                        <th>Product TYPE</th>
+                                        <th>Product Name</th>
+                                        <th>Sender</th>
+                                        <th>Subject</th>
+                                        <th>Message</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($mails as $mail)
+                                    <tr>
+                                        <td>{{$mail->product_id}}</td>
+                                        @if($mail->product_type == "add_on")
+                                        <td>Business Add On</td>
+                                        <td>Add On</td>
+                                        @else
+                                        <td>Business</td>
+                                        <td>{{App\Models\BusinessService::where('id',$mail->product_id)->get('name')[0]->name}}</td>
+                                        @endif
+                                        @if($mail->sender_id == Illuminate\Support\Facades\Auth::guard('user')->user()->id)
+                                        <td>You</td>
+                                        @else
+                                        <td>Broker</td>
+                                        @endif
+                                        <td>{{$mail->subject}}</td>
+                                        <td>{{$mail->message}}</td>
+                                        <td><button class="btn btn-danger btn-sm">Send Reply</button></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                             
                             {{-- <div>
                                 <div class="tile-body form-body">
@@ -60,7 +82,7 @@
                                     </div>
                                 </div> --}}
                             {{-- </form> --}}
-                            @foreach ($senderMails as $mail)
+                            {{-- @foreach ($senderMails as $mail)
                             <div>
                                 <div class="tile-body form-body">
                                     <div class="form-group">
@@ -73,24 +95,24 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                            @if($mails->count() > 0)
-                            <div class="app-title">
+                            @endforeach --}}
+                            {{-- @if($mails->count() > 0) --}}
+                            {{-- <div class="app-title">
                                 <div class="active-wrap">
                                     <div class="form-group">
                                      
                                         <p class="text-center">For Send New Mail
                                        
-                                            <a class="button button-primary" href="{{route('user.mail.create')}}">
+                                            <a class="button button-primary" href="{{route('user.mail.create')}}"> --}}
                                                 {{-- <a class="button button-primary" href="{{route('user.broker.bid.mail',$bid->id)}}"> --}}
-                                                Click Here
+                                                {{-- Click Here
                                             </a>
                                         </p>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
-                            @else
-                            <div class="app-title">
+                            {{-- @else --}}
+                            {{-- <div class="app-title">
                                 <div class="active-wrap">
                                     <div class="form-group">
                                      
@@ -100,8 +122,8 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>
-                            @endif
+                            </div> --}}
+                            {{-- @endif --}}
                         </div>
                     </div>
                 </div>

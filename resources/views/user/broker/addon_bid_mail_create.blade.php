@@ -24,11 +24,10 @@
                 <div>
                     <div>
                         <div class="tile">
-                            <form action="{{route('user.broker.bid.mail.store')}}" method="post">
+                            <form action="{{route('user.broker.store.addOnMail')}}" method="post">
                                 @csrf
-                                <input type="hidden" name="product_id" value="{{$bid['pid']}}">
-                                <input type="hidden" name="product_type" value="{{$bid['typeid']}}">
-                                <input type="hidden" name="receiver_id" value="{{$bid['uid']}}">
+                                <input type="hidden" name="product_id" value="{{$add_on_details['id']}}">
+                                <input type="hidden" name="product_type" value="{{$add_on_details['typeid']}}">
                                 
                                 <input type="text" class="form-control my-2 @error('subject') is-invalid @enderror" value="{{@old('subject')}}" id="subject" name="subject" placeholder="Subject...">
                                 @error('subject')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror

@@ -21,13 +21,11 @@
         <div class="row ">
             @include('user.sidebar')
             <div class="col-md-9">
-                <div class="col-md-9">
-
-
+                <div>
                     <div class="my-account-form-wrapper">
                         <h3>Business Service</h3>
 
-                        <div class="col-md-3">
+                        <div>
                             {{-- <nav class="sticky-top my-account-navigation">
                             <ul>
                                 @foreach ($businessAddOns as $data)
@@ -39,7 +37,7 @@
 
                             </ul>
                             </nav> --}}
-                            <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">
+                            <table class="w-100 table table-hover custom-data-table-style table-striped" id="sampleTable">
                                 {{-- <div class="fixed-row">
                                 <div class="app-title">
                                     <a href="{{ route('user.business_add_on.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
@@ -58,7 +56,7 @@
 
                             {{-- <td>nametd> --}}
                             <td>{{ $data['name'] }}</td>
-                            <td>{{ $data['valuation'] }}</td>
+                            <td>Rs.{{ number_format($data['valuation']) }}</td>
                             {{-- <td>{{ $data->user['id'] }}</td> --}}
 
                             {{-- <td>{{ $category['slug'] }}</td> --}}

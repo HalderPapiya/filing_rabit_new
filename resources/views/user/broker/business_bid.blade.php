@@ -31,10 +31,11 @@
         <div class="row ">
             @include('user.sidebar')
             <div class="col-md-9">
-                <div class="col-md-9">
+                <div>
                     <div class="my-account-form-wrapper">
+                        <h3>Business Bids</h3>
                         <div class="tile-body">
-                            <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">
+                            <table class="w-100 table table-hover custom-data-table-style table-striped" id="sampleTable">
                                 <thead>
                                     <tr>
                                         <th> First Name </th>
@@ -55,7 +56,7 @@
 
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Second group">
-                                                <a href="{{ route('user.broker.mail', $bid['id']) }}" class="btn btn-sm btn-primary edit-btn">Mail</a>
+                                                <a href="{{ route('user.broker.mail', [$p_id, $bid['user_id'], 'business_bid']) }}" class="btn btn-sm btn-primary edit-btn">Mail Bidder</a>
                                                 {{-- <a href="#" data-id="{{$bid['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
                                             </div>
                                         </td>

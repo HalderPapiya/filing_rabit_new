@@ -9,10 +9,12 @@ use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Bid;
 use App\Models\BidAddOn;
+use App\Models\Broker;
 use App\Models\BrokerChat;
 use App\Models\BusinessAddOn;
 use App\Models\BusinessService;
 use Dotenv\Regex\Success;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -121,8 +123,9 @@ class BrokerController extends BaseController
         $bids = Bid::where('business_id', $id)->with('user')->get();
         // dd($bids);
         $this->setPageTitle('business Service', 'Edit Bid : ');
+        $p_id = $id;
         // dd(json_encode($bids[0]));
-        return view('user.broker.business_bid', compact('bids'));
+        return view('user.broker.business_bid', compact('bids', 'p_id'));
     }
     public function showAddon($id)
     {
@@ -150,26 +153,25 @@ class BrokerController extends BaseController
         $this->setPageTitle('business Service', 'Edit Bid : ');
         return view('user.broker.add_on_bid_list', compact('bids'));
     }
-    public function mail($id)
+    public function mail($p_id, $id, $typeid)
     {
-        $senderId = Auth::user()->id;
-        $senderMails = BrokerChat::where('sender_id', $senderId)->get();
-
-
-        // $senderId = Auth::user()->id;
-        // $senderMails = BrokerChat::where('sender_id', $senderId)->get();
-
+        $sender_id =  Auth::guard('user')->user()->id;
+        $chats = BrokerChat::where([['product_id', '=', $p_id], ['receiver_id', '=', $id], ['sender_id', '=', $sender_id]])->orWhere([['product_id', '=', $p_id], ['receiver_id', '=', Auth::guard('user')->user()->id], ['sender_id', '=', $sender_id]])->get();
         $bid = $this->bidRepository->findBidById($id);
 
-        // $receiverId = Auth::user()->id;
-        $receiveMails = BrokerChat::where('receiver_id', $bid->user_id)->get();
+        $typeid = $typeid;
+        $pid = $p_id;
+
+        // $receiveMails = BrokerChat::where('receiver_id', $bid->user_id)->get();
         // dd($receiveMails);
-        return view('user.broker.business_bid_mail', compact('bid', 'receiveMails', 'senderMails'));
+        return view('user.broker.business_bid_mail', compact('bid', 'chats', 'typeid', 'pid'));
     }
 
-    protected function createBidMail($id)
+    protected function createBidMail($pid, $uid, $typeid)
     {
-        $bid = $this->bidRepository->findBidById($id);
+        // $bid = $this->bidRepository->findBidById($id);
+        $bid = ['pid' => $pid, 'uid' => $uid, 'typeid' => $typeid];
+
         // dd($bid);
         // $bids = Bid::where('business_id', $id)->get();
         // $bids = Bid::where('business_id', $id)->get();
@@ -178,31 +180,79 @@ class BrokerController extends BaseController
     }
     protected function storeBidMail(Request $request)
     {
+        $this->validate($request, [
+            'subject' => 'required | max:250',
+            'message' => 'required'
+        ]);
+
+        // return $request->input('product_id');
         $user = new BrokerChat;
-        $user->receiver_id = $request->receiver_id;
+        $user->product_id = $request->input('product_id');
+        $user->product_type = $request->input('product_type');
+        $user->receiver_id = $request->input('receiver_id');
         $user->sender_id = Auth::user()->id;
-        $user->subject = $request->subject;
-        $user->message = $request->message;
+        $user->subject = $request->input('subject');
+        $user->message = $request->input('message');
         $user->save();
 
         if (!$user) {
             return $this->responseRedirectBack('Error occurred while creating blog.', 'error', true, true);
         }
-        return Redirect::back()->with('message', 'Mail Send successfully.');
+        return Redirect::route('user.broker.mail', [$request->input('product_id'), $request->input('receiver_id'), $request->input('product_type')])->with('message', 'Mail Send successfully.');
 
         // return $this->responseRedirectBack( ['Session' => 'Registered successfully','Success' , false, false]);
     }
 
-    public function AddOnMail($id)
+    public function AddOnMail($id, $typeid)
     {
-        $bid = BusinessAddOn::findOrFail($id);
+        // dd([$id, $typeid]);
+        // dd("hi");
+        $bid = BidAddOn::where('id', $id)->get()[0];
 
+
+        $chats = BrokerChat::where([['product_id', $id], ['receiver_id', $bid->user_id], ['product_type', $typeid]])
+            ->orWhere([['product_id', $id], ['receiver_id', Auth::guard('user')->user()->id], ['product_type', $typeid]])
+            ->get();
+        // dd($chats);
         // $bid = $this->bidRepository->findBidById($id);
         // dd($bid);
         // $bids = Bid::where('business_id', $id)->get();
         // $bids = Bid::where('business_id', $id)->get();
         // $this->setPageTitle('business Service', 'Edit Bid : ');
-        return view('user.broker.business_bid_mail', compact('bid'));
+
+        // $bid = BrokerChat::where();
+        $add_on_details = [
+            'id' => $id,
+            'typeid' => $typeid
+        ];
+        return view('user.broker.add_on_mail', compact('chats', 'add_on_details'));
+    }
+    public function createaddonmail($id, $typeid)
+    {
+        $add_on_details = [
+            'id' => $id,
+            'typeid' => $typeid
+        ];
+        return view('user.broker.addon_bid_mail_create', compact('add_on_details'));
+    }
+    public function storeAddOnMail(Request $request)
+    {
+        $receiver_id = BidAddOn::where('id', $request->input('product_id'))->get()[0]->user_id;
+        $sender_id = Auth::guard('user')->user()->id;
+
+        $user = new BrokerChat;
+        $user->product_id = $request->input('product_id');
+        $user->product_type = $request->input('product_type');
+        $user->receiver_id = $receiver_id;
+        $user->sender_id = $sender_id;
+        $user->subject = $request->input('subject');
+        $user->message = $request->input('message');
+        $user->save();
+
+        if (!$user) {
+            return $this->responseRedirectBack('Error occurred while creating blog.', 'error', true, true);
+        }
+        return Redirect::route('user.broker.addon.mail', [$request->input('product_id'), $request->input('product_type')])->with('message', 'Mail Send successfully.');
     }
     /**
      * Update the specified resource in storage.

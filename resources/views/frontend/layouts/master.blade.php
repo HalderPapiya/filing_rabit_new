@@ -173,83 +173,81 @@
     <script type="text/javascript" src="{{url('frontend/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{url('frontend/js/slick.min.js')}}"></script>
     <script type="text/javascript" src="{{url('frontend/js/custom.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+
+    <script type="text/javascript">
+        $('#registerForm').on('submit', function(event) {
+            event.preventDefault();
+            // alert();
+            var regs_email = $("input[name=regs_email]").val();
+            var password = $("input[name=regs_password]").val();
+            var confirm_password = $("input[name=reg_con_password]").val();
+            // var email = $(this).data('email');
+            // var password = $(this).data('password');
+            // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            // "_token": "{{ csrf_token() }}",
+            // var CSRF_TOKEN : "{{ csrf_token() }}",
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: "{{route('user.registration')}}",
+                data: {
+                    _token: '{{csrf_token()}}',
+                    email: regs_email,
+                    password: password,
+                    confirm_password: confirm_password
+                },
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#regMessage').addClass('text-success').html(response.message);
+                    } else {
+                        $('#regMessage').addClass('text-danger').html(response.message);
+                    }
+                },
+                error: function(response) {
+                    $('#regMessage').html(response.message);
+                    // console.log(error)
+                }
+            });
+        });
+
+        // ----------login------------
+        $('#loginform').on('submit', function(event) {
+            event.preventDefault();
+            var email = $("input[name=user_email]").val();
+            var password = $("input[name=password]").val();
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: "{{ url('user_login') }}",
+                data: {
+                    _token: '{{csrf_token()}}',
+                    email: email,
+                    password: password
+                },
+                success: function(response) {
+                    // console.log(response);
+                    if (response.success) {
+                        // window.location.href = "user/dashboard";
+                        // window.location.href = response.redirect_url;
+                        $('#loginModal').modal('hide');
+                        $("#loginlinktext").html('<a href="' + "{{route('user.dashboard')}}" + '" class="nav-link">My Profile</a>')
+                    } else {
+                        $('#loginMessage').addClass('text-danger').html(response.message);
+                    }
+                },
+                error: function(response) {
+                    // $('#regMessage').html(response.error);
+                    // console.log(error)
+                    $('#loginMessage').html(response.message);
+                }
+            });
+        });
+    </script>
+
+    @yield('script')
 
 </body>
 
 </html>
-<script type="text/javascript">
-    $('#registerForm').on('submit', function(event) {
-        event.preventDefault();
-        // alert();
-        var regs_email = $("input[name=regs_email]").val();
-        var password = $("input[name=regs_password]").val();
-        var confirm_password = $("input[name=reg_con_password]").val();
-        // var email = $(this).data('email');
-        // var password = $(this).data('password');
-        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        // "_token": "{{ csrf_token() }}",
-        // var CSRF_TOKEN : "{{ csrf_token() }}",
-        $.ajax({
-            type: 'POST',
-            dataType: 'JSON',
-            url: "{{route('user.registration')}}",
-            data: {
-                _token: '{{csrf_token()}}',
-                email: regs_email,
-                password: password,
-                confirm_password: confirm_password
-            },
-            success: function(response) {
-                if (response.success == true) {
-                    $('#regMessage').addClass('text-success').html(response.message);
-                } else {
-                    $('#regMessage').addClass('text-danger').html(response.message);
-                }
-            },
-            error: function(response) {
-                $('#regMessage').html(response.message);
-                // console.log(error)
-            }
-        });
-    });
-
-    // ----------login------------
-    $('#loginform').on('submit', function(event) {
-        event.preventDefault();
-        var email = $("input[name=user_email]").val();
-        var password = $("input[name=password]").val();
-
-        $.ajax({
-            type: 'POST',
-            dataType: 'JSON',
-            url: "{{ url('user_login') }}",
-            data: {
-                _token: '{{csrf_token()}}',
-                email: email,
-                password: password
-            },
-            success: function(response) {
-                // console.log(response);
-                if (response.success) {
-                    // window.location.href = "user/dashboard";
-                    // window.location.href = response.redirect_url;
-                    $('#loginModal').modal('hide');
-                    $("#loginlinktext").html('<a href="' + "{{route('user.dashboard')}}" + '" class="nav-link">My Profile</a>')
-                } else {
-                    $('#loginMessage').addClass('text-danger').html(response.message);
-                }
-            },
-            error: function(response) {
-                // $('#regMessage').html(response.error);
-                // console.log(error)
-                $('#loginMessage').html(response.message);
-            }
-        });
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
-<script type="text/javascript">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
-<script type="text/javascript">
-</script>

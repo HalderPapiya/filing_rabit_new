@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
 use App\Models\BrokerChat;
+use App\Models\BusinessService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -22,8 +23,8 @@ class MailController extends BaseController
     public function index()
     {
         $receiverId = Auth::user()->id;
-        $mails = BrokerChat::where('receiver_id', $receiverId)->get();
-// dd($mails);
+        $mails = BrokerChat::where('receiver_id', $receiverId)->orwhere('sender_id', $receiverId)->get();
+        // dd($mails);
         $senderId = Auth::user()->id;
         $senderMails = BrokerChat::where('sender_id', $senderId)->get();
         // dd($SenderMails);
@@ -54,10 +55,12 @@ class MailController extends BaseController
 
         $receiverId = Auth::user()->id;
         $mails = BrokerChat::where('receiver_id', $receiverId)->get();
-        foreach ($mails as $mail) {
-            $receiver_id = $mail->sender_id;
-        }
+
+        // foreach ($mails as $mail) {
+        //     $receiver_id = $mail->sender_id;
+        // }
         // dd($receiver_id);
+
         $user = new BrokerChat;
         $user->receiver_id = $receiver_id;
         $user->sender_id = Auth::user()->id;

@@ -33,7 +33,7 @@
                 <a href="{{ route('user.mail.index') }}">Mail</a>
             </li>
             @elseif(Auth::user()->type == 'broker')
-            <li class="{{ request()->is('user/broker/business/list*') ? 'active' : '' }}">
+            <li class="{{ request()->is('user/broker*') ? 'active' : '' }}">
                 <a href="{{ route('user.broker.business.index') }}">Bid</a>
             </li>
             @endif

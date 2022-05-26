@@ -51,12 +51,11 @@
                                         <td>{{$bid->user ? $bid->user->first_name : ''}}</td>
                                         <td>{{$bid->user ? $bid->user->last_name : ''}}</td>
                                         {{-- <td>{{$bid->user ? $bid->user->email : ''}}</td> --}}
-                                        <td>{{$bid->valuation}}</td>
+                                        <td>Rs.{{number_format($bid->valuation)}}</td>
 
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Second group">
-                                                <a href="" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
-                                                <a href="{{route('user.broker.addon.mail',$bid['id'])}}" class="sa-remove btn btn-sm btn-danger edit-btn">Mail</a>
+                                                <a href="{{route('user.broker.addon.mail',[$bid['id'],'add_on'])}}" class="sa-remove btn btn-sm btn-danger">Mail</a>
                                             </div>
                                         </td>
                                     </tr>

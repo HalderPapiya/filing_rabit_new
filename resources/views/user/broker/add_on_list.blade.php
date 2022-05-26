@@ -21,14 +21,11 @@
         <div class="row ">
             @include('user.sidebar')  
             <div class="col-md-9">
-                <div class="col-md-9">
-                    
-
-                
+                <div>
                 <div class="my-account-form-wrapper">
-                    <h3>Business Service</h3>
+                    <h3>Business AddOn</h3>
                    
-                    <div class="col-md-3">
+                    <div>
                         {{-- <nav class="sticky-top my-account-navigation">
                             <ul>
                                 @foreach ($businessAddOns as $data)
@@ -46,6 +43,13 @@
                                     <a href="{{ route('user.business_add_on.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
                                 </div>
                             </div> --}}
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Business addon type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 @foreach ($businessAddOns as $data)
                                         <tr>
@@ -69,9 +73,9 @@
                                                     {{-- @if(auth()->user()->id == $data->user_id)
                                                     <a href="{{ route('user.business_add_on.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
                                                     @endif --}}
-                                                    @if(auth()->user()->id != $data->user_id)
-                                                    <a href="{{ route('user.broker.addonBid.show', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
-                                                    @endif
+                                                    {{-- @if(auth()->user()->id != $data->user_id) --}}
+                                                    <a href="{{ route('user.broker.addonBid.show', $data['id']) }}" class="btn btn-sm btn-primary">View</a>
+                                                    {{-- @endif --}}
 
                                                     {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
                                                 </div>
