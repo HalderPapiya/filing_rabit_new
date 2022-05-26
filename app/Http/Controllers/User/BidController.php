@@ -90,8 +90,8 @@ class BidController extends BaseController
         if (!$bid) {
             return $this->responseRedirectBack('Error occurred while creating Bid.', 'error', true, true);
         }
-        return $this->responseRedirect('user.businessService.index', 'Bid added successfully', 'success', false, false);
-        // return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
+        // return $this->responseRedirect('user.businessService.index', 'Bid added successfully', 'success', false, false);
+        return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
         // return $this->responseRedirectBack('Bid has been added successfully', 'success', false, false);
     }
 

@@ -39,6 +39,16 @@
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
                                     <img src="{{asset('frontend/img/logo.png')}}">
                                 </a>
+                                <a href="javascript:void(0);" class="d-block mt-0 mb-2">
+                                    <div class="glogin">
+                                        <div class="g_logo">
+                                            <img src="{{asset('frontend/img/g.png')}}">
+                                        </div>
+                                        <div class="gtext">
+                                            <p>Login with Google</p>
+                                        </div>
+                                    </div>
+                                </a>
                                 <p class="text-center">or</p>
                                 <div class="login_wrap">
                                     <form id="loginform">
@@ -47,17 +57,17 @@
                                             <input type="text" name="user_email" id="user_email" class="input" value="{{ old('user_email') }}" size="20" placeholder="Enter Username" autocomplete="user_email" autofocus>
 
                                         </p>
-                                        <p class="login-password">
+                                        <p class="login-password mb-2">
                                             <label for="pass">Password</label>
                                             <input type="password" name="password" id="password" class="input" value="{{ old('password') }}" size="20" placeholder="Enter Password" autocomplete="email" autofocus>
                                         </p>
+                                        <p class="text-right mb-2"><a class="forgot" href="{{ route('forget.password.get') }}">Forgot Password?</a></p>
                                         <p class="login-submit">
                                             <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
                                             <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form>
-                                    <a class="forgot" href="{{ route('forget.password.get') }}">(Forgot)</a>
                                 </div>
                                 <p class="text-center">Don't Have an Account?
                                     <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
