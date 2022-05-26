@@ -10,7 +10,7 @@
                         <h6>Package</h6>
                         <ul class="d-flex">
                             <li class="active">{{$product->type_one_name}}</li>
-                            <li>{{$product->type_two_name}}</li>
+                            <li> {{$product->type_two_name}}</li>
                             <!-- <li>Prime</li> -->
                         </ul>
                     </div>
@@ -39,7 +39,10 @@
                             </li>
                             @if($product->type_two_name)
                             <li>
-                                <a href="#tab2">{{$product->type_two_name}}</a>
+                                <div class="variable-item-contents">
+                                    <span><a href="#tab2">{{$product->type_two_name}}</a></span>
+                                </div>
+                                
                             </li>
                             @else
                             {{-- <li> --}}
@@ -127,6 +130,56 @@
             </div>
         </div>
     </section>
+    <!--Step--->
+    <section class="py-4 py-lg-5 d-none">
+       <div class="container">
+           <div class="page-titlesTEP">
+              What is the process of drafting a will?
+           </div>
+           <div class="row m-0 justify-content-between">
+               <div class="col-12 col-md-2 text-center mb-3 mb-md-0 proces_section">
+                   <div class="icon_ndiv position-relative">
+                       <span class="ha-steps-label">Step 1</span>
+                       <span class="ha-step-arrow"></span>
+                   </div>
+                   <h3>Select Package</h3>
+                   <p>Select packages as per your choice and fill out the forms</p>
+               </div>
+               <div class="col-12 col-md-2 text-center mb-3 mb-md-0 proces_section">
+                   <div class="icon_ndiv position-relative">
+                       <span class="ha-steps-label">Step 2</span>
+                       <span class="ha-step-arrow"></span>
+                   </div>
+                   <h3>Comprehensive Agreement</h3>
+                   <p>(2-3 working days) We Will draft a comprehensive agreement based upon your selection and requirements.</p>
+               </div>
+               <div class="col-12 col-md-2 text-center mb-3 mb-md-0 proces_section">
+                   <div class="icon_ndiv position-relative">
+                       <span class="ha-steps-label">Step 3</span>
+                       <span class="ha-step-arrow"></span>
+                   </div>
+                   <h3>revision of Agreement</h3>
+                   <p>(2-3 working days) We Will provide you with a copy of the agreement for you to revise.</p>
+               </div>
+               <div class="col-12 col-md-2 text-center mb-3 mb-md-0 proces_section">
+                   <div class="icon_ndiv position-relative">
+                       <span class="ha-steps-label">Step 4</span>
+                       <span class="ha-step-arrow"></span>
+                   </div>
+                   <h3>Redrafting (if required)</h3>
+                   <p>(1-2 working days) Ig you still feel that there is something that can be modified, we will promptly add it.</p>
+               </div>
+               <div class="col-12 col-md-2 text-center mb-3 mb-md-0 proces_section">
+                   <div class="icon_ndiv position-relative">
+                       <span class="ha-steps-label">Step 5</span>
+                       <span class="ha-step-arrow"></span>
+                   </div>
+                   <h3>Final Submission</h3>
+                   <p>(2-3 working days) We Will do the final submission of soft/hard copies to you.</p>
+               </div>
+           </div>
+       </div>
+    </section><!--end_step-->
     @else
     <section class="py-4 py-md-5 product__content">
         <div class="container">

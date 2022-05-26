@@ -40,12 +40,54 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                         @endauth -->
 
                     @if (Auth()->guard('user')->user())
-                    <li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>
+                    <!--<li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>-->
+                    <li class="dropdown show">
+                          <a class="nav-link dropdown-toggle pDrop" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            My Profile
+                          </a>
+                        
+                          <div class="dropdown-menu profile_drop" aria-labelledby="dropdownMenuLink">
+                              <div class="user_datils">
+                                <h6>Jone Doe</h6>
+                                <p>Customer Id: <span>1234567890</span></p>
+                              </div>
+                              <h6>Account</h6>
+                                <a class="dropdown-item" href="#">Dashboard</a>
+                                <a class="dropdown-item" href="#">Orders</a>
+                                <a class="dropdown-item" href="#">Downloads</a>
+                                <a class="dropdown-item" href="#">Address</a>
+                                <a class="dropdown-item" href="#">Account Details</a>
+                                <a class="dropdown-item" href="#">Business New</a>
+                                <a class="dropdown-item" href="#">Mail</a>
+                                <a class="dropdown-item" href="#"><b>Logout</b></a>
+                          </div>
+                    </li>
                     @else
                     <li class="login_btn" id="loginlinktext"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                     @endif
                     {{-- @auth
-                            <li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>
+                            <!--<li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>-->
+                        <li class="dropdown show">
+                          <a class="nav-link dropdown-toggle" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            My Profile
+                          </a>
+                        
+                          <div class="dropdown-menu profile_drop" aria-labelledby="dropdownMenuLink">
+                              <div class="user_datils">
+                                <h6>Jone Doe</h6>
+                                <p>Customer Id: <span>1234567890</span></p>
+                              </div>
+                              <h6>Account</h6>
+                                <a class="dropdown-item" href="#">Dashboard</a>
+                                <a class="dropdown-item" href="#">Orders</a>
+                                <a class="dropdown-item" href="#">Downloads</a>
+                                <a class="dropdown-item" href="#">Address</a>
+                                <a class="dropdown-item" href="#">Account Details</a>
+                                <a class="dropdown-item" href="#">Business New</a>
+                                <a class="dropdown-item" href="#">Mail</a>
+                                <a class="dropdown-item" href="#"><b>Logout</b></a>
+                          </div>
+                        </li>
                     @else
                     <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                     @endauth --}}
@@ -57,7 +99,7 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
 
 <!-- ==================== Navigation Header ==================== -->
 <section class="header">
-    <div class="container">
+    <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand logo" href="{{ route('home')}}">
                 <img class="img-fluid" src="{{asset('frontend/img/logo.png')}}" alt="">
@@ -231,3 +273,16 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
         </nav>
     </div>
 </section>
+
+<script>
+    
+    $(document).ready(function(){
+        $('.pDrop').hover(
+        function(){
+            $(this).children('.profile_drop').slideDown('fast');
+        },
+        function () {
+            $(this).children('.profile_drop').slideUp('fast');
+        });
+    });
+</script>
