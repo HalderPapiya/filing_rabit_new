@@ -23,6 +23,7 @@ interface BusinessServiceContract
      */
     public function findBusinessServiceById(int $id);
 
+    public function findBusinessByUserId(int $id);
     /**
      * @param array $params
      * @return mixed

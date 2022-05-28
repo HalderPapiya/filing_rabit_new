@@ -48,16 +48,18 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
         //     ->orWhere('valuation', 'LIKE', '%' . $term . '%')
         //     ->get();
 
-        $businesses = BusinessService::with('businessType')->when($typeId != '', function ($query) use ($typeId) {
-            $query->where('type_id', '=', $typeId);
+        $typeId = $typeId != '' ? $typeId : '';
+        $term = $term != '' ? $term : '';
+        $valuation = $valuation != '' ? $valuation : '';
+
+        $businesses = BusinessService::with('businessType')->when($typeId, function ($query) use ($typeId) {
+            $query->where('type_id', 'like', '%' . $typeId . '%');
+        })->when($term, function ($query) use ($term) {
+            $query->where('name', 'like', '%' . $term . '%');
+        })->when($valuation, function ($query) use ($valuation) {
+            $query->where('valuation', 'like', '%' . $valuation . '%');
         })
-            ->when($term, function ($query) use ($term) {
-                $query->where('name', 'like', '%' . $term . '%');
-            })
-            ->when($valuation, function ($query) use ($valuation) {
-                $query->where('valuation', 'like', '%' . $valuation . '%');
-            })
-            ->get();
+            ->paginate(10);
 
         return $businesses;
     }
@@ -83,6 +85,10 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
         }
     }
 
+    public function findBusinessByUserId(int $id)
+    {
+        return BusinessService::where('user_id', $id)->get();
+    }
 
     public function createBusinessServices(array $params)
     {
@@ -92,9 +98,9 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
             $BusinessService = new BusinessService;
             $BusinessService->name = $collection['name'];
             $BusinessService->user_id = Auth::user()->id;
-            $BusinessService->user_id = Auth::user()->id;
             $BusinessService->type_id = $collection['type_id'];
             $BusinessService->valuation = $collection['valuation'];
+            $BusinessService->description = $collection['description'];
 
 
             // $businessService_image = $collection['image'];
@@ -122,6 +128,8 @@ class BusinessServiceRepository extends BaseRepository implements BusinessServic
         $BusinessService->user_id = Auth::user()->id;
         $BusinessService->type_id = $collection['type_id'];
         $BusinessService->valuation = $collection['valuation'];
+        $BusinessService->description = $collection['description'];
+        $BusinessService->status = $collection['status'];
 
         $BusinessService->save();
 

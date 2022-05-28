@@ -52,7 +52,7 @@
                                         type_id') }}">
                                         <option selected disabled>Select one</option>
                                         @foreach($businessTypes as $type)
-                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                        <option value="{{$type->id}}" {{($businessService->type_id == $type->id) ? 'selected' : ''}}>{{$type->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('type_id')
@@ -63,12 +63,24 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
+                                        <label> Description</label>
+                                        <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" value="{{old('description', $businessService->description) }}">
+                                        @error('description')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
                                         <label> Valuation</label>
                                         <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror" value="{{old('valuation', $businessService->valuation) }}">
                                         @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                     </div>
                                 </div>
-                               
+                                <div class="col-12">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="status" {{($businessService->status==1) ? 'checked value=1' : 'value=0'}} onchange="this.checked ? this.value = 1 : this.value = 0 ">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">(Check if active)*</label>
+                                    </div>
+                                <div>
                                 <div class="col-12">
                                     <button type="submit" class="btn ur-submit-button w-auto">Update Business Service</button>
                                 </div>

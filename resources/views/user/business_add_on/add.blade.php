@@ -36,7 +36,7 @@
                                 </div>
                             </div> --}}
                             <div class="form-group">
-                                <label class="control-label" for="add_on_id">Business Add-On Name <span class="m-l-5 text-danger"> *</span></label>
+                                <label class="control-label" for="add_on_id">Business Add-On Type <span class="m-l-5 text-danger"> *</span></label>
                                 <select class="form-control @error('add_on_id') is-invalid @enderror" name="add_on_id" id="add_on_id" value="{{ old('
                                     add_on_id') }}">
                                     <option selected disabled>Select one</option>
@@ -68,12 +68,11 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label> Valuation</label>
-                                    <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror">
-                                    @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
+                                    <label>Product Name</label>
+                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                                 </div>
                             </div>
-                           
                             <div class="col-12">
                                 <button type="submit" class="btn ur-submit-button w-auto">Save</button>
                             </div>

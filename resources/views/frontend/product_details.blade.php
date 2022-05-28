@@ -25,10 +25,6 @@
                     <button class="btn w-auto ur-submit-button">Purchase</button>
                 </div> --}}
 
-
-
-
-
                 <div class="col-md-6 order-2 order-md-1">
                     <h1>{{$product->name}}</h1>
                     <div class="variations">
@@ -39,15 +35,14 @@
                             </li>
                             @if($product->type_two_name)
                             <li>
-                                <div class="variable-item-contents">
-                                    <span><a href="#tab2">{{$product->type_two_name}}</a></span>
-                                </div>
-                                
+                                <a href="#tab2">{{$product->type_two_name}}</a>
                             </li>
                             @else
-                            {{-- <li> --}}
-                                {{-- <a href="#tab2">{{$product->type_two_name}}</a> --}}
-                            {{-- </li> --}}
+                            <li>
+                                <div class="variable-item-contents">
+                                    <a href="#tab1">Prime</a>
+                                </div>
+                            </li>
                             @endif
                         </ul>
                     </div>

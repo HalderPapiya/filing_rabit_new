@@ -57,35 +57,38 @@ class BusinessServiceController extends BaseController
     // }
     public function newBusiness()
     {
-
         return view('user.business_new.index');
     }
     public function showNewBusiness()
     {
-
         return view('user.business_new.show');
     }
-
-
-
-
-
-
-
-
-
     public function index(Request $request)
     {
-        // dd($request->name);
-
-
         $term = (isset($request->name) && $request->name != '') ? $request->name : '';
         $valuation = (isset($request->valuation) && $request->valuation != '') ? $request->valuation : '';
         $typeId = (isset($request->type_id) && $request->type_id != '') ? $request->type_id : '';
 
-
         $businessServices = $this->businessServiceRepository->getSearchBusinesses($term, $typeId, $valuation);
 
+        $types = BusinessType::get();
+
+        return view('user.business.showAll', compact('businessServices', 'types'));
+    }
+    public function myBusiness(Request $request)
+    {
+        // dd($request->name);
+
+
+        // $term = (isset($request->name) && $request->name != '') ? $request->name : '';
+        // $valuation = (isset($request->valuation) && $request->valuation != '') ? $request->valuation : '';
+        // $typeId = (isset($request->type_id) && $request->type_id != '') ? $request->type_id : '';
+
+
+        // $businessServices = $this->businessServiceRepository->getSearchBusinesses($term, $typeId, $valuation);
+        // return gettype(Auth::guard('user')->user()->id);
+        $businessServices = $this->businessServiceRepository->findBusinessByUserId(Auth::guard('user')->user()->id);
+        // return $businessServices;
         // dd($businessServices);
         $types = BusinessType::get();
         $exist = Bid::where('user_id', Auth::user()->id)->exists();
@@ -117,8 +120,8 @@ class BusinessServiceController extends BaseController
             'name' =>  'required',
             'type_id' =>  'required',
             'valuation' =>  'required',
+            'description' => 'required',
         ]);
-
         $params = $request->except('_token');
 
         $businessService = $this->businessServiceRepository->createBusinessServices($params);
@@ -152,8 +155,6 @@ class BusinessServiceController extends BaseController
     }
     public function show($id)
     {
-
-
         $businessService = $this->businessServiceRepository->findBusinessServiceById($id);
         // $categories = $this->categoryRepository->listCategories();
         // $subcategories = $this->subCategoryRepository->listSubCategories();
@@ -161,7 +162,7 @@ class BusinessServiceController extends BaseController
         $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Show Business Service : ' . $businessService->title);
-        return view('user.business.show', compact('businessService', 'businessTypes'));
+        return view('user.business.show_details', compact('businessService', 'businessTypes'));
     }
 
     /**
@@ -181,14 +182,16 @@ class BusinessServiceController extends BaseController
 
         $params = $request->except('_token');
 
-
+        if (!array_key_exists('status', $params)) $params['status'] = 0;
+        // dd($params);
+        // die;
 
         $businessService = $this->businessServiceRepository->updateBusinessService($params);
 
         if (!$businessService) {
             return $this->responseRedirectBack('Error occurred while updating Business Service.', 'error', true, true);
         }
-        return $this->responseRedirect('user.businessService.index', 'Business Service updated successfully', 'success', false, false);
+        return $this->responseRedirect('user.businessService.myBusiness', 'Business Service updated successfully', 'success', false, false);
     }
 
 

@@ -54,18 +54,20 @@
                         <a href="#" class="btn btn-warning">Browse Products</a>
                     </div>  
                 @else
+                <div class="row">
                     @foreach ($orders as $order)
-                    <div class="col-md-3 dash-card-col">
-                        <div class="card card-body mb-0">
-                            <h5 class="mb-2">{{$order->orderDetails->order_no}}</h5>
-                            <h5 class="mb-2">{{$order->productDetails->name}}</h5>
-                            {{-- <p class="small mb-0"> --}}
-                            
-                            </p>
-                            {{-- <i class="fas fa-list-alt app-menu__icon fa fa-group"></i> --}}
-                        </div>
-                    </div>
+                        <div class="col-md-6 mb-3 dash-card-col">
+                            <div class="card card-body mb-0">
+                                <h5 class="mb-2">{{$order->order_no ? $order->order_no: ''}}</h5>
+                                <h5 class="mb-2">{{$order->productDetails->name ? $order->productDetails->name: ''}}</h5>
+                                {{-- <p class="small mb-0"> --}}
+                                
+                                </p>
+                                {{-- <i class="fas fa-list-alt app-menu__icon fa fa-group"></i> --}}
+                            </div>
+                        </div>    
                     @endforeach
+                </div>
                 @endif
 
             </div>

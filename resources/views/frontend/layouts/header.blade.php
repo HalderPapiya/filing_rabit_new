@@ -30,6 +30,7 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
             </div>
             <div class="col-sm-7 text-center text-sm-right">
                 <ul id="menu-topmenu" class="top-menu">
+                    <li><a href="{{route('user.businessService.index')}}">Business</a></li>
                     <li><a href="{{ route('frontend.about-us')}}" class="nav-link">About Us</a></li>
                     <li><a href="{{ route('frontend.blog')}}" class="nav-link">Blog</a></li>
                     <li><a href="{{ route('frontend.contact-us')}}" class="nav-link">Contact Us</a></li>
@@ -52,14 +53,15 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                                 <p>Customer Id: <span>1234567890</span></p>
                               </div>
                               <h6>Account</h6>
-                                <a class="dropdown-item" href="#">Dashboard</a>
-                                <a class="dropdown-item" href="#">Orders</a>
-                                <a class="dropdown-item" href="#">Downloads</a>
-                                <a class="dropdown-item" href="#">Address</a>
-                                <a class="dropdown-item" href="#">Account Details</a>
-                                <a class="dropdown-item" href="#">Business New</a>
-                                <a class="dropdown-item" href="#">Mail</a>
-                                <a class="dropdown-item" href="#"><b>Logout</b></a>
+                                <a class="dropdown-item" style="{{ request()->is('user/dashboard*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.dashboard') }}">Dashboard</a>
+                                <a class="dropdown-item" style="{{ request()->is('user/order*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.order') }}">Orders</a>
+                                <a class="dropdown-item" style="{{request()->is('user/download*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.download') }}">Downloads</a>
+                                <a class="dropdown-item" style="{{ request()->is('user/address*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.address') }}">Address</a>
+                                <a class="dropdown-item" style="{{ request()->is('user/account*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.account') }}">Account Details</a>
+                                <a class="dropdown-item" style="{{ request()->is('user/businessService/new*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.businessService.myBusiness') }}">My Business</a>
+                                <a class="dropdown-item" style="{{ request()->is('user/businessService/new*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.businessService.new') }}">Business New</a>
+                                <a class="dropdown-item" style="{{ request()->is('user/user/mail*') ? 'text-warning' : '' }}" href="{{ route('user.mail.index') }}">Mail</a>
+                                <a class="dropdown-item" href="{{url('user/logout')}}"><b>Logout</b></a>
                           </div>
                     </li>
                     @else

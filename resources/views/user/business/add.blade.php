@@ -52,6 +52,13 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label> Description</label>
+                                    <input type="text" name="description" class="form-control @error('description') is-invalid @enderror">
+                                    @error('description')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label> Valuation</label>
                                     <input type="text" name="valuation" class="form-control @error('valuation') is-invalid @enderror">
                                     @error('valuation')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror

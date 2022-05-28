@@ -36,16 +36,16 @@
                 </div> --}}
                 <div class="col-auto">
                     <form action="{{ route('user.businessService.index') }}" id="checkout-form">
-                        <div class="row m-0">
-                            <div class="fcontrol position-relative filter_selectWrap filter_selectWrap2">
+                        {{-- <div class="row m-0">
+                            <div class="fcontrol position-relative filter_selectWrap filter_selectWrap2"> --}}
                                 {{-- <img src="{{ asset('front/img/grid.svg')}}"> --}}
-                                <select class="filter_select form-control w-100" name="type_id">
+                                {{-- <select class="filter_select form-control w-100" name="type_id">
                                     <option value="" hidden selected>Select Type...</option>
                                     @foreach ($types as $index => $item)
                                     <option value="{{$item->id}}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
                             {{-- <div class="col-12 col-lg-3 plr-3 pl-lg-0 fcontrol position-relative filter_selectWrap filter_selectWrap2">
                                 <img src="{{ asset('front/img/map-pin.svg')}}">
                             <select class="filter_select form-control" name="pincode">
@@ -64,23 +64,23 @@
                                 @endforeach
                             </select>
                         </div> --}}
-                        <div class="col-3">
+                        {{-- <div class="col-3">
                             <input type="search" name="name" class="form-control pl-3" placeholder="Search by name...">
                         </div>
                         <div class="col-3">
                             <input type="search" name="valuation" class="form-control pl-3" placeholder="Search by valuation...">
-                        </div>
+                        </div> --}}
                         {{-- <div class="col-3 col-lg-1 plr-3 pr-lg-0">
                                 <a href="javascript:void(0);" id="btnFilter" class="btn btn-outline-danger btn-sm"></a>
                             </div> --}}
-                        <div class="col-auto">
+                        {{-- <div class="col-auto">
                             <button type="submit" class="btn btn-outline-info btn-lg">Search Business</button>
                         </div>
                 </div>
-                </form>
+                </form> --}}
             </div>
             <div class="my-account-form-wrapper mt-2 ml-3">
-                <h3>Business Available</h3>
+                <h3>My Business</h3>
 
                 <div class="">
                     {{-- <nav class="sticky-top my-account-navigation">

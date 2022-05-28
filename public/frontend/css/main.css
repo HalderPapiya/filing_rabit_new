@@ -120,7 +120,7 @@ button:focus {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 99
+    z-index: 999;
 }
 
 .fixed-top {
@@ -4167,4 +4167,140 @@ footer ul li a.nav-link {
     right: 0;
     top: 10%;
     font-size: 14px;
+}
+
+.left-part .card{
+    border:0;
+    border-bottom:1px solid #efefef;
+    padding:15px 0;
+    margin-bottom:15px;
+}
+.form-check{
+    padding-left:0;
+}
+.custom-control-label{
+    padding-left:22px;
+}
+
+.left-part .sticky-top{
+    top:15%;
+}
+
+.bd_title{
+    font-size:20px;
+    font-weight:600;
+    color:#000;
+    margin-bottom:30px;
+}
+.bdd_body{
+    border-radius: 6px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+    outline: 0px;
+    padding:20px;
+}
+
+.bdd_body h3{
+    font-size:18px;
+    color:#001659;
+    margin-bottom:10px;
+    font-weight:600;
+}
+.bdd_body h3 span{
+    display:block;
+    margin-top:8px;
+    font-size:16px;
+    color: #8A8A8A;
+}
+.bdd_body p{
+    font-size:14px;
+    margin-bottom:10px;
+    color: #000;
+    font-weight:400;
+}
+.bdd_body p span{
+    font-weight:400;
+    font-size:13px;
+    color: #8A8A8A;
+}
+.bdd_body p span b{
+    font-weight:400;
+    color:#000;
+    font-size:14px;
+}
+.bdd_body ol{
+    padding:0;
+    margin:0;
+    padding-left: 15px;
+}
+.bdd_body ol li{
+   font-size:14px;
+   color:#000;
+   margin-bottom:6px;
+   
+}
+.broker_div{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+.broker_price{
+    display: flex;
+    border: 1px solid #001659;
+    background: #001659;
+    width: 265px;
+    padding: 10px;
+    align-items: center;
+    border-radius: 4px;
+    position: relative; 
+}
+.broker_price img{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit: cover;
+}
+.broker_price p {
+    width: calc(100% - 50px);
+    padding-left: 20px;
+    color: #fff;
+    position: relative;
+}
+.broker_price p span{
+    display:block;
+    font-weight:600;
+    font-size: 18px;
+    color:#fff;
+}
+
+.bide_btn{
+    background: #f1d231;
+    box-shadow: 0 10px 20px 0 rgb(241 210 49 / 50%);
+    border: 2px solid #f1d231;
+    transition: all ease 0.5s;
+    text-transform: uppercase;
+    padding: 14px 40px;
+    color: #000;
+    border-radius: 4px;
+    width: 100%;
+}
+.bide_btn:hover{
+    color:#fff;
+    background:#001659;
+}
+.info_Text{
+    position: absolute;
+    bottom: 48px;
+    right: -43px;
+    width: 180px;
+    background: rgba(0, 0, 0, 0.95);
+    visibility: hidden;
+    padding: 10px;
+    font-size: 13px;
+    color: #fff;
+    line-height: 20px;
+    font-weight:400;
+}
+
+.info:hover .info_Text{
+    visibility: visible !important;
 }
