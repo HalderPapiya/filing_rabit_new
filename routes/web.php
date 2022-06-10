@@ -31,12 +31,15 @@ Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])-
 // return view('frontend.index');
 // });
 Route::prefix('frontend')->name('frontend.')->group(function () {
+    
     // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
     Route::get('/blog', [App\Http\Controllers\Frontend\HomeController::class, 'blog'])->name('blog');
     Route::get('/blog-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showBlog'])->name('blog.show');
     Route::get('/contact-us', [App\Http\Controllers\Frontend\HomeController::class, 'contactUs'])->name('contact-us');
     Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
 
+    // ---------------enquiry------------------
+    Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.store');
     // -------------product-----------
     Route::get('/product-list', [App\Http\Controllers\Frontend\ProductController::class, 'index'])->name('all_product.list');
     Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');

@@ -68,17 +68,26 @@ class ProductController extends BaseController
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        // $this->validate($request, [
+        //     'name' =>  'required',
+        //     'category_id' =>  'required',
+        //     'subCategory_id' =>  'required',
+        //     'image' =>  'required|mimes:jpeg,png,jpg',
+        // ]);
+
         $this->validate($request, [
             'name' =>  'required',
-            'category_id' =>  'required',
-            'subCategory_id' =>  'required',
+            // 'category_id' =>  'required',
+            // 'subCategory_id' =>  'required',
             'image' =>  'required|mimes:jpeg,png,jpg',
         ]);
 
+
         $params = $request->except('_token');
+        // dd($params);
 
         $data = $this->productRepository->createProduct($params);
-
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while creating product.', 'error', true, true);
         }

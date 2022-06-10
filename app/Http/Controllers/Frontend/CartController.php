@@ -131,11 +131,13 @@ class CartController extends BaseController
                 $data->save();
             }
             // dd('test');
-            return $this->responseRedirect('product.cart', 'Successfully, added to cart!', 'success', false, false);
+            
+            // return $this->responseRedirect('product.cart', 'Successfully, added to cart!', 'success', false, false);
+            return redirect('product/cart');
             // return redirect()->route('product.cart')->with('success', 'Add to Cart Successfully');
         }
-
-        return $this->responseRedirect('product.cart', 'Product already exist in cart', 'success', false, false);
+        return redirect('product/cart');
+        // return $this->responseRedirect('product.cart', 'Product already exist in cart', 'success', false, false);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\NewsLetter;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use App\Contracts\NewsLetterContract;
+use App\Models\Enquiry;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
@@ -75,6 +76,22 @@ class NewsLetterRepository extends BaseRepository implements NewsLetterContract
         }
     }
 
+    public function createEnquiry(array $params)
+    {
+        try {
+            $collection = collect($params);
+            $enquiry = new Enquiry;
+            $enquiry->name = $collection['name'];
+            $enquiry->email = $collection['email'];
+            $enquiry->phone = $collection['phone'];
+
+            $enquiry->save();
+
+            return $enquiry;
+        } catch (QueryException $exception) {
+            throw new InvalidArgumentException($exception->getMessage());
+        }
+    }
     /**
      * @param array $params
      * @return mixed

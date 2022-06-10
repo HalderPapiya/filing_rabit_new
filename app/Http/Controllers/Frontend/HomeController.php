@@ -16,6 +16,7 @@ use App\Contracts\SettingContract;
 use App\Contracts\TestimonialContract;
 use App\Contracts\WhyUsContract;
 use App\Contracts\DescriptionContract;
+use App\Contracts\NewsLetterContract;
 use App\Contracts\ProcessContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Description;
@@ -47,7 +48,8 @@ class HomeController extends BaseController
         SettingContract $settingRepository,
         DescriptionContract $descriptionRepository,
         processContract $processRepository,
-        ConsultantContract $consultantRepository
+        ConsultantContract $consultantRepository,
+        NewsLetterContract $newsLetterRepository
     ) {
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
@@ -64,6 +66,7 @@ class HomeController extends BaseController
         $this->processRepository = $processRepository;
         $this->settingRepository = $settingRepository;
         $this->consultantRepository = $consultantRepository;
+        $this->newsLetterRepository = $newsLetterRepository;
     }
 
 
@@ -115,6 +118,27 @@ class HomeController extends BaseController
         return view('frontend.contact', compact('contact'));
     }
 
+    public function enquiry(Request $request)
+    {
+        // dd($request->all());
+        $this->validate($request, [
+            'name' =>  'required',
+            'email' =>  'required',
+            'phone' =>  'required',
+        ]);
+
+        $params = $request->except('_token');
+
+        $data = $this->newsLetterRepository->createEnquiry($params);
+// dd($data);
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while enquiry.', 'error', true, true);
+        }
+        return $this->responseRedirectBack('Send message successfully.', 'success', false, false);
+        // return view('frontend.news_letter');
+        // return $this->responseRedirect('frontend.news_letter', 'News Letter has been added successfully', 'success', false, false);
+    }
+    
     public function aboutUs()
     {
         // $blogs = $this->blogRepository->listBlogs();

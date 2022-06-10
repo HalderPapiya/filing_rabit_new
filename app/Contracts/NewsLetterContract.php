@@ -27,6 +27,11 @@ interface NewsLetterContract
      * @return mixed
      */
     public function createNewsLetter(array $params);
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function createEnquiry(array $params);
 
     /**
      * @param array $params

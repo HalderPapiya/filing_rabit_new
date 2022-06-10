@@ -24,9 +24,100 @@
                     </div>
                     <button class="btn w-auto ur-submit-button">Purchase</button>
                 </div> --}}
+                @if(empty($product->type_one_price) && empty($product->type_one_price))
+                {{-- <div class="col-md-6 order-2 order-md-1">
+                    <h1>{{$product->name}}</h1>
+                    <div class="col-md-9">
+                        <div class="col-md-9">
+                        <div class="my-account-form-wrapper">
+                            <h3>Billing address</h3>
+                            <form action="{{route('user.address.store')}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" value="" name="first_name" class="form-control">
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="number" name="mobile" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Email address</label>
+                                            <input type="email" name="email" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn ur-submit-button w-auto">Save Address</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> --}}
 
                 <div class="col-md-6 order-2 order-md-1">
                     <h1>{{$product->name}}</h1>
+                   
+                    <div class="variations">
+                        <h4> MAKE AN ENQUIRY FOR PRICING</h4>
+                    </div>
+                    
+                    <div class="tabs-content">
+                        <div class="my-account-form-wrapper">
+                            
+                            <form action="{{route('frontend.enquiry.store')}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div class="form-group">
+                                            <label>Full Name</label>
+                                            <input class="form-control @error('name') is-invalid @enderror" type="text" value="{{old('name')}}" name="name">
+                                            @error('name')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{old('email')}}" >
+                                            @error('email')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Contact No.</label>
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="phone" name="phone" value="{{old('phone')}}" >
+                                            @error('phone')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-9">
+                                        <button type="submit" class="btn ur-submit-button w-auto">Enqueire Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                       
+                        {{-- <form action="{{route('product.add.cart')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <input type="hidden" name="variation_type_one" value=" {{$product->type_one_name}}">
+                            <input class="price-input" type="hidden" name="product_price"  value=" {{$product->type_one_price}}">
+                            <button type="submit" class="btn w-auto ur-submit-button">Purchase</button>
+                        </form> --}}
+                    </div>
+                    
+                </div>
+                @else
+                <div class="col-md-6 order-2 order-md-1">
+                    <h1>{{$product->name}}</h1>
+                   
                     <div class="variations">
                         <h6>Package</h6>
                         <ul class="d-flex tabs-nav">
@@ -46,6 +137,7 @@
                             @endif
                         </ul>
                     </div>
+                    
                     <div class="tabs-content">
                         <div class="tab-data" id="tab1">
                             <p>
@@ -87,6 +179,8 @@
                     </div>
                     
                 </div>
+                @endif
+
                 <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0">
                     <img class="img-fluid" src="{{URL::to('/').'/uploads/product/'}}{{$product->image}}" alt="">
                 </div>
