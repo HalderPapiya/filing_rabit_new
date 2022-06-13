@@ -55,9 +55,12 @@
                     </div>  
                 @else
                 <div class="row">
-                    @foreach ($orders as $order)
+                    @foreach ($orders as $key => $order)
                         <div class="col-md-6 mb-3 dash-card-col">
                             <div class="card card-body mb-0">
+                                {{-- {{($loop->first ? '' : ', ').($order->order_no ? $order->order_no: '') . ' ' .($order->productDetails->name ? $order->productDetails->name: '')}} --}}
+                                {{-- @php if ($key == 2) {echo '...';break;} @endphp --}}
+
                                 <h5 class="mb-2">{{$order->order_no ? $order->order_no: ''}}</h5>
                                 <h5 class="mb-2">{{$order->productDetails->name ? $order->productDetails->name: ''}}</h5>
                                 {{-- <p class="small mb-0"> --}}

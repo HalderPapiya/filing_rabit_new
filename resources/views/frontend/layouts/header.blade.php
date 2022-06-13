@@ -39,8 +39,7 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                         @else
                         <li class="login_btn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         @endauth -->
-
-                    @if (Auth()->guard('user')->user())
+                    @if (Auth::guard('user')->user())
                     <!--<li><a href="{{route('user.dashboard')}}" class="nav-link">My Profile</a></li>-->
                     <li class="dropdown show">
                           <a class="nav-link dropdown-toggle pDrop" href="javascript:void(0);" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

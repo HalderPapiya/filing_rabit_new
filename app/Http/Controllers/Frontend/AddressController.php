@@ -71,6 +71,24 @@ class AddressController extends BaseController
         // $this->validate($request, [
         //     'title' =>  'required',
         // ]);
+
+        $this->validate($request, [
+            'fName' =>  'required',
+            'lName' =>  'required',
+            'country' =>  'required',
+            'street' =>  'required',
+            'mobile' =>  'required|integer|digits:10',
+            'house_no' =>  'required',
+            'state' =>  'required',
+            'company_name' =>  'required',
+            'city' =>  'required',
+            'pin_code' =>  'required',
+            'email' =>  'required',
+        ], [
+            'pin_code.*' => 'Pin Code Required!',
+            'fname.*' => 'First Name Required!',
+            'lname.*' => 'First Name Required!',
+        ]);
         $address = Address::where('user_id',  Auth::guard('user')->user()->id)->first();
         // dd($address);
         $params = $request->except('_token');

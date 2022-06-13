@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Util\Json;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -106,5 +107,61 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return redirect()->route('home');
+    }
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        // dd('hi');
+        try {
+            $user = Socialite::driver('google')->stateless()->user();
+        } catch (\Exception $e) {
+
+            return redirect('/');
+            // echo $e;
+            // die;
+        }
+        // only allow people with @company.com to login
+        // if (explode("@", $user->email)[1] !== 'company.com') {
+        //     return redirect()->to('/');
+        // }
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+        // if ($existingUser) {
+        //     if (Auth::loginUsingId($existingUser->id)) {
+        //         // dd(Auth::guard('user')->user());
+        //         return redirect()->to('/')->with('success', 'LoggedIn');
+        //     }
+        // } 
+        $existingUser = User::where('google_id', $user->id)->first();
+// dd($existingUser);
+            if($existingUser){
+                // Auth::login($existingUser);
+                // // dd('here');
+
+                // return  redirect('/');
+                return response()->json(['success' => true, 'message' => 'Login successful', "redirect_url" => url('/')], 200);
+
+            }
+        else {
+            // create a new user
+            $newUser   = new User;
+            $newUser->first_name  = explode(' ', $user->name)[0];
+            $newUser->last_name   = explode(' ', $user->name)[1];
+            $newUser->email  = $user->email;
+            $newUser->google_id  = $user->id;
+            $newUser->type = 'user';
+            $newUser->save();
+            $existingUser = $newUser;
+
+            if (Auth::loginUsingId($existingUser->id)) {
+                return redirect()->to('/')->with('success', 'LoggedIn');
+            }
+        }
+        return redirect()->to('/')->with('success', 'loggedIn');
     }
 }

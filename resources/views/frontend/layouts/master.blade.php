@@ -39,7 +39,7 @@
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
                                     <img src="{{asset('frontend/img/logo.png')}}">
                                 </a>
-                                <a href="javascript:void(0);" class="d-block mt-0 mb-2">
+                                <a href="{{url('/redirect')}}" class="d-block mt-0 mb-2">
                                     <div class="glogin">
                                         <div class="g_logo">
                                             <img src="{{asset('frontend/img/g.png')}}">

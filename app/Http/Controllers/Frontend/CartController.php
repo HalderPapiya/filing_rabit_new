@@ -151,17 +151,23 @@ class CartController extends BaseController
         // dd($request->all());
         // die;
         // 
+        $this->validate($request, [
+            'fname' =>  'required',
+            'lname' =>  'required',
+            'email' =>  'required',
+            'mobile' =>  'required|integer|digits:10',
+            'billing_country' =>  'required',
+            'billing_state' =>  'required',
+            // 'mobile' =>  'required',
+        ], [
+            'fname.*' => 'First Name Required!',
+            'lname.*' => 'First Name Required!',
+            'billing_country.*' => 'Billing Country Required!',
+            'billing_state.*' => 'Billing State Required!',
+        ]);
 
         try {
-            // $this->validate($request, [
-            //     'fname' =>  'required',
-            //     'lname' =>  'required',
-            //     'email' =>  'required',
-            //     'mobile' =>  'required',
-            //     'billing_country' =>  'required',
-            //     'billing_state' =>  'required',
-            //     'mobile' =>  'required',
-            // ]);
+            
             // dd($request->all());
             $order_no = "FR" . mt_rand();
             if (Auth::guard('user')->user()) {
@@ -286,7 +292,9 @@ class CartController extends BaseController
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
             }
             $emptyCart = Cart::where('ip', $this->ip)->delete();
-            return redirect()->back()->with('message', 'Order successful');
+            return view('frontend.thankyou');
+
+            // return redirect()->back()->with('message', 'Order successful');
             // if ($request->check) {
 
             // }

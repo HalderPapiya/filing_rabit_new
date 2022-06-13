@@ -26,6 +26,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'google_id',
+        // 'remember_token',
         'status',
     ];
 

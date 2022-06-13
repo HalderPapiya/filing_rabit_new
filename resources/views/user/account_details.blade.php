@@ -22,19 +22,21 @@
             @include('user.sidebar')    
             <div class="col-md-9">
                 <div class="my-account-form-wrapper">
-                    <form action="{{route('user.change-password')}}" method="POST">
+                    <form action="{{route('user.update-account')}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" value="{{$data->first_name}}" class="form-control">
+                                    <input type="text" value="{{$data->first_name}}" name ="first_name" class="form-control @error('first_name') is-invalid @enderror">
+                                    @error('first_name')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" value="{{$data->last_name}}" class="form-control">
+                                    <label>Last Name</label>
+                                    <input type="text" value="{{$data->last_name}}" name ="last_name" class="form-control @error('last_name') is-invalid @enderror">
+                                    @error('last_name')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
                             </div>
                             {{-- <div class="col-12">
@@ -46,14 +48,19 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Email address</label>
-                                    <input type="email"  value="{{$data->email}}"  class="form-control">
+                                    <input type="email" name ="email"  value="{{$data->email}}"  class="form-control @error('email') is-invalid @enderror">
+                                    @error('email')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn ur-submit-button w-auto">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
 
-                           
-                        
-
-
+                    <form action="{{route('user.change-password')}}" method="POST">
+                        @csrf
+                        <div class="row">
                             <div class="col-12">
                                 <h3>Password Change</h3>
                             </div>

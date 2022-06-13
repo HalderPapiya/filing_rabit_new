@@ -142,10 +142,10 @@
                         @php
                         $subTotal = $grandTotal = $couponCodeDiscount = 0;
                         @endphp
-                        {{-- @php $sum = 0; @endphp --}}
+                        @php $sum = 0; @endphp
                         {{-- @php $sum = $sum + $data->price; @endphp --}}
                         @foreach($data as $cartKey => $cartValue)
-                        {{-- @php $sum = $sum + $data->price; @endphp --}}
+                        @php $sum = $sum + $cartValue->price; @endphp
                         <table class="table checkout-table mb-4 border">
                             <tr>
                                 <th>Product:</th>
@@ -154,13 +154,15 @@
                             <tr>
                                 <td>{{ $cartValue->productCart->name }}</td>
                                 <td>{{ $cartValue->price }}</td>
+                                {{-- <td>{{ $sum }}</td> --}}
                             </tr>
 
                         </table>
                         <input type="hidden" name="product_id" value="{{ $cartValue->product_id }}" class="form-control">
 
                         @php
-                        $subTotal = (int) $cartValue->price;
+                        $subTotal = (int) $sum;
+                        // $subTotal = (int) $cartValue->price;
                         if (!empty($data[0]->coupon_code_id)) {
                         $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
                         }
@@ -169,7 +171,7 @@
                         @endphp
                         @endforeach
 
-                        <input type="hidden" name="total_checkout_amount" value="{{$cartValue->price}}">
+                        <input type="hidden" name="total_checkout_amount" value="{{$sum}}">
 
 
                         <table class="table checkout-table mb-4 border">

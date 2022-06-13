@@ -31,7 +31,7 @@ Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])-
 // return view('frontend.index');
 // });
 Route::prefix('frontend')->name('frontend.')->group(function () {
-    
+
     // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
     Route::get('/blog', [App\Http\Controllers\Frontend\HomeController::class, 'blog'])->name('blog');
     Route::get('/blog-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showBlog'])->name('blog.show');
@@ -39,7 +39,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
 
     // ---------------enquiry------------------
-    Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.store');
+    Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.order');
     // -------------product-----------
     Route::get('/product-list', [App\Http\Controllers\Frontend\ProductController::class, 'index'])->name('all_product.list');
     Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');
@@ -55,6 +55,8 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
     Route::get('/cart/show', [App\Http\Controllers\Frontend\CartController::class, 'cartView'])->name('cart.show');
+
+
 });
 
 // -------------------Cart---------------------
@@ -77,6 +79,8 @@ Route::get('/login_form', [App\Http\Controllers\Auth\LoginController::class, 'lo
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('user.registration');
 Route::post('/user_login', [App\Http\Controllers\Auth\LoginController::class, 'userLogin'])->name('user.login');
 // });
+Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);
+Route::get('/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback']);
 
 
 Route::prefix('user')->name('user.')->group(function () {
@@ -89,7 +93,8 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/address-store/{id?}', [App\Http\Controllers\Frontend\AddressController::class, 'store'])->name('address.store');
         Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
         Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
-
+        Route::post('/update-account', [App\Http\Controllers\Frontend\UserController::class, 'accountUpdate'])->name('update-account');
+        
         // ------------Business Service---------------------//
         Route::get('/businessService/new', [App\Http\Controllers\User\BusinessServiceController::class, 'newBusiness'])->name('businessService.new');
         Route::get('/businessService/new/show', [App\Http\Controllers\User\BusinessServiceController::class, 'showNewBusiness'])->name('businessService.newShow');
