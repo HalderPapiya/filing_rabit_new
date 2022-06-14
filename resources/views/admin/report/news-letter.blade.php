@@ -51,5 +51,4 @@
     <script type="text/javascript" src="{{ asset('backend/js/plugins/dataTables.bootstrap.min.js') }}"></script>
     <script type="text/javascript">$('#sampleTable').DataTable({"ordering": false});
     </script>
-  
 @endpush
