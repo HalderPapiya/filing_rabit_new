@@ -35,6 +35,8 @@ class HomeController extends BaseController
      * @param BlogContract $blogRepository
      */
     public function __construct(
+       
+        
         SubCategoryContract $subCategoryRepository,
         CategoryContract $categoryRepository,
         BlogContract $blogRepository,
@@ -50,6 +52,7 @@ class HomeController extends BaseController
         processContract $processRepository,
         ConsultantContract $consultantRepository,
         NewsLetterContract $newsLetterRepository
+
     ) {
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
@@ -67,6 +70,7 @@ class HomeController extends BaseController
         $this->settingRepository = $settingRepository;
         $this->consultantRepository = $consultantRepository;
         $this->newsLetterRepository = $newsLetterRepository;
+
     }
 
 

@@ -226,7 +226,7 @@ class CartController extends BaseController
                 foreach ($cartData as $cartValue) {
                     $orderProducts[] = [
                         'order_id' => $orderId,
-                        'product_id' => $request->product_id,
+                        'product_id' => $cartValue->product_id,
                         'user_id' => Auth::guard('user')->user()->id ?? 0,
                         'ip' => $this->ip,
                         'order_no' => $order_no,
@@ -290,7 +290,7 @@ class CartController extends BaseController
                 foreach ($cartData as $cartValue) {
                     $orderProducts[] = [
                         'order_id' => $orderId,
-                        'product_id' => $request->product_id,
+                        'product_id' => $cartValue->product_id,
                         'user_id' => Auth::guard('user')->user()->id ?? 0,
                         'ip' => $this->ip,
                         'order_no' => $order_no,

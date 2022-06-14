@@ -31,6 +31,8 @@ class UserController extends BaseController
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
         $this->blogRepository = $blogRepository;
+
+        $this->ip = $_SERVER['REMOTE_ADDR'];
     }
 
 
@@ -45,9 +47,30 @@ class UserController extends BaseController
     }
     public function order()
     {
-        $orders = OrderProduct::where('user_id', Auth::guard('user')->user()->id)->get();
+        $ipWiseOrders = Order::where('ip', $this->ip)->get();
+        // dd($ipWiseOrders);
+        $orders = Order::where('user_id', Auth::guard('user')->user()->id)->get();
         // dd($orders);
-        return view('user.order', compact('orders'));
+        // foreach ($orders as $key => $order) {
+        $orderProducts = OrderProduct::get();
+
+        // }
+        // dd($orderProducts);
+        return view('user.order', compact('orders', 'orderProducts' ,'ipWiseOrders'));
+    }
+    public function orderInvoice($id)
+    {
+        // $ipWiseOrders = Order::where('ip', $this->ip)->get();
+        // dd($ipWiseOrders);
+        $orders = Order::where('id',$id)->findOrFail($id);
+        // dd($orders);
+        // foreach ($orders as $key => $order) {
+        $orderProducts = OrderProduct::where('order_id' , $orders->id)->get();
+        // dd($orderProducts);
+        return view('user.order-invoice', compact('orders', 'orderProducts'));
+        // }
+        // dd($orderProducts);
+        return view('user.order', compact('orders', 'orderProducts' ,'ipWiseOrders'));
     }
 
     public function download()
@@ -136,14 +159,14 @@ class UserController extends BaseController
             'first_name' => 'required',
             'email' => 'required|email|unique:users,email,' . Auth::user()->id,
             'last_name' => 'required'
-            
+
         ]);
         $user = Auth::user();
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-       
+
         $user->email = $request->email;
-       
+
         $user->save();
         return back()->with('Success', 'Profile updated successFully');
     }
@@ -165,7 +188,7 @@ class UserController extends BaseController
             return back()->withErrors(['password' => 'password not match']);
         }
         $id = Auth::guard('user')->user()->id;
-        User::find($id)->update(['password'=> Hash::make($request->new_password)]);
+        User::find($id)->update(['password' => Hash::make($request->new_password)]);
 
         // $user->password = Hash::make($request->new_password);
 
