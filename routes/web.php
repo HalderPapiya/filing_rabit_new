@@ -31,6 +31,12 @@ Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])-
 // return view('frontend.index');
 // });
 Route::prefix('frontend')->name('frontend.')->group(function () {
+
+
+    Route::get('/businessServices', [App\Http\Controllers\User\BusinessServiceController::class, 'index'])->name('businessService.index');
+    Route::get('/businessService/show/{id}', [App\Http\Controllers\User\BusinessServiceController::class, 'show'])->name('businessService.show');
+    Route::get('/business_add_on_by_business/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'ShowByBusiness'])->name('business_add_on_by_business.ShowByBusiness');
+
     // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('index');
     Route::get('/blog', [App\Http\Controllers\Frontend\HomeController::class, 'blog'])->name('blog');
     Route::get('/blog-details/{id}', [App\Http\Controllers\Frontend\HomeController::class, 'showBlog'])->name('blog.show');
@@ -105,7 +111,7 @@ Route::prefix('user')->name('user.')->group(function () {
 
         Route::get('/business_add_on', [App\Http\Controllers\User\BusinessAddOnController::class, 'index'])->name('business_add_on.index');
         Route::get('/business_add_on_by_business/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'ShowByBusiness'])->name('business_add_on_by_business.ShowByBusiness');
-        Route::get('/business_add_on/create', [App\Http\Controllers\User\BusinessAddOnController::class, 'create'])->name('business_add_on.create');
+        Route::get('/business_add_on/create/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'create'])->name('business_add_on.create');
         Route::post('/business_add_on/store', [App\Http\Controllers\User\BusinessAddOnController::class, 'store'])->name('business_add_on.store');
         Route::get('/business_add_on/show/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'show'])->name('business_add_on.show');
         Route::get('/business_add_on/edit/{id}', [App\Http\Controllers\User\BusinessAddOnController::class, 'edit'])->name('business_add_on.edit');
@@ -117,7 +123,7 @@ Route::prefix('user')->name('user.')->group(function () {
         // ------------Business Bid---------------------//
 
         Route::get('/bid', [App\Http\Controllers\User\BidController::class, 'index'])->name('bid.index');
-        Route::get('/bid/create/{id}', [App\Http\Controllers\User\BidController::class, 'create'])->name('bid.create');
+        // Route::get('/bid/create/{id}', [App\Http\Controllers\User\BidController::class, 'create'])->name('bid.create');
         Route::post('/bid/store', [App\Http\Controllers\User\BidController::class, 'store'])->name('bid.store');
         Route::get('/bid/show/{id}', [App\Http\Controllers\User\BidController::class, 'show'])->name('bid.show');
         Route::get('/bid/edit/{id}', [App\Http\Controllers\User\BidController::class, 'edit'])->name('bid.edit');

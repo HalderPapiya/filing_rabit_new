@@ -6,6 +6,7 @@ use App\Contracts\BusinessServiceContract;
 use App\Contracts\BusinessTypeContract;
 use App\Http\Controllers\BaseController;
 use App\Models\Bid;
+use App\Models\BusinessAddOn;
 use App\Models\BusinessService;
 use App\Models\BusinessType;
 use Illuminate\Http\Request;
@@ -162,7 +163,9 @@ class BusinessServiceController extends BaseController
         $businessTypes  = $this->businessTypeRepository->listBusinessTypes();
 
         $this->setPageTitle('business Service', 'Show Business Service : ' . $businessService->title);
-        return view('user.business.show_details', compact('businessService', 'businessTypes'));
+
+        $businessAddOns = BusinessAddOn::where('business_id', $id)->with('addOn')->get();
+        return view('user.business.show_details', compact('businessService', 'businessTypes', 'businessAddOns'));
     }
 
     /**

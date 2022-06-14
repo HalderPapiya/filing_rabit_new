@@ -53,8 +53,7 @@
                 <a href="{{url('user-logout')}}">Logout</a>
             </li> --}}
             <li>
-                <a class="btn btn-read btn-hover" href="{{ route('user.logout') }}" onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
+                <a class="btn btn-read btn-hover" href="{{ route('user.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     Logout
                 </a>
                 <form id="logout-form" action="{{url('user/logout')}}" method="POST">

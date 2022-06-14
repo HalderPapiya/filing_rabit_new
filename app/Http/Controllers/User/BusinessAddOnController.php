@@ -52,11 +52,11 @@ class BusinessAddOnController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         $addOns = AddOn::get();
         // $businessServices  = $this->businessServiceRepository->listBusinessServices();
-        $businessServices  = BusinessService::where('user_id', Auth::user()->id)->get();
+        $businessServices  = BusinessService::where([['user_id', Auth::user()->id], ['id', $id]])->get();
         $this->setPageTitle('business add on', 'Create A New business add on');
         return view('user.business_add_on.add', compact('businessServices', 'addOns'));
     }
@@ -70,9 +70,9 @@ class BusinessAddOnController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add_on_id' =>  'required',
-            'business_id' =>  'required',
-            'valuation' =>  'required',
+            'add_on_id' => 'required',
+            'business_id' => 'required',
+            'valuation' => 'required',
         ]);
 
         $params = $request->except('_token');
@@ -83,7 +83,9 @@ class BusinessAddOnController extends BaseController
             return $this->responseRedirectBack('Error occurred while creating business add on.', 'error', true, true);
         }
         // return $this->responseRedirect('user.business_add_on.create', 'business add on has been added successfully', 'success', false, false);
-        return Redirect::back()->with('success', 'Listing successfully.');
+        // return Redirect::back()->with('success', 'Listing successfully.');
+        return Redirect::route('user.business_add_on_by_business.ShowByBusiness', [$params['business_id']])->with('success', 'Listing successfully.');
+        // return redirect(route('user.business_add_on_by_business.ShowByBusiness', [$params['business_id']]));
     }
 
 
@@ -107,9 +109,13 @@ class BusinessAddOnController extends BaseController
     {
         $businessAddOns = BusinessAddOn::where('business_id', $id)->with('addOn')->get();
 
-        $userid = BusinessService::where('id', $id)->get('user_id')[0]->user_id == Auth::guard('user')->user()->id ? ['sameUser' => true] : ['sameUser' => false];
+        if (Auth::guard('user')->user())
+            $userid = BusinessService::where('id', $id)->get('user_id')[0]->user_id == Auth::guard('user')->user()->id ? ['sameUser' => true] : ['sameUser' => false];
+        else
+            $userid = ['sameUser' => false];
+        $business_id = $id;
 
-        return view('user.business_add_on.showByBusiness', compact('businessAddOns', 'userid'));
+        return view('user.business_add_on.showByBusiness', compact('businessAddOns', 'userid', 'business_id'));
     }
 
     public function show($id)

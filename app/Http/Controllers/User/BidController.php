@@ -78,7 +78,6 @@ class BidController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-
             'valuation' =>  'required',
         ]);
 

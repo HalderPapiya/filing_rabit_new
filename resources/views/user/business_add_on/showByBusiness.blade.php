@@ -1,92 +1,73 @@
 @extends('frontend.layouts.master')
 @section('content')
-<!-- ==================== Banner Section ==================== -->
-<section class="banner-area cart-banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_title">
-                    <h2 data-aos="fade-down" data-aos-duration="1000">Addresses</h2>
-                    <div class="shadow_text">Filingrabbit</div>
+    <style>
+        .pagination {
+            float: right;
+        }
+
+    </style>
+
+    <section class="py-4 py-lg-5">
+        <div class="container">
+            <div class="row m-0">
+                <div class="left-part col-12 col-lg-4 pr-lg-5">
+                    <h4 class="mb-4">Filter</h4>
+                    {{-- <form
+                        action="{{ Auth::guard('user')->user() ? route('user.businessService.index') : route('frontend.businessService.index') }}">
+                        <div class="card">
+                            <h6 class="mb-4">Name</h6>
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="e.g. xyz pvt ltd">
+                            </div>
+                            <h6 class="mb-4">Valuation</h6>
+                            <div class="form-group">
+                                <input type="text" name="valuation" class="form-control" placeholder="e.g. 100000">
+                            </div>
+                            <h6 class="mb-4">Category</h6>
+                            <div class="form-group">
+                                <select type="text" name="type_id" class="form-control" placeholder="e.g. IT Industry">
+                                    <option value="">Select a catgory</option>
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}" style="color: black">{{ $type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn-sm btn btn-outline-success">Search</button>
+                    </form> --}}
                 </div>
-                <a href="#" class="home">Home</a> / <span>My Account</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ==================== Account Section ==================== -->
-<section class="ac_section">
-    <div class="container">
-        <div class="row ">
-            @include('user.sidebar')
-            <div class="col-md-9">
-                <div>
-                    <div class="my-account-form-wrapper">
-                        <h3>Business Add on</h3>
-
-                        <div class="w-100">
-                            {{-- <nav class="sticky-top my-account-navigation">
-                            <ul>
-                                @foreach ($businessAddOns as $data)
-                                <li>
-                                    <a href="{{ route('user.business_add_on.edit', $data['id']) }}">{{$data->name}}</a>
-                            </li>
-                            @endforeach
-
-
-                            </ul>
-                            </nav> --}}
-                            <table class="table w-100 table-hover custom-data-table-style table-striped" id="sampleTable">
-                                @if($userid['sameUser'] == true)
-                                <div class="fixed-row my-2">
-                                    <div class="app-title">
-                                        <a href="{{ route('user.business_add_on.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
+                <div class="right-part col-12 col-lg-8 pl-lg-5 border-left">
+                    @foreach ($businessAddOns as $bs)
+                        <a href="{{ route('user.businessService.show', [$bs->id]) }}">
+                            <div class="card">
+                                <h3>{{ $bs->addOn->name }}</h3>
+                                {{-- <p>{{ strlen($bs->description) > 200 ? substr($bs->description, 0, 200) . '...' : $bs->description }} --}}
+                                </p>
+                                <h6>Rs.{{ number_format($bs->valuation) }}</h6>
+                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                    {{-- <div>
+                                        <ul class="bl_tag">
+                                            <li>{{ App\Models\BusinessType::where('id', $bs->type_id)->get('name')[0]->name }}
+                                            </li>
+                                        </ul>
+                                    </div> --}}
+                                    <div>
+                                        <a
+                                            href="{{ Auth::guard('user')->user() ? route('user.businessService.show', [$bs->id]) : route('frontend.businessService.show', [$bs->id]) }}">View
+                                            details <i class="fas fa-angle-right"></i></a>
                                     </div>
                                 </div>
+                                @if ($bs->status == 0)
+                                    <div class="logo_container">SOLD</div>
                                 @endif
-                                <thead>
-                                    <tr>
-                                        <th>Add on type</th>
-                                        <th>Add on Valuation</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($businessAddOns as $data)
-                                    <tr>
+                            </div>
+                        </a>
+                    @endforeach
 
-                                        <td>{{ $data->addOn->name }}</td>
-                                        <td>Rs.{{ number_format($data->valuation) }}</td>
-                                        {{-- <td>{{ $data->user->id }}</td> --}}
-
-                                        {{-- <td>{{ $category['slug'] }}</td> --}}
-
-
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Second group">
-                                                <a href="{{ route('user.business_add_on.show', $data['id']) }}" class="btn btn-sm btn-primary show-btn"><i class="fa fa-eye"></i></a>
-                                                @if(auth()->user()->id == $data->user_id)
-                                                <a href="{{ route('user.business_add_on.edit', $data['id']) }}" class="btn btn-sm btn-primary edit-btn"><i class="fa fa-edit"></i></a>
-                                                @endif
-                                                @if(auth()->user()->id != $data->user_id)
-                                                <a href="{{ route('user.add_on_bid.create', $data['id']) }}" class="btn btn-sm btn-primary edit-btn">BID</i></a>
-                                                @endif
-
-                                                {{-- <a href="#" data-id="{{$data['id']}}" class="sa-remove btn btn-sm btn-danger edit-btn"><i class="fa fa-trash"></i></a> --}}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
+                    {{-- {{ $businessAddOns->links() }} --}}
                 </div>
-
             </div>
         </div>
-</section>
-
+    </section>
 @endsection

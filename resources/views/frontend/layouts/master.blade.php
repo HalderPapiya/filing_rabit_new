@@ -7,13 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filing Rabit</title>
 
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/bootstrap.css')}}">
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css?ver=5.9.3' />
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick-theme.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/slick.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/main.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/css/responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('frontend/css/bootstrap.css') }}">
+    <link rel="stylesheet"
+        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css?ver=5.9.3' />
+    <link rel="stylesheet" type="text/css" href="{{ url('frontend/css/slick-theme.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('frontend/css/slick.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('frontend/css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('frontend/css/responsive.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
 </head>
 
 <body>
@@ -26,7 +28,8 @@
 
 
     <!-- ========== Modals ==========  -->
-    <div class="modal fade login_modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade login_modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -37,12 +40,12 @@
                         <div class="col-sm-12 p-0">
                             <div class="login_block">
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
-                                    <img src="{{asset('frontend/img/logo.png')}}">
+                                    <img src="{{ asset('frontend/img/logo.png') }}">
                                 </a>
                                 <a href="javascript:void(0);" class="d-block mt-0 mb-2">
                                     <div class="glogin">
                                         <div class="g_logo">
-                                            <img src="{{asset('frontend/img/g.png')}}">
+                                            <img src="{{ asset('frontend/img/g.png') }}">
                                         </div>
                                         <div class="gtext">
                                             <p>Login with Google</p>
@@ -54,23 +57,30 @@
                                     <form id="loginform">
                                         <p class="login-username">
                                             <label for="user">Email Address</label>
-                                            <input type="text" name="user_email" id="user_email" class="input" value="{{ old('user_email') }}" size="20" placeholder="Enter Username" autocomplete="user_email" autofocus>
+                                            <input type="text" name="user_email" id="user_email" class="input"
+                                                value="{{ old('user_email') }}" size="20" placeholder="Enter Username"
+                                                autocomplete="user_email" autofocus>
 
                                         </p>
                                         <p class="login-password mb-2">
                                             <label for="pass">Password</label>
-                                            <input type="password" name="password" id="password" class="input" value="{{ old('password') }}" size="20" placeholder="Enter Password" autocomplete="email" autofocus>
+                                            <input type="password" name="password" id="password" class="input"
+                                                value="{{ old('password') }}" size="20" placeholder="Enter Password"
+                                                autocomplete="email" autofocus>
                                         </p>
-                                        <p class="text-right mb-2"><a class="forgot" href="{{ route('forget.password.get') }}">Forgot Password?</a></p>
+                                        <p class="text-right mb-2"><a class="forgot"
+                                                href="{{ route('forget.password.get') }}">Forgot Password?</a></p>
                                         <p class="login-submit">
-                                            <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
+                                            <input type="submit" name="wp-submit" id="wp-submit"
+                                                class="button button-primary" value="Log In">
                                             <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form>
                                 </div>
                                 <p class="text-center">Don't Have an Account?
-                                    <a class="button button-primary" href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
+                                    <a class="button button-primary" href="#" data-toggle="modal"
+                                        data-target="#registerModal" data-dismiss="modal">
                                         Sign Up
                                     </a>
                                 </p>
@@ -82,7 +92,8 @@
         </div>
     </div>
 
-    <div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade login_modal" id="registerModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -93,7 +104,7 @@
                         <div class="col-sm-12 p-0">
                             <div class="login_block">
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
-                                    <img src="{{asset('frontend/img/logo.png')}}">
+                                    <img src="{{ asset('frontend/img/logo.png') }}">
                                 </a>
                                 <p class="text-center">or</p>
                                 <div class="user-registration ur-frontend-form  " id="user-registration-form-784">
@@ -105,8 +116,13 @@
                                                     <div class="form-group">
                                                         <label class="d-block">User Email</label>
                                                         <span class="input-wrapper">
-                                                            <input class="form-control @error('regs_email') is-invalid @enderror" type="email" name="regs_email" id="email">
-                                                            @error('regs_email')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
+                                                            <input
+                                                                class="form-control @error('regs_email') is-invalid @enderror"
+                                                                type="email" name="regs_email" id="email">
+                                                            @error('regs_email')
+                                                                <span class="invalid-feedback" role="alert"><strong>
+                                                                        {{ $message }}</strong></span>
+                                                            @enderror
                                                         </span>
                                                     </div>
                                                 </div>
@@ -115,15 +131,18 @@
                                                     <div class="form-group">
                                                         <label class="d-block">User Password</label>
                                                         <span class="input-wrapper">
-                                                            <input class="form-control" type="password" name="regs_password" id="regs_password">
+                                                            <input class="form-control" type="password"
+                                                                name="regs_password" id="regs_password">
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div data-field-id="user_confirm_password" class="ur-field-item field-user_confirm_password ">
+                                                <div data-field-id="user_confirm_password"
+                                                    class="ur-field-item field-user_confirm_password ">
                                                     <div class="form-group">
                                                         <label class="d-block">Confirm Password</label>
                                                         <span class="input-wrapper">
-                                                            <input class="form-control" type="password" name="reg_con_password">
+                                                            <input class="form-control" type="password"
+                                                                name="reg_con_password">
                                                         </span>
                                                     </div>
                                                 </div>
@@ -138,7 +157,8 @@
                                     <div style="clear:both"></div>
                                 </div>
 
-                                <p class="text-center">Have an Account? <a class="button button-primary" href="#" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Sign In</a>
+                                <p class="text-center">Have an Account? <a class="button button-primary" href="#"
+                                        data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Sign In</a>
                                 </p>
                             </div>
                         </div>
@@ -148,7 +168,8 @@
         </div>
     </div>
 
-    <div class="modal fade login_modal" id="consultation_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade login_modal" id="consultation_modal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -159,13 +180,15 @@
                         <div class="col-sm-12 p-0">
                             <div class="login_block">
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
-                                    <img src="{{asset('frontend/img/logo.png')}}">
+                                    <img src="{{ asset('frontend/img/logo.png') }}">
                                 </a>
-                                <form action="{{route('frontend.consultant')}}" method="GET">
+                                <form action="{{ route('frontend.consultant') }}" method="GET">
                                     @csrf
                                     <input class="form-control mb-3" name="name" type="text" placeholder="Your Name">
-                                    <input class="form-control mb-3" name="email" type="email" placeholder="Email Address">
-                                    <input class="form-control mb-3" name="phone" type="tel" placeholder="Mobile Number">
+                                    <input class="form-control mb-3" name="email" type="email"
+                                        placeholder="Email Address">
+                                    <input class="form-control mb-3" name="phone" type="tel"
+                                        placeholder="Mobile Number">
                                     <input class="form-control mb-3" name="city" type="text" placeholder="City">
                                     <input class="btn submit_btn" type="submit" value="GET STARTED NOW">
                                 </form>
@@ -178,11 +201,11 @@
     </div>
 
 
-    <script type="text/javascript" src="{{url('frontend/js/jquery-3.6.0.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('frontend/js/popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('frontend/js/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('frontend/js/slick.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('frontend/js/custom.js')}}"></script>
+    <script type="text/javascript" src="{{ url('frontend/js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('frontend/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('frontend/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('frontend/js/slick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('frontend/js/custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
 
     <script type="text/javascript">
@@ -200,9 +223,9 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'JSON',
-                url: "{{route('user.registration')}}",
+                url: "{{ route('user.registration') }}",
                 data: {
-                    _token: '{{csrf_token()}}',
+                    _token: '{{ csrf_token() }}',
                     email: regs_email,
                     password: password,
                     confirm_password: confirm_password
@@ -232,7 +255,7 @@
                 dataType: 'JSON',
                 url: "{{ url('user_login') }}",
                 data: {
-                    _token: '{{csrf_token()}}',
+                    _token: '{{ csrf_token() }}',
                     email: email,
                     password: password
                 },
@@ -242,7 +265,9 @@
                         // window.location.href = "user/dashboard";
                         // window.location.href = response.redirect_url;
                         $('#loginModal').modal('hide');
-                        $("#loginlinktext").html('<a href="' + "{{route('user.dashboard')}}" + '" class="nav-link">My Profile</a>')
+                        $("#loginlinktext").html('<a href="' + "{{ route('user.dashboard') }}" +
+                            '" class="nav-link">My Profile</a>');
+                        $("#details_bid_btn").attr("data-target", "#bidModal");
                     } else {
                         $('#loginMessage').addClass('text-danger').html(response.message);
                     }
