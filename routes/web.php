@@ -419,6 +419,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/business_type/update', [App\Http\Controllers\Admin\BusinessTypeController::class, 'update'])->name('business_type.update');
         Route::get('/packabusiness_typege/{id}/delete', [App\Http\Controllers\Admin\BusinessTypeController::class, 'destroy'])->name('business_type.delete');
         Route::post('/business_type/updateStatus', [App\Http\Controllers\Admin\BusinessTypeController::class, 'updateStatus'])->name('business_type.updateStatus');
+
+        // -----------------------Report-----------------------
+
+        Route::get('/news-letter', [App\Http\Controllers\Admin\ReportController::class, 'newsLetterList'])->name('business_type.index');
+        
     });
 });
 
