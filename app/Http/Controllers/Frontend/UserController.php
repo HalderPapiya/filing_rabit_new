@@ -124,12 +124,12 @@ class UserController extends BaseController
     public function accountUpdate(Request $request)
     {
 
-        $this->validate($request, [
-            'first_name' =>  'required',
-            'last_name' =>  'required',
-            'email' =>  'required',
-            // 'video' =>  'max:50000',
-        ]);
+        // $this->validate($request, [
+        //     'first_name' =>  'required',
+        //     'last_name' =>  'required',
+        //     'email' =>  'required',
+        //     // 'video' =>  'max:50000',
+        // ]);
     $request->validate([
             'first_name' => 'required',
             'email' => 'required|email|unique:users,email,' . Auth::user()->id,

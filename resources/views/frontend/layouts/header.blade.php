@@ -60,7 +60,12 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                                 <a class="dropdown-item" style="{{ request()->is('user/businessService/new*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.businessService.myBusiness') }}">My Business</a>
                                 <a class="dropdown-item" style="{{ request()->is('user/businessService/new*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}" href="{{ route('user.businessService.new') }}">Business New</a>
                                 <a class="dropdown-item" style="{{ request()->is('user/user/mail*') ? 'text-warning' : '' }}" href="{{ route('user.mail.index') }}">Mail</a>
-                                <a class="dropdown-item" href="{{url('user/logout')}}"><b>Logout</b></a>
+                                <a class="dropdown-item" href="{{url('user/logout')}}"onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"><b>Logout</b></a>
+                            
+                                <form id="logout-form" action="{{url('user/logout')}}" method="POST">
+                                    @csrf
+                                </form>
                           </div>
                     </li>
                     @else
