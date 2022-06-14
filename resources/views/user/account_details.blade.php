@@ -25,6 +25,7 @@
                     <form action="{{route('user.update-account')}}" method="POST">
                         @csrf
                         <div class="row">
+                            
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
@@ -55,6 +56,9 @@
                             <div class="col-12">
                                 <button type="submit" class="btn ur-submit-button w-auto">Save Changes</button>
                             </div>
+                            @if (Session::get('Success'))
+                                <div class="alert alert-success"> {{Session::get('Success')}} </div>
+                            @endif
                         </div>
                     </form>
 

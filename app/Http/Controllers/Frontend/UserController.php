@@ -130,19 +130,20 @@ class UserController extends BaseController
             'email' =>  'required',
             // 'video' =>  'max:50000',
         ]);
-        // $data = User::where('id', auth()->user->id)->get();
-        // $data = User::get();
-
-        $id = Auth::guard('user')->user()->id;
-    //   dd($id);
-        User::find($id)->update([
-            'first_name'=> $request->first_name,
-            'last_name'=>$request->last_name,
-            'email'=> $request->email,
+    $request->validate([
+            'first_name' => 'required',
+            'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+            'last_name' => 'required'
+            
         ]);
-        // dd($data);
-        return redirect()->back()->with('success', 'Account Details successfully updated');
-        // return view('user.account_details', compact('data'));
+        $user = Auth::user();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+       
+        $user->email = $request->email;
+       
+        $user->save();
+        return back()->with('Success', 'Profile updated successFully');
     }
 
     public function changePassword(Request $request)
