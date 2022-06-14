@@ -63,6 +63,8 @@ class AddressRepository extends BaseRepository implements AddressContract
      */
     public function createAddress(array $params)
     {
+        // return "here";
+        
 
         try {
             $collection = collect($params);
@@ -101,7 +103,7 @@ class AddressRepository extends BaseRepository implements AddressContract
         // dd($data);
         $collection = collect($params)->except('_token');
 
-        // $data->user_id = Auth::guard('user')->user()->id;
+        $data->user_id = Auth::guard('user')->user()->id;
         $data->ip = $this->ip;
         $data->fName = $collection['first_name'];
         $data->lName = $collection['last_name'];

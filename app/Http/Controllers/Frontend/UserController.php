@@ -124,13 +124,15 @@ class UserController extends BaseController
     public function accountUpdate(Request $request)
     {
 
-        // $this->validate($request, [
-        //     'first_name' =>  'required',
-        //     'last_name' =>  'required',
-        //     'email' =>  'required',
-        //     // 'video' =>  'max:50000',
+        // $id = Auth::guard('user')->user()->id;
+        // User::find($id)->update([
+        //     'first_name'=> $request->first_name,
+        //     'last_name'=>$request->last_name,
+        //     'email'=> $request->email,
         // ]);
-    $request->validate([
+        // return redirect()->back()->with('success', 'Account Details successfully updated');
+
+        $request->validate([
             'first_name' => 'required',
             'email' => 'required|email|unique:users,email,' . Auth::user()->id,
             'last_name' => 'required'

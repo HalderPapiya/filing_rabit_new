@@ -150,10 +150,13 @@ $products = App\Models\Product::limit(7)->get();
                     <h4>Newsletter Subscription</h4>
                     <form action="{{route('frontend.news_letter')}}" method="POST" class="tnp-subscription">
                        @csrf
-                        <input type="text" name="name" placeholder="Your name">
+                        <input type="text" name="name" placeholder="Your name"  class="form-control @error('name') is-invalid @enderror"> 
+                        @error('name')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
 
-                        <input type="email" name="email" placeholder="Your email">
-                        <input class="tnp-button" type="submit" value="Count me in!">
+                        <input type="email" name="email" placeholder="Your email" class="form-control @error('email') is-invalid @enderror">
+                        @error('email')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+
+                        <input class="tnp-button" type="submit" value="Contact me in!">
                     </form>
                 </div>
             </div>

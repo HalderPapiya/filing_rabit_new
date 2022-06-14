@@ -55,15 +55,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" value="{{$address?$address->fName : ''}}" name="first_name" class="form-control @error('fName') is-invalid @enderror">
-                                    @error('fName')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                    <input type="text" value="{{$address?$address->fName : ''}}" name="first_name" class="form-control @error('first_name') is-invalid @enderror">
+                                    @error('first_name')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" value="{{$address?$address->lName : ''}}" name="last_name" class="form-control @error('lName') is-invalid @enderror">
-                                    @error('lName')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                    <input type="text" value="{{$address?$address->lName : ''}}" name="last_name" class="form-control @error('last_name') is-invalid @enderror">
+                                    @error('last_name')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
                             </div>
                             <div class="col-12">
@@ -155,8 +155,15 @@
                                 </div>
                             </div>
                             <div class="col-12">
+                                @if(!$address)
                                 <button type="submit" class="btn ur-submit-button w-auto">Save Address</button>
+                                @else
+                                <button type="submit" class="btn ur-submit-button w-auto">Update Address</button>
+                                @endif
                             </div>
+                            @if (Session::get('Success'))
+                                <div class="alert alert-success"> {{Session::get('Success')}} </div>
+                            @endif
                         </div>
                     </form>
                 </div>
