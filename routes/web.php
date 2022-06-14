@@ -55,8 +55,6 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
     Route::get('/cart/show', [App\Http\Controllers\Frontend\CartController::class, 'cartView'])->name('cart.show');
-
-
 });
 
 // -------------------Cart---------------------
@@ -95,7 +93,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/account', [App\Http\Controllers\Frontend\UserController::class, 'account'])->name('account');
         Route::post('/change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword'])->name('change-password');
         Route::post('/update-account', [App\Http\Controllers\Frontend\UserController::class, 'accountUpdate'])->name('update-account');
-        
+
         // ------------Business Service---------------------//
         Route::get('/businessService/new', [App\Http\Controllers\User\BusinessServiceController::class, 'newBusiness'])->name('businessService.new');
         Route::get('/businessService/new/show', [App\Http\Controllers\User\BusinessServiceController::class, 'showNewBusiness'])->name('businessService.newShow');
@@ -422,8 +420,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // -----------------------Report-----------------------
 
-        Route::get('/news-letter', [App\Http\Controllers\Admin\ReportController::class, 'newsLetterList'])->name('business_type.index');
-        
+        Route::get('/news-letter', [App\Http\Controllers\Admin\ReportController::class, 'newsLetterList'])->name('news-letter.index');
+        Route::get('/enquiry', [App\Http\Controllers\Admin\ReportController::class, 'enquiryList'])->name('enquiry.index');
+
+        // -----------------------Order-----------------------
+        Route::get('/order-list', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('order.index');
+        Route::get('/order/details/{id}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('order.show');
+        Route::get('/{id}/status/{status}', [App\Http\Controllers\Admin\OrderController::class, 'status'])->name('order.status');
     });
 });
 

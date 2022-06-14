@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\NewsLetterContract;
 use App\Http\Controllers\BaseController;
+use App\Models\Enquiry;
 use Illuminate\Http\Request;
 
 class ReportController extends BaseController
@@ -32,7 +33,7 @@ class ReportController extends BaseController
     {
         $data = $this->newsLetterRepository->listNewsLetters();
         // dd($blogs);
-        $this->setPageTitle('Report News Letter', 'List of all News Letters');
+        $this->setPageTitle('Report News Letter', 'List of All News Letters');
         return view('admin.report.news-letter', compact('data'));
     }
 /**
@@ -42,10 +43,10 @@ class ReportController extends BaseController
      */
     public function enquiryList()
     {
-        $data = $this->newsLetterRepository->listNewsLetters();
+        $data = Enquiry::get();
         // dd($blogs);
-        $this->setPageTitle('Report News Letter', 'List of all News Letters');
-        return view('admin.report.news-letter', compact('data'));
+        $this->setPageTitle('Report Enquiry', 'List of All Enquiries');
+        return view('admin.report.enquiry', compact('data'));
     }
    
 }

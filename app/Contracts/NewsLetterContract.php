@@ -15,6 +15,7 @@ interface NewsLetterContract
      * @return mixed
      */
     public function listNewsLetters(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
+    // public function listEnquiries(string $order = 'id', string $sort = 'desc', array $columns = ['*']);
 
     /**
      * @param int $id

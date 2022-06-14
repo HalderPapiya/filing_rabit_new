@@ -24,10 +24,11 @@ class NewsLetterRepository extends BaseRepository implements NewsLetterContract
      * NewsLetterRepository constructor.
      * @param NewsLetter $model
      */
-    public function __construct(NewsLetter $model)
+    public function __construct(NewsLetter $model, Enquiry $enquiryModel)
     {
-        parent::__construct($model);
+        parent::__construct($model , $enquiryModel);
         $this->model = $model;
+        $this->model = $enquiryModel;
     }
 
     /**
@@ -40,6 +41,10 @@ class NewsLetterRepository extends BaseRepository implements NewsLetterContract
     {
         return $this->all($columns, $order, $sort);
     }
+    // public function listEnquiries(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    // {
+    //     return $this->enquiryModel->all($columns, $order, $sort);
+    // }
 
     /**
      * @param int $id
