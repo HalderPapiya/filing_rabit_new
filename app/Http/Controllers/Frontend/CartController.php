@@ -131,7 +131,7 @@ class CartController extends BaseController
                 $data->save();
             }
             // dd('test');
-            
+
             // return $this->responseRedirect('product.cart', 'Successfully, added to cart!', 'success', false, false);
             return redirect('product/cart');
             // return redirect()->route('product.cart')->with('success', 'Add to Cart Successfully');
@@ -151,23 +151,37 @@ class CartController extends BaseController
         // dd($request->all());
         // die;
         // 
-        $this->validate($request, [
-            'fname' =>  'required',
-            'lname' =>  'required',
-            'email' =>  'required',
-            'mobile' =>  'required|integer|digits:10',
-            'billing_country' =>  'required',
-            'billing_state' =>  'required',
-            // 'mobile' =>  'required',
-        ], [
-            'fname.*' => 'First Name Required!',
-            'lname.*' => 'First Name Required!',
-            'billing_country.*' => 'Billing Country Required!',
-            'billing_state.*' => 'Billing State Required!',
-        ]);
+        // $this->validate($request, [
+        //     'fname' =>  'required',
+        //     'lname' =>  'required',
+        //     'email' =>  'required',
+        //     'mobile' =>  'required|integer|digits:10',
+        //     'billing_country' =>  'required',
+        //     'billing_state' =>  'required',
+        //     // 'mobile' =>  'required',
+        // ], [
+        //     'fname.*' => 'First Name Required!',
+        //     'lname.*' => 'First Name Required!',
+        //     'billing_country.*' => 'Billing Country Required!',
+        //     'billing_state.*' => 'Billing State Required!',
+        // ]);
 
         try {
-            
+            $this->validate($request, [
+                'fname' =>  'required',
+                'lname' =>  'required',
+                'email' =>  'required',
+                'mobile' =>  'required|integer|digits:10',
+                'billing_country' =>  'required',
+                'billing_state' =>  'required',
+                // 'mobile' =>  'required',
+            ], [
+                'fname.*' => 'First Name Required!',
+                'lname.*' => 'First Name Required!',
+                'billing_country.*' => 'Billing Country Required!',
+                'billing_state.*' => 'Billing State Required!',
+            ]);
+
             // dd($request->all());
             $order_no = "FR" . mt_rand();
             if (Auth::guard('user')->user()) {
@@ -222,7 +236,7 @@ class CartController extends BaseController
                         'mobile' => $request->mobile,
                         'billing_country' => $request->billing_country,
                         'billing_state' => $request->billing_state,
-                        'amount' => $request->amount,
+                        'amount' => $cartValue->price,
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
@@ -286,7 +300,7 @@ class CartController extends BaseController
                         'mobile' => $request->mobile,
                         'billing_country' => $request->billing_country,
                         'billing_state' => $request->billing_state,
-                        'amount' => $request->amount,
+                        'amount' => $cartValue->price,
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
