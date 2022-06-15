@@ -50,6 +50,18 @@
                                 <h4 class="mb-2">Order Id: {{$order->order_no ? $order->order_no: ''}}</h4>
                                 <h6 class="mb-2">Product Name : {{$order->productDetails ? $order->productDetails->name: ''}}</h6>
                                 <h6 class="mb-2">Price: ₹.{{ $order->amount}}/-</h6>
+                                @if($order->status = 1)
+                                <h6 class="mb-2">Order Status: New</h6>
+                                @elseif($order->status = 2)
+                                <h6 class="mb-2">Order Status: Confirm</h6>
+                                @elseif($order->status = 3)
+                                <h6 class="mb-2">Order Status: Shipped</h6>
+                                @elseif($order->status = 4)
+                                <h6 class="mb-2">Order Status: Deliveredr</h6>
+                                @elseif($order->status = 5)
+                                <h6 class="mb-2">Order Status: Cancel</h6>
+                                @endif
+                                {{-- $orders --}}
                                 {{-- @foreach ($order->orderProduct as $orderProduct)
                                        
                                 @endforeach --}}

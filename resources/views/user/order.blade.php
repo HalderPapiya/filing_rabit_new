@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+-@extends('frontend.layouts.master')
 @section('content')
 <section class="banner-area cart-banner">
     <div class="container">
