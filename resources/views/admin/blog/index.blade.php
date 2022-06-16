@@ -36,7 +36,7 @@
                                     <tr>
                                       <td><img src="{{URL::to('/').'/uploads/blog/'}}{{$blog->image}}" width="60" /></td>
                                         <td>{{ $blog['title'] }}</td>
-                                        <td>{{ $blog['description'] }}</td>
+                                        <td>{!!  (substr($blog['description'], 0, 100). '...') !!}</td>
                                         
                                             {{-- <td>{{ $category['slug'] }}</td> --}}
                                         

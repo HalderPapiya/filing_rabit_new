@@ -45,13 +45,13 @@ class CartController extends BaseController
         // dd($users);
         // $user_id =;
         if (Auth::guard('user')->user()) {
-            $address = Address::where('user_id',  Auth::guard('user')->user()->id)->first();
+            $address = Address::where('user_id',  Auth::guard('user')->user()->id)->latest()->first();
 
             $userCarts = Cart::where('user_id',  Auth::guard('user')->user()->id)->get();
             // dd($address);
         } else {
             $userCarts = Cart::where('ip', $this->ip)->get();
-            $address = Address::where('ip', $this->ip)->First();
+            $address = Address::where('ip', $this->ip)->latest()->first();
 
             //     // dd($userCarts);
         }
@@ -203,21 +203,36 @@ class CartController extends BaseController
                 $data->save();
 
 
+                $address= Address::where('user_id',Auth::guard('user')->user()->id)->first();
+                // dd($address);
+                // if($address!="")
+                // {
+                //    Address::where('user_id',Auth::guard('user')->user())->update([
+                //             'ip'=> $this->ip,
+                //             'fName'=>$request->fname,
+                //             'lName'=>$request->lName,
+                //             'country'=>$request->country,
+                //             'state'=>$request->state,
+                //             'phone'=>$request->phone,
+                //             'email'=> $request->email,
+                //         ]);
+                    
+                // }else{
+                    
+                    $data = new Address;
+                    $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                    $data->ip = $this->ip;
+                    $data->fName =  $request->fname;
+                    $data->lName = $request->lname;
+                    $data->country = $request->billing_state;
+                    $data->state = $request->billing_state;
+                    $data->phone = $request->mobile;
+                    $data->email = $request->email;
+                    $data->save();
+                // }
+               
 
                 $orderId = $data->id;
-
-
-                $data = new Address;
-                $data->user_id = Auth::guard('user')->user()->id ?? 0;
-                $data->ip = $this->ip;
-                $data->fName =  $request->fname;
-                $data->lName = $request->lname;
-                $data->country = $request->billing_state;
-                $data->state = $request->billing_state;
-                $data->phone = $request->mobile;
-                $data->email = $request->email;
-                $data->save();
-
 
                 $cartData = Cart::where('ip', $this->ip)->get();
                 // if()
@@ -304,6 +319,17 @@ class CartController extends BaseController
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+                if ($request->coupon_code_id != '') {
+                    CouponUsage::insert([
+                        'coupon_code_id' => $request->coupon_code_id,
+                        'coupon_code' => $request->coupon_code,
+                        'discount' => $request->discount,
+                        'total_checkout_amount' => $request->total_checkout_amount,
+                        'final_amount' => $request->amount,
+                        'user_id' => Auth::guard('user')->user()->id ?? 0,
+                        'user_ip' => $this->ip,
+                    ]);
+                }
             }
             $emptyCart = Cart::where('ip', $this->ip)->delete();
             return view('easebuzz_gateway');
