@@ -37,8 +37,8 @@
                             @foreach($businessServices as $businessService)
                                     <tr>
                                         <td>{{ 'user 1' }}</td>
-                                        <td>{{ $businessService->category['title'] }}</td>
-                                        <td>{{ $businessService->subcategory['title'] }}</td>
+                                        <td>{{ $businessService->category?$businessService->category['title']: "NA" }}</td>
+                                        <td>{{ $businessService->subcategory?$businessService->subcategory['title'] :"NA" }}</td>
                                         <td>{{ $businessService['title'] }}</td>
                                         
                                             {{-- <td>{{ $category['slug'] }}</td> --}}

@@ -32,11 +32,11 @@
                 <span class="app-menu__label">Subcategory</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class="app-menu__item sub-subcategory {{ request()->is('admin/sub-subcategory*') ? 'active' : '' }}" href="{{ route('admin.sub-subcategory.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Sub-Subcategory</span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="app-menu__item why-us {{ request()->is('admin/why-us*') ? 'active' : '' }}" href="{{ route('admin.why-us.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Why Us</span>

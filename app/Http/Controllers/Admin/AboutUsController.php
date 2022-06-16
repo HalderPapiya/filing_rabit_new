@@ -57,6 +57,9 @@ class AboutUsController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'description' =>  'required',
+            'image1' =>  'required|mimes:jpeg,img,jpg,svg,png',
+            'image2' =>  'required|mimes:jpeg,img,jpg,svg,png',
         ]);
 
         $params = $request->except('_token');
@@ -90,6 +93,9 @@ class AboutUsController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'description' =>  'required',
+            'image1' =>  'mimes:jpeg,img,jpg,svg,png',
+            'image2' =>  'mimes:jpeg,img,jpg,svg,png',
         ]);
 
         $params = $request->except('_token');

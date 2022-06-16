@@ -57,6 +57,17 @@ class ContactUsController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'banner' =>  'required|mimes:jpeg,img,jpg,svg,png',
+            'image' =>  'required|mimes:jpeg,img,jpg,svg,png',
+            'email' =>  'required',
+            'address' =>  'required',
+            'sales_phone' =>  'required|integer|digits:10',
+            'support_phone' =>  'required|integer|digits:10',
+            'facebook_link' =>  'required|url',
+            'twitter_link' =>  'required|url',
+            'youtube_link' =>  'required',
+            'instagram_link	' =>  'required',
+            'pinterest_link	' =>  'required',
         ]);
 
         $params = $request->except('_token');
@@ -90,6 +101,19 @@ class ContactUsController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'banner' =>  'mimes:jpeg,img,jpg,svg,png',
+            'image' =>  'mimes:jpeg,img,jpg,svg,png',
+            'email' =>  'required',
+            'address' =>  'required',
+            'sales_phone' =>  'required|integer|digits:10',
+            'support_phone' =>  'required|integer|digits:10',
+            'facebook_link' =>  'required|url',
+            'twitter_link' =>  'required|url',
+            'youtube_link' =>  'required',
+            'instagram_link	' =>  'required',
+            'pinterest_link	' =>  'required',
+            // 'instagram_link	' =>  'required',
+            // 'instagram_link	' =>  'required',
         ]);
 
         $params = $request->except('_token');

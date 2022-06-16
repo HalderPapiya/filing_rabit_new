@@ -538,22 +538,25 @@
 <script>
     $("input[name='payment_method']").change(function() {
         if ($(this).val() == 1) {
+
+            var key = "798F29SEFR";
+
             $('#checkout_btn').html('Proceed to Payment (UPI/Net Banking/Card)');
             $('#checkout_btn').attr('type', 'button');
             $('#checkout_btn').attr('id', 'ebz-checkout-btn');
-            var easebuzzCheckout = new EasebuzzCheckout(key, 'prod');
             $('#ebz-checkout-btn').on('click', function() {
-                console.log('Hello');
-                
-                // var options = {
-                //     access_key: access_key, // access key received via Initiate Payment
-                //     onResponse: (response) => {
-                //         console.log(response);
-                //     },
-                //     theme: "#123456" // color hex
-                // }
+                // console.log('Hello');
+            var easebuzzCheckout = new EasebuzzCheckout(key	, 'prod');
+                console.log(easebuzzCheckout);
+                var options = {
+                    access_key: 'IXUNVY2IC4', // access key received via Initiate Payment
+                    onResponse: (response) => {
+                        console.log(response);
+                    },
+                    theme: "#123456" // color hex
+                }
 
-                // easebuzzCheckout.initiatePayment(options);
+                easebuzzCheckout.initiatePayment(options);
             })
         } else {
             $('#ebz-checkout-btn').attr('id', 'checkout_btn')

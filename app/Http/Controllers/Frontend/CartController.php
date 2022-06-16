@@ -332,7 +332,8 @@ class CartController extends BaseController
                 }
             }
             $emptyCart = Cart::where('ip', $this->ip)->delete();
-            return view('easebuzz_gateway');
+            // return view('easebuzz_gateway');
+            return view('frontend.thankyou');
 
             // return redirect()->back()->with('message', 'Order successful');
             // if ($request->check) {

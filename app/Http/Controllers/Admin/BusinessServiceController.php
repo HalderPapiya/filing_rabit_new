@@ -74,6 +74,8 @@ class BusinessServiceController extends BaseController
             'categoryId' =>  'required',
             'subcategoryId' =>  'required',
             'packageId' =>  'required',
+            'description' =>  'required',
+            'image' =>  'required|mimes:jpeg,img,jpg,svg,png',
         ]);
 
         $params = $request->except('_token');
@@ -117,6 +119,11 @@ class BusinessServiceController extends BaseController
     {
             $this->validate($request, [
                 'title' =>  'required',
+                'categoryId' =>  'required',
+                'subcategoryId' =>  'required',
+                'packageId' =>  'required',
+                'description' =>  'required',
+                'image' =>  'mimes:jpeg,img,jpg,svg,png',
             ]);
     
             $params = $request->except('_token');

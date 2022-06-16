@@ -93,6 +93,7 @@ class WhyUsController extends BaseController
         $this->validate($request, [
             'title' =>  'required',
             'description' =>  'required',
+            'image' =>  'mimes:jpeg,img,jpg,svg,png',
         ]);
 
         $params = $request->except('_token');

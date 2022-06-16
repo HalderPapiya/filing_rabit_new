@@ -57,6 +57,7 @@ class TestimonialController extends BaseController
     {
         $this->validate($request, [
             'description' =>  'required',
+            'image' =>  'required|mimes:jpeg,img,jpg,svg,png',
         ]);
 
         $params = $request->except('_token');
@@ -90,6 +91,7 @@ class TestimonialController extends BaseController
     {
         $this->validate($request, [
             'description' =>  'required',
+            'image' =>  'mimes:jpeg,img,jpg,svg,png',
         ]);
 
         $params = $request->except('_token');
