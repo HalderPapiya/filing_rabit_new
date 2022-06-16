@@ -57,6 +57,8 @@ class BlogController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'description' =>  'required',
+            'image' =>  'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $params = $request->except('_token');
@@ -90,6 +92,8 @@ class BlogController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'description' =>  'required',
+            'image' =>  'mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $params = $request->except('_token');

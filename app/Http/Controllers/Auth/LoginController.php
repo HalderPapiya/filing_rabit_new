@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -130,24 +131,25 @@ class LoginController extends Controller
         //     return redirect()->to('/');
         // }
         // check if they're an existing user
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('email', $user->email)->where('google_id', $user->id)->get();
         // if ($existingUser) {
         //     if (Auth::loginUsingId($existingUser->id)) {
         //         // dd(Auth::guard('user')->user());
         //         return redirect()->to('/')->with('success', 'LoggedIn');
         //     }
         // } 
-        $existingUser = User::where('google_id', $user->id)->first();
-// dd($existingUser);
-            if($existingUser){
-                // Auth::login($existingUser);
-                // // dd('here');
+        // $existingUser = User::where('google_id', $user->id)->first();
+        // dd($existingUser);
 
-                // return  redirect('/');
-                return response()->json(['success' => true, 'message' => 'Login successful', "redirect_url" => url('/')], 200);
+        if (count($existingUser) > 0) {
+            // dd($_SERVER);
+            Auth::guard('user')->loginUsingId($existingUser[0]->id);
+            // // dd('here');
+            // dd(Auth::guard('user')->check());
 
-            }
-        else {
+            return  redirect('/')->with(['success' => true, 'message' => 'Login successful']);
+            // return response()->json(['success' => true, 'message' => 'Login successful', "redirect_url" => url('/')], 200);
+        } else {
             // create a new user
             $newUser   = new User;
             $newUser->first_name  = explode(' ', $user->name)[0];
@@ -158,8 +160,8 @@ class LoginController extends Controller
             $newUser->save();
             $existingUser = $newUser;
 
-            if (Auth::loginUsingId($existingUser->id)) {
-                return redirect()->to('/')->with('success', 'LoggedIn');
+            if (Auth::guard('user')->loginUsingId($existingUser->id)) {
+                return redirect()->to('/')->with(['success' => true, 'message' => 'Login successful']);
             }
         }
         return redirect()->to('/')->with('success', 'loggedIn');
