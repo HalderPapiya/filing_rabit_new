@@ -573,6 +573,8 @@
     </section> --}}
 
     <!-- ==================== Product FAQ ==================== -->
+   {{-- {{ dd(count($faqs))}} --}}
+    @if(count($faqs)>0)
     <section class="py-4 py-md-5 faq">
         <div class="container">
             <div class="row">
@@ -692,4 +694,5 @@
             </div>
         </div>
     </section>
+    @endif
     @endsection

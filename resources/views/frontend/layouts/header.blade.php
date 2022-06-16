@@ -48,7 +48,7 @@ $contactUs = App\Models\ContactUs::orderBy('id', 'desc')->first();
                         
                           <div class="dropdown-menu profile_drop" aria-labelledby="dropdownMenuLink">
                               <div class="user_datils">
-                                <h6>{{Auth::user()->first_name . ' ' . Auth::user()->last_name}}</h6>
+                                <h6>{{ Auth::user()?Auth::user()->first_name . ' ' . Auth::user()->last_name:"" }}</h6>
                                 {{-- <p>Customer Id: <span>1234567890</span></p> --}}
                               </div>
                               <h6>Account</h6>

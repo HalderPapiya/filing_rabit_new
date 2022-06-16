@@ -73,6 +73,7 @@ class ProductController extends BaseController
         $product = $this->productRepository->findProductById($id);
         $productDes = Description::where('product_id', $product->id)->get();
         $faqs = Setting::where('key', 'faq')->where('product_id', $product->id)->get();
+        // dd($faqs);
         // $faqs = $this->settingRepository->listFaqs();
         return view('frontend.product_details', compact('product', 'productDes', 'faqs'));
     }

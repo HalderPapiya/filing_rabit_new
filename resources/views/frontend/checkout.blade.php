@@ -308,19 +308,20 @@
                                 </a>
                                 <p class="text-center">or</p>
                                 <div class="login_wrap">
-                                    <form name="loginform" id="loginform" action="" method="POST">
+                                    <form id="loginform">
                                         <p class="login-username">
                                             <label for="user">Email Address</label>
                                             <input type="text" name="user_email" id="user_email" class="input" value="{{ old('user_email') }}" size="20" placeholder="Enter Username" autocomplete="user_email" autofocus>
 
                                         </p>
-                                        <p class="login-password">
+                                        <p class="login-password mb-2">
                                             <label for="pass">Password</label>
                                             <input type="password" name="password" id="password" class="input" value="{{ old('password') }}" size="20" placeholder="Enter Password" autocomplete="email" autofocus>
                                         </p>
+                                        <p class="text-right mb-2"><a class="forgot" href="{{ route('forget.password.get') }}">Forgot Password?</a></p>
                                         <p class="login-submit">
                                             <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
-                                            <input type="hidden" name="redirect_to" value="https://localhost:8000/">
+                                            <input type="hidden" name="redirect_to" value="https://filingrabbit.in">
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form>
@@ -425,64 +426,73 @@
 <script>
     // ----------------Registartion-----------------
     $('#registerForm').on('submit', function(event) {
-        event.preventDefault();
-        var email = $("input[name=regs_email]").val();
-        var password = $("input[name=regs_password]").val();
-        var confirm_password = $("input[name=reg_con_password]").val();
-        $.ajax({
-            type: 'POST',
-            dataType: 'JSON',
-            url: "{{route('user.registration')}}",
-            data: {
-                _token: '{{csrf_token()}}',
-                email: email,
-                password: password,
-                confirm_password: confirm_password
-            },
-            success: function(response) {
-                if (response.success == true) {
-                    $('#regMessage').addClass('text-success').html(response.message);
-                } else {
-                    $('#regMessage').addClass('text-danger').html(response.message);
+            event.preventDefault();
+            // alert();
+            var regs_email = $("input[name=regs_email]").val();
+            var password = $("input[name=regs_password]").val();
+            var confirm_password = $("input[name=reg_con_password]").val();
+            // var email = $(this).data('email');
+            // var password = $(this).data('password');
+            // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            // "_token": "{{ csrf_token() }}",
+            // var CSRF_TOKEN : "{{ csrf_token() }}",
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: "{{route('user.registration')}}",
+                data: {
+                    _token: '{{csrf_token()}}',
+                    email: regs_email,
+                    password: password,
+                    confirm_password: confirm_password
+                },
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#regMessage').addClass('text-success').html(response.message);
+                        $('#registerModal').modal('hide');
+                    } else {
+                        $('#regMessage').addClass('text-danger').html(response.message);
+                    }
+                },
+                error: function(response) {
+                    $('#regMessage').html(response.message);
+                    // console.log(error)
                 }
-            },
-            error: function(response) {
-                $('#regMessage').html(response.message);
-                // console.log(error)
-            }
+            });
         });
-    });
     // ----------login------------
     $('#loginform').on('submit', function(event) {
-        event.preventDefault();
-        // alert('log');
-        var email = $("input[name=user_email]").val();
-        var password = $("input[name=password]").val();
+            event.preventDefault();
+            var email = $("input[name=user_email]").val();
+            var password = $("input[name=password]").val();
 
-        $.ajax({
-            type: 'POST',
-            dataType: 'JSON',
-            url: "{{ url('user_login') }}",
-            data: {
-                _token: '{{csrf_token()}}',
-                email: email,
-                password: password
-            },
-            success: function(response) {
-                if (response.success) {
-                    // window.location.href = "user/dashboard";
-                    window.location.href = "cart";
-                } else {
-                    $('#loginMessage').addClass('text-danger').html(response.message);
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: "{{ url('user_login') }}",
+                data: {
+                    _token: '{{csrf_token()}}',
+                    email: email,
+                    password: password
+                },
+                success: function(response) {
+                    // console.log(response);
+                    if (response.success) {
+                        // window.location.href = "user/dashboard";
+                        // window.location.href = response.redirect_url;
+                        $('#loginModal').modal('hide');
+                        $("#loginlinktext").html('<a href="' + "{{route('user.dashboard')}}" + '" class="nav-link">My Profile</a>')
+                    } else {
+                        $('#loginMessage').addClass('text-danger').html(response.message);
+                    }
+                },
+                error: function(response) {
+                    // $('#regMessage').html(response.error);
+                    // console.log(error)
+                    $('#loginMessage').html(response.message);
                 }
-            },
-            error: function(response) {
-                // $('#regMessage').html(response.error);
-                // console.log(error)
-                $('#loginMessage').html(response.message);
-            }
+            });
         });
-    });
 </script>
 <script>
     // enable tooltips everywhere

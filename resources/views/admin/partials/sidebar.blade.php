@@ -98,6 +98,11 @@
             </a>
         </li>
         <li>
+            <a class="app-menu__item package {{ request()->is('admin/order-list*') ? 'active' : '' }}" href="{{ route('admin.order.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Order</span>
+            </a>
+        </li>
+        <li>
             <a class="app-menu__item business_type {{ request()->is('admin/business_type*') ? 'active' : '' }}" href="{{ route('admin.business_type.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Business Type</span>
             </a>

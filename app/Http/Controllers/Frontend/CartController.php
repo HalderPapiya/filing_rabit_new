@@ -306,7 +306,7 @@ class CartController extends BaseController
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
             }
             $emptyCart = Cart::where('ip', $this->ip)->delete();
-            return view('frontend.thankyou');
+            return view('easebuzz_gateway');
 
             // return redirect()->back()->with('message', 'Order successful');
             // if ($request->check) {

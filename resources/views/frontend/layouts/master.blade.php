@@ -210,6 +210,7 @@
                 success: function(response) {
                     if (response.success == true) {
                         $('#regMessage').addClass('text-success').html(response.message);
+                        $('#registerModal').modal('hide');
                     } else {
                         $('#regMessage').addClass('text-danger').html(response.message);
                     }

@@ -26,6 +26,7 @@
                             <tr>
                                
                                 <th class="text-center"> Order Id </th>
+                                <th class="text-center"> User Name </th>
                                 <th class="text-center"> Product Name </th>
                                 <th class="text-center"> Country </th>
                                 <th class="text-center"> State </th>
@@ -44,11 +45,12 @@
                             @php $sum = $sum + $order->amount; @endphp
                                     <tr>
                                         <td class="text-center">{{$order->order_no ? $order->order_no: ''}}</td>
-                                        <td class="text-center">{{$order->productDetails ? $order->productDetails->name: ''}}</td>
-                                        <td class="text-center">{{$order->user->userAddress ? $order->user->userAddress->country: ''}}</td>
-                                        {{-- <td class="text-center">{{$order->productDetails ? $order->productDetails->name: ''}}</td> --}}
-                                        {{-- <td class="text-center">{{$order->productDetails ? $order->productDetails->name: ''}}</td> --}}
-                                        {{-- <td class="text-center">{{$order->productDetails ? $order->productDetails->name: ''}}</td> --}}
+                                        <td class="text-center">{{ $order->fname .' '. $order->lname ? $order->fname .' '. $order->lname: "NA"}}</td>
+                                        <td class="text-center">{{$order->productDetails ? $order->productDetails->name: 'NA'}}</td>
+                                        <td class="text-center">{{$order->billing_country ? $order->billing_country: 'NA'}}</td>
+                                        <td class="text-center">{{$order->billing_state ? $order->billing_state: 'NA'}}</td>
+                                        <td class="text-center">{{$order->mobile ? $order->mobile: ''}}</td>
+                                        <td class="text-center">{{$order->email ? $order->email: ''}}</td>
                                         
                                         <td class="text-center">₹.{{ $order->amount}}/-</td>
                                         <td class="text-center">
