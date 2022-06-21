@@ -27,7 +27,7 @@
                               
                                 <th> Title </th>
                                 <th> Key </th>
-                                <th> DEscription </th>
+                                <th> Description </th>
                                 <th class="text-center"> Status </th>
                                 <th style="width:100px; min-width:100px;" class="text-center">Action</th>
                             </tr>
@@ -39,6 +39,7 @@
                                         <td>{{ $data['title'] }}</td>
                                         <td>{{ $data['key'] }}</td>
                                         <td>{{ $data['description'] }}</td>
+                                        {{-- <td>{!!  (substr($data->description?$data->description: 'NA', 0, 100). '...') !!}</td> --}}
                                         
                                             {{-- <td>{{ $category['slug'] }}</td> --}}
                                         

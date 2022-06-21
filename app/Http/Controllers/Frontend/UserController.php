@@ -56,21 +56,21 @@ class UserController extends BaseController
 
         // }
         // dd($orderProducts);
-        return view('user.order', compact('orders', 'orderProducts' ,'ipWiseOrders'));
+        return view('user.order', compact('orders', 'orderProducts', 'ipWiseOrders'));
     }
     public function orderInvoice($id)
     {
         // $ipWiseOrders = Order::where('ip', $this->ip)->get();
         // dd($ipWiseOrders);
-        $orders = Order::where('id',$id)->findOrFail($id);
+        $orders = Order::where('id', $id)->findOrFail($id);
         // dd($orders);
         // foreach ($orders as $key => $order) {
-        $orderProducts = OrderProduct::where('order_id' , $orders->id)->get();
+        $orderProducts = OrderProduct::where('order_id', $orders->id)->get();
         // dd($orderProducts);
         return view('user.order-invoice', compact('orders', 'orderProducts'));
         // }
         // dd($orderProducts);
-        return view('user.order', compact('orders', 'orderProducts' ,'ipWiseOrders'));
+        return view('user.order', compact('orders', 'orderProducts', 'ipWiseOrders'));
     }
 
     public function download()
@@ -184,7 +184,7 @@ class UserController extends BaseController
         // $user = User::first();
         $userPassword = $user->password;
         // dd($userPassword);
-        if (!Hash::check($request->new_password, $userPassword)) {
+        if (!Hash::check($request->password, $userPassword)) {
             return back()->withErrors(['password' => 'password not match']);
         }
         $id = Auth::guard('user')->user()->id;

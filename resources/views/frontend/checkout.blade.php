@@ -52,8 +52,8 @@
                     <a href="#">Click here to enter your code</a>
                 </p>
             </div> --}}
-            <form action="{{ route('product.order') }}" method="POST">
-                @csrf
+            <form action="#" method="POST">
+                {{-- @csrf --}}
                 @if (count($data))
                     <div class="row checkout-card">
                         <div class="col-md-5 checkout_left">
@@ -109,7 +109,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">State</label>
-                                            <select name="billing_state"
+                                            <select name="billing_state" id="billing_state"
                                                 class="form-control @error('billing_state') is-invalid @enderror">
                                                 <option>--Select State--</option>
                                                 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -154,9 +154,9 @@
                                             <label for="">
                                                 Phone
                                             </label>
-                                            <input type="number" name="mobile"
+                                            <input type="text" name="mobile"
                                                 value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->mobile : '' }}"
-                                                class="form-control @error('mobile') is-invalid @enderror" required>
+                                                class="form-control @error('mobile') is-invalid @enderror">
                                             @error('mobile')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong></span>
@@ -354,6 +354,7 @@
                                 throughout this website, and for other purposes described in our
                                 <a href="{{ route('frontend.privacy-policy') }}">privacy policy</a>.
                             </p>
+
                             {{-- <form action="{{route('product.order')}}" method="POST">
         @csrf --}}
 
@@ -361,9 +362,13 @@
                                 {{ Auth::guard('user')->user() ? '' : 'disabled' }}>
                                 Proceed To Checkout
                             </button> --}}
-                            <button type="submit" class="btn ur-submit-button text-uppercase" id="checkout_btn"
+                            {{-- <button type="submit" class="btn ur-submit-button text-uppercase" id="checkout_btn"
                             >
                             Proceed To Checkout
+                            </button> --}}
+                            <button type="button" class="btn ur-submit-button text-uppercase" id="checkout_btn"
+                                {{ Auth::guard('user')->user() ? '' : 'disabled' }}>
+                                Proceed To Checkout
                             </button>
 
                             {{-- </form> --}}
@@ -530,17 +535,97 @@
     <script type="text/javascript" src="{{ url('frontend/js/slick.min.js') }}"></script>
     <script type="text/javascript" src="{{ url('frontend/js/custom.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js"></script> --}}
     <script src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js"></script>
 </body>
 
 </html>
-
 <script>
     $("input[name='payment_method']").change(function() {
+        
+        if ($(this).val() == 1) {
+           
+            $('#checkout_btn').html('Proceed to Payment (UPI/Net Banking/Card)');
+            $('#checkout_btn').attr('type', 'button');
+            $('#checkout_btn').attr('id', 'ebz-checkout-btn')
+            $('#ebz-checkout-btn').on('click', function() {
+                var fname = $("input[name=fname]").val();
+                var lname = $("input[name=lname]").val();
+                var billing_country = $("input[name=billing_country]").val();
+                var billing_state = $("#billing_state").val();
+                alert(billing_state);
+                var lname = $("input[name=lname]").val();
+                // var _token ={{csrf_token()}}.val,
+                // alert(token);
+                var mobile = Number($("input[name=mobile]").val());
+                alert(mobile);
+                var email = $("input[name=email]").val();
+                var amount = $("input[name=amount]").val();
+                $.ajax({
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    type: "POST",
+                    url: "{{ route('product.order') }}",
+                    data: {
+                        _token:"{{csrf_token()}}",
+                        txnid: "T3SAT0B5OL",
+                        productinfo: "A good product",
+                        firstname: fname,
+                        phone: mobile,
+                        email: email,
+                        amount: amount,
+                        lname: lname,
+                        billing_country: billing_country,
+                        billing_state: billing_state,
+                        // surl: "http://127.0.0.1:8000/product/cart",
+                        // furl: "http://127.0.0.1:8000/product/cart",
+                        // surl:url('product/easebuzz-webhook'),
+                        // furl: url('product/easebuzz-webhook'),
+                        hash: "{{ uniqid() }}",
+                    },
+                    success: function(res) {
+                        // if (res.success == 1) {
+                        if (JSON.parse(res).status == 1) {
+                            console.log(JSON.parse(res).data);
+
+                            window.location.href = JSON.parse(res).data;
+                            // window.location.href = res.success.data;
+                            // if(JSON.parse(res).data){
+                            //     window.location.href = "{{ route('product.order') }}"
+                            // }
+                        }
+                    }
+                })
+            });
+
+        } else {
+            $('#ebz-checkout-btn').attr('id', 'checkout_btn')
+            $('#checkout_btn').html('Proceed to Chekout');
+            $('#checkout_btn').attr('type', 'submit');
+        }
+    });
+</script>
+<script>
+    // var key = "798F29SEFR"; var salt = "IXUNVY2IC4";
+    // var easebuzzCheckout = new EasebuzzCheckout(key, 'prod');
+    // document.getElementById('ebz-checkout-btn').onclick = function(e){
+    //     e.preventDefault();
+    //     var options = {
+    //         access_key: key, // access key received via Initiate Payment
+    //         onResponse: (response) => {
+    //             console.log(response);
+    //         },
+    //         theme: "#123456" // color hex
+    //     }
+    //     easebuzzCheckout.initiatePayment(options);
+    // }
+    /* $("input[name='payment_method']").change(function() {
         if ($(this).val() == 1) {
 
-            var key = "798F29SEFR";
-
+            var key = "IXUNVY2IC4";
+            var access_key = "798F29SEFR";
+            
             $('#checkout_btn').html('Proceed to Payment (UPI/Net Banking/Card)');
             $('#checkout_btn').attr('type', 'button');
             $('#checkout_btn').attr('id', 'ebz-checkout-btn');
@@ -549,7 +634,7 @@
             var easebuzzCheckout = new EasebuzzCheckout(key	, 'prod');
                 console.log(easebuzzCheckout);
                 var options = {
-                    access_key: 'IXUNVY2IC4', // access key received via Initiate Payment
+                access_key: access_key, // access key received via Initiate Payment
                     onResponse: (response) => {
                         console.log(response);
                     },
@@ -563,7 +648,7 @@
             $('#checkout_btn').html('Proceed to Chekout');
             $('#checkout_btn').attr('type', 'submit');
         }
-    })
+    }) */
 </script>
 
 <script>

@@ -42,11 +42,11 @@
                 <span class="app-menu__label">Why Us</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class="app-menu__item businessService {{ request()->is('admin/businessService*') ? 'active' : '' }}" href="{{ route('admin.businessService.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Business Service</span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="app-menu__item package {{ request()->is('admin/package*') ? 'active' : '' }}" href="{{ route('admin.package.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Package</span>
@@ -102,11 +102,11 @@
                 <span class="app-menu__label">Order</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class="app-menu__item business_type {{ request()->is('admin/business_type*') ? 'active' : '' }}" href="{{ route('admin.business_type.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Business Type</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>
 

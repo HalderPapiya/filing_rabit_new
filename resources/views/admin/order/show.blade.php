@@ -26,7 +26,7 @@
                             <tr>
                                
                                 <th class="text-center"> Order Id </th>
-                                <th class="text-center"> User Name </th>
+                                <th class="text-center"> Billing User Name </th>
                                 <th class="text-center"> Product Name </th>
                                 <th class="text-center"> Country </th>
                                 <th class="text-center"> State </th>

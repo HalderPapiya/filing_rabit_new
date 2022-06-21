@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="product_id">Product <span class="m-l-5 text-danger"> *</span></label>
-                        <select name="product_id" id="product_id" class="form-control">
+                        <select name="product_id" id="product_id" class="form-control @error('product_id') is-invalid @enderror">
                             <option value="">--Select a product--</option>
                             @foreach($listProducts as $lps)
                             <option value="{{$lps->id}}">{{$lps->name}}</option>
@@ -55,13 +55,21 @@
 </div>
 @endsection
 @push('scripts')
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
         $("#btnSave").on("click", function() {
             if ($('#product_id').val() == '') {
                 alert('Please Select a category!')
                 return false
             }
+            $('#form1').submit();
+        })
+    })
+</script> --}}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#btnSave").on("click",function(){
             $('#form1').submit();
         })
     })

@@ -39,7 +39,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::get('/about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about-us');
 
     // ---------------enquiry------------------
-    Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.order');
+    Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.store');
     // -------------product-----------
     Route::get('/product-list', [App\Http\Controllers\Frontend\ProductController::class, 'index'])->name('all_product.list');
     Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');
@@ -69,6 +69,11 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::post('/transaction', [App\Http\Controllers\Frontend\CartController::class, 'transaction'])->name('transaction');
     // Route::post('/cart/coupon/check', [App\Http\Controllers\Frontend\CartController::class, 'couponCheck'])->name('cart.coupon.check');
     // Route::post('/order', [App\Http\Controllers\Frontend\CheckoutController::class, 'store'])->name('order');
+
+    Route::post('/initiatePayment', [App\Http\Controllers\Frontend\CartController::class, 'initiatePaymentLink'])->name('initiatePayment');
+
+    Route::post('/easebuzz-webhook', [App\Http\Controllers\Frontend\CartController::class, 'easebuzz_webhook']);
+    Route::get('/easebuzz-gateway', [App\Http\Controllers\Frontend\CartController::class, 'easebuzz_gateway']);
 });
 
 // ------------------------------------User-----------------------------//

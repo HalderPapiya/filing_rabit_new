@@ -18,6 +18,7 @@ use App\Contracts\CartContract;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\TryCatch;
+use App\Helper\Easebuzz;
 
 class CartController extends BaseController
 {
@@ -82,7 +83,9 @@ class CartController extends BaseController
         // return view('frontend.cart');
     }
 
-
+    function easebuzz_gateway (){
+        return View('frontend.thanktou');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -168,10 +171,10 @@ class CartController extends BaseController
 
         try {
             $this->validate($request, [
-                'fname' =>  'required',
+                'firstname' =>  'required',
                 'lname' =>  'required',
                 'email' =>  'required',
-                'mobile' =>  'required|integer|digits:10',
+                'phone' =>  'required|integer|digits:10',
                 'billing_country' =>  'required',
                 'billing_state' =>  'required',
                 // 'mobile' =>  'required',
@@ -182,26 +185,29 @@ class CartController extends BaseController
                 'billing_state.*' => 'Billing State Required!',
             ]);
 
+            $MERCHANT_KEY = "798F29SEFR";
+            $SALT = "IXUNVY2IC4";
+            $ENV = "prod"; // "test for test enviroment or "prod" for production enviroment
+    
             // dd($request->all());
             $order_no = "FR" . mt_rand();
+
+            // if user is logged in
             if (Auth::guard('user')->user()) {
                 // dd($request->all());
                 $data = new Order();
                 $data->user_id = Auth::guard('user')->user()->id ?? 0;
                 $data->ip = $this->ip;
                 $data->order_no = $order_no;
-                // $data->product_id = $request->product_id;
-                $data->fname = $request->fname;
+                $data->fname = $request->firstname;
                 $data->lname = $request->lname;
                 $data->email = $request->email;
-                $data->mobile = $request->mobile;
+                $data->mobile = $request->phone;
                 $data->billing_country = $request->billing_country;
                 $data->billing_state = $request->billing_state;
                 $data->amount = $request->amount;
                 $data->payment_method = $request->payment_method;
-                // $data->qty = 1;
                 $data->save();
-
 
                 $address= Address::where('user_id',Auth::guard('user')->user()->id)->first();
                 // dd($address);
@@ -224,9 +230,9 @@ class CartController extends BaseController
                     $data->ip = $this->ip;
                     $data->fName =  $request->fname;
                     $data->lName = $request->lname;
-                    $data->country = $request->billing_state;
+                    $data->country = $request->billing_country;
                     $data->state = $request->billing_state;
-                    $data->phone = $request->mobile;
+                    $data->phone = $request->phone;
                     $data->email = $request->email;
                     $data->save();
                 // }
@@ -245,16 +251,44 @@ class CartController extends BaseController
                         'user_id' => Auth::guard('user')->user()->id ?? 0,
                         'ip' => $this->ip,
                         'order_no' => $order_no,
-                        'fname' => $request->fname,
+                        'fname' => $request->firstname,
                         'lname' => $request->lname,
                         'email' => $request->email,
-                        'mobile' => $request->mobile,
+                        'mobile' => $request->phone,
                         'billing_country' => $request->billing_country,
                         'billing_state' => $request->billing_state,
                         'amount' => $cartValue->price,
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+
+                // cart delete
+                $emptyCart = Cart::where('user_id', Auth::guard('user')->user()->id)->delete();
+                
+                $postData = array(
+                    "txnid" => "TEST" . uniqid(),
+                    "firstname" => $request->firstname,
+                    "email" => $request->email,
+                    "phone" => $request->phone,
+                    "productinfo" => "Laptop",
+                    "surl" => url('product/easebuzz-webhook'),
+                    "furl" => url('product/easebuzz-webhook'),
+                    "amount" => $request->amount .'.00',
+                    "udf1" => "aaaa",
+                    "udf2" => "aaaa",
+                    "udf3" => "aaaa",
+                    "udf4" => "aaaa",
+                    "udf5" => "aaaa",
+                    "udf6" => "aaaa",
+                    "udf7" => "aaaa",
+                    "address1" => "aaaa",
+                    "address2" => "aaaa",
+                    "city" => "aaaa",
+                    "state" => "aaaa",
+                    "country" => "aaaa",
+                    "zipcode" => "123123",
+                );
+               
 
                 if ($request->coupon_code_id != '') {
                     CouponUsage::insert([
@@ -267,6 +301,14 @@ class CartController extends BaseController
                         'user_ip' => $this->ip,
                     ]);
                 }
+
+                // dd($postData);
+        
+                $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+                return $easebuzzObj->initiatePaymentAPI($postData);
+                
+
+                
             } else {
                 $data = new Order();
                 $data->user_id = Auth::guard('user')->user()->id ?? 0;
@@ -276,7 +318,7 @@ class CartController extends BaseController
                 $data->fname = $request->fname;
                 $data->lname = $request->lname;
                 $data->email = $request->email;
-                $data->mobile = $request->mobile;
+                $data->mobile = $request->phone;
                 $data->billing_country = $request->billing_country;
                 $data->billing_state = $request->billing_state;
                 $data->amount = $request->amount;
@@ -291,9 +333,9 @@ class CartController extends BaseController
                 $data->ip = $this->ip;
                 $data->fName =  $request->fname;
                 $data->lName = $request->lname;
-                $data->country = $request->billing_state;
+                $data->country = $request->billing_country;
                 $data->state = $request->billing_state;
-                $data->phone = $request->mobile;
+                $data->phone = $request->phone;
                 $data->email = $request->email;
                 $data->save();
 
@@ -312,13 +354,36 @@ class CartController extends BaseController
                         'fname' => $request->fname,
                         'lname' => $request->lname,
                         'email' => $request->email,
-                        'mobile' => $request->mobile,
+                        'mobile' => $request->phone,
                         'billing_country' => $request->billing_country,
                         'billing_state' => $request->billing_state,
                         'amount' => $cartValue->price,
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+                $postData = array(
+                    "txnid" => "TEST" . uniqid(),
+                    "firstname" => $request->firstname,
+                    "email" => $request->email,
+                    "phone" => $request->phone,
+                    "productinfo" => "Laptop",
+                    "surl" => url('product/easebuzz-webhook'),
+                    "furl" => url('product/easebuzz-webhook'),
+                    "amount" => $request->amount .'.00',
+                    "udf1" => "aaaa",
+                    "udf2" => "aaaa",
+                    "udf3" => "aaaa",
+                    "udf4" => "aaaa",
+                    "udf5" => "aaaa",
+                    "udf6" => "aaaa",
+                    "udf7" => "aaaa",
+                    "address1" => "aaaa",
+                    "address2" => "aaaa",
+                    "city" => "aaaa",
+                    "state" => "aaaa",
+                    "country" => "aaaa",
+                    "zipcode" => "123123",
+                );
                 if ($request->coupon_code_id != '') {
                     CouponUsage::insert([
                         'coupon_code_id' => $request->coupon_code_id,
@@ -330,8 +395,15 @@ class CartController extends BaseController
                         'user_ip' => $this->ip,
                     ]);
                 }
+
+               
+        
+                // dd($postData);
+        
+                $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+                return $easebuzzObj->initiatePaymentAPI($postData);
             }
-            $emptyCart = Cart::where('ip', $this->ip)->delete();
+            // $emptyCart = Cart::where('ip', $this->ip)->delete();
             // return view('easebuzz_gateway');
             return view('frontend.thankyou');
 
@@ -369,6 +441,66 @@ class CartController extends BaseController
             throw $error;
         }
     }
+    function easebuzz_webhook (Request $request){
+        dd("here");
+        $easebuzzObj = new Easebuzz($MERCHANT_KEY = null, $this->SALT, $ENV = null);
+        $result = $easebuzzObj->easebuzzResponse($request->all());
+        dd($result);
+        $res = json_decode($result);
+        $status = $res->status;
+        if ($status == 1){
+            $data = $res->data;
+            $orderId = $data->txnid;
+            $status = $data->status;
+            if ($status == 'success'){
+                // here your update query
+                Order::where('id', $orderId)->update(['status_id' => 1]);
+                \Session::flash('successMessage', 'Successful..!');
+                return redirect('product/easebuzz-gateway');
+            }else{
+                \Session::flash('errorMessage', 'failed!');
+                return redirect('agent/add-money/v1/welcome');
+            }
+        }
+    }
+    public function initiatePaymentLink(Request $request)
+    {
+        $MERCHANT_KEY = "798F29SEFR";
+        $SALT = "IXUNVY2IC4";
+        $ENV = "prod"; // "test for test enviroment or "prod" for production enviroment
+
+        
+        $postData = array(
+            "txnid" => "TEST" . uniqid(),
+            "firstname" => $request->firstname,
+            "email" => $request->email,
+            "phone" => $request->phone,
+            "productinfo" => "Laptop",
+            "surl" => "http://127.0.0.1:8000/product/cart",
+            "furl" => "http://127.0.0.1:8000/product/cart",
+            "amount" => $request->amount .'.00',
+            "udf1" => "aaaa",
+            "udf2" => "aaaa",
+            "udf3" => "aaaa",
+            "udf4" => "aaaa",
+            "udf5" => "aaaa",
+            "udf6" => "aaaa",
+            "udf7" => "aaaa",
+            "address1" => "aaaa",
+            "address2" => "aaaa",
+            "city" => "aaaa",
+            "state" => "aaaa",
+            "country" => "aaaa",
+            "zipcode" => "123123",
+        );
+
+        // dd($postData);
+
+        $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+        return $easebuzzObj->initiatePaymentAPI($postData);
+    }
+
+    
     public function cartCheckout(Request $request)
     {
         if (Auth::guard('user')->user()) {

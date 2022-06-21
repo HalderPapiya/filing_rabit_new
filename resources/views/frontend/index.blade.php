@@ -94,7 +94,7 @@
                                     <a href="{{ route('frontend.product.show',$product->id)}}">{{$product->name}}</a>
                                 </h3>
                                 <a href="{{ route('frontend.product.show',$product->id)}}" class="btn btn-theme-outline">
-                                    <span class="price">{{$product->type_one_price}}</span>
+                                    <span class="price">{{$product->type_one_price?$product->type_one_price:"MAKE AN ENQUIRY FOR PRICING" }}</span>
                                 </a>
                             </figcaption>
                         </div>

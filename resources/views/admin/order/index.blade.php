@@ -35,7 +35,7 @@
                         <tbody>
                             @foreach($data as $data)
                                     <tr>
-                                        <td class="text-center">{{ $data->user->first_name . ' '.  $data->user->last_name }}</td>
+                                        <td class="text-center">{{ $data->user?$data->user->first_name . ' '.  $data->user->last_name: "NA" }}</td>
                                         <td class="text-center">{{ $data['order_no'] }}</td>
                                         <td class="text-center">{{ $data['mobile'] }}</td>
                                         <td class="text-center">

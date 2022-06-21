@@ -37,6 +37,7 @@
                                     <tr>
                                         <td>{{  $data->productDetails ? $data->productDetails['name'] : ''}}</td>
                                         <td>{!! $data['description'] !!}</td>
+                                        {{-- {!!  (substr($data['description'], 0, 100). '...') !!} --}}
                                         <td class="text-center">
                                             <div class="toggle-button-cover margin-auto">
                                                 <div class="button-cover">

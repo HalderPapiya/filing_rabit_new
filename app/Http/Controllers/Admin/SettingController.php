@@ -33,7 +33,7 @@ class SettingController extends BaseController
     public function index()
     {
         $data = $this->settingRepository->listSettings();
-        // dd($datas);
+        // dd($data);
         $this->setPageTitle('Settings', 'List of all settings');
         return view('admin.settings.index', compact('data'));
     }
@@ -64,6 +64,9 @@ class SettingController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'key' =>  'required',
+            'product_id' =>  'required',
+            'description' =>  'required',
         ]);
 
         $params = $request->except('_token');
@@ -97,6 +100,9 @@ class SettingController extends BaseController
     {
         $this->validate($request, [
             'title' =>  'required',
+            'key' =>  'required',
+            'description' =>  'required',
+            'product_id' =>  'required',
         ]);
 
         $params = $request->except('_token');
