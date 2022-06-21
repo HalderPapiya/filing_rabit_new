@@ -275,9 +275,7 @@
                     if (response.success) {
                         // window.location.href = "user/dashboard";
                         // window.location.href = response.redirect_url;
-                        $('#loginModal').addClass('text-success').html(response.message);
-                        setTimeout($('#loginModal').modal('hide'), 10000);
-                        // $('#loginModal').modal('hide');
+                        $('#loginModal').modal('hide');
                         $("#loginlinktext").html('<a href="' + "{{ route('user.dashboard') }}" +
                             '" class="nav-link">My Profile</a>')
                     } else {

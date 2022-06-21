@@ -40,6 +40,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
 
     // ---------------enquiry------------------
     Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.store');
+   
     // -------------product-----------
     Route::get('/product-list', [App\Http\Controllers\Frontend\ProductController::class, 'index'])->name('all_product.list');
     Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');
@@ -172,6 +173,9 @@ Route::prefix('user')->name('user.')->group(function () {
         // Route::post('/add_on_bid/update', [App\Http\Controllers\User\AddOnBidController::class, 'update'])->name('add_on_bid.update');
         // Route::get('/add_on_bid/{id}/delete', [App\Http\Controllers\User\AddOnBidController::class, 'destroy'])->name('add_on_bid.delete');
         // Route::post('/add_on_bid/updateStatus', [App\Http\Controllers\User\AddOnBidController::class, 'updateStatus'])->name('add_on_bid.updateStatus');
+
+
+        
     });
 });
 
@@ -432,6 +436,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/order-list', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('order.index');
         Route::get('/order/details/{id}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('order.show');
         Route::get('/{id}/status/{status}', [App\Http\Controllers\Admin\OrderController::class, 'status'])->name('order.status');
+
+        // Route::post('/enquiry', [App\Http\Controllers\Admin\ReportController::class, 'enquiry'])->name('enquiry.index');
     });
 });
 

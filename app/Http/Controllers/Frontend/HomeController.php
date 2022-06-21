@@ -128,7 +128,7 @@ class HomeController extends BaseController
         $this->validate($request, [
             'name' =>  'required',
             'email' =>  'required',
-            'phone' =>  'required',
+            'phone' =>  'required|integer|digits:10',
         ]);
 
         $params = $request->except('_token');
@@ -138,7 +138,7 @@ class HomeController extends BaseController
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while enquiry.', 'error', true, true);
         }
-        return $this->responseRedirectBack('Send message successfully.', 'success', false, false);
+        return $this->responseRedirectBack('Send message successfully.', 'Success', false, false);
         // return view('frontend.news_letter');
         // return $this->responseRedirect('frontend.news_letter', 'News Letter has been added successfully', 'success', false, false);
     }

@@ -47,7 +47,7 @@ class UserController extends BaseController
     }
     public function order()
     {
-        $ipWiseOrders = Order::where('ip', $this->ip)->get();
+        // $ipWiseOrders = Order::where('ip', $this->ip)->get();
         // dd($ipWiseOrders);
         $orders = Order::where('user_id', Auth::guard('user')->user()->id)->get();
         // dd($orders);
@@ -56,16 +56,16 @@ class UserController extends BaseController
 
         // }
         // dd($orderProducts);
-        return view('user.order', compact('orders', 'orderProducts', 'ipWiseOrders'));
+        return view('user.order', compact('orders', 'orderProducts'));
     }
     public function orderInvoice($id)
     {
-        // $ipWiseOrders = Order::where('ip', $this->ip)->get();
+        $ipWiseOrders = Order::where('ip', $this->ip)->get();
         // dd($ipWiseOrders);
         $orders = Order::where('id', $id)->findOrFail($id);
         // dd($orders);
         // foreach ($orders as $key => $order) {
-        $orderProducts = OrderProduct::where('order_id', $orders->id)->get();
+        $orderProducts = OrderProduct::where('order_no', $orders->order_no)->get();
         // dd($orderProducts);
         return view('user.order-invoice', compact('orders', 'orderProducts'));
         // }

@@ -43,8 +43,13 @@ class NewsLetterController extends BaseController
 
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while creating News Letter.', 'error', true, true);
+        }else{
+        // return back()->with('Success', 'Subscribed successFully');
+        return $this->responseRedirectBack('Subscribed successFully.', 'success', false, false);
+            
         }
-        return view('frontend.news_letter');
+        
+        // return view('frontend.news_letter');
         // return $this->responseRedirect('frontend.news_letter', 'News Letter has been added successfully', 'success', false, false);
     }
 

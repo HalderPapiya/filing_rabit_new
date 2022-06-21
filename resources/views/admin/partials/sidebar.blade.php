@@ -102,6 +102,17 @@
                 <span class="app-menu__label">Order</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item package {{ request()->is('admin/news-letter*') ? 'active' : '' }}" href="{{ route('admin.news-letter.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">News Letter</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item package {{ request()->is('admin/enquiry*') ? 'active' : '' }}" href="{{ route('admin.enquiry.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Enquiry</span>
+            </a>
+        </li>
+        
         {{-- <li>
             <a class="app-menu__item business_type {{ request()->is('admin/business_type*') ? 'active' : '' }}" href="{{ route('admin.business_type.index') }}"><i class="app-menu__icon fa fa-group"></i>
                 <span class="app-menu__label">Business Type</span>

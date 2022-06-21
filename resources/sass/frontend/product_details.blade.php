@@ -99,9 +99,6 @@
                                     
                                     <div class="col-9">
                                         <button type="submit" class="btn ur-submit-button w-auto">Enqueire Now</button>
-                                        @if (Session::get('Success'))
-                                                <div class="alert alert-success"> {{Session::get('Success')}} </div>
-                                        @endif
                                     </div>
                                 </div>
                             </form>

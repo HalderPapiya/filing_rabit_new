@@ -6,7 +6,7 @@
             <h1><i class="fa fa-file"></i>User</h1>
             <p>User List</p>
         </div>
-        {{-- <a href="{{ route('admin.user.create') }}" class="btn btn-primary pull-right">Add New</a> --}}
+        
     </div>
     @include('admin.partials.flash')
     <div class="row">
