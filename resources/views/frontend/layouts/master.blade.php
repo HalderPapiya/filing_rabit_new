@@ -77,7 +77,10 @@
                                         </p>
                                         <p class="mt-4" id="loginMessage"></p>
                                     </form>
+                                    
                                 </div>
+                               
+
                                 <p class="text-center">Don't Have an Account?
                                     <a class="button button-primary" href="#" data-toggle="modal"
                                         data-target="#registerModal" data-dismiss="modal">
@@ -243,7 +246,8 @@
                 success: function(response) {
                     if (response.success == true) {
                         $('#regMessage').addClass('text-success').html(response.message);
-                        $('#registerModal').modal('hide');
+                        // $('#registerModal').modal('hide');
+                        setTimeout($('#registerModal').modal('hide'), 5000);
                     } else {
                         $('#regMessage').addClass('text-danger').html(response.message);
                     }
@@ -275,8 +279,8 @@
                     if (response.success) {
                         // window.location.href = "user/dashboard";
                         // window.location.href = response.redirect_url;
-                        $('#loginModal').addClass('text-success').html(response.message);
-                        setTimeout($('#loginModal').modal('hide'), 10000);
+                        $('#loginMessage').addClass('text-success').html(response.message);
+                        setTimeout($('#loginModal').modal('hide'), 5000);
                         // $('#loginModal').modal('hide');
                         $("#loginlinktext").html('<a href="' + "{{ route('user.dashboard') }}" +
                             '" class="nav-link">My Profile</a>')

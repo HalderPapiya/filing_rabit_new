@@ -89,11 +89,30 @@
                 <div class="row">
                     @foreach ($orders as $key => $order)
                         <div class="col-md-6 mb-3 dash-card-col">
-                            <div class="card card-body mb-0">
+                            <div class="card card-body mb-0 shadow-sm border-0">
                                 {{-- {{($loop->first ? '' : ', ').($order->order_no ? $order->order_no: '') . ' ' .($order->productDetails->name ? $order->productDetails->name: '')}} --}}
                                 {{-- @php if ($key == 2) {echo '...';break;} @endphp --}}
            
-                                <a href="{{ route('user.order.details', $order['id']) }}"><h5 class="mb-2">{{$order->order_no ? $order->order_no: ''}}</h5></a>
+                                <a href="{{ route('user.order.details', $order['id']) }}">
+                                    <h5 class="mb-2">{{$order->order_no ? $order->order_no: ''}}</h5>
+                                    <p class="mb-0">Price : {{$order->amount}}/-</p>
+                                    @if($order->status == 1)
+                                    <p class="mb-0"><small>Order Status: <b>New</b></small></p>
+                                    @elseif($order->status == 2)
+                                    <p class="mb-0"><small>Order Status: <b>Confirm</b></small></p>
+                                    @elseif($order->status == 3)
+                                    <p class="mb-0"><small>Order Status: <b>Shipped</b></small></p>
+                                    @elseif($order->status == 4)
+                                    <p class="mb-0"><small>Order Status: <b>Delivered</b></small></p>
+                                    @elseif($order->status == 5)
+                                    <p class="mb-0"><small>Order Status: <b>Canceled</b></small></p>
+                                    @endif
+                                </a>
+                                @if(!($order->status == 5))
+                                <a href="{{ route('user.order.cancel', $order['id']) }}">Cancel</a>
+                                @elseif($order->status == 5)
+                                <p class="mb-0"><small>Your Order is Canceled .</small></p>
+                                @endif
                                 {{-- @foreach ($order->orderProduct as $orderProduct)
                                        <h5 class="mb-2">{{$orderProduct->productDetails ? $orderProduct->productDetails->name: ''}}</h5>
                                 @endforeach --}}

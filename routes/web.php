@@ -94,6 +94,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/order', [App\Http\Controllers\Frontend\UserController::class, 'order'])->name('order');
         Route::get('/order/details/{id}', [App\Http\Controllers\Frontend\UserController::class, 'orderInvoice'])->name('order.details');
+        Route::get('/order/cancel/{id}', [App\Http\Controllers\Frontend\UserController::class, 'orderCancel'])->name('order.cancel');
         Route::get('/download', [App\Http\Controllers\Frontend\UserController::class, 'download'])->name('download');
         Route::get('/address', [App\Http\Controllers\Frontend\AddressController::class, 'index'])->name('address');
         Route::post('/address-store/{id?}', [App\Http\Controllers\Frontend\AddressController::class, 'store'])->name('address.store');

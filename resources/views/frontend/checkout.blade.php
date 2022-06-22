@@ -708,8 +708,9 @@
                     if (response.success) {
                         // window.location.href = "user/dashboard";
                         // window.location.href = response.redirect_url;
-                        $('#loginModal').modal('hide');
-                        $("#loginlinktext").html('<a href="' + "{{route('user.dashboard')}}" + '" class="nav-link">My Profile</a>')
+                        // $('#loginModal').modal('hide');
+                        location.reload(true);
+                        // $("#loginlinktext").html('<a href="' + "{{route('user.dashboard')}}" + '" class="nav-link">My Profile</a>')
                     } else {
                         $('#loginMessage').addClass('text-danger').html(response.message);
                     }

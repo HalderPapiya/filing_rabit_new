@@ -72,6 +72,20 @@ class UserController extends BaseController
         // dd($orderProducts);
         return view('user.order', compact('orders', 'orderProducts', 'ipWiseOrders'));
     }
+    public function orderCancel($id)
+    {
+        $data= Order::where('id', $id)->first();
+        // $data = $this->findOneOrFail($params['id']);
+        // $collection = collect($params)->except('_token');
+        $data->status = 5;
+        $data->save();
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while change status .', 'error', true, true);
+        }
+        return $this->responseRedirectBack( 'Cancel successfully', 'success', false, false);
+
+        return $data; 
+    }
 
     public function download()
     {
