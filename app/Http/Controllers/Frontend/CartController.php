@@ -73,6 +73,8 @@ class CartController extends BaseController
 
     {
         $data = $this->cartRepository->viewByIp();
+        // dd($data);
+        // $data = $this->cartRepository->viewByIp();
 
         if ($data) {
             return view('frontend.cart', compact('data'));
@@ -619,6 +621,14 @@ class CartController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $data= Cart::where('id', $id)->first();
+        // dd($data);
+        // ->delete();
+        // $data = Cart::findOrFail($id);
+        $data->delete();
+        if (!$data) {
+            return $this->responseRedirectBack('Error occurred while deleting cart.', 'error', true, true);
+        }
+        return $this->responseRedirectBack( 'Cart deleted successfully', 'success', false, false);
     }
 }

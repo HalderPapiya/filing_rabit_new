@@ -56,6 +56,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
     Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
     Route::get('/cart/show', [App\Http\Controllers\Frontend\CartController::class, 'cartView'])->name('cart.show');
+    Route::get('/cart/delete/{id}', [App\Http\Controllers\Frontend\CartController::class, 'destroy'])->name('cart.delete');
 });
 
 // -------------------Cart---------------------

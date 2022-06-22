@@ -56,9 +56,17 @@
             </div> --}}
             <div class="col-md-12">
                 <div class="cart-details-table">
-                    <h5>Cart Totals</h5>
+                    <h5>Cart Total: {{count($data)}}</h5>
                     @foreach ($data as $cartValue)
                     <table class="table checkout-table mb-4 border">
+                        <tr>
+                            <th>
+                                <a href="{{ route('frontend.cart.delete', $cartValue->id) }}">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
                         <tr>
                             <th>Product:</th>
                             <th>Price</th>
