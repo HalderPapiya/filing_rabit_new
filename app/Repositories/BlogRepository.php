@@ -34,7 +34,7 @@ class BlogRepository extends BaseRepository implements BlogContract
      * @param array $columns
      * @return mixed
      */
-    public function listBlogs(string $order = 'id', string $sort = 'desc', array $columns = ['*'])
+    public function listBlogs(string $order = 'id', string $sort = 'asc', array $columns = ['*'])
     {
         return $this->all($columns, $order, $sort);
     }
