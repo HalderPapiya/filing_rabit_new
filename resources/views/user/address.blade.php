@@ -79,7 +79,7 @@
                                     <input type="text" name="country" value="{{$address->country}}" class="form-control">
                                 </div>
                             </div> --}}
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Country / Region</label>
                                    <select name="country" value="{{$address?$address->country : ''}}" class="form-control @error('country') is-invalid @enderror">
@@ -92,7 +92,14 @@
                                         </select>
                                         @error('country')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
-                            </div> 
+                            </div>  --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Country / Region</label>
+                                    <input type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{$address?$address->country : ''}}" placeholder="Country name">
+                                    @error('country')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Street Address</label>
@@ -113,13 +120,20 @@
                                     @error('city')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" name="state" value="{{$address?$address->state : ''}}" class="form-control @error('state') is-invalid @enderror">
+                                    @error('state')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                                </div>
+                            </div>
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>State</label>
                                     <input type="text" name="state" value="{{$address->state}}" class="form-control">
                                 </div>
                             </div> --}}
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>State</label>
                                     <select name="state" value="{{$address?$address->state : ''}}" class="form-control @error('state') is-invalid @enderror">
@@ -132,7 +146,7 @@
                                     </select>
                                     @error('state')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Pin</label>
