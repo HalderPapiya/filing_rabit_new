@@ -57,12 +57,12 @@ class CartController extends BaseController
             //     // dd($userCarts);
         }
         $data = $this->cartRepository->viewByIp();
-        if (Auth::guard('user')->user()) {
-            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
-        } else {
+        // if (Auth::guard('user')->user()) {
+        //     $data = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
+        // } else {
             // $data = $this->cartRepository->viewByIp();
-            $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
-        }
+        //     $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
+        // }
 
         if ($data) {
             return view('frontend.checkout', compact('data', 'address'));
@@ -78,14 +78,14 @@ class CartController extends BaseController
     public function cartView()
 
     {
-        if (Auth::guard('user')->user()) {
-            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
-        } else {
-            // $data = $this->cartRepository->viewByIp();
-            $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
-        }
+        // if (Auth::guard('user')->user()) {
+        //     $data = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
+        // } else {
+        //     // $data = $this->cartRepository->viewByIp();
+        //     $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
+        // }
         // dd($data);
-        // $data = $this->cartRepository->viewByIp();
+        $data = $this->cartRepository->viewByIp();
 
         if ($data) {
             return view('frontend.cart', compact('data'));

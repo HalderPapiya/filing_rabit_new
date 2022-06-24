@@ -17,17 +17,17 @@
             <li class="{{ request()->is('user/account*') ? 'active' : '' }}">
                 <a href="{{ route('user.account') }}">Account Details</a>
             </li>
-            <li class="{{ request()->is('user/businessService/myBusiness*') || request()->is('user/business_add_on*') || request()->is('user/businessService/*') ? 'active' : '' }}">
+            {{-- <li class="{{ request()->is('user/businessService/myBusiness*') || request()->is('user/business_add_on*') || request()->is('user/businessService/*') ? 'active' : '' }}">
                 <a href="{{ route('user.businessService.myBusiness') }}">My Business</a>
-            </li>
+            </li> --}}
             {{--<li class="{{ request()->is('user/business_add_on*') ? 'active' : '' }}">
             <a href="{{ route('user.business_add_on.index') }}">Busisness Add On Listing</a>
             </li>--}}
 
 
-            <li class="{{ request()->is('user/businessServices*') ? 'active' : '' }}">
+            {{-- <li class="{{ request()->is('user/businessServices*') ? 'active' : '' }}">
                 <a href="{{ route('user.businessService.index') }}">Business Listing</a>
-            </li>
+            </li> --}}
             {{-- <li class="{{ request()->is('user/businessService/new*') ? 'active' : '' }}">
                 <a href="{{ route('user.businessService.newShow') }}">Business New Show</a>
             </li> --}}
@@ -41,9 +41,9 @@
             {{-- <li class="">
                 <a href="{{ route('user.add_on_bid.index') }}">Busisness Addon Bid List</a>
             </li> --}}
-            <li class="{{ request()->is('user/user/mail*') ? 'active' : '' }}">
+            {{-- <li class="{{ request()->is('user/user/mail*') ? 'active' : '' }}">
                 <a href="{{ route('user.mail.index') }}">Mail</a>
-            </li>
+            </li> --}}
             @elseif(Auth::user()->type == 'broker')
             <li class="{{ request()->is('user/broker*') ? 'active' : '' }}">
                 <a href="{{ route('user.broker.business.index') }}">Bid</a>

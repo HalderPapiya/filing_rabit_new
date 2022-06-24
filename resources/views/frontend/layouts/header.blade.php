@@ -38,10 +38,11 @@ if (Auth::guard('user')->user()) {
             </div>
             <div class="col-sm-7 text-center text-sm-right">
                 <ul id="menu-topmenu" class="top-menu">
-                    <li><a href="{{ route('user.businessService.index') }}">Business</a></li>
+                    {{-- <li><a href="{{ route('user.businessService.index') }}">Business</a></li> --}}
                     <li><a href="{{ route('frontend.about-us') }}" class="nav-link">About Us</a></li>
                     <li><a href="{{ route('frontend.blog') }}" class="nav-link">Blog</a></li>
                     <li><a href="{{ route('frontend.contact-us') }}" class="nav-link">Contact Us</a></li>
+                    <li><a href="{{route('frontend.cart.show')}}" class="nav-link">Cart</a></li>
                     {{-- <!-- @auth
                                     <li class="login_btn"><a href="{{ route('user.dashboard') }}" data-toggle="modal">My Profile</a></li>
 @else
@@ -76,7 +77,7 @@ if (Auth::guard('user')->user()) {
                                 <a class="dropdown-item"
                                     style="{{ request()->is('user/account*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}"
                                     href="{{ route('user.account') }}">Account Details</a>
-                                <a class="dropdown-item"
+                                {{-- <a class="dropdown-item"
                                     style="{{ request()->is('user/businessService/new*') ? 'background: transparent !important; color: #f1d231 !important; padding-left: 5px !important;' : '' }}"
                                     href="{{ route('user.businessService.myBusiness') }}">My Business</a>
                                 <a class="dropdown-item"
@@ -84,7 +85,7 @@ if (Auth::guard('user')->user()) {
                                     href="{{ route('user.businessService.new') }}">Business New</a>
                                 <a class="dropdown-item"
                                     style="{{ request()->is('user/user/mail*') ? 'text-warning' : '' }}"
-                                    href="{{ route('user.mail.index') }}">Mail</a>
+                                    href="{{ route('user.mail.index') }}">Mail</a> --}}
                                 <a class="dropdown-item" href="{{ url('user/logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"><b>Logout</b></a>
 
