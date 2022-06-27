@@ -64,7 +64,8 @@
                                         <div class="form-group">
                                             <label for=""> First Name </label>
                                             <input type="text" name="fname"
-                                                value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->first_name : '' }}"
+                                                {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->first_name : '' }}" --}}
+                                                value="{{$address ? $address->fName : '' }}"
                                                 class="form-control @error('fname') is-invalid @enderror">
                                             @error('fname')
                                                 <span class="invalid-feedback" role="alert">
@@ -76,10 +77,39 @@
                                         <div class="form-group">
                                             <label for=""> Last Name </label>
                                             <input type="text"
-                                                value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->last_name : '' }}"
+                                                {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->last_name : '' }}" --}}
+                                                value="{{$address ? $address->lName : '' }}"
                                                 name="lname"
                                                 class="form-control @error('lname') is-invalid @enderror">
                                             @error('lname')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for=""> Country </label>
+                                            <input type="text"
+                                                {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->last_name : '' }}" --}}
+                                                value="{{$address ? $address->country : '' }}"
+                                                name="billing_country"
+                                                class="form-control @error('billing_country') is-invalid @enderror">
+                                            @error('billing_country')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong></span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for=""> State </label>
+                                            <input type="text"
+                                                {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->last_name : '' }}" --}}
+                                                value="{{$address ? $address->state : '' }}"
+                                                name="billing_country"
+                                                class="form-control @error('billing_state') is-invalid @enderror">
+                                            @error('billing_state')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong></span>
                                             @enderror
@@ -105,8 +135,8 @@
                                             @enderror
                                         </div>
                                     </div> --}}
-                                    <input type="hidden" name="billing_country" value="India">
-                                    <div class="col-12">
+                                    {{-- <input type="hidden" name="billing_country" value="India"> --}}
+                                    {{-- <div class="col-12">
                                         <div class="form-group">
                                             <label for="">State</label>
                                             <select name="billing_state" id="billing_state"
@@ -148,14 +178,15 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">
                                                 Phone
                                             </label>
                                             <input type="text" name="mobile"
-                                                value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->mobile : '' }}"
+                                                {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->mobile : '' }}" --}}
+                                                value="{{$address ? $address->phone : '' }}"
                                                 class="form-control @error('mobile') is-invalid @enderror">
                                             @error('mobile')
                                                 <span class="invalid-feedback" role="alert">
@@ -169,7 +200,8 @@
                                                 Email address
                                             </label>
                                             <input type="email"
-                                                value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->email : '' }}"
+                                                {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->email : '' }}" --}}
+                                                value="{{$address ? $address->email : '' }}"
                                                 name="email"
                                                 class="form-control @error('email') is-invalid @enderror">
                                             @error('email')
