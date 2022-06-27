@@ -89,6 +89,12 @@
                             <input class="form-control @error('youtube_link') is-invalid @enderror" type="text" name="youtube_link" id="youtube_link" value="{{ old('youtube_link', $data->youtube_link) }}"/>
                             @error('youtube_link')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="control-label" for="linkedin_link">Linkedin Link <span class="m-l-5 text-danger"> *</span></label>
+                            <input class="form-control @error('linkedin_link') is-invalid @enderror" type="text" name="linkedin_link" id="linkedin_link" value="{{ old('linkedin_link', $data->linkedin_link) }}"/>
+                            @error('linkedin_link')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
+                        </div>
+                        
                     </div>
                 </form>
             </div>

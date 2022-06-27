@@ -65,9 +65,11 @@ class ContactUsController extends BaseController
             'support_phone' =>  'required|integer|digits:10',
             'facebook_link' =>  'required|url',
             'twitter_link' =>  'required|url',
-            'youtube_link' =>  'required',
-            'instagram_link	' =>  'required',
-            'pinterest_link	' =>  'required',
+            'youtube_link' =>  'required|url',
+            'instagram_link' =>  'required|url',
+            'pinterest_link' =>  'required|url',
+            'linkedin_link' =>  'required|url',
+            
         ]);
 
         $params = $request->except('_token');
@@ -87,7 +89,7 @@ class ContactUsController extends BaseController
     public function edit($id)
     {
         $data = $this->contactUsRepository->findContactUsById($id);
-
+// dd($data);
         $this->setPageTitle('Contact Us', 'Edit Contact Us : ' . $data->title);
         return view('admin.contact_us.edit', compact('data'));
     }
@@ -109,19 +111,18 @@ class ContactUsController extends BaseController
             'support_phone' =>  'required|integer|digits:10',
             'facebook_link' =>  'required|url',
             'twitter_link' =>  'required|url',
-            'youtube_link' =>  'required',
-            'instagram_link	' =>  'required',
-            'pinterest_link	' =>  'required',
-            // 'instagram_link	' =>  'required',
-            // 'instagram_link	' =>  'required',
+            'youtube_link' =>  'required|url',
+            'instagram_link' =>  'required|url',
+            'pinterest_link' =>  'required|url',
+            'linkedin_link' =>  'required|url',
         ]);
 
         $params = $request->except('_token');
 
-        //dd($params);
+        // dd($params);
 
         $data = $this->contactUsRepository->updateContactUs($params);
-
+// dd($data);
         if (!$data) {
             return $this->responseRedirectBack('Error occurred while updating contact us.', 'error', true, true);
         }

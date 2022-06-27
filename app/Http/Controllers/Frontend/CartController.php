@@ -56,13 +56,13 @@ class CartController extends BaseController
 
             //     // dd($userCarts);
         }
-        $data = $this->cartRepository->viewByIp();
-        // if (Auth::guard('user')->user()) {
-        //     $data = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
-        // } else {
+        // $data = $this->cartRepository->viewByIp();
+        if (Auth::guard('user')->user()) {
+            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('user_id', 0)->get();
+        } else {
             // $data = $this->cartRepository->viewByIp();
-        //     $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
-        // }
+            $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
+        }
 
         if ($data) {
             return view('frontend.checkout', compact('data', 'address'));
@@ -78,14 +78,15 @@ class CartController extends BaseController
     public function cartView()
 
     {
-        // if (Auth::guard('user')->user()) {
-        //     $data = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
-        // } else {
-        //     // $data = $this->cartRepository->viewByIp();
-        //     $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
-        // }
+        if (Auth::guard('user')->user()) {
+            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('user_id', 0)->get();
+            // dd($data);
+        } else {
+            // $data = $this->cartRepository->viewByIp();
+            $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
+        }
         // dd($data);
-        $data = $this->cartRepository->viewByIp();
+        // $data = $this->cartRepository->viewByIp();
 
         if ($data) {
             return view('frontend.cart', compact('data'));
@@ -126,27 +127,38 @@ class CartController extends BaseController
     {
         // dd($request->all());
         $cartExists = Cart::where('product_id', $request->product_id)->where('ip', $this->ip)->first();
+        $ipExists = Cart::where('user_id', 0)->where('ip', $this->ip)->get();
+        // dd($ipExists);
         if (!$cartExists) {
             // dd('here');
-            if (Auth::guard('user')->user()) {
-                $data = new Cart();
-                $data->user_id = Auth::guard('user')->user()->id;
-                $data->ip = $this->ip;
-                $data->product_id = $request->product_id;
-                $data->variation_type_one = $request->variation_type_one;
-                $data->price = $request->product_price;
-                $data->qty = 1;
-                $data->save();
-            } else {
-                $data = new Cart();
-                $data->ip = $this->ip;
-                $data->user_id = Auth::guard('user')->user()->id ?? 0;
-                $data->product_id = $request->product_id;
-                $data->variation_type_one = $request->variation_type_one;
-                $data->price = $request->product_price;
-                $data->qty = 1;
-                $data->save();
+            if($ipExists){
+                // foreach($cartExists as $cartExist){
+                $data= Cart::where('user_id', 0)->update([
+                                'user_id'=>  Auth::guard('user')->user()->id ?? 0,
+                                
+                            ]);
+                    
+                        // }
             }
+            // if (Auth::guard('user')->user()) {
+                $data = new Cart();
+                $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                $data->ip = $this->ip;
+                $data->product_id = $request->product_id;
+                $data->variation_type_one = $request->variation_type_one;
+                $data->price = $request->product_price;
+                $data->qty = 1;
+                $data->save();
+            // } else {
+            //     $data = new Cart();
+            //     $data->ip = $this->ip;
+            //     $data->user_id = Auth::guard('user')->user()->id ?? 0;
+            //     $data->product_id = $request->product_id;
+            //     $data->variation_type_one = $request->variation_type_one;
+            //     $data->price = $request->product_price;
+            //     $data->qty = 1;
+            //     $data->save();
+            // }
             // dd('test');
 
             // return $this->responseRedirect('product.cart', 'Successfully, added to cart!', 'success', false, false);

@@ -82,7 +82,8 @@ class ContactUsRepository extends BaseRepository implements ContactUsContract
             $data->instagram_link = $collection['instagram_link'];
             $data->pinterest_link = $collection['pinterest_link'];
             $data->youtube_link = $collection['youtube_link'];
-
+            $data->linkedin_link = $collection['linkedin_link'];
+            
             $image = $collection['image'];
             $imageName = time() . "." . $image->getClientOriginalName();
             $image->move("uploads/contact_us/", $imageName);
@@ -110,7 +111,8 @@ class ContactUsRepository extends BaseRepository implements ContactUsContract
      */
     public function updateContactUs(array $params)
     {
-        $data = $this->findOneOrFail($params['id']);
+        $data = $this->findContactUsById($params['id']);
+        
         $collection = collect($params)->except('_token');
 
 
@@ -124,6 +126,8 @@ class ContactUsRepository extends BaseRepository implements ContactUsContract
         $data->instagram_link = $collection['instagram_link'];
         $data->pinterest_link = $collection['pinterest_link'];
         $data->youtube_link = $collection['youtube_link'];
+        $data->linkedin_link = $collection['linkedin_link'];
+            
         if (isset($collection['image'])) {
             $image = $collection['image'];
             $imageName = time() . "." . $image->getClientOriginalName();
@@ -139,6 +143,27 @@ class ContactUsRepository extends BaseRepository implements ContactUsContract
             $uploadedImage = $imageName;
             $data->banner = $uploadedImage;
         }
+        $data->save();
+
+        return $data;
+
+
+
+
+        $data = $this->findCouponById($params['id']);
+        $collection = collect($params)->except('_token');
+
+        // $data->user_id = Auth::guard('user')->user()->id;
+        // $data = new Coupon;
+        $data->name = $collection['name'];
+        $data->coupon_code = $collection['coupon_code'];
+        $data->amount = $collection['amount'];
+        $data->max_time_of_use = $collection['max_time_of_use'];
+        $data->max_time_one_can_use = $collection['max_time_one_can_use'];
+        $data->no_of_usage = $collection['no_of_usage'];
+        $data->start_date = $collection['start_date'];
+        $data->end_date = $collection['end_date'];
+
         $data->save();
 
         return $data;

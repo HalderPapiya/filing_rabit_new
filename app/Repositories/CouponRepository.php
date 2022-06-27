@@ -95,7 +95,7 @@ class CouponRepository extends BaseRepository implements CouponContract
         $collection = collect($params)->except('_token');
 
         // $data->user_id = Auth::guard('user')->user()->id;
-        $data = new Coupon;
+        // $data = new Coupon;
         $data->name = $collection['name'];
         $data->coupon_code = $collection['coupon_code'];
         $data->amount = $collection['amount'];

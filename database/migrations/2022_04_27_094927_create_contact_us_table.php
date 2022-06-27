@@ -28,6 +28,7 @@ class CreateContactUsTable extends Migration
             $table->string('instagram_link');
             $table->string('pinterest_link');
             $table->string('youtube_link');
+            $table->string('linkedin_link');
             $table->tinyInteger('status')->default('1')->comment('1 = Active, 0 = Inactive');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

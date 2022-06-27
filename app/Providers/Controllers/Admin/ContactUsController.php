@@ -86,8 +86,10 @@ class ContactUsController extends BaseController
      */
     public function edit($id)
     {
+        dd(here);
+        // $data = $this->contactUsRepository->findContactUsById($id);
         $data = $this->contactUsRepository->findContactUsById($id);
-
+dd($data);
         $this->setPageTitle('Contact Us', 'Edit Contact Us : ' . $data->title);
         return view('admin.contact_us.edit', compact('data'));
     }
@@ -99,22 +101,20 @@ class ContactUsController extends BaseController
      */
     public function update(Request $request)
     {
-        $this->validate($request, [
-            'title' =>  'required',
-            'banner' =>  'mimes:jpeg,img,jpg,svg,png',
-            'image' =>  'mimes:jpeg,img,jpg,svg,png',
-            'email' =>  'required',
-            'address' =>  'required',
-            'sales_phone' =>  'required|integer|digits:10',
-            'support_phone' =>  'required|integer|digits:10',
-            'facebook_link' =>  'required|url',
-            'twitter_link' =>  'required|url',
-            'youtube_link' =>  'required',
-            'instagram_link	' =>  'required',
-            'pinterest_link	' =>  'required',
-            // 'instagram_link	' =>  'required',
-            // 'instagram_link	' =>  'required',
-        ]);
+        // $this->validate($request, [
+        //     'title' =>  'required',
+        //     'banner' =>  'mimes:jpeg,img,jpg,svg,png',
+        //     'image' =>  'mimes:jpeg,img,jpg,svg,png',
+        //     'email' =>  'required',
+        //     'address' =>  'required',
+        //     'sales_phone' =>  'required|integer|digits:10',
+        //     'support_phone' =>  'required|integer|digits:10',
+        //     'facebook_link' =>  'required|url',
+        //     'twitter_link' =>  'required|url',
+        //     'youtube_link' =>  'required',
+        //     'instagram_link	' =>  'required',
+        //     'pinterest_link	' =>  'required',
+        // ]);
 
         $params = $request->except('_token');
 
