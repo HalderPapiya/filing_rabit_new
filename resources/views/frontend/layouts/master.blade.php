@@ -195,15 +195,32 @@
                                 <a href="https://filingrabbit.in/" rel="home" class="login_logo">
                                     <img src="{{ asset('frontend/img/logo.png') }}">
                                 </a>
-                                <form action="{{ route('frontend.consultant') }}" method="GET">
-                                    @csrf
-                                    <input class="form-control mb-3" name="name" type="text" placeholder="Your Name">
-                                    <input class="form-control mb-3" name="email" type="email"
+                                <form action="" method="POST" id="consultantForm">
+                                    {{-- @csrf --}}
+                                    <input class="form-control  mb-3 @error('cons_name') is-invalid @enderror" name="cons_name" type="text" placeholder="Your Name">
+                                    @error('cons_name')
+                                        <span class="invalid-feedback" role="alert"><strong>
+                                                {{ $message }}</strong></span>
+                                    @enderror
+                                    <input class="form-control  mb-3 @error('cons_email') is-invalid @enderror " name="cons_email" type="email"
                                         placeholder="Email Address">
-                                    <input class="form-control mb-3" name="phone" type="tel"
+                                    @error('cons_email')
+                                        <span class="invalid-feedback" role="alert"><strong>
+                                                {{ $message }}</strong></span>
+                                    @enderror
+                                    <input class="form-control  mb-3  @error('phone') is-invalid @enderror " name="phone" type="tel"
                                         placeholder="Mobile Number">
-                                    <input class="form-control mb-3" name="city" type="text" placeholder="City">
+                                    @error('phone')
+                                        <span class="invalid-feedback" role="alert"><strong>
+                                                {{ $message }}</strong></span>
+                                    @enderror
+                                    <input class="form-control  mb-3 @error('city') is-invalid @enderror" name="city" type="text" placeholder="City">
+                                    @error('city')
+                                        <span class="invalid-feedback" role="alert"><strong>
+                                                {{ $message }}</strong></span>
+                                    @enderror
                                     <input class="btn submit_btn" type="submit" value="GET STARTED NOW">
+                                    <p class="mt-4" id="consMessage"></p>
                                 </form>
                             </div>
                         </div>
@@ -222,6 +239,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
 
     <script type="text/javascript">
+        $('#consultantForm').on('submit', function(event) {
+            
+            event.preventDefault();
+            var cons_name = $("input[name=cons_name]").val();
+            var cons_email = $("input[name=cons_email]").val();
+            var phone = $("input[name=phone]").val();
+            var city = $("input[name=city]").val();
+           
+        
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: "{{ route('frontend.consultant') }}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    name: cons_name,
+                    email: cons_email,
+                    phone: phone,
+                    city: city,
+                },
+                success: function(response) {
+                    if (response.success == true) {
+                        alert('Booking Successful');
+                        // $('#consMessage').addClass('text-success').html(response.message);
+                        // alert('Booking Successful')
+                        setTimeout($('#consultation_modal').modal('hide'), 5000);
+                    } else {
+                        $('#consMessage').addClass('text-danger').html(response.message);
+                    }
+                },
+                error: function(response) {
+                    $('#consMessage').html(response.message);
+                    // console.log(error)
+                }
+            });
+        });
+
+
+
+
         $('#registerForm').on('submit', function(event) {
             event.preventDefault();
             // alert();

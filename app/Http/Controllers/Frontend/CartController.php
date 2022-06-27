@@ -205,7 +205,7 @@ class CartController extends BaseController
                 'billing_state' =>  'required',
                 // 'mobile' =>  'required',
             ], [
-                'fname.*' => 'First Name Required!',
+                'firstname.*' => 'First Name Required!',
                 'lname.*' => 'First Name Required!',
                 'billing_country.*' => 'Billing Country Required!',
                 'billing_state.*' => 'Billing State Required!',

@@ -374,8 +374,8 @@
                             </table>
                             <input type="radio" id="PO" name="payment_method" value="1">
                             <label>Pay Online</label><br>
-                            <input type="radio" id="cod" name="payment_method" value="2" checked>
-                            <label for="cod">Cash On Delivary</label><br>
+                            {{-- <input type="radio" id="cod" name="payment_method" value="2" checked>
+                            <label for="cod">Cash On Delivary</label><br> --}}
 
                             <div class="pay_box">
                                 <p>Pay securely by Credit or Debit card or internet banking through Easebuzz.</p>

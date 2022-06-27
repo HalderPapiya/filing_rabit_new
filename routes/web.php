@@ -40,7 +40,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
 
     // ---------------enquiry------------------
     Route::post('/enquiry/store', [App\Http\Controllers\Frontend\HomeController::class, 'enquiry'])->name('enquiry.store');
-   
+
     // -------------product-----------
     Route::get('/product-list', [App\Http\Controllers\Frontend\ProductController::class, 'index'])->name('all_product.list');
     Route::get('/product', [App\Http\Controllers\Frontend\ProductController::class, 'product'])->name('product');
@@ -54,7 +54,7 @@ Route::prefix('frontend')->name('frontend.')->group(function () {
     Route::get('/confidential-statement', [App\Http\Controllers\Frontend\PolicyController::class, 'confidentialStatements'])->name('confidential-statement');
 
     Route::post('/news_letter', [App\Http\Controllers\Frontend\NewsLetterController::class, 'store'])->name('news_letter');
-    Route::get('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
+    Route::post('/consultant', [App\Http\Controllers\Frontend\HomeController::class, 'store'])->name('consultant');
     Route::get('/cart/show', [App\Http\Controllers\Frontend\CartController::class, 'cartView'])->name('cart.show');
     Route::get('/cart/delete/{id}', [App\Http\Controllers\Frontend\CartController::class, 'destroy'])->name('cart.delete');
 });
@@ -177,7 +177,7 @@ Route::prefix('user')->name('user.')->group(function () {
         // Route::post('/add_on_bid/updateStatus', [App\Http\Controllers\User\AddOnBidController::class, 'updateStatus'])->name('add_on_bid.updateStatus');
 
 
-        
+
     });
 });
 

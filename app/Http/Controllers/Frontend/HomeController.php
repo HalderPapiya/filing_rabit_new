@@ -23,6 +23,7 @@ use App\Models\Description;
 use App\Models\Blog;
 use App\Models\IndustriesServe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends BaseController
 {
@@ -209,22 +210,27 @@ class HomeController extends BaseController
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' =>  'required',
             'email' =>  'required',
             'phone' =>  'required',
             'city' =>  'required',
         ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()->first()], 200);
+        }
+
 
         $params = $request->except('_token');
 
         $data = $this->consultantRepository->createConsultant($params);
 
-        if (!$data) {
-            return $this->responseRedirectBack('Error occurred while creating News Letter.', 'error', true, true);
+        if ($data) {
+            return response()->json(['success' => true, 'message' => 'Booking successfully'], 200);
         }
         // return view('frontend.index');
-        return $this->responseRedirect('frontend.consultant', 'Booking successful', 'success', false, false);
+        // return $this->responseRedirect('frontend.consultant', 'Booking successful', 'success', false, false);
     }
 
     /**
