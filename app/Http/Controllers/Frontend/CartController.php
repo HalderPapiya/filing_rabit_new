@@ -51,7 +51,7 @@ class CartController extends BaseController
             $userCarts = Cart::where('user_id',  Auth::guard('user')->user()->id)->get();
             // dd($userCarts);
         } else {
-            $userCarts = Cart::where('ip', $this->ip)->get();
+            $userCarts = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
             $address = Address::where('ip', $this->ip)->latest()->first();
 
             //     // dd($userCarts);

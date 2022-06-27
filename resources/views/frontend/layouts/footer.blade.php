@@ -43,7 +43,8 @@ $products = App\Models\Product::limit(7)->get();
                             {{-- <a href="https://www.linkedin.com/company/filingrabbit" target="_blank">
                                 <i class="fab fa-linkedin"></i>
                             </a> --}}
-                            <a href="https://www.linkedin.com/company/filingrabbit" target="_blank">
+                            <a href="{{$contactUs->linkedin_link}}" target="_blank">
+                                {{-- <a href="https://www.linkedin.com/company/filingrabbit" target="_blank"> --}}
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </li>
