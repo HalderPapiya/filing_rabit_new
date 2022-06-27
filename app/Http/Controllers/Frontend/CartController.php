@@ -289,7 +289,7 @@ class CartController extends BaseController
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
 
                 // cart delete
-                $emptyCart = Cart::where('user_id', Auth::guard('user')->user()->id)->delete();
+                // $emptyCart = Cart::where('user_id', Auth::guard('user')->user()->id)->delete();
 
                 $postData = array(
                     "txnid" => "TEST" . uniqid(),

@@ -107,7 +107,7 @@
                                             <input type="text"
                                                 {{-- value="{{ Auth::guard('user')->user() ? Auth::guard('user')->user()->last_name : '' }}" --}}
                                                 value="{{$address ? $address->state : '' }}"
-                                                name="billing_country"
+                                                name="billing_state"  id="billing_state"
                                                 class="form-control @error('billing_state') is-invalid @enderror">
                                             @error('billing_state')
                                                 <span class="invalid-feedback" role="alert">
