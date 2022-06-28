@@ -433,7 +433,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/news-letter', [App\Http\Controllers\Admin\ReportController::class, 'newsLetterList'])->name('news-letter.index');
         Route::get('/enquiry', [App\Http\Controllers\Admin\ReportController::class, 'enquiryList'])->name('enquiry.index');
-
+        Route::get('/consultant', [App\Http\Controllers\Admin\ReportController::class, 'consultantList'])->name('consultant.index');
+        
         // -----------------------Order-----------------------
         Route::get('/order-list', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('order.index');
         Route::get('/order/details/{id}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('order.show');

@@ -22,7 +22,7 @@ if (Auth::guard('user')->user()) {
                             </path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
-                        <a href="mainto:info@filingrabbit.in">{{ $contactUs->email }}</a>
+                        <a href="mailto:info@filingrabbit.in">{{ $contactUs->email }}</a>
                     </li>
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none"

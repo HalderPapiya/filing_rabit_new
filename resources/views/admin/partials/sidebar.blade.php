@@ -112,6 +112,11 @@
                 <span class="app-menu__label">Enquiry</span>
             </a>
         </li>
+        <li>
+            <a class="app-menu__item package {{ request()->is('admin/consultant*') ? 'active' : '' }}" href="{{ route('admin.consultant.index') }}"><i class="app-menu__icon fa fa-group"></i>
+                <span class="app-menu__label">Consultant Booking</span>
+            </a>
+        </li>
         
         {{-- <li>
             <a class="app-menu__item business_type {{ request()->is('admin/business_type*') ? 'active' : '' }}" href="{{ route('admin.business_type.index') }}"><i class="app-menu__icon fa fa-group"></i>
