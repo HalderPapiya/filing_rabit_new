@@ -210,7 +210,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    <p class="mt-4" id="errorMessage"></p>
                                     {{-- <div class="col-12">
                                     <div class="form-group">
                                         <label for="check">
@@ -398,11 +398,22 @@
                             >
                             Proceed To Checkout
                             </button> --}}
+                            @if  (Auth::guard('user')->user())
                             <button type="button" class="btn ur-submit-button text-uppercase" id="checkout_btn"
-                                {{ Auth::guard('user')->user() ? '' : 'disabled' }}>
-                                Proceed To Checkout
+                               >
+                                Proceed to Payment (UPI/Net Banking/Card)
                             </button>
-
+                            @else
+                            <div class="view-cart-message d-flex align-items-center">
+                                <p>
+                                    <i class="fa fa-check-circle"></i>
+                                    Proceed to Payment?
+                                    <a href="#" data-toggle="modal" data-target="#loginModal">Click here to login</a>
+                                    {{-- <a href="#" data-toggle="modal" data-target="#loginModal">Login</a> --}}
+                                </p>
+                            </div>
+                            
+                            @endif
                             {{-- </form> --}}
                         </div>
                 @endif
@@ -573,11 +584,11 @@
 
 </html>
 <script>
-    $("input[name='payment_method']").change(function() {
+    $("input[name='payment_method']").click(function() {
         
         if ($(this).val() == 1) {
            
-            $('#checkout_btn').html('Proceed to Payment (UPI/Net Banking/Card)');
+            // $('#checkout_btn').html('Proceed to Payment (UPI/Net Banking/Card)');
             $('#checkout_btn').attr('type', 'button');
             $('#checkout_btn').attr('id', 'ebz-checkout-btn')
             $('#ebz-checkout-btn').on('click', function() {
@@ -626,6 +637,8 @@
                             // if(JSON.parse(res).data){
                             //     window.location.href = "{{ route('product.order') }}"
                             // }
+                        } else {
+                            $('#errorMessage').addClass('text-danger').html(res.message);
                         }
                     }
                 })

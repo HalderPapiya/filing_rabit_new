@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Helper\Easebuzz;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends BaseController
 {
@@ -52,7 +53,7 @@ class CartController extends BaseController
             // dd($userCarts);
         } else {
             $userCarts = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
-            $address = Address::where('ip', $this->ip)->latest()->first();
+            $address = Address::where('ip', $this->ip)->latest()->where('user_id', 0)->latest()->first();
 
             //     // dd($userCarts);
         }
@@ -196,7 +197,7 @@ class CartController extends BaseController
         // ]);
 
         try {
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'firstname' =>  'required',
                 'lname' =>  'required',
                 'email' =>  'required',
@@ -210,7 +211,9 @@ class CartController extends BaseController
                 'billing_country.*' => 'Billing Country Required!',
                 'billing_state.*' => 'Billing State Required!',
             ]);
-
+            if ($validator->fails()) {
+                return response()->json([ 'status' => false, 'message' => $validator->errors()->first()], 200);
+            }
             $MERCHANT_KEY = "798F29SEFR";
             $SALT = "IXUNVY2IC4";
             $ENV = "prod"; // "test for test enviroment or "prod" for production enviroment
@@ -287,7 +290,32 @@ class CartController extends BaseController
                     ];
                 }
                 $orderProductsNewEntry = OrderProduct::insert($orderProducts);
-
+                $dataAddress= Address::where('user_id',Auth::guard('user')->user()->id)->latest()->first();
+                // dd($dataAddress);
+                if($dataAddress){
+                    Address::where('id',$dataAddress->id)->update([
+                                    'ip'=> $this->ip,
+                                    'fName'=>$request->firstname,
+                                    'lName'=>$request->lname,
+                                    'country'=>$request->billing_country,
+                                    'state'=>$request->billing_state,
+                                    'phone'=>$request->phone,
+                                    'email'=> $request->email,
+                                ]);
+                }else{
+                    $data = new Address;
+                    $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                    $data->ip = $this->ip;
+                    $data->fName =  $request->firstname;
+                    $data->lName = $request->lname;
+                    $data->country = $request->billing_state;
+                    $data->state = $request->billing_state;
+                    $data->phone = $request->phone;
+                    $data->email = $request->email;
+                    $data->save();
+                
+                
+                }
                 // cart delete
                 // $emptyCart = Cart::where('user_id', Auth::guard('user')->user()->id)->delete();
 
