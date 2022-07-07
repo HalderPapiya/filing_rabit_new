@@ -8,9 +8,9 @@
             <li class="{{ request()->is('user/order*') ? 'active' : '' }}">
                 <a href="{{ route('user.order') }}">Orders</a>
             </li>
-            <li class="{{ request()->is('user/download*') ? 'active' : '' }}">
+            {{-- <li class="{{ request()->is('user/download*') ? 'active' : '' }}">
                 <a href="{{ route('user.download') }}">Downloads</a>
-            </li>
+            </li> --}}
             <li class="{{ request()->is('user/address*') ? 'active' : '' }}">
                 <a href="{{ route('user.address') }}">Addresses</a>
             </li>
