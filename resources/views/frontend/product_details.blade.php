@@ -99,9 +99,6 @@
                                     
                                     <div class="col-9">
                                         <button type="submit" class="btn ur-submit-button w-auto">Enqueire Now</button>
-                                        @if (Session::get('Success'))
-                                                <div class="alert alert-success"> {{Session::get('Success')}} </div>
-                                        @endif
                                     </div>
                                 </div>
                             </form>
@@ -133,8 +130,8 @@
                             </li>
                             @else
                             <li>
-                                <div class="variable-item-contents">
-                                    <a href="#tab1">Prime</a>
+                                <div class="variable-item-contents disabled">
+                                    Prime
                                 </div>
                             </li>
                             @endif

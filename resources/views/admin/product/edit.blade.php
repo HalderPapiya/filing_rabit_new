@@ -34,7 +34,7 @@
                             @error('name')<span class="invalid-feedback" role="alert"><strong> {{ $message }}</strong></span>@enderror
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="categoryId">Category <span class="m-l-5 text-danger"> *</span></label>
+                            <label class="control-label" for="categoryId">Category <span class="m-l-5 text-danger"> *</span>:{{ $data->categoryDetails['title'] }}</label>
                             <select class="form-control @error('categoryId') is-invalid @enderror" name="categoryId" id="categoryId" >
                                 <option selected disabled>Select one</option>
                                 @foreach($categories as $category)
@@ -48,7 +48,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="subCategoryId">SubCategory <span class="m-l-5 text-danger"> *</span></label>
+                            <label class="control-label" for="subCategoryId">SubCategory <span class="m-l-5 text-danger"> *</span>:{{ $data->subCategoryDetails['title'] }}</label>
                             <select class="form-control @error('subCategoryId') is-invalid @enderror"
                                 name="subCategoryId" id="subCategoryId" value="{{ old('subCategoryId') }}">
                                 <option selected disabled>Select Category at First</option>

@@ -18,7 +18,7 @@
         <span id="error-text"></span>
     </div>
     <div class="row section-mg row-md-body no-nav">
-        <div class="col-md-12">
+        <div class="col-md-14">
             <div class="tile">
                 <div class="tile-body">
                     <table class="table table-hover custom-data-table-style table-striped" id="sampleTable">

@@ -86,9 +86,9 @@ class SettingController extends BaseController
     public function edit($id)
     {
         $data = $this->settingRepository->findSettingsById($id);
-
+        $listProducts = $this->productRepository->listProducts('id', 'DESC', ['id', 'name']);
         $this->setPageTitle('Settings', 'Edit Settings : ' . $data->title);
-        return view('admin.settings.edit', compact('data'));
+        return view('admin.settings.edit', compact('data','listProducts'));
     }
 
     /**

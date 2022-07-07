@@ -21,7 +21,16 @@
                 <div class="tile-body form-body">
                     <div class="form-group">
                         <label class="control-label" for="key">Key <span class="m-l-5 text-danger"> *</span></label>
-                        <input class="form-control @error('key') is-invalid @enderror" type="text" name="key" id="key" value="{{ old('key') }}" />
+                        {{-- <input class="form-control @error('key') is-invalid @enderror" type="text" name="key" id="key" value="{{ old('key') }}" /> --}}
+
+                        <select name="key" id="key" class="form-control @error('key') is-invalid @enderror">
+                            <option value="">--Select a key--</option>
+                            <option value="faq">faq</option>
+                            <option value="terms_and_conditions">terms_and_conditions</option>
+                            <option value="disclaimer_policy">disclaimer_policy</option>
+                            <option value="refund_policy">refund_policy</option>
+                            <option value="privacy_policy">privacy_policy</option>
+                        </select>
                         @error('key')<span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                     </div>
                     <div class="form-group">

@@ -596,14 +596,33 @@
                 var lname = $("input[name=lname]").val();
                 var billing_country = $("input[name=billing_country]").val();
                 var billing_state = $("#billing_state").val();
-                alert(billing_state);
-                var lname = $("input[name=lname]").val();
+                // alert(billing_state);
+                // var lname = $("input[name=lname]").val();
                 // var _token ={{csrf_token()}}.val,
                 // alert(token);
                 var mobile = Number($("input[name=mobile]").val());
-                alert(mobile);
+                // alert(mobile);
                 var email = $("input[name=email]").val();
                 var amount = $("input[name=amount]").val();
+                if (fname == "") {
+                    alert("First Name must be filled out");
+                    return false;
+                }else if(lname == ""){
+                    alert("Last Name must be filled out");
+                    return false;
+                }else if(billing_country == ""){
+                    alert("Billing Country must be filled out");
+                    return false;
+                }else if(billing_state == ""){
+                    alert("Billing State must be filled out");
+                    return false;
+                }else if(mobile == ""){
+                    alert("Phone must be filled out");
+                    return false;
+                }else if(email == ""){
+                    alert("Email must be filled out");
+                    return false;
+                }
                 $.ajax({
                     // headers: {
                     // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
