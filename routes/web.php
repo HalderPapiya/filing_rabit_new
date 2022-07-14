@@ -26,6 +26,9 @@ Route::get('cache', function () {
 
 // Route::get('/', function () {
 
+// PG test fail route
+Route::post('/payment/failure', [App\Http\Controllers\Frontend\CartController::class, 'paymentFailure'])->name('front.payment.failure');
+Route::post('/payment/success', [App\Http\Controllers\Frontend\CartController::class, 'paymentSuccess'])->name('front.payment.success');
 
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 // return view('frontend.index');
@@ -74,7 +77,9 @@ Route::prefix('product')->name('product.')->group(function () {
 
     Route::post('/initiatePayment', [App\Http\Controllers\Frontend\CartController::class, 'initiatePaymentLink'])->name('initiatePayment');
 
-    Route::post('/easebuzz-webhook', [App\Http\Controllers\Frontend\CartController::class, 'easebuzz_webhook']);
+    Route::post('/test', [App\Http\Controllers\Frontend\CartController::class, 'test']);
+
+    Route::any('/easebuzz-webhook', [App\Http\Controllers\Frontend\CartController::class, 'easebuzz_webhook']);
     Route::get('/easebuzz-gateway', [App\Http\Controllers\Frontend\CartController::class, 'easebuzz_gateway']);
 });
 
@@ -434,7 +439,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/news-letter', [App\Http\Controllers\Admin\ReportController::class, 'newsLetterList'])->name('news-letter.index');
         Route::get('/enquiry', [App\Http\Controllers\Admin\ReportController::class, 'enquiryList'])->name('enquiry.index');
         Route::get('/consultant', [App\Http\Controllers\Admin\ReportController::class, 'consultantList'])->name('consultant.index');
-        
+
         // -----------------------Order-----------------------
         Route::get('/order-list', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('order.index');
         Route::get('/order/details/{id}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('order.show');

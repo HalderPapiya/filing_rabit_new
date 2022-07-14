@@ -1,24 +1,24 @@
 @extends('frontend.layouts.master')
 @section('content')
-<section class="banner-area cart-banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_title">
-                    {{-- <h2 data-aos="fade-down" data-aos-duration="1000">Cart</h2> --}}
-                    <div class="shadow_text">Filingrabbit</div>
+    <section class="banner-area cart-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_title">
+                        {{-- <h2 data-aos="fade-down" data-aos-duration="1000">Cart</h2> --}}
+                        <div class="shadow_text">Filingrabbit</div>
+                    </div>
+                    {{-- <a href="{{ url('/')}}" class="home">Home</a> / <span>Cart</span> --}}
                 </div>
-                {{-- <a href="{{ url('/')}}" class="home">Home</a> / <span>Cart</span> --}}
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ==================== Cart Details Section ==================== -->
-<section class="py-4 py-lg-5">
-    <div class="container">
-        <div class="row">
-            {{-- <div class="col-md-6">
+    <!-- ==================== Cart Details Section ==================== -->
+    <section class="py-4 py-lg-5">
+        <div class="container">
+            <div class="row">
+                {{-- <div class="col-md-6">
                 <div class="cart-details-table">
                     <table class="table mb-1">
                         <tr>
@@ -54,15 +54,29 @@
                     </form>
                 </div>
             </div> --}}
-            <div class="col-md-12">
-                <div class="cart-details-table">
-                    <h5>Thank You For The Order</h5>
-                   
-                    
-                    
+                <div class="col-md-12">
+                    <div class="cart-details-table">
+                        <h5>Thank You For The Order</h5>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Transaction details</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Bank Ref No.: <small>{{ $data['bank_ref_num'] }}</small></p>
+                                <p>Payment Source: <small>{{ $data['payment_source'] }}</small></p>
+                                <p>Product Info: <small>{{ $data['productinfo'] }}</small></p>
+                                <p>Transaction Id: <small>{{ $data['txnid'] }}</small></p>
+                                <p>Amount: <small>{{ $data['amount'] }}</small></p>
+                                <p>Status: <small>{{ $data['status'] }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- @php
+                        echo '<pre>';
+                        print_r($data);
+                    @endphp --}}
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection
