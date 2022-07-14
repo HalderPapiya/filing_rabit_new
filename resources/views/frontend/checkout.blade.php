@@ -514,7 +514,6 @@
                 var lname = $("input[name=lname]").val();
                 var billing_country = $("#billing_country").val();
                 var billing_state = $("#billing_state").val();
-                alert(billing_country + '  ' + billing_state);
                 var mobile = Number($("input[name=mobile]").val());
                 var email = $("input[name=email]").val();
                 var amount = $("input[name=amount]").val();
