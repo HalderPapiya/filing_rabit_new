@@ -28,15 +28,21 @@
             <div class="view-cart-message green d-flex align-items-center justify-content-between">
                 <p>
                     <i class="fa fa-check-circle"></i>
-                    <span id="product_info">
+                    <span id="product_info" style="display: none">
                         @foreach ($data as $cartKey => $cartValue)
-                            {{ $cartValue->productCart->name }}
+                            {{ $cartValue->productCart->id }}
+                        @endforeach
+                    </span>
+                    <span>
+                        @foreach ($data as $cartKey => $cartValue)
+                            "{{ $cartValue->productCart->name }}"
                         @endforeach
                     </span>
                     has been added to your cart
                 </p>
                 <a href="{{ route('frontend.cart.show') }}" class="btn btn-warning">View cart</a>
             </div>
+            
             @if (!Auth::guard('user')->user())
                 <div class="view-cart-message d-flex align-items-center">
                     <p>
