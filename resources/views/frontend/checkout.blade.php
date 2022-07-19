@@ -106,7 +106,7 @@
                                             <label for="">
                                                 Phone
                                             </label>
-                                            <input type="text" name="mobile"
+                                            <input type="text" id="mobile" name="mobile" minlength="10" maxlength="10"
                                                 value="{{ $address ? $address->phone : '' }}"
                                                 class="form-control @error('mobile') is-invalid @enderror">
                                             @error('mobile')
@@ -120,7 +120,7 @@
                                             <label for="">
                                                 Email address
                                             </label>
-                                            <input type="email" value="{{ $address ? $address->email : '' }}"
+                                            <input id="billing_email" type="email" value="{{ $address ? $address->email : '' }}"
                                                 name="email"
                                                 class="form-control @error('email') is-invalid @enderror">
                                             @error('email')
@@ -165,8 +165,8 @@
                                     if (!empty($data[0]->coupon_code_id)) {
                                         $couponCodeDiscount = (int) $data[0]->couponDetails->amount;
                                     }
-                                    $grandTotalWithoutCoupon = $subTotal + ($subTotal * 18) / 100;
-                                    $grandTotal = $subTotal - $couponCodeDiscount + ($subTotal * 18) / 100;
+                                    $grandTotalWithoutCoupon = $subTotal ;
+                                    $grandTotal = $subTotal - $couponCodeDiscount;
                                 @endphp
                             @endforeach
 
@@ -199,14 +199,14 @@
                                                                 id="subTotalAmount">{{ $subTotal }}</span>
                                                         </div>
                                                     </div>
-                                                    <div class="cart-total">
+                                                    {{-- <div class="cart-total">
                                                         <div class="cart-total-label">
                                                             GST
                                                         </div>
                                                         <div class="">
                                                             +<span>{{ '18%' }}</span>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div id="appliedCouponHolder">
                                                         @if (!empty($data[0]->coupon_code_id))
                                                             <div class="cart-total">
@@ -261,8 +261,8 @@
                                                         @error('lname')
                                                             <p class="small text-danger mb-0 mt-2">{{ $message }}</p>
                                                         @enderror
-                                                        <a href="{{ route('product.coupon.check') }}"
-                                                            class="d-inline-block mt-2">Get latest coupon from here</a>
+                                                        {{-- <a href="{{ route('product.coupon.check') }}"
+                                                            class="d-inline-block mt-2">Get latest coupon from here</a> --}}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -270,8 +270,15 @@
                                     </div>
                                 </div>
                             </table>
-                            <input type="radio" id="PO" name="payment_method" value="1">
-                            <label>Pay Online</label><br>
+                            
+
+                           
+
+
+                            <button for="PO" style="border: 0px " id="checkout_btn">
+                                <input type="radio" id="PO" name="payment_method" value="1">
+                                <label for="PO">Pay Online</label><br>
+                            </button>
                             <div class="pay_box">
                                 <p>Pay securely by Credit or Debit card or internet banking through Easebuzz.</p>
                             </div>
@@ -281,11 +288,11 @@
                                 throughout this website, and for other purposes described in our
                                 <a href="{{ route('frontend.privacy-policy') }}">privacy policy</a>.
                             </p>
-                            @if (Auth::guard('user')->user())
-                                <button type="button" class="btn ur-submit-button text-uppercase" id="checkout_btn">
+                            {{-- @if (Auth::guard('user')->user()) --}}
+                                {{-- <button type="button" class="btn ur-submit-button text-uppercase" id="checkout_btn">
                                     Proceed to Payment (UPI/Net Banking/Card)
-                                </button>
-                            @else
+                                </button> --}}
+                            {{-- @else
                                 <div class="view-cart-message d-flex align-items-center">
                                     <p>
                                         <i class="fa fa-check-circle"></i>
@@ -294,7 +301,7 @@
                                             login</a>
                                     </p>
                                 </div>
-                            @endif
+                            @endif --}}
                         </div>
                 @endif
 
@@ -523,7 +530,7 @@
                 var mobile = Number($("input[name=mobile]").val());
                 var email = $("input[name=email]").val();
                 var amount = $("input[name=amount]").val();
-
+                var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
                 var coupon_code_id = $("input[name=coupon_code_id]").val();
                 var coupon_code = $("input[name=coupon_code]").val();
 
@@ -538,14 +545,22 @@
                     return false;
                 } else if (billing_state == "") {
                     alert("Billing State must be filled out");
-                    return false;
+                    return false; 
                 } else if (mobile == "") {
                     alert("Phone must be filled out");
                     return false;
-                } else if (email == "") {
+                }else if(!$('#mobile').val().match('[0-9]{10}'))  {
+                    alert("Please put 10 digit mobile number");
+                    return;
+                }  
+                
+                else if (email == "") {
                     alert("Email must be filled out");
                     return false;
-                }
+                }else if(!$('#billing_email').val().match(mailformat))  {
+                    alert("Please put valid email");
+                    return false;
+                } 
                 $.ajax({
                     type: "POST",
                     url: "{{ route('product.order') }}",
@@ -698,6 +713,7 @@
                     $('input[name="couponText"]').val('').attr('disabled', false);
                     $('#applyCouponBtn').text('Apply').css('background', '#f1d231').attr('disabled', false);
 
+
                     const grandTotalWithoutCoupon = $('#displayGrandTotal').html();
                     $('#displayGrandTotal').text(grandTotalWithoutCoupon);
                     $("input[name='amount']").val(grandTotalWithoutCoupon);
@@ -706,6 +722,7 @@
                         .val('');
 
                     toastFire(result.type, result.message);
+                    location.reload(true);
                     $('#applyCouponBtn').text('Apply Coupon');
                 } else {
                     toastFire(result.type, result.message);

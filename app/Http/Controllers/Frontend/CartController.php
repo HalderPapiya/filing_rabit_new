@@ -49,20 +49,20 @@ class CartController extends BaseController
         if (Auth::guard('user')->user()) {
             $address = Address::where('user_id',  Auth::guard('user')->user()->id)->latest()->first();
 
-            $userCarts = Cart::where('user_id',  Auth::guard('user')->user()->id)->get();
+            $userCarts = Cart::where('user_id',  Auth::guard('user')->user()->id)->orWhere('ip', $this->ip)->get();
             // dd($userCarts);
         } else {
-            $userCarts = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
-            $address = Address::where('ip', $this->ip)->latest()->where('user_id', 0)->latest()->first();
+            $userCarts = Cart::where('ip', $this->ip)->orWhere('user_id', 0)->get();
+            $address = "";
 
             //     // dd($userCarts);
         }
         // $data = $this->cartRepository->viewByIp();
         if (Auth::guard('user')->user()) {
-            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('user_id', 0)->get();
+            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('ip', $this->ip)->get();
         } else {
             // $data = $this->cartRepository->viewByIp();
-            $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
+            $data = Cart::where('ip', $this->ip)->orWhere('user_id', 0)->get();
         }
 
         if ($data) {
@@ -80,11 +80,11 @@ class CartController extends BaseController
 
     {
         if (Auth::guard('user')->user()) {
-            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('user_id', 0)->get();
+            $data = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('ip', $this->ip)->get();
             // dd($data);
         } else {
             // $data = $this->cartRepository->viewByIp();
-            $data = Cart::where('ip', $this->ip)->where('user_id', 0)->get();
+            $data = Cart::where('ip', $this->ip)->orWhere('user_id', 0)->get();
         }
         // dd($data);
         // $data = $this->cartRepository->viewByIp();
@@ -189,49 +189,87 @@ class CartController extends BaseController
             $SALT = "IXUNVY2IC4";
             $ENV = "prod"; // "test for test enviroment or "prod" for production enviroment
 
+            // $dataAddressByIp = Address::where('user_id', 0)->where('ip' , $this->ip)->latest()->first();
+            if (Auth::guard('user')->user()) {
             $dataAddress = Address::where('user_id', Auth::guard('user')->user()->id)->latest()->first();
-            if ($dataAddress) {
-                Address::where('id', $dataAddress->id)->update([
-                    'ip' => $this->ip,
-                    'fName' => $request->firstname,
-                    'lName' => $request->lname,
-                    'country' => $request->billing_country,
-                    'state' => $request->billing_state,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                ]);
-            } else {
-                $data = new Address;
-                $data->user_id = Auth::guard('user')->user()->id ?? 0;
-                $data->ip = $this->ip;
-                $data->fName =  $request->firstname;
-                $data->lName = $request->lname;
-                $data->country = $request->billing_state;
-                $data->state = $request->billing_state;
-                $data->phone = $request->phone;
-                $data->email = $request->email;
-                $data->save();
-            }
+                
+                if ($dataAddress) {
+                    Address::where('id', $dataAddress->id)->update([
+                        'ip' => $this->ip,
+                        'fName' => $request->firstname,
+                        'lName' => $request->lname,
+                        'country' => $request->billing_country,
+                        'state' => $request->billing_state,
+                        'phone' => $request->phone,
+                        'email' => $request->email,
+                    ]);
+                } else {
+                    $data = new Address;
+                    $data->user_id = Auth::guard('user')->user()->id ?? 0;
+                    $data->ip = $this->ip;
+                    $data->fName =  $request->firstname;
+                    $data->lName = $request->lname;
+                    $data->country = $request->billing_state;
+                    $data->state = $request->billing_state;
+                    $data->phone = $request->phone;
+                    $data->email = $request->email;
+                    $data->save();
+                }
 
-            $postData = array(
-                "txnid" => "Txn_" . uniqid(),
-                "firstname" => $request->firstname,
-                "email" => $request->email,
-                "phone" => $request->phone,
-                "productinfo" => $request->productinfo,
-                "surl" => route('front.payment.success'),
-                "furl" => route('front.payment.failure'),
-                "amount" => $request->amount,
-                "state" => $request->billing_state,
-                "country" => $request->billing_country,
-                "udf1" => $request->coupon_code_id != '' ?  $request->coupon_code_id : 'notUsed',
-                "udf2" => $request->coupon_code != '' ?  $request->coupon_code : 'notUsed',
-            );
+                $postData = array(
+                    "txnid" => "Txn_" . uniqid(),
+                    "firstname" => $request->firstname,
+                    "email" => $request->email,
+                    "phone" => $request->phone,
+                    "productinfo" => $request->productinfo,
+                    "surl" => route('front.payment.success'),
+                    "furl" => route('front.payment.failure'),
+                    "amount" => $request->amount,
+                    "state" => $request->billing_state,
+                    "country" => $request->billing_country,
+                    "udf1" => $request->coupon_code_id != '' ?  $request->coupon_code_id : 'notUsed',
+                    "udf2" => $request->coupon_code != '' ?  $request->coupon_code : 'notUsed',
+                );
 
-            $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
-            $data = $easebuzzObj->initiatePaymentAPI($postData);
-            if ($data) {
-                return $data;
+                $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+                $data = $easebuzzObj->initiatePaymentAPI($postData);
+                if ($data) {
+                    return $data;
+                }
+            }else{
+            
+                    $data = new Address;
+                    $data->user_id = 0;
+                    $data->ip = $this->ip;
+                    $data->fName =  $request->firstname;
+                    $data->lName = $request->lname;
+                    $data->country = $request->billing_state;
+                    $data->state = $request->billing_state;
+                    $data->phone = $request->phone;
+                    $data->email = $request->email;
+                    $data->save();
+                
+
+                    $postData = array(
+                        "txnid" => "Txn_" . uniqid(),
+                        "firstname" => $request->firstname,
+                        "email" => $request->email,
+                        "phone" => $request->phone,
+                        "productinfo" => $request->productinfo,
+                        "surl" => route('front.payment.success'),
+                        "furl" => route('front.payment.failure'),
+                        "amount" => $request->amount,
+                        "state" => $request->billing_state,
+                        "country" => $request->billing_country,
+                        "udf1" => $request->coupon_code_id != '' ?  $request->coupon_code_id : 'notUsed',
+                        "udf2" => $request->coupon_code != '' ?  $request->coupon_code : 'notUsed',
+                    );
+
+                    $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+                    $data = $easebuzzObj->initiatePaymentAPI($postData);
+                    if ($data) {
+                        return $data;
+                    }
             }
             // return view('frontend.thankyou');
         } catch (\Exception $error) {
