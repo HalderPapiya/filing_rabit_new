@@ -103,13 +103,13 @@
                                     <td>Grand Total</td>
                                     <td><b>₹ {{$orders->amount}}/-</b></td>
                                 </tr>
-                                 <tr>
+                                 {{-- <tr>
                                     <td>GST Charge(18%)</td>
                                     <td><b>₹ {{$new_width}}/-</b></td>
-                                </tr>
+                                </tr> --}}
                                  <tr>
                                     <th>Total</th>
-                                    <td><b>₹ {{$total}}/-</b></td>
+                                    <td><b>₹ {{$orders->amount}}/-</b></td>
                                 </tr>
                             </table>
                             <!--<h5> Subtotal </h5><p class="mb-2">₹.{{$sum}}/-</p>

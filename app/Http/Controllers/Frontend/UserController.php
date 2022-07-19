@@ -51,11 +51,11 @@ class UserController extends BaseController
         // dd($ipWiseOrders);
         $orders = Order::where('user_id', Auth::guard('user')->user()->id)->get();
         // dd($orders);
-        // foreach ($orders as $key => $order) {
-        $orderProducts = OrderProduct::get();
+        foreach ($orders as $key => $order) {
+        $orderProducts = OrderProduct::where('order_id', $order->id)->get();
 
-        // }
-        // dd($orderProducts);
+        }
+        dd($orderProducts->productDetails);
         return view('user.order', compact('orders', 'orderProducts'));
     }
     public function orderInvoice($id)

@@ -95,24 +95,29 @@
            
                                 <a href="{{ route('user.order.details', $order['id']) }}">
                                     <h5 class="mb-2">{{$order->order_no ? $order->order_no: ''}}</h5>
+                                    @foreach ($orderProducts as $item)
+                                    <p class="mb-0"><small>Product Name: <b>{{$item->productDetails->name ? $item->productDetails: ''}}</b></small></p>
+                                        
+                                    @endforeach
+                                    
                                     <p class="mb-0">Price : {{$order->amount}}/-</p>
                                     @if($order->status == 1)
-                                    <p class="mb-0"><small>Order Status: <b>New</b></small></p>
-                                    @elseif($order->status == 2)
+                                    <p class="mb-0"><small>Order Status: <b>Success</b></small></p>
+                                    {{-- @elseif($order->status == 2)
                                     <p class="mb-0"><small>Order Status: <b>Confirm</b></small></p>
                                     @elseif($order->status == 3)
                                     <p class="mb-0"><small>Order Status: <b>Shipped</b></small></p>
                                     @elseif($order->status == 4)
                                     <p class="mb-0"><small>Order Status: <b>Delivered</b></small></p>
                                     @elseif($order->status == 5)
-                                    <p class="mb-0"><small>Order Status: <b>Canceled</b></small></p>
+                                    <p class="mb-0"><small>Order Status: <b>Canceled</b></small></p> --}}
                                     @endif
                                 </a>
-                                @if(!($order->status == 5))
+                                {{-- @if(!($order->status == 5))
                                 <a href="{{ route('user.order.cancel', $order['id']) }}">Cancel</a>
                                 @elseif($order->status == 5)
                                 <p class="mb-0"><small>Your Order is Canceled .</small></p>
-                                @endif
+                                @endif --}}
                                 {{-- @foreach ($order->orderProduct as $orderProduct)
                                        <h5 class="mb-2">{{$orderProduct->productDetails ? $orderProduct->productDetails->name: ''}}</h5>
                                 @endforeach --}}

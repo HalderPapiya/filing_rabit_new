@@ -54,6 +54,10 @@
                     </form>
                 </div>
             </div> --}}
+            {{-- @php
+            $productInfo = App\Models\OrderProduct::where('order_no', $data['order_id'])->get();
+            dd($productInfo);
+            @endphp --}}
                 <div class="col-md-12">
                     <div class="cart-details-table">
                         <h5>Thank You For The Order</h5>

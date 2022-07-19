@@ -191,8 +191,8 @@ class CartController extends BaseController
 
             // $dataAddressByIp = Address::where('user_id', 0)->where('ip' , $this->ip)->latest()->first();
             if (Auth::guard('user')->user()) {
-            $dataAddress = Address::where('user_id', Auth::guard('user')->user()->id)->latest()->first();
-                
+                $dataAddress = Address::where('user_id', Auth::guard('user')->user()->id)->latest()->first();
+
                 if ($dataAddress) {
                     Address::where('id', $dataAddress->id)->update([
                         'ip' => $this->ip,
@@ -236,40 +236,40 @@ class CartController extends BaseController
                 if ($data) {
                     return $data;
                 }
-            }else{
-            
-                    $data = new Address;
-                    $data->user_id = 0;
-                    $data->ip = $this->ip;
-                    $data->fName =  $request->firstname;
-                    $data->lName = $request->lname;
-                    $data->country = $request->billing_state;
-                    $data->state = $request->billing_state;
-                    $data->phone = $request->phone;
-                    $data->email = $request->email;
-                    $data->save();
-                
+            } else {
 
-                    $postData = array(
-                        "txnid" => "Txn_" . uniqid(),
-                        "firstname" => $request->firstname,
-                        "email" => $request->email,
-                        "phone" => $request->phone,
-                        "productinfo" => $request->productinfo,
-                        "surl" => route('front.payment.success'),
-                        "furl" => route('front.payment.failure'),
-                        "amount" => $request->amount,
-                        "state" => $request->billing_state,
-                        "country" => $request->billing_country,
-                        "udf1" => $request->coupon_code_id != '' ?  $request->coupon_code_id : 'notUsed',
-                        "udf2" => $request->coupon_code != '' ?  $request->coupon_code : 'notUsed',
-                    );
+                $data = new Address;
+                $data->user_id = 0;
+                $data->ip = $this->ip;
+                $data->fName =  $request->firstname;
+                $data->lName = $request->lname;
+                $data->country = $request->billing_state;
+                $data->state = $request->billing_state;
+                $data->phone = $request->phone;
+                $data->email = $request->email;
+                $data->save();
 
-                    $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
-                    $data = $easebuzzObj->initiatePaymentAPI($postData);
-                    if ($data) {
-                        return $data;
-                    }
+
+                $postData = array(
+                    "txnid" => "Txn_" . uniqid(),
+                    "firstname" => $request->firstname,
+                    "email" => $request->email,
+                    "phone" => $request->phone,
+                    "productinfo" => $request->productinfo,
+                    "surl" => route('front.payment.success'),
+                    "furl" => route('front.payment.failure'),
+                    "amount" => $request->amount,
+                    "state" => $request->billing_state,
+                    "country" => $request->billing_country,
+                    "udf1" => $request->coupon_code_id != '' ?  $request->coupon_code_id : 'notUsed',
+                    "udf2" => $request->coupon_code != '' ?  $request->coupon_code : 'notUsed',
+                );
+
+                $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+                $data = $easebuzzObj->initiatePaymentAPI($postData);
+                if ($data) {
+                    return $data;
+                }
             }
             // return view('frontend.thankyou');
         } catch (\Exception $error) {
@@ -336,84 +336,181 @@ class CartController extends BaseController
         // dd($transaction_response_data);
         // dd(Auth::guard('user')->user());
         // dd(Auth::guard('user')->user()->id);
+        // $user_id = Auth::guard('user')->user()->id;
+        // dd($user_id);
+        if (Auth::guard('user')->user()) {
+            $dataAddress = Address::where('user_id', Auth::guard('user')->user()->id)->orWhere('ip', $this->ip)->latest()->first();
 
-        $dataAddress = Address::where('user_id', Auth::guard('user')->user()->id)->latest()->first();
+            $cartData = Cart::where('user_id', Auth::guard('user')->user()->id)->orWhere('ip', $this->ip)->get();
 
-        $cartData = Cart::where('user_id', Auth::guard('user')->user()->id)->get();
+            $order_no = "FR" . mt_rand();
 
-        $order_no = "FR" . mt_rand();
+            $data = new Order();
+            $data->user_id = Auth::guard('user')->user()->id ?? 0;
+            $data->ip = $this->ip;
+            $data->order_no = $order_no;
+            $data->fname = $dataAddress->fName;
+            $data->lname = $dataAddress->lName;
+            $data->email = $dataAddress->email;
+            $data->mobile = $dataAddress->phone;
+            $data->billing_country = $dataAddress->country;
+            $data->billing_state = $dataAddress->state;
+            $data->amount = $request->amount;
+            $data->save();
 
-        $data = new Order();
-        $data->user_id = Auth::guard('user')->user()->id ?? 0;
-        $data->ip = $this->ip;
-        $data->order_no = $order_no;
-        $data->fname = $dataAddress->fName;
-        $data->lname = $dataAddress->lName;
-        $data->email = $dataAddress->email;
-        $data->mobile = $dataAddress->phone;
-        $data->billing_country = $dataAddress->country;
-        $data->billing_state = $dataAddress->state;
-        $data->amount = $request->amount;
-        $data->save();
-
-        $orderId = $data->id;
-        $orderProducts = [];
-        foreach ($cartData as $cartValue) {
-            $orderProducts[] = [
-                'order_id' => $orderId,
-                'product_id' => $cartValue->product_id,
-                'user_id' => Auth::guard('user')->user()->id ?? 0,
-                'ip' => $this->ip,
-                'order_no' => $order_no,
-                'fname' => $dataAddress->fName,
-                'lname' => $dataAddress->lName,
-                'email' => $dataAddress->email,
-                'mobile' => $dataAddress->phone,
-                'billing_country' => $dataAddress->country,
-                'billing_state' => $dataAddress->state,
-                'amount' => $cartValue->price,
-            ];
-        }
-        $orderProductsNewEntry = OrderProduct::insert($orderProducts);
-
+            $orderId = $data->id;
+            $orderNo = $data->order_no;
+            $orderProducts = [];
+            foreach ($cartData as $cartValue) {
+                $orderProducts[] = [
+                    'order_id' => $orderId,
+                    'product_id' => $cartValue->product_id,
+                    'user_id' => Auth::guard('user')->user()->id ?? 0,
+                    'ip' => $this->ip,
+                    'order_no' => $orderNo,
+                    'fname' => $dataAddress->fName,
+                    'lname' => $dataAddress->lName,
+                    'email' => $dataAddress->email,
+                    'mobile' => $dataAddress->phone,
+                    'billing_country' => $dataAddress->country,
+                    'billing_state' => $dataAddress->state,
+                    'amount' => $cartValue->price,
+                ];
+            }
+            $orderProductsNewEntry = OrderProduct::insert($orderProducts);
 
 
-        if ($transaction_response_data['udf1'] != 'notUsed') {
-            CouponUsage::insert([
-                'coupon_code_id' => $transaction_response_data['udf1'],
-                'coupon_code' => $transaction_response_data['udf2'],
-                'final_amount' => $transaction_response_data['amount'],
+
+            if ($transaction_response_data['udf1'] != 'notUsed') {
+                CouponUsage::insert([
+                    'coupon_code_id' => $transaction_response_data['udf1'],
+                    'coupon_code' => $transaction_response_data['udf2'],
+                    'final_amount' => $transaction_response_data['amount'],
+                    'user_id' => Auth::guard('user')->user()->id,
+                    'order_id' => $order_no,
+                ]);
+            }
+
+            Transaction::insert([
                 'user_id' => Auth::guard('user')->user()->id,
+                'txn_id' => $transaction_response_data['txnid'],
                 'order_id' => $order_no,
+                'amount' => $transaction_response_data['amount'],
+                'status' => $transaction_response_data['status'],
+                'name_on_card' => $transaction_response_data['name_on_card'],
+                'bank_ref_num' => $transaction_response_data['bank_ref_num'],
+                'net_amount_debit' => $transaction_response_data['net_amount_debit'],
+                'payment_source' => $transaction_response_data['payment_source'],
+                'issuing_bank' => $transaction_response_data['issuing_bank'],
+                'cardCategory' => $transaction_response_data['cardCategory'],
+                'payment_id' => $transaction_response_data['easepayid'],
+                'cardnum' => $transaction_response_data['cardnum'],
+                'PG_TYPE' => $transaction_response_data['PG_TYPE'],
+                'card_type' => $transaction_response_data['card_type'],
+                'upi_va' => $transaction_response_data['upi_va'],
+                'productinfo' => $transaction_response_data['productinfo'],
+                'bank_name' => $transaction_response_data['bank_name'],
+                'mode' => $transaction_response_data['mode'],
+                'bankcode' => $transaction_response_data['bankcode'],
+                'name_on_card' => $transaction_response_data['name_on_card'],
+                'addedon' => $transaction_response_data['addedon'],
             ]);
+            // cart delete
+            Cart::where('ip', $this->ip)->delete();
+            // $productInfo = OrderProduct::where('order_no', $order_no)->get();
+            // dd($productInfo);
+        } else {
+            $dataAddress = Address::where('ip', $this->ip)->latest()->first();
+
+            $cartData = Cart::where('ip', $this->ip)->get();
+
+            $order_no = "FR" . mt_rand();
+
+            $data = new Order();
+            $data->user_id =  0;
+            $data->ip = $this->ip;
+            $data->order_no = $order_no;
+            $data->fname = $dataAddress->fName;
+            $data->lname = $dataAddress->lName;
+            $data->email = $dataAddress->email;
+            $data->mobile = $dataAddress->phone;
+            $data->billing_country = $dataAddress->country;
+            $data->billing_state = $dataAddress->state;
+            $data->amount = $request->amount;
+            $data->save();
+
+            $orderId = $data->id;
+            $orderNo = $data->order_no;
+            $orderProducts = [];
+            foreach ($cartData as $cartValue) {
+                $orderProducts[] = [
+                    'order_id' => $orderId,
+                    'product_id' => $cartValue->product_id,
+                    'user_id' => 0,
+                    'ip' => $this->ip,
+                    'order_no' => $orderNo,
+                    'fname' => $dataAddress->fName,
+                    'lname' => $dataAddress->lName,
+                    'email' => $dataAddress->email,
+                    'mobile' => $dataAddress->phone,
+                    'billing_country' => $dataAddress->country,
+                    'billing_state' => $dataAddress->state,
+                    'amount' => $cartValue->price,
+                ];
+            }
+            $orderProductsNewEntry = OrderProduct::insert($orderProducts);
+
+
+
+            if ($transaction_response_data['udf1'] != 'notUsed') {
+                CouponUsage::insert([
+                    'coupon_code_id' => $transaction_response_data['udf1'],
+                    'coupon_code' => $transaction_response_data['udf2'],
+                    'final_amount' => $transaction_response_data['amount'],
+                    'user_id' => Auth::guard('user')->user()->id,
+                    'order_id' => $order_no,
+                ]);
+            }
+
+            Transaction::insert([
+                'user_id' => 0,
+                'txn_id' => $transaction_response_data['txnid'],
+                'order_id' => $order_no,
+                'amount' => $transaction_response_data['amount'],
+                'status' => $transaction_response_data['status'],
+                'name_on_card' => $transaction_response_data['name_on_card'],
+                'bank_ref_num' => $transaction_response_data['bank_ref_num'],
+                'net_amount_debit' => $transaction_response_data['net_amount_debit'],
+                'payment_source' => $transaction_response_data['payment_source'],
+                'issuing_bank' => $transaction_response_data['issuing_bank'],
+                'cardCategory' => $transaction_response_data['cardCategory'],
+                'payment_id' => $transaction_response_data['easepayid'],
+                'cardnum' => $transaction_response_data['cardnum'],
+                'PG_TYPE' => $transaction_response_data['PG_TYPE'],
+                'card_type' => $transaction_response_data['card_type'],
+                'upi_va' => $transaction_response_data['upi_va'],
+                'productinfo' => $transaction_response_data['productinfo'],
+                'bank_name' => $transaction_response_data['bank_name'],
+                'mode' => $transaction_response_data['mode'],
+                'bankcode' => $transaction_response_data['bankcode'],
+                'name_on_card' => $transaction_response_data['name_on_card'],
+                'addedon' => $transaction_response_data['addedon'],
+            ]);
+            // cart delete
+            Cart::where('ip', $this->ip)->delete();
+        // dd($productInfo);
         }
+        // $productInfo = OrderProduct::where('order_no', $order_no)->get();
+        
+        // $orderID= $order_no;
+        // dd($order_no);
+        // foreach($productIds as $productId){
+      
 
-        Transaction::insert([
-            'user_id' => Auth::guard('user')->user()->id,
-            'txn_id' => $transaction_response_data['txnid'],
-            'order_id' => $order_no,
-            'amount' => $transaction_response_data['amount'],
-            'status' => $transaction_response_data['status'],
-            'name_on_card' => $transaction_response_data['name_on_card'],
-            'bank_ref_num' => $transaction_response_data['bank_ref_num'],
-            'net_amount_debit' => $transaction_response_data['net_amount_debit'],
-            'payment_source' => $transaction_response_data['payment_source'],
-            'issuing_bank' => $transaction_response_data['issuing_bank'],
-            'cardCategory' => $transaction_response_data['cardCategory'],
-            'payment_id' => $transaction_response_data['easepayid'],
-            'cardnum' => $transaction_response_data['cardnum'],
-            'PG_TYPE' => $transaction_response_data['PG_TYPE'],
-            'card_type' => $transaction_response_data['card_type'],
-            'upi_va' => $transaction_response_data['upi_va'],
-            'productinfo' => $transaction_response_data['productinfo'],
-            'bank_name' => $transaction_response_data['bank_name'],
-            'mode' => $transaction_response_data['mode'],
-            'bankcode' => $transaction_response_data['bankcode'],
-            'name_on_card' => $transaction_response_data['name_on_card'],
-            'addedon' => $transaction_response_data['addedon'],
-        ]);
+        // }
 
-        Cart::where('user_id', Auth::guard('user')->user()->id)->destroy();
+        // Cart::where('user_id', Auth::guard('user')->user()->id)->destroy();
+        // return view('frontend.thankyou', ['data' => $request->all()], compact('productInfo'));
         return view('frontend.thankyou', ['data' => $request->all()]);
     }
 }

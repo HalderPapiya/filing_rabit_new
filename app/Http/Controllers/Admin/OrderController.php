@@ -18,7 +18,9 @@ class OrderController extends BaseController
     public function index()
     {
         $data = Order::get();
-        // dd($blogs);
+        // forea
+        // $product= OrderProduct::where('order_id' , $data->id)->get();
+        // dd($product);
         $this->setPageTitle('Order', 'List of All Order');
         return view('admin.order.index', compact('data'));
     }
