@@ -19,7 +19,7 @@ class OrderController extends BaseController
     {
         $data = Order::get();
         // dd($blogs);
-        $this->setPageTitle('Report News Letter', 'List of All News Letters');
+        $this->setPageTitle('Order', 'List of All Order');
         return view('admin.order.index', compact('data'));
     }
     /**
@@ -34,7 +34,7 @@ class OrderController extends BaseController
         // foreach ($orders as $key => $order) {
         $data= OrderProduct::where('order_id' , $orders->id)->get();
         // dd($orderProducts);
-        $this->setPageTitle('Report News Letter', 'List of All News Letters');
+        $this->setPageTitle('Order', 'List of All Order');
         return view('admin.order.show', compact('data','orders'));
     }
     public function status($id, $status)

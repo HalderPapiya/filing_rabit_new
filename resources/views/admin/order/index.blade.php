@@ -7,7 +7,7 @@
                 <h1><i class="fa fa-tags"></i> {{ $pageTitle }}</h1>
                 <p>{{ $subTitle }}</p>
             </div>
-            <a href="{{ route('admin.category.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a>
+            {{-- <a href="{{ route('admin.category.create') }}" class="btn btn-primary pull-right"><i class="fa fa-fw fa-lg fa-plus"></i>Add New</a> --}}
         </div>
     </div>
     @include('admin.partials.flash')
